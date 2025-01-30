@@ -25,8 +25,8 @@
                     @if (Auth::check())
                         <!-- Плашка с аватаром и именем пользователя, если он авторизован -->
                         <div class="user-info">
-                            <img src="{{ session('user_avatar') }}" alt="User Avatar" style="border-radius: 50%; width: 50px; height: 50px;">
-                            <span style="font-size: 20px;">{{ session('user_name') }}</span>
+                            <img src="{{ session('avatar') }}" alt="User Avatar" style="border-radius: 50%; width: 50px; height: 50px;">
+                            <span style="font-size: 20px;">{{ session('name') }}</span>
                         </div>
                     @else
                         <!-- Плашка с кнопкой для авторизации, если пользователь не авторизован -->
