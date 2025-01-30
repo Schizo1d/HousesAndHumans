@@ -21,18 +21,20 @@
                     <img src="{{ asset('img/frame1.png') }}" alt="">
                     <a class="text-overlay " href="{{route('character_list')}}">листы персонажей</a>
                 </div>
-                <div class="image-text-container" id="image-text-container">
-                    <img src="{{ asset('img/frame2.png') }}" alt="">
+                <div class="image-text-container">
+                    @if (Auth::check())
+                        <!-- Плашка с аватаром и именем пользователя, если он авторизован -->
 
-                    @if (session('user_name') && session('user_avatar'))
-                        <!-- Если пользователь авторизован, показываем аватар и имя -->
-                        <div id="user-info">
-                            <img id="avatar" src="{{ session('user_avatar') }}" alt="Avatar" style="width: 50px; height: 50px; border-radius: 50%;">
-                            <span id="username" style="font-size: 24px;">{{ session('user_name') }}</span>
-                        </div>
+                            <!-- Если пользователь авторизован, показываем аватар и имя -->
+                            <div id="user-info">
+                                <img id="avatar" src="{{ session('user_avatar') }}" alt="Avatar" style="width: 50px; height: 50px; border-radius: 50%;">
+                                <span id="username" style="font-size: 24px;">{{ session('user_name') }}</span>
+                            </div>
+
                     @else
-                        <!-- Если не авторизован, показываем ссылку на авторизацию -->
-                        <a style="font-size: 56px; top: 38%; cursor: pointer;" class="text-overlay" id="auth-link" onclick="openModal();">авторизация</a>
+                        <!-- Плашка с кнопкой для авторизации, если пользователь не авторизован -->
+                        <img src="{{ asset('img/frame2.png') }}" alt="">
+                        <a style="font-size: 56px; top: 38%; cursor: pointer;" class="text-overlay" onclick="openModal();">авторизация</a>
                     @endif
                 </div>
                 <div class="image-text-container">
