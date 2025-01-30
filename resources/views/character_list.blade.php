@@ -21,7 +21,6 @@
                     <div id="user-info">
                         <img id="avatar" src="{{ session('user_avatar') }}" alt="Avatar"
                              style="width: 50px; height: 50px; border-radius: 50%;">
-                        <span id="username" style="font-size: 24px;">{{ session('user_name') }}</span>
                     </div>
                 @else
                     <a class="window-auth" onclick="openModal();"><i class="fa-regular fa-circle-user"></i></a>
