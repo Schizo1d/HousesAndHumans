@@ -23,14 +23,10 @@
                 </div>
                 <div class="image-text-container">
                     @if (Auth::check())
-                        <!-- Плашка с аватаром и именем пользователя, если он авторизован -->
-
-                            <!-- Если пользователь авторизован, показываем аватар и имя -->
                             <div id="user-info">
                                 <img id="avatar" src="{{ session('user_avatar') }}" alt="Avatar" style="width: 50px; height: 50px; border-radius: 50%;">
                                 <span id="username" style="font-size: 24px;">{{ session('user_name') }}</span>
                             </div>
-
                     @else
                         <!-- Плашка с кнопкой для авторизации, если пользователь не авторизован -->
                         <img src="{{ asset('img/frame2.png') }}" alt="">
