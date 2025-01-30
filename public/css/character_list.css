@@ -4,3 +4,50 @@ body {
 	padding: 0;
 	background-color: #edca99;
 }
+.container{
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 10px;
+}
+header{
+        display: flex;
+        justify-content: center;
+        background-color: #db934e;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+.nav {
+    display: flex;
+    justify-content: space-between;
+}
+.nav a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: black;
+}
+.window-auth{
+    display: flex;
+    align-items: center;
+}
+.list-text-title{
+    font-size: 42px;
+    padding-bottom: 10px;
+}
+.list-text-subtitle{
+    font-size: 25px;
+    padding-bottom: 15px;
+}
+.list-text-item_list{
+    font-size: 25px;
+    padding-bottom: 15px;
+}
+
+.footer {
+    position: absolute;
+    background-color: #db934e;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 200px;
+}
