@@ -36,6 +36,11 @@ class SocialController extends Controller
         // Выполняем вход пользователя в систему
         Auth::login($existingUser);
 
+        session([
+            'user_name' => $existingUser->name,
+            'user_avatar' => $existingUser->avatar,
+        ]);
+
         // Перенаправляем на главную страницу после успешного входа
         return redirect('/');
     }
