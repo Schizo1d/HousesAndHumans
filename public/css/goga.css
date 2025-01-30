@@ -1,0 +1,73 @@
+/*Стиль для модального окна Онлайн-запись*/
+.custom-side-modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 400px;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    display: none; /* Initially hidden */
+    z-index: 1050; /* Make sure the modal is above other content */
+}
+
+.custom-side-modal-dialog {
+    height: 100%;
+    margin: 0;
+    width: 100%;
+}
+
+.custom-side-modal-content {
+    height: 100%;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+    overflow-y: auto;
+    background-color: #ffffff;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+}
+
+.custom-side-modal-header {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.custom-side-modal-body {
+    padding: 20px;
+}
+
+.custom-side-modal .form-select, .custom-side-modal .btn {
+    border-radius: 5px;
+}
+
+.custom-side-modal .btn-primary {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.custom-side-modal .btn-primary:hover {
+    background-color: #003d75;
+    border-color: #003d75;
+}
+
+
+.custom-side-modal.show {
+    display: block;
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        right: -400px;
+    }
+    to {
+        right: 0;
+    }
+}

@@ -1,0 +1,17 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+.nav {
+	display: flex;
+	justify-content: center;
+	background-color: #db934e;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.nav i {
+	position: absolute;
+	text-decoration: none;
+	color: black;
+	left: 2%;
+	top: 3%;
+}

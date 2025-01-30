@@ -1,0 +1,113 @@
+.modal-bg {
+    display: none;
+    z-index: 5;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(237, 202, 153, 0.6);
+
+}
+
+.modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 890px;
+    height: 500px;
+    background: #FFFAE0;
+    border-radius: 45px;
+    transform: translate(-50%, -50%);
+    padding: 60px 20px 20px;
+}
+
+.close-modal {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    cursor: pointer;
+}
+
+.modal-img-frame1-3 {
+    position: absolute;
+    width: 20%;
+    top: -0.5%;
+    left: -0.5%;
+}
+
+.modal-img-frame2-3 {
+    position: absolute;
+    width: 20%;
+    top: 66.8%;
+    left: 80.5%;
+}
+
+.text-modal-authorization {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.modal-img-frame3-3 {
+    position: relative;
+    display: flex;
+}
+
+.text-authorization {
+    position: absolute;
+    font-size: 68px;
+    top: 3%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+}
+
+.input-block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 70%;
+}
+
+.input-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    border: 5px solid #e8c27f;
+    border-radius: 30px;
+}
+
+.input-text input {
+    padding-left: 20px;
+    font-size: 24px;
+    width: 450px;
+    height: 65px;
+    margin-bottom: 15px;
+    border: none;
+    outline: none;
+}
+
+.input-text button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    color: #979797;
+    width: 220px;
+    height: 50px;
+    margin: 5px;
+    border: none;
+    background: white;
+}
+
+.input-text .buttons-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+

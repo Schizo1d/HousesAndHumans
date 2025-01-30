@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'TildaSans';
+    src: url('../fonts/TildaSans-VF.woff2') format('woff2'),
+    url('../fonts/TildaSans-VF.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
