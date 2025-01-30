@@ -17,7 +17,7 @@ Route::group(['middleware' => 'guest'], function () {
     Route::get('vk/auth', [SocialController::class, 'index'])->name('vk.auth');
 });
 
-Route::get('/vk/auth/callback', [SocialController::class, 'callback']); // Без guest
+Route::get('/vk/auth/callback', [SocialController::class, 'callback']);
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
