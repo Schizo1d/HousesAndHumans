@@ -22,7 +22,7 @@
                     <a class="text-overlay " href="{{route('character_list')}}">листы персонажей</a>
                 </div>
                 <div class="image-text-container">
-                    @if (Auth::check())
+                    @if (Auth::login())
                         <!-- Плашка с аватаром и именем пользователя, если он авторизован -->
                         <div class="user-info">
                             <img src="{{ session('avatar') }}" alt="Avatar" style="border-radius: 50%; width: 50px; height: 50px;">
