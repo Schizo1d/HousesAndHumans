@@ -28,6 +28,7 @@ class SocialController extends Controller
                 'email' => $socialiteUser->getEmail(),
                 'socialite_id' => $socialiteUser->getId(),
                 'avatar' => $socialiteUser->getAvatar(),
+                'password' => '',
                 // Добавьте другие необходимые поля
             ]);
         }
