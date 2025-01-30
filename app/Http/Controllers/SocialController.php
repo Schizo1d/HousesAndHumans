@@ -14,14 +14,29 @@ class SocialController extends Controller
     public function index(){
         return Socialite::driver('vkontakte')->redirect();
     }
-    public function callback(){
-        $user = Socialite::driver('vkontakte')->user();
-        $objSocial = new SocialService();
-        if ($objSocial->saveSocialData($user)){
-            Auth::login($user);
-            return redirect('/');
+    public function callback() {
+        // Получаем информацию о пользователе от Socialite
+        $socialiteUser = Socialite::driver('vkontakte')->user();
+
+        // Проверяем, существует ли пользователь в базе данных по ID из соцсети
+        $existingUser = User::where('socialite_id', $socialiteUser->getId())->first();
+
+        if (!$existingUser) {
+            // Если пользователь не найден, создаем нового
+            $existingUser = User::create([
+                'name' => $socialiteUser->getName(),
+                'email' => $socialiteUser->getEmail(),
+                'socialite_id' => $socialiteUser->getId(),
+                'avatar' => $socialiteUser->getAvatar(),
+                // Добавьте другие необходимые поля
+            ]);
         }
-        return back(400);
+
+        // Выполняем вход пользователя в систему
+        Auth::login($existingUser);
+
+        // Перенаправляем на главную страницу после успешного входа
+        return redirect('/');
     }
 }
 // https://b589-92-222-100-44.ngrok-free.app
