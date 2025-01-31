@@ -26,7 +26,8 @@ class CharacterAttributeController extends Controller
             $request->only(['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'])
         );
 
-        return response()->json($attributes);
+        return redirect()->route('character_info', ['id' => $character->id])
+            ->with('success', 'Атрибуты успешно сохранены!');
     }
 
 
