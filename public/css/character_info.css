@@ -43,6 +43,9 @@ header{
     color: white;
     font-family: Arial, sans-serif;
 }
+.container-info label img{
+    width: 50px;
+}
 
 /* Заголовок */
 h2 {
