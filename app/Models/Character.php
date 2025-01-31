@@ -10,4 +10,10 @@ class Character extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'user_id'];
+
+    // Связь с пользователем
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
