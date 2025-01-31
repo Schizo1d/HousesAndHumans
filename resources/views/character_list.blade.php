@@ -38,12 +38,15 @@
             <div id="character-container" class="characters-container">
                 <!-- Загружаем сохранённые персонажи -->
                 @foreach($characters as $character)
-                    <a style="text-decoration: none" href="{{route('character_info', ['id' => $character->id])}}">
+
                         <div class="character-card" data-id="{{ $character->id }}">
-                        <div class="character-name">{{ $character->name }}</div>
-                    </div>
-                    </a>
-                    <button class="delete-button">Удалить</button>
+                            <a style="text-decoration: none" href="{{route('character_info', ['id' => $character->id])}}">
+                            <div class="character-name">{{ $character->name }}</div>
+                            </a>
+                            <button class="delete-button">Удалить</button>
+                        </div>
+
+
                 @endforeach
 
                 <!-- Кнопка добавления персонажа -->
@@ -67,7 +70,7 @@
                                 'Content-Type': 'application/json',
                                 'X-CSRF-TOKEN': '{{ csrf_token() }}',
                             },
-                            body: JSON.stringify({ name }),
+                            body: JSON.stringify({name}),
                         });
 
                         const character = await response.json();
