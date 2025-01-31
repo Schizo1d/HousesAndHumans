@@ -32,7 +32,7 @@
 <main>
     <div class="container">
         @if(Auth::check())
-
+            <h1 class="list-text-title">Мои персонажи</h1>
         @else
         <h1 class="list-text-title">Интерактивный лист персонажа для D&D 5e</h1>
         <p class="list-text-subtitle">Чтобы продолжить, войдите в свой аккаунт или создайте новый.</p>
