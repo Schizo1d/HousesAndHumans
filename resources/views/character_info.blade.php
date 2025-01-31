@@ -39,19 +39,19 @@
             @csrf
             <input type="hidden" name="character_id" value="{{ $character->id }}">
 
-            <label for="strength"><img src="{{asset('img/strength')}}" alt="">Сила:</label>
+            <label for="strength"><img src="{{asset('img/strength.png')}}" alt="">Сила:</label>
             <input type="number" id="strength" name="strength" value="{{ $character->attributes->strength ?? '' }}" required>
 
-            <label for="dexterity"><img src="{{asset('img/agility')}}" alt="">Ловкость:</label>
+            <label for="dexterity"><img src="{{asset('img/agility.png')}}" alt="">Ловкость:</label>
             <input type="number" id="dexterity" name="dexterity" value="{{ $character->attributes->dexterity ?? '' }}" required>
 
-            <label for="constitution"><img src="{{asset('img/Physique')}}" alt="">Телосложение:</label>
+            <label for="constitution"><img src="{{asset('img/Physique.png')}}" alt="">Телосложение:</label>
             <input type="number" id="constitution" name="constitution" value="{{ $character->attributes->constitution ?? '' }}" required>
 
             <label for="intelligence"><img src="{{asset('img/artificial-intelligence.png')}}" alt="">Интеллект:</label>
             <input type="number" id="intelligence" name="intelligence" value="{{ $character->attributes->intelligence ?? '' }}" required>
 
-            <label for="wisdom"><img src="{{asset('img/Wisdom')}}" alt="">Мудрость:</label>
+            <label for="wisdom"><img src="{{asset('img/Wisdom.png')}}" alt="">Мудрость:</label>
             <input type="number" id="wisdom" name="wisdom" value="{{ $character->attributes->wisdom ?? '' }}" required>
 
             <label for="charisma"><img src="{{asset('img/charisma.png')}}" alt="">Харизма:</label>
