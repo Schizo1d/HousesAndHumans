@@ -1,0 +1,95 @@
+/* Основной контейнер */
+.container {
+    max-width: 500px;
+    margin: 40px auto;
+    background: #1e1e2f;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+/* Заголовок */
+h2 {
+    text-align: center;
+    color: #fff;
+    margin-bottom: 20px;
+    font-size: 22px;
+}
+
+/* Форма */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Метки (названия атрибутов) */
+label {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+/* Поля ввода */
+input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+/* Стилизация числовых полей */
+input[type="number"] {
+    background: #2a2a3b;
+    color: #fff;
+    border: 1px solid #444;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Подсветка при фокусе */
+input[type="number"]:focus {
+    outline: none;
+    border: 1px solid #a991f7;
+    background: #3b3b5f;
+}
+
+/* Стилизация кнопки */
+button {
+    background: #7d5fff;
+    color: white;
+    font-size: 18px;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+}
+
+/* Анимация при наведении */
+button:hover {
+    background: #6a4fbb;
+    transform: scale(1.05);
+}
+
+/* Сетка для полей атрибутов */
+form label,
+form input {
+    display: inline-block;
+    width: 48%;
+}
+
+/* Выравнивание полей в столбцы */
+form label {
+    text-align: left;
+    font-weight: bold;
+}
+
+/* Выравнивание чисел по центру */
+input[type="number"] {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+}
