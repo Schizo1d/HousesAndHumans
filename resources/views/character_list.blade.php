@@ -72,9 +72,8 @@
                         const newCharacter = document.createElement('div');
                         newCharacter.className = 'character-card';
                         newCharacter.setAttribute('data-id', character.id);
-                        newCharacter.innerHTML = `
-                            <div class="character-name">${character.name}</div>
-                            <button class="delete-button">Удалить</button>
+                        newCharacter.innerHTML = `<div class="character-name">${character.name}
+                        </div><button class="delete-button">Удалить</button>
                         `;
 
                         // Подключаем событие удаления

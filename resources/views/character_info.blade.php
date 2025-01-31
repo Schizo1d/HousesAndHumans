@@ -14,7 +14,7 @@
     <div class="container">
         <div class="header__inner">
             <nav class="nav">
-                <a href="{{ route('main') }}"><i class="fa-solid fa-backward"></i></a>
+                <a href="{{ route('character_list') }}"><i class="fa-solid fa-backward"></i></a>
                 <h1>Вселенные</h1>
                 @if(Auth::check())
                     <div id="user-info">
