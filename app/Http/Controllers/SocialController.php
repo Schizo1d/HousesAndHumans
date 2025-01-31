@@ -19,7 +19,7 @@ class SocialController extends Controller
         $socialiteUser = Socialite::driver('vkontakte')->user();
 
         // Проверяем, существует ли пользователь в базе данных по ID из соцсети
-        $existingUser = User::where('name', $socialiteUser->getName())->first();
+        $existingUser = User::where('id', $socialiteUser->getId())->first();
 
         if (!$existingUser) {
             // Если пользователь не найден, создаем нового
@@ -28,6 +28,7 @@ class SocialController extends Controller
                 'email' => $socialiteUser->getEmail(),
                 'socialite_id' => $socialiteUser->getId(),
                 'avatar' => $socialiteUser->getAvatar(),
+                'id'=>$socialiteUser->getId(),
                 'password' => '',
                 // Добавьте другие необходимые поля
             ]);
