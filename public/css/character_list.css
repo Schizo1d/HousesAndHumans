@@ -12,7 +12,7 @@ body {
     left: 0;
 }
 .container{
-    max-width: 1200px;
+    max-width: 1400px;
     width: 100%;
     margin: 0 auto;
     padding: 0 10px;
@@ -51,8 +51,8 @@ header{
 }
 .characters-container {
     display: flex;
-    flex-wrap: nowrap; /* Контейнер для горизонтального скроллинга */
-    overflow-x: auto; /* Добавляем горизонтальный скролл при переполнении */
+    flex-wrap: wrap;
+    overflow-x: auto;
     gap: 10px;
     padding: 10px 0;
 }
