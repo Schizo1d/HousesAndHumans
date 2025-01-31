@@ -17,12 +17,11 @@ class CharacterController extends Controller
     // Добавление нового персонажа
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-        ]);
+        // Если имя не передано, используем "Безымянный персонаж"
+        $name = $request->input('name', 'Безымянный персонаж');
 
         $character = Character::create([
-            'name' => $validated['name'],
+            'name' => $name,
             'user_id' => auth()->id(),
         ]);
 
