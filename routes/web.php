@@ -9,8 +9,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('main');
 });
-Route::get('/character-list', [CharacterController::class, 'index'])->name('character_list');
 Route::get('/main', [MainController::class, 'index'])->name('main');
+
+// Роуты для персонажей с авторизацией
+Route::middleware(['auth'])->group(function () {
+    Route::get('/character-list', [CharacterController::class, 'index'])->name('character_list');
+    Route::post('/characters', [CharacterController::class, 'store'])->name('characters.store');
+    Route::delete('/characters/{character}', [CharacterController::class, 'destroy'])->name('characters.destroy');
+});
 
 Auth::routes();
 
@@ -18,6 +24,5 @@ Route::group(['middleware' => 'guest'], function () {
     Route::get('vk/auth', [SocialController::class, 'index'])->name('vk.auth');
 });
 Route::get('/vk/auth/callback', [SocialController::class, 'callback']);
-
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
