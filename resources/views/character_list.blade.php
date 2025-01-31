@@ -5,9 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Персонажи</title>
-    <link rel="stylesheet" href="{{asset('css/character_list.css')}}">
-    <link rel="stylesheet"
-          href="{{asset('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/character_list.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 
 <body>
@@ -15,7 +14,7 @@
     <div class="container">
         <div class="header__inner">
             <nav class="nav">
-                <a href="{{route('main')}}"><i class="fa-solid fa-backward"></i></a>
+                <a href="{{ route('main') }}"><i class="fa-solid fa-backward"></i></a>
                 <h1>Вселенные</h1>
                 @if(Auth::check())
                     <div id="user-info">
@@ -33,18 +32,18 @@
     <div class="container">
         @if(Auth::check())
             <h1 class="list-text-title">Мои персонажи</h1>
-            <div id="character-container" class="character-container">
+            <div id="character-container" class="characters-container">
                 <!-- Загружаем сохранённые персонажи -->
                 @foreach($characters as $character)
-                    <div class="character-item" data-id="{{ $character->id }}">
+                    <div class="character-card" data-id="{{ $character->id }}">
                         <div class="character-name">{{ $character->name }}</div>
-                        <button class="delete-character">Удалить</button>
+                        <button class="delete-button">Удалить</button>
                     </div>
                 @endforeach
 
                 <!-- Кнопка добавления персонажа -->
-                <div id="add-character" class="character-add">
-                    <i class="fa-solid fa-plus"></i>
+                <div id="add-character" class="character-card add-character">
+                    <i class="fa-solid fa-plus fa-2x"></i>
                 </div>
             </div>
             <script>
@@ -53,8 +52,8 @@
 
                 // Добавление нового персонажа
                 addCharacterButton.addEventListener('click', async () => {
-                    const name = prompt("Введите имя персонажа:");
-                    if (!name) return;
+                    let name = prompt("Введите имя персонажа:");
+                    name = name ? name.trim() : "Безымянный персонаж"; // Имя по умолчанию
 
                     try {
                         const response = await fetch('/characters', {
@@ -65,23 +64,24 @@
                             },
                             body: JSON.stringify({ name }),
                         });
+
                         const character = await response.json();
 
                         // Создаём новый блок персонажа
                         const newCharacter = document.createElement('div');
-                        newCharacter.className = 'character-item';
+                        newCharacter.className = 'character-card';
                         newCharacter.setAttribute('data-id', character.id);
                         newCharacter.innerHTML = `
-                    <div class="character-name">${character.name}</div>
-                    <button class="delete-character">Удалить</button>
-                `;
+                            <div class="character-name">${character.name}</div>
+                            <button class="delete-button">Удалить</button>
+                        `;
 
-                        // Добавляем событие удаления
-                        newCharacter.querySelector('.delete-character').addEventListener('click', () => {
+                        // Подключаем событие удаления
+                        newCharacter.querySelector('.delete-button').addEventListener('click', () => {
                             deleteCharacter(character.id, newCharacter);
                         });
 
-                        // Добавляем в контейнер
+                        // Добавляем новый элемент перед кнопкой добавления
                         characterContainer.insertBefore(newCharacter, addCharacterButton);
                     } catch (error) {
                         console.error('Ошибка при добавлении персонажа:', error);
@@ -108,8 +108,8 @@
                 };
 
                 // Подключаем удаление к существующим персонажам
-                document.querySelectorAll('.delete-character').forEach(button => {
-                    const characterElement = button.closest('.character-item');
+                document.querySelectorAll('.delete-button').forEach(button => {
+                    const characterElement = button.closest('.character-card');
                     const characterId = characterElement.getAttribute('data-id');
                     button.addEventListener('click', () => {
                         deleteCharacter(characterId, characterElement);
