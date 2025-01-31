@@ -34,7 +34,7 @@
             <img src="{{asset ('img/clouds.png')}}" alt="облака">
         </div>
         @if(Auth::check())
-            <h1 class="list-text-title">Мои персонажи</h1>
+            <p style="font-size: 36px" class="list-text-title">Мои персонажи</p>
             <div id="character-container" class="characters-container">
                 <!-- Загружаем сохранённые персонажи -->
                 @foreach($characters as $character)
@@ -124,7 +124,7 @@
                 });
             </script>
         @else
-            <p style="font-size: 36px" class="list-text-title">Интерактивный лист персонажа для D&D 5e</p>
+            <h1 class="list-text-title">Интерактивный лист персонажа для D&D 5e</h1>
             <p class="list-text-subtitle">Чтобы продолжить, войдите в свой аккаунт или создайте новый.</p>
             <ul>
                 <li class="list-text-item_list">Синхронизация между несколькими устройствами</li>
