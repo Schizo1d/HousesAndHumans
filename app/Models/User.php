@@ -18,7 +18,13 @@ class User extends Authenticatable
      * @var list<string>
      */
 
-
+    /**
+     * Связь "один ко многим" с моделью Character.
+     */
+    public function characters()
+    {
+        return $this->hasMany(Character::class);
+    }
     protected $fillable = [
         'name',
         'email',
@@ -47,12 +53,5 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
-    }
-    /**
-     * Связь "один ко многим" с моделью Character.
-     */
-    public function characters()
-    {
-        return $this->hasMany(Character::class);
     }
 }

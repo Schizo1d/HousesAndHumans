@@ -46,4 +46,4 @@ class SocialController extends Controller
         return redirect('/');
     }
 }
-// https://b589-92-222-100-44.ngrok-free.app
+
