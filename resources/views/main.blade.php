@@ -19,7 +19,7 @@
             <nav class="nav">
                 <div class="image-text-container" style="height: 80px">
                     <img src="{{ asset('img/frame1.png') }}" alt="">
-                    <a class="text-overlay " href="{{route('character-list')}}">листы персонажей</a>
+                    <a class="text-overlay " href="{{route('character_list')}}">листы персонажей</a>
                 </div>
                 <div class="image-text-container">
                     @if (Auth::check())
