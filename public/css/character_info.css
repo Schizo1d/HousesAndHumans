@@ -68,7 +68,7 @@ input {
 
 /* Стилизация числовых полей */
 input[type="number"] {
-    background: #2a2a3b;
+    background: #edca99;
     color: #fff;
     border: 1px solid #444;
     text-align: left;
