@@ -32,7 +32,7 @@
 <main>
     <div class="container">
         <h2>Добавить атрибуты персонажа</h2>
-        <form action="{{ route('character_attributes.store', ['characterId' => $character->id]) }}" method="POST">
+        <form action="{{ route('character_attributes.store', ['character' => $character->id]) }}" method="POST">
             @csrf
             <input type="hidden" name="character_id" value="{{ $character->id }}">
 
@@ -56,6 +56,7 @@
 
             <button type="submit">Сохранить атрибуты</button>
         </form>
+
     </div>
     <div class="footer"></div>
 </main>

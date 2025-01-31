@@ -11,6 +11,9 @@ Route::get('/', function () {
     return view('main');
 });
 
+Route::post('/character/{characterId}/attributes', [CharacterAttributeController::class, 'store'])
+    ->name('character_attributes.store');
+
 Route::get('/main', [MainController::class, 'index'])->name('main');
 
 Route::post('/logout', function () {
@@ -24,9 +27,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/characters', [CharacterController::class, 'store'])->name('characters.store');
     Route::delete('/characters/{character}', [CharacterController::class, 'destroy'])->name('characters.destroy');
 });
-
-Route::post('/character/{characterId}/attributes', [CharacterAttributeController::class, 'store'])
-    ->name('character_attributes.store');
 
 Route::get('/character/{id}', [CharacterController::class, 'show'])->name('character_info');
 

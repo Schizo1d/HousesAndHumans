@@ -20,14 +20,15 @@ class CharacterAttributeController extends Controller
             'charisma' => 'required|integer',
         ]);
 
-        // Создаем или обновляем атрибуты персонажа
+        // Создаём или обновляем атрибуты для персонажа
         $attributes = CharacterAttribute::updateOrCreate(
-            ['character_id' => $character->id], // Привязываем к конкретному персонажу
+            ['character_id' => $character->id],
             $request->only(['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'])
         );
 
         return response()->json($attributes);
     }
+
 
     public function edit(Character $character)
     {
