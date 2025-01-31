@@ -21,7 +21,7 @@ body {
 .nav {
     display: flex;
     justify-content: space-around;
-    padding: 35px;
+    padding: 35px 35px 0 35px;
 }
 
 .nav a {
