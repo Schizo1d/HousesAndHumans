@@ -34,37 +34,86 @@
         @if(Auth::check())
             <h1 class="list-text-title">Мои персонажи</h1>
             <div id="character-container" class="character-container">
+                <!-- Загружаем сохранённые персонажи -->
+                @foreach($characters as $character)
+                    <div class="character-item" data-id="{{ $character->id }}">
+                        <div class="character-name">{{ $character->name }}</div>
+                        <button class="delete-character">Удалить</button>
+                    </div>
+                @endforeach
+
                 <!-- Кнопка добавления персонажа -->
                 <div id="add-character" class="character-add">
                     <i class="fa-solid fa-plus"></i>
                 </div>
             </div>
             <script>
-                // Счётчик для ID персонажей
-                let characterCount = 0;
-
-                // Ссылка на контейнер с персонажами
                 const characterContainer = document.getElementById('character-container');
                 const addCharacterButton = document.getElementById('add-character');
 
-                // Обработчик клика для добавления персонажа
-                addCharacterButton.addEventListener('click', () => {
-                    characterCount++;
-                    const characterId = `character-${characterCount}`; // Это теперь используем для установки id элемента
+                // Добавление нового персонажа
+                addCharacterButton.addEventListener('click', async () => {
+                    const name = prompt("Введите имя персонажа:");
+                    if (!name) return;
 
-                    // Создаём новый блок персонажа
-                    const newCharacter = document.createElement('div');
-                    newCharacter.className = 'character-item';
-                    newCharacter.id = characterId;  // Присваиваем новый id персонажу
-                    newCharacter.innerHTML = `<div class="character-name">Персонаж ${characterCount}</div>`;
+                    try {
+                        const response = await fetch('/characters', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            },
+                            body: JSON.stringify({ name }),
+                        });
+                        const character = await response.json();
 
-                    // Добавляем обработчик клика для перехода на страницу персонажа
-                    newCharacter.addEventListener('click', () => {
-                        window.location.href = `/character/${characterCount}`;
+                        // Создаём новый блок персонажа
+                        const newCharacter = document.createElement('div');
+                        newCharacter.className = 'character-item';
+                        newCharacter.setAttribute('data-id', character.id);
+                        newCharacter.innerHTML = `
+                    <div class="character-name">${character.name}</div>
+                    <button class="delete-character">Удалить</button>
+                `;
+
+                        // Добавляем событие удаления
+                        newCharacter.querySelector('.delete-character').addEventListener('click', () => {
+                            deleteCharacter(character.id, newCharacter);
+                        });
+
+                        // Добавляем в контейнер
+                        characterContainer.insertBefore(newCharacter, addCharacterButton);
+                    } catch (error) {
+                        console.error('Ошибка при добавлении персонажа:', error);
+                    }
+                });
+
+                // Удаление персонажа
+                const deleteCharacter = async (id, element) => {
+                    if (!confirm('Вы уверены, что хотите удалить этого персонажа?')) return;
+
+                    try {
+                        await fetch(`/characters/${id}`, {
+                            method: 'DELETE',
+                            headers: {
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            },
+                        });
+
+                        // Удаляем элемент из DOM
+                        element.remove();
+                    } catch (error) {
+                        console.error('Ошибка при удалении персонажа:', error);
+                    }
+                };
+
+                // Подключаем удаление к существующим персонажам
+                document.querySelectorAll('.delete-character').forEach(button => {
+                    const characterElement = button.closest('.character-item');
+                    const characterId = characterElement.getAttribute('data-id');
+                    button.addEventListener('click', () => {
+                        deleteCharacter(characterId, characterElement);
                     });
-
-                    // Вставляем персонажа перед кнопкой добавления
-                    characterContainer.insertBefore(newCharacter, addCharacterButton);
                 });
             </script>
         @else
