@@ -1,68 +1,87 @@
-*{
+* {
     -moz-user-select: none;
-    -khtml-user-select: none;
     -webkit-user-select: none;
     user-select: none;
 }
+
 body {
-	font-family: TildaSans, sans-serif;
-	background-color: #fefae0;
-	margin: 0;
-	padding: 0;
+    font-family: TildaSans, sans-serif;
+    background-color: #fefae0;
+    margin: 0;
+    padding: 0;
 }
-.container{
+
+.container {
     max-width: 1600px;
     width: 100%;
     margin: 0 auto;
     padding: 0 10px;
 }
+
 .nav {
-	display: flex;
-	justify-content: space-around;
-	padding: 35px;
+    display: flex;
+    justify-content: space-around;
+    padding: 35px;
 }
-.nav a{
-	font-size: 40px;
-	color: #000;
-	text-decoration: none;
+
+.nav a {
+    font-size: 40px;
+    color: #000;
+    text-decoration: none;
 }
+
 .background-image-main {
-	position: absolute;
+    position: absolute;
 }
+
 .house-div {
-	display: flex;
-	justify-content: flex-end;
+    display: flex;
+    justify-content: flex-end;
 }
 
 
 .house-img {
-	position: absolute;
-	bottom: 0;
+    position: absolute;
+    bottom: 0;
     right: 0;
-	width: 40%;
+    width: 40%;
 }
+
 .image-text-container {
-	position: relative;
-	display: inline-block;
+    position: relative;
+    display: inline-block;
 }
+
 .text-overlay {
-	position: absolute;
-	top: 38%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	white-space: nowrap;
+    position: absolute;
+    top: 38%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
 }
+
 .image-text-container-logo {
-	position: relative;
-	margin-left: 10%;
+    position: relative;
+    margin-left: 10%;
 }
+
 .text-overlay-logo {
-	position: absolute;
-	text-align: center;
-	font-weight: 600;
-	line-height: 95%;
-	font-size: 60px;
-	top: 42%;
-	left: 32%;
-	transform: translate(-50%, -50%);
+    position: absolute;
+    text-align: center;
+    font-weight: 600;
+    line-height: 95%;
+    font-size: 60px;
+    top: 42%;
+    left: 32%;
+    transform: translate(-50%, -50%);
+}
+
+.button-exit {
+    font-size: 24px;
+    cursor: pointer;
+    background-color: #db934e;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
 }

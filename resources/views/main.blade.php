@@ -29,7 +29,7 @@
                             <!-- Кнопка выхода -->
                             <form action="{{ route('logout') }}" method="POST" style="display:inline;">
                                 @csrf
-                                <button type="submit" style="font-size: 24px; cursor: pointer; background-color: #db934e; color: white; border: none; padding: 10px 20px; border-radius: 5px;">Выйти</button>
+                                <button class="button-exit" type="submit">Выйти</button>
                             </form>
                         </div>
                     @else
