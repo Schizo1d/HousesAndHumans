@@ -19,7 +19,7 @@ class SocialController extends Controller
         $socialiteUser = Socialite::driver('vkontakte')->user();
 
         // Проверяем, существует ли пользователь в базе данных по ID из соцсети
-        $existingUser = User::where('name', $socialiteUser->getId())->first();
+        $existingUser = User::where('id', $socialiteUser->getId())->first();
 
         if (!$existingUser) {
             // Если пользователь не найден, создаем нового
