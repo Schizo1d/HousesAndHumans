@@ -29,7 +29,7 @@
                             <!-- Кнопка выхода ниже аватара и имени -->
                             <form action="{{ route('logout') }}" method="POST" style="display:inline;">
                                 @csrf
-                                <button type="submit" style="font-size: 18px; cursor: pointer; background-color: #db934e; color: white; border: none; padding: 10px 20px; border-radius: 5px; margin-top: 10px;">
+                                <button type="submit" style="font-size: 18px; cursor: pointer; background-color: #db934e; color: white; border: none; padding: 10px 20px; border-radius: 5px;">
                                     Выйти
                                 </button>
                             </form>
