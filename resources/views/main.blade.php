@@ -23,22 +23,23 @@
                 </div>
                 <div class="image-text-container">
                     @if (Auth::check())
-                        <div id="user-info" style="text-align: center; margin-top: 20px;">
+                        <div id="user-info" style="text-align: center;">
                             <img id="avatar" src="{{ session('user_avatar') }}" alt="Avatar" style="width: 50px; height: 50px; border-radius: 50%; margin-bottom: 10px;">
-                            <span id="username" style="font-size: 24px; display: block; margin-bottom: 10px;">{{ session('user_name') }}</span>
-                            <!-- Кнопка выхода ниже аватара и имени -->
-                            <form action="{{ route('logout') }}" method="POST" style="display:inline;">
-                                @csrf
-                                <button type="submit" style="font-size: 18px; cursor: pointer; background-color: #db934e; color: white; border: none; padding: 10px 20px; border-radius: 5px; margin-top: 10px;">
-                                    Выйти
-                                </button>
-                            </form>
+                            <span id="username" style="font-size: 24px;">{{ session('user_name') }}</span>
                         </div>
+                        <!-- Кнопка выхода ниже аватара и имени -->
+                        <form action="{{ route('logout') }}" method="POST" style="display:inline; text-align: center; margin-top: 10px;">
+                            @csrf
+                            <button type="submit" style="font-size: 18px; cursor: pointer; background-color: #db934e; color: white; border: none; padding: 10px 20px; border-radius: 5px;">
+                                Выйти
+                            </button>
+                        </form>
                     @else
                         <!-- Плашка с кнопкой для авторизации, если пользователь не авторизован -->
                         <img src="{{ asset('img/frame2.png') }}" alt="">
                         <a style="font-size: 56px; top: 38%; cursor: pointer;" class="text-overlay" onclick="openModal();">авторизация</a>
                     @endif
+
                 </div>
                 <div class="image-text-container">
                     <img src="{{asset('img/frame1.png')}}" alt="">
