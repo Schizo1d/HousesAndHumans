@@ -50,14 +50,13 @@
                 // Обработчик клика для добавления персонажа
                 addCharacterButton.addEventListener('click', () => {
                     characterCount++;
-                    const characterId = `character-${characterCount}`;
+                    const characterId = `character-${characterCount}`; // Это теперь используем для установки id элемента
 
                     // Создаём новый блок персонажа
                     const newCharacter = document.createElement('div');
                     newCharacter.className = 'character-item';
-                    newCharacter.innerHTML = `
-                <div class="character-name">Персонаж ${characterCount}</div>
-            `;
+                    newCharacter.id = characterId;  // Присваиваем новый id персонажу
+                    newCharacter.innerHTML = `<div class="character-name">Персонаж ${characterCount}</div>`;
 
                     // Добавляем обработчик клика для перехода на страницу персонажа
                     newCharacter.addEventListener('click', () => {
@@ -69,16 +68,16 @@
                 });
             </script>
         @else
-        <h1 class="list-text-title">Интерактивный лист персонажа для D&D 5e</h1>
-        <p class="list-text-subtitle">Чтобы продолжить, войдите в свой аккаунт или создайте новый.</p>
-        <ul>
-            <li class="list-text-item_list">Синхронизация между несколькими устройствами</li>
-            <li class="list-text-item_list">Удобное отслеживание здоровья, опыта и монет</li>
-            <li class="list-text-item_list">Безопасное хранилище для ваших персонажей</li>
-            <li class="list-text-item_list">Несколько популярных переводов на выбор</li>
-            <li class="list-text-item_list">Автоматический расчёт характеристик</li>
-            <li class="list-text-item_list">Отправка бросков в Discord</li>
-        </ul>
+            <h1 class="list-text-title">Интерактивный лист персонажа для D&D 5e</h1>
+            <p class="list-text-subtitle">Чтобы продолжить, войдите в свой аккаунт или создайте новый.</p>
+            <ul>
+                <li class="list-text-item_list">Синхронизация между несколькими устройствами</li>
+                <li class="list-text-item_list">Удобное отслеживание здоровья, опыта и монет</li>
+                <li class="list-text-item_list">Безопасное хранилище для ваших персонажей</li>
+                <li class="list-text-item_list">Несколько популярных переводов на выбор</li>
+                <li class="list-text-item_list">Автоматический расчёт характеристик</li>
+                <li class="list-text-item_list">Отправка бросков в Discord</li>
+            </ul>
         @endif
     </div>
     <div class="footer"></div>
