@@ -30,7 +30,7 @@ Route::middleware(['auth'])->group(function () {
 
 Route::get('/character/{id}', [CharacterController::class, 'show'])->name('character_info');
 
-Route::get('/character-list', [CharacterController::class, 'index'])->name('character_list');
+Route::get('/character_list', [CharacterController::class, 'index'])->name('character_list');
 Auth::routes();
 
 Route::group(['middleware' => 'guest'], function () {
