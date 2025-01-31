@@ -113,13 +113,6 @@ form label {
     text-align: left;
     font-weight: bold;
 }
-
-/* Выравнивание чисел по центру */
-input[type="number"] {
-    text-align: center;
-    font-size: 18px;
-    font-weight: bold;
-}
 .user-info-avatar{
     display: flex;
     align-items: center;
