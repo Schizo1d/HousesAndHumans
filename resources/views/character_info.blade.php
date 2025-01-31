@@ -39,7 +39,7 @@
             @csrf
             <input type="hidden" name="character_id" value="{{ $character->id }}">
 
-            <label for="strength"><img src="{{asset('img/strength.png')}}" alt="">Сила:</label>
+            <label for="strength"><img src="{{asset('img/strenght.png')}}" alt="">Сила:</label>
             <input type="number" id="strength" name="strength" value="{{ $character->attributes->strength ?? '' }}" required>
 
             <label for="dexterity"><img src="{{asset('img/agility.png')}}" alt="">Ловкость:</label>
