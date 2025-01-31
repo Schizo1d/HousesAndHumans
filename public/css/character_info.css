@@ -104,7 +104,6 @@ button:hover {
 form label,
 form input {
     display: inline-block;
-    width: 48%;
 }
 
 /* Выравнивание полей в столбцы */
