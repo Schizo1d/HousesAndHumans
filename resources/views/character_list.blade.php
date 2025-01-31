@@ -124,7 +124,7 @@
                 });
             </script>
         @else
-            <h1 class="list-text-title">Интерактивный лист персонажа для D&D 5e</h1>
+            <p style="font-size: 36px" class="list-text-title">Интерактивный лист персонажа для D&D 5e</p>
             <p class="list-text-subtitle">Чтобы продолжить, войдите в свой аккаунт или создайте новый.</p>
             <ul>
                 <li class="list-text-item_list">Синхронизация между несколькими устройствами</li>
