@@ -17,8 +17,8 @@
                 <a href="{{ route('character_list') }}"><i class="fa-solid fa-backward"></i></a>
                 <h1>Вселенные</h1>
                 @if(Auth::check())
-                    <div id="user-info">
-                        <img class="user-info-avatar"   id="avatar" src="{{ session('user_avatar') }}" alt="Avatar"
+                    <div class="user-info-avatar" id="user-info">
+                        <img id="avatar" src="{{ session('user_avatar') }}" alt="Avatar"
                              style="width: 50px; height: 50px; border-radius: 50%;">
                     </div>
                 @else
