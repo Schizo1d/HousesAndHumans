@@ -15,7 +15,7 @@
         <div class="header__inner">
             <nav class="nav">
                 <a href="{{ route('character_list') }}"><i class="fa-solid fa-backward"></i></a>
-                <h1>Вселенные</h1>
+                <h1>{{ $character->name }}</h1>
                 @if(Auth::check())
                     <div class="user-info-avatar" id="user-info">
                         <img id="avatar" src="{{ session('user_avatar') }}" alt="Avatar"
