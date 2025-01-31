@@ -42,6 +42,49 @@ header{
     font-size: 25px;
     padding-bottom: 15px;
 }
+.character-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.character-add {
+    width: 100px;
+    height: 100px;
+    background-color: #007bff;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.character-add:hover {
+    background-color: #0056b3;
+}
+
+.character-item {
+    width: 100px;
+    height: 100px;
+    background-color: #28a745;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.character-item:hover {
+    background-color: #1e7e34;
+}
 
 .footer {
     position: absolute;

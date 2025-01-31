@@ -33,6 +33,41 @@
     <div class="container">
         @if(Auth::check())
             <h1 class="list-text-title">Мои персонажи</h1>
+            <div id="character-container" class="character-container">
+                <!-- Кнопка добавления персонажа -->
+                <div id="add-character" class="character-add">
+                    <i class="fa-solid fa-plus"></i>
+                </div>
+            </div>
+            <script>
+                // Счётчик для ID персонажей
+                let characterCount = 0;
+
+                // Ссылка на контейнер с персонажами
+                const characterContainer = document.getElementById('character-container');
+                const addCharacterButton = document.getElementById('add-character');
+
+                // Обработчик клика для добавления персонажа
+                addCharacterButton.addEventListener('click', () => {
+                    characterCount++;
+                    const characterId = `character-${characterCount}`;
+
+                    // Создаём новый блок персонажа
+                    const newCharacter = document.createElement('div');
+                    newCharacter.className = 'character-item';
+                    newCharacter.innerHTML = `
+                <div class="character-name">Персонаж ${characterCount}</div>
+            `;
+
+                    // Добавляем обработчик клика для перехода на страницу персонажа
+                    newCharacter.addEventListener('click', () => {
+                        window.location.href = `/character/${characterCount}`;
+                    });
+
+                    // Вставляем персонажа перед кнопкой добавления
+                    characterContainer.insertBefore(newCharacter, addCharacterButton);
+                });
+            </script>
         @else
         <h1 class="list-text-title">Интерактивный лист персонажа для D&D 5e</h1>
         <p class="list-text-subtitle">Чтобы продолжить, войдите в свой аккаунт или создайте новый.</p>
