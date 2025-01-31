@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="ru">
 
 <head>
@@ -28,22 +28,36 @@
         </div>
     </div>
 </header>
+
 <main>
     <div class="container">
-            <h1 class="list-text-title">Интерактивный лист персонажа для D&D 5e</h1>
-            <p class="list-text-subtitle">Чтобы продолжить, войдите в свой аккаунт или создайте новый.</p>
-            <ul>
-                <li class="list-text-item_list">Синхронизация между несколькими устройствами</li>
-                <li class="list-text-item_list">Удобное отслеживание здоровья, опыта и монет</li>
-                <li class="list-text-item_list">Безопасное хранилище для ваших персонажей</li>
-                <li class="list-text-item_list">Несколько популярных переводов на выбор</li>
-                <li class="list-text-item_list">Автоматический расчёт характеристик</li>
-                <li class="list-text-item_list">Отправка бросков в Discord</li>
-            </ul>
+        <h2>Добавить атрибуты персонажа</h2>
+        <form action="{{ route('character_attributes.store') }}" method="POST">
+            @csrf
+            <label for="strength">Сила:</label>
+            <input type="number" id="strength" name="strength" required>
 
+            <label for="dexterity">Ловкость:</label>
+            <input type="number" id="dexterity" name="dexterity" required>
+
+            <label for="constitution">Телосложение:</label>
+            <input type="number" id="constitution" name="constitution" required>
+
+            <label for="intelligence">Интеллект:</label>
+            <input type="number" id="intelligence" name="intelligence" required>
+
+            <label for="wisdom">Мудрость:</label>
+            <input type="number" id="wisdom" name="wisdom" required>
+
+            <label for="charisma">Харизма:</label>
+            <input type="number" id="charisma" name="charisma" required>
+
+            <button type="submit">Сохранить атрибуты</button>
+        </form>
     </div>
     <div class="footer"></div>
 </main>
+
 </body>
 
 </html>

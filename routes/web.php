@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CharacterAttributeController;
 use App\Http\Controllers\CharacterController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\SocialController;
@@ -23,6 +24,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/characters', [CharacterController::class, 'store'])->name('characters.store');
     Route::delete('/characters/{character}', [CharacterController::class, 'destroy'])->name('characters.destroy');
 });
+
+Route::post('/character-attributes', [CharacterAttributeController::class, 'store'])->name('character_attributes.store');
 
 Route::get('/character/{id}', [CharacterController::class, 'show'])->name('character_info');
 
