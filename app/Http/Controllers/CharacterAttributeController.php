@@ -32,4 +32,10 @@ class CharacterAttributeController extends Controller
         return response()->json($attributes);
     }
 
+    public function edit($characterId)
+    {
+        $character = Character::with('attributes')->findOrFail($characterId);
+        return view('character_attributes', compact('character'));
+    }
+
 }

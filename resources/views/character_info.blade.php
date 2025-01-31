@@ -32,25 +32,43 @@
 <main>
     <div class="container">
         <h2>Добавить атрибуты персонажа</h2>
-        <form action="{{ route('character_attributes.store') }}" method="POST">
+        <form action="{{ route('character_attributes.store', $character->id) }}" method="POST">
             @csrf
-            <label for="strength">Сила:</label>
-            <input type="number" id="strength" name="strength" required>
+            <div class="attribute">
+                <label for="strength">Сила:</label>
+                <input type="number" id="strength" name="strength" value="{{ $character->attributes->strength ?? 0 }}" required>
+                <span>{{ $character->attributes->strength ?? 0 }}</span>
+            </div>
 
-            <label for="dexterity">Ловкость:</label>
-            <input type="number" id="dexterity" name="dexterity" required>
+            <div class="attribute">
+                <label for="dexterity">Ловкость:</label>
+                <input type="number" id="dexterity" name="dexterity" value="{{ $character->attributes->dexterity ?? 0 }}" required>
+                <span>{{ $character->attributes->dexterity ?? 0 }}</span>
+            </div>
 
-            <label for="constitution">Телосложение:</label>
-            <input type="number" id="constitution" name="constitution" required>
+            <div class="attribute">
+                <label for="constitution">Телосложение:</label>
+                <input type="number" id="constitution" name="constitution" value="{{ $character->attributes->constitution ?? 0 }}" required>
+                <span>{{ $character->attributes->constitution ?? 0 }}</span>
+            </div>
 
-            <label for="intelligence">Интеллект:</label>
-            <input type="number" id="intelligence" name="intelligence" required>
+            <div class="attribute">
+                <label for="intelligence">Интеллект:</label>
+                <input type="number" id="intelligence" name="intelligence" value="{{ $character->attributes->intelligence ?? 0 }}" required>
+                <span>{{ $character->attributes->intelligence ?? 0 }}</span>
+            </div>
 
-            <label for="wisdom">Мудрость:</label>
-            <input type="number" id="wisdom" name="wisdom" required>
+            <div class="attribute">
+                <label for="wisdom">Мудрость:</label>
+                <input type="number" id="wisdom" name="wisdom" value="{{ $character->attributes->wisdom ?? 0 }}" required>
+                <span>{{ $character->attributes->wisdom ?? 0 }}</span>
+            </div>
 
-            <label for="charisma">Харизма:</label>
-            <input type="number" id="charisma" name="charisma" required>
+            <div class="attribute">
+                <label for="charisma">Харизма:</label>
+                <input type="number" id="charisma" name="charisma" value="{{ $character->attributes->charisma ?? 0 }}" required>
+                <span>{{ $character->attributes->charisma ?? 0 }}</span>
+            </div>
 
             <button type="submit">Сохранить атрибуты</button>
         </form>
@@ -61,3 +79,4 @@
 </body>
 
 </html>
+
