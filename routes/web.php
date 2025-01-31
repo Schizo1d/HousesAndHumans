@@ -13,11 +13,11 @@ Route::get('/main', [MainController::class, 'index'])->name('main');
 
 // Роуты для персонажей с авторизацией
 Route::middleware(['auth'])->group(function () {
-    Route::get('/character-list', [CharacterController::class, 'index'])->name('character_list');
+
     Route::post('/characters', [CharacterController::class, 'store'])->name('characters.store');
     Route::delete('/characters/{character}', [CharacterController::class, 'destroy'])->name('characters.destroy');
 });
-
+Route::get('/character-list', [CharacterController::class, 'index'])->name('character_list');
 Auth::routes();
 
 Route::group(['middleware' => 'guest'], function () {
