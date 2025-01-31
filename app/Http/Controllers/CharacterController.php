@@ -29,7 +29,7 @@ class CharacterController extends Controller
         }
 
         // Если пользователь не авторизован, редиректим на страницу входа
-        return redirect()->route('character-list')->with('success', 'Атрибуты успешно сохранены!');
+        return redirect()->route('character_list');
     }
 
     public function store(Request $request)
