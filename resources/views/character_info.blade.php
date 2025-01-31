@@ -40,7 +40,7 @@
                 <li class="list-text-item_list">Автоматический расчёт характеристик</li>
                 <li class="list-text-item_list">Отправка бросков в Discord</li>
             </ul>
-        @endif
+
     </div>
     <div class="footer"></div>
 </main>
