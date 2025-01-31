@@ -38,11 +38,12 @@
             <div id="character-container" class="characters-container">
                 <!-- Загружаем сохранённые персонажи -->
                 @foreach($characters as $character)
-                    <a style="text-decoration: none" href="{{route('character_info', ['id' => $character->id])}}"> <div class="character-card" data-id="{{ $character->id }}">
+                    <a style="text-decoration: none" href="{{route('character_info', ['id' => $character->id])}}">
+                        <div class="character-card" data-id="{{ $character->id }}">
                         <div class="character-name">{{ $character->name }}</div>
-                        <button class="delete-button">Удалить</button>
                     </div>
                     </a>
+                    <button class="delete-button">Удалить</button>
                 @endforeach
 
                 <!-- Кнопка добавления персонажа -->
