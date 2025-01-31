@@ -11,6 +11,11 @@ Route::get('/', function () {
 });
 Route::get('/main', [MainController::class, 'index'])->name('main');
 
+Route::post('/logout', function () {
+    Auth::logout();
+    return redirect('/');
+})->name('logout');
+
 // Роуты для персонажей с авторизацией
 Route::middleware(['auth'])->group(function () {
 

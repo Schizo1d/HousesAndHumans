@@ -23,10 +23,15 @@
                 </div>
                 <div class="image-text-container">
                     @if (Auth::check())
-                            <div id="user-info">
-                                <img id="avatar" src="{{ session('user_avatar') }}" alt="Avatar" style="width: 50px; height: 50px; border-radius: 50%;">
-                                <span id="username" style="font-size: 24px;">{{ session('user_name') }}</span>
-                            </div>
+                        <div id="user-info">
+                            <img id="avatar" src="{{ session('user_avatar') }}" alt="Avatar" style="width: 50px; height: 50px; border-radius: 50%;">
+                            <span id="username" style="font-size: 24px;">{{ session('user_name') }}</span>
+                            <!-- Кнопка выхода -->
+                            <form action="{{ route('logout') }}" method="POST" style="display:inline;">
+                                @csrf
+                                <button type="submit" style="font-size: 24px; cursor: pointer; background-color: #db934e; color: white; border: none; padding: 10px 20px; border-radius: 5px;">Выйти</button>
+                            </form>
+                        </div>
                     @else
                         <!-- Плашка с кнопкой для авторизации, если пользователь не авторизован -->
                         <img src="{{ asset('img/frame2.png') }}" alt="">
