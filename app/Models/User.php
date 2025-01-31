@@ -26,10 +26,7 @@ class User extends Authenticatable
         return $this->hasMany(Character::class);
     }
     protected $fillable = [
-        'name',
-        'email',
-        'avatar',
-        'password',
+        'name', 'email', 'password', 'socialite_id', 'avatar',
     ];
 
     /**
