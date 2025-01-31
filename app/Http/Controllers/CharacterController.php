@@ -8,6 +8,17 @@ use Illuminate\Support\Facades\Auth;
 
 class CharacterController extends Controller
 {
+    public function show($id)
+    {
+        // Находим персонажа с его атрибутами
+        $character = Character::with('attributes')->find($id);
+
+        if (!$character) {
+            return redirect()->route('main')->with('error', 'Персонаж не найден.');
+        }
+
+        return view('character_info', compact('character'));
+    }
     public function index()
     {
         // Проверяем, авторизован ли пользователь
