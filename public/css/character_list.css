@@ -1,8 +1,16 @@
+* {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
 body {
     font-family: TildaSans, sans-serif;
 	margin: 0;
 	padding: 0;
 	background-color: #fefae0;
+}
+.background-image-main {
+    position: absolute;
 }
 .container{
     max-width: 1200px;

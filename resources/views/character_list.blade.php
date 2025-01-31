@@ -30,6 +30,9 @@
 </header>
 <main>
     <div class="container">
+        <div class="background-image-main">
+            <img src="{{asset ('img/clouds.png')}}" alt="облака">
+        </div>
         @if(Auth::check())
             <h1 class="list-text-title">Мои персонажи</h1>
             <div id="character-container" class="characters-container">

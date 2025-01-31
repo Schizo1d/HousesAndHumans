@@ -12,6 +12,9 @@
 <body>
 <header>
     <div class="container">
+        <div class="background-image-main">
+            <img src="{{asset ('img/clouds.png')}}" alt="облака">
+        </div>
         <div class="header__inner">
             <nav class="nav">
                 <a href="{{ route('character_list') }}"><i class="fa-solid fa-backward"></i></a>
