@@ -39,22 +39,22 @@
             @csrf
             <input type="hidden" name="character_id" value="{{ $character->id }}">
 
-            <label for="strength">Сила:</label>
+            <label for="strength"><img src="{{asset('img/strength')}}" alt="">Сила:</label>
             <input type="number" id="strength" name="strength" value="{{ $character->attributes->strength ?? '' }}" required>
 
-            <label for="dexterity">Ловкость:</label>
+            <label for="dexterity"><img src="{{asset('img/agility')}}" alt="">Ловкость:</label>
             <input type="number" id="dexterity" name="dexterity" value="{{ $character->attributes->dexterity ?? '' }}" required>
 
-            <label for="constitution">Телосложение:</label>
+            <label for="constitution"><img src="{{asset('img/Physique')}}" alt="">Телосложение:</label>
             <input type="number" id="constitution" name="constitution" value="{{ $character->attributes->constitution ?? '' }}" required>
 
-            <label for="intelligence">Интеллект:</label>
+            <label for="intelligence"><img src="{{asset('img/artificial-intelligence.png')}}" alt="">Интеллект:</label>
             <input type="number" id="intelligence" name="intelligence" value="{{ $character->attributes->intelligence ?? '' }}" required>
 
-            <label for="wisdom">Мудрость:</label>
+            <label for="wisdom"><img src="{{asset('img/Wisdom')}}" alt="">Мудрость:</label>
             <input type="number" id="wisdom" name="wisdom" value="{{ $character->attributes->wisdom ?? '' }}" required>
 
-            <label for="charisma">Харизма:</label>
+            <label for="charisma"><img src="{{asset('img/charisma.png')}}" alt="">Харизма:</label>
             <input type="number" id="charisma" name="charisma" value="{{ $character->attributes->charisma ?? '' }}" required>
 
             <button type="submit">Сохранить атрибуты</button>
