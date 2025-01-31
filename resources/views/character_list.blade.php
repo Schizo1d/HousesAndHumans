@@ -31,6 +31,9 @@
 </header>
 <main>
     <div class="container">
+        @if(Auth::check())
+
+        @else
         <h1 class="list-text-title">Интерактивный лист персонажа для D&D 5e</h1>
         <p class="list-text-subtitle">Чтобы продолжить, войдите в свой аккаунт или создайте новый.</p>
         <ul>
@@ -41,6 +44,7 @@
             <li class="list-text-item_list">Автоматический расчёт характеристик</li>
             <li class="list-text-item_list">Отправка бросков в Discord</li>
         </ul>
+        @endif
     </div>
     <div class="footer"></div>
 </main>
