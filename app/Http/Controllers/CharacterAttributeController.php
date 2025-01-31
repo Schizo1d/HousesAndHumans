@@ -30,6 +30,7 @@ class CharacterAttributeController extends Controller
     }
 
 
+
     public function edit(Character $character)
     {
         return view('character_attributes', compact('character'));

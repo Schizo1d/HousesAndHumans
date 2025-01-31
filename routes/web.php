@@ -11,7 +11,7 @@ Route::get('/', function () {
     return view('main');
 });
 
-Route::post('/character/{characterId}/attributes', [CharacterAttributeController::class, 'store'])
+Route::post('/character/{character}/attributes', [CharacterAttributeController::class, 'store'])
     ->name('character_attributes.store');
 
 Route::get('/main', [MainController::class, 'index'])->name('main');
