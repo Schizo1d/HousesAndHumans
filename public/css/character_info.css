@@ -93,3 +93,7 @@ input[type="number"] {
     font-size: 18px;
     font-weight: bold;
 }
+.user-info-avatar{
+    display: flex;
+    align-items: center;
+}

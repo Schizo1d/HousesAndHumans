@@ -19,7 +19,7 @@
                 <h1>Вселенные</h1>
                 @if(Auth::check())
                     <div id="user-info">
-                        <img id="avatar" src="{{ session('user_avatar') }}" alt="Avatar"
+                        <img class="user-info-avatar" id="avatar" src="{{ session('user_avatar') }}" alt="Avatar"
                              style="width: 50px; height: 50px; border-radius: 50%;">
                     </div>
                 @else
