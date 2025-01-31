@@ -24,6 +24,8 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/characters/{character}', [CharacterController::class, 'destroy'])->name('characters.destroy');
 });
 
+Route::get('/character/{id}', [CharacterController::class, 'show'])->name('character_info');
+
 Route::get('/character-list', [CharacterController::class, 'index'])->name('character_list');
 Auth::routes();
 
