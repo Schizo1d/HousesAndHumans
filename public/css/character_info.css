@@ -5,34 +5,40 @@ body {
     padding: 0;
     background-color: #fefae0;
 }
+
 .background-image-main {
     position: absolute;
     z-index: -1;
-    top:10%;
+    top: 10%;
     left: 0;
 }
-.container{
+
+.container {
     max-width: 1200px;
     width: 100%;
     margin: 0 auto;
     padding: 0 10px;
 }
-header{
+
+header {
     display: flex;
     justify-content: center;
     background-color: #db934e;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
+
 .nav {
     display: flex;
     justify-content: space-between;
 }
+
 .nav a {
     display: flex;
     align-items: center;
     text-decoration: none;
     color: black;
 }
+
 .container-info {
     max-width: 1200px;
     margin: 40px auto;
@@ -43,12 +49,15 @@ header{
     color: white;
     font-family: Arial, sans-serif;
 }
-.container-info label img{
+
+.container-info label img {
     width: 50px;
 }
+
 .container-info label {
     display: flex;
     align-items: center;
+    gap: 10px;
     font-size: 24px;
 }
 
@@ -126,7 +135,8 @@ form label {
     text-align: left;
     font-weight: bold;
 }
-.user-info-avatar{
+
+.user-info-avatar {
     display: flex;
     align-items: center;
 }
