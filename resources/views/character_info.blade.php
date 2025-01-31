@@ -59,7 +59,6 @@
         </form>
 
     </div>
-    <div class="footer"></div>
 </main>
 
 </body>
