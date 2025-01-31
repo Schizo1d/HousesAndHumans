@@ -10,11 +10,6 @@ Route::get('/', function () {
     return view('main');
 });
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/characters/{character}/edit', [CharacterController::class, 'edit'])->name('characters.edit');
-    Route::put('/characters/{character}', [CharacterController::class, 'update'])->name('characters.update');
-});
-
 Route::get('/main', [MainController::class, 'index'])->name('main');
 
 Route::post('/logout', function () {
