@@ -93,6 +93,11 @@ header{
     background-color: #cc1f1a;
 }
 
+.user-info-avatar{
+    display: flex;
+    align-items: center;
+}
+
 .footer {
     position: absolute;
     background-color: #db934e;
