@@ -190,6 +190,7 @@ form label {
     flex-wrap: wrap; /* Размещаем атрибуты в несколько строк, если не помещаются */
     gap: 20px;
     justify-content: space-between;
+    text-decoration: none
 }
 
 /* Стили для каждого атрибута */
