@@ -131,8 +131,9 @@ form label {
     display: flex;
     align-items: center;
 }
+
 .modal {
-    display: none;  /* Скрыто по умолчанию */
+    display: none; /* Скрыто по умолчанию */
     position: fixed;
     left: 0;
     top: 0;
@@ -184,12 +185,16 @@ form label {
 .modal-save-btn:hover {
     background: #0056b3;
 }
+
 /* Стили для контейнера атрибутов */
 .attributes {
     display: flex;
     flex-wrap: wrap; /* Размещаем атрибуты в несколько строк, если не помещаются */
     gap: 20px;
     justify-content: space-between;
+}
+
+.attributes a {
     text-decoration: none
 }
 
