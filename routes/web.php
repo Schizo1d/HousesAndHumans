@@ -14,8 +14,6 @@ Route::get('/', function () {
 Route::post('/character/{character}/attributes', [CharacterAttributeController::class, 'store'])
     ->name('character_attributes.store');
 
-Route::get('/main', [MainController::class, 'index'])->name('main');
-
 Route::post('/logout', function () {
     Auth::logout();
     return redirect('/');
@@ -23,10 +21,11 @@ Route::post('/logout', function () {
 
 // Роуты для персонажей с авторизацией
 Route::middleware(['auth'])->group(function () {
-
     Route::post('/characters', [CharacterController::class, 'store'])->name('characters.store');
     Route::delete('/characters/{character}', [CharacterController::class, 'destroy'])->name('characters.destroy');
 });
+
+Route::get('/main', [MainController::class, 'index'])->name('main');
 
 Route::get('/character/{id}', [CharacterController::class, 'show'])->name('character_info');
 
