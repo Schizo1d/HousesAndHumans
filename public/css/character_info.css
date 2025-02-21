@@ -230,3 +230,26 @@ form label {
 .open-modal:hover {
     transform: scale(1.05);
 }
+
+.radio-toggle {
+    display: none;
+}
+
+.radio-toggle + label {
+    cursor: pointer;
+}
+
+.radio-toggle + label::before {
+    content: "+0";
+    display: inline-block;
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+.radio-toggle:checked + label::before {
+    content: "+2";
+}
+
+.radio-toggle:checked + label + span::before {
+    content: "+4";
+}

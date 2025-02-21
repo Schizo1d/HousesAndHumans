@@ -255,12 +255,12 @@
 
                     let currentValue = parseInt(span.innerText, 10) || 0;
 
-                    if (currentValue === -9) {
+                    if (currentValue === 0) {
                         currentValue = 2;
                     } else if (currentValue === 2) {
                         currentValue = 4;
                     } else {
-                        currentValue = -9; // Сброс к -9
+                        currentValue = 0; // Сброс к 0
                     }
 
                     span.innerText = currentValue;
