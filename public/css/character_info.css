@@ -112,7 +112,6 @@ button {
 
 /* Анимация при наведении */
 button:hover {
-    background: #6a4fbb;
     transform: scale(1.05);
 }
 
