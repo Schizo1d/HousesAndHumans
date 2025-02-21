@@ -105,15 +105,20 @@
 
                     <div class="sub-attributes">
                         <label>
-                            <input type="radio" class="radio-toggle" data-target="analysis"> Анализ
+                            <p class="skill-toggle" data-target="analysis">
+                                Анализ: <span id="analysis-value">+{{ $character->attributes->analysis ?? 0 }}</span>
+                            </p>
                         </label>
-                        <span id="analysis-value">0</span>
-                        <input type="hidden" name="analysis" id="analysis" value="0">
+                        <input type="hidden" name="analysis" id="analysis" value="{{ $character->attributes->analysis ?? 0 }}">
+
                         <label>
-                            <input type="radio" class="radio-toggle" data-target="history"> История
+                            <p class="skill-toggle" data-target="history">
+                                История: <span id="history-value">+{{ $character->attributes->history ?? 0 }}</span>
+                            </p>
                         </label>
-                        <span id="history-value">0</span>
-                        <input type="hidden" name="history" id="history" value="0">
+                        <input type="hidden" name="history" id="history" value="{{ $character->attributes->history ?? 0 }}">
+
+
                         <label>
                             <input type="radio" class="radio-toggle" data-target="arcana"> Магия
                         </label>
