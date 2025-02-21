@@ -59,7 +59,10 @@
                             <div class="sub-attributes">
                                 @foreach ($skills as $skillKey => $skillName)
                                     <label>
-                                        <input type="checkbox" class="radio-toggle" data-target="{{ $skillKey }}"> {{ $skillName }}
+                                        <input type="radio" class="radio-toggle" data-target="{{ $skillKey }}" data-increment="2"> +2
+                                    </label>
+                                    <label>
+                                        <input type="radio" class="radio-toggle" data-target="{{ $skillKey }}" data-increment="4"> +4
                                     </label>
                                     <span id="{{ $skillKey }}-value">0</span>
                                     <input type="hidden" name="{{ $skillKey }}" id="{{ $skillKey }}" value="0">
@@ -125,13 +128,22 @@
 
                     let currentValue = parseInt(span.innerText, 10);
 
-                    if (currentValue >= 100) {
-                        span.innerText = "-9";  // Сбрасываем в минимальное значение
-                        input.value = -9;
-                    } else {
-                        span.innerText = currentValue + 2;  // Увеличиваем на 2
-                        input.value = currentValue + 2;
+                    // Получаем значение, на сколько увеличиваем
+                    let increment = 2;  // По умолчанию прибавляем 2
+                    if (this.checked && this.dataset.increment === "4") {
+                        increment = 4;  // Если выбрана кнопка с data-increment="4", прибавляем 4
                     }
+
+                    // Обновляем значение
+                    let newValue = currentValue + increment;
+
+                    // Если новое значение больше 100, то не изменяем
+                    if (newValue > 100) {
+                        newValue = 100;
+                    }
+
+                    span.innerText = newValue;  // Обновляем отображаемое значение
+                    input.value = newValue;  // Обновляем скрытое значение в input
                 });
             });
         </script>
