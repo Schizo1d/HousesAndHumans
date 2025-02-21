@@ -231,15 +231,3 @@ form label {
     transform: scale(1.05);
 }
 
-.radio-toggle {
-    display: none; /* Скрываем стандартные радиокнопки */
-}
-
-.radio-toggle + label {
-    cursor: pointer;
-}
-
-#athletics-value {
-    font-weight: bold;
-    margin-left: 10px;
-}

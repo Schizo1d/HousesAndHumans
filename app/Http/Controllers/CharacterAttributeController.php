@@ -18,7 +18,7 @@ class CharacterAttributeController extends Controller
             'intelligence' => 'required|integer|min:1|max:30',
             'wisdom' => 'required|integer|min:1|max:30',
             'charisma' => 'required|integer|min:1|max:30',
-            // Навыки
+
             'athletics' => 'nullable|integer|min:-9|max:100',
             'acrobatics' => 'nullable|integer|min:-9|max:100',
             'sleight_of_hand' => 'nullable|integer|min:-9|max:100',
@@ -39,41 +39,25 @@ class CharacterAttributeController extends Controller
             'persuasion' => 'nullable|integer|min:-9|max:100',
         ]);
 
-        // Сохранение атрибутов
-        $attributes = [
-            'strength' => $request->input('strength'),
-            'dexterity' => $request->input('dexterity'),
-            'constitution' => $request->input('constitution'),
-            'intelligence' => $request->input('intelligence'),
-            'wisdom' => $request->input('wisdom'),
-            'charisma' => $request->input('charisma'),
-        ];
+        // Сохраняем атрибуты и навыки
+        $attributes = CharacterAttribute::updateOrCreate(
+            ['character_id' => $character->id],
+            $request->only([
+                'strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma',
+                'athletics', 'acrobatics', 'sleight_of_hand', 'stealth',
+                'investigation', 'history', 'arcana', 'nature', 'religion',
+                'perception', 'survival', 'medicine', 'insight', 'animal_handling',
+                'performance', 'intimidation', 'deception', 'persuasion'
+            ])
+        );
 
-        // Обновление или создание атрибутов персонажа
-        foreach ($attributes as $key => $value) {
-            $character->attributes()->updateOrCreate(
-                ['character_id' => $character->id, 'name' => $key],
-                ['value' => $value]
-            );
-        }
+        // Перенаправление с успешным сообщением
+        return redirect()->route('character_info', ['id' => $character->id])
+            ->with('success', 'Атрибуты и навыки успешно сохранены!');
+    }
 
-        // Сохранение навыков
-        $skills = [
-            'athletics', 'acrobatics', 'sleight_of_hand', 'stealth', 'investigation', 'history',
-            'arcana', 'nature', 'religion', 'perception', 'survival', 'medicine', 'insight',
-            'animal_handling', 'performance', 'intimidation', 'deception', 'persuasion'
-        ];
-
-        foreach ($skills as $skill) {
-            $value = $request->input($skill);
-            $character->attributes()->updateOrCreate(
-                ['character_id' => $character->id, 'name' => $skill],
-                ['value' => $value]
-            );
-        }
-
-        // Перенаправление на страницу с информацией о персонаже
-        return redirect()->route('character_list')->with('success', 'Атрибуты и навыки успешно обновлены!');
+    public function edit(Character $character)
+    {
+        return view('character_attributes', compact('character'));
     }
 }
-
