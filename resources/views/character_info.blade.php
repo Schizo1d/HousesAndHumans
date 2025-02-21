@@ -71,11 +71,11 @@
                         <input type="hidden" name="acrobatics" id="acrobatics" value="{{ $character->attributes->acrobatics ?? 0 }}">
 
                         <label>
-                            <p class="skill-toggle" data-target="sleight-of-hand">
-                                Ловкость рук: <span id="sleight-of-hand-value">+{{ $character->attributes->sleight_of_hand ?? 0 }}</span>
+                            <p class="skill-toggle" data-target="sleight_of_hand">
+                                Ловкость рук: <span id="sleight_of_hand-value">+{{ $character->attributes->sleight_of_hand ?? 0 }}</span>
                             </p>
                         </label>
-                        <input type="hidden" name="sleight-of-hand" id="sleight-of-hand" value="{{ $character->attributes->sleight_of_hand ?? 0 }}">
+                        <input type="hidden" name="sleight_of_hand" id="sleight_of_hand" value="{{ $character->attributes->sleight_of_hand ?? 0 }}">
 
                         <label>
                             <p class="skill-toggle" data-target="stealth">
