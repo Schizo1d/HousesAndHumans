@@ -119,14 +119,14 @@
                         <input type="hidden" name="history" id="history" value="{{ $character->attributes->history ?? 0 }}">
 
                         <label>
-                            <p class="skill-toggle" data-target="history">
+                            <p class="skill-toggle" data-target="arcana">
                                 Магия: <span id="arcana-value">+{{ $character->attributes->arcana ?? 0 }}</span>
                             </p>
                         </label>
                         <input type="hidden" name="arcana" id="arcana" value="{{ $character->attributes->arcana ?? 0 }}">
 
                         <label>
-                            <p class="skill-toggle" data-target="history">
+                            <p class="skill-toggle" data-target="nature">
                                 Природа: <span id="nature-value">+{{ $character->attributes->nature ?? 0 }}</span>
                             </p>
                         </label>
@@ -134,7 +134,7 @@
 
                         <label>
                             <p class="skill-toggle" data-target="religion">
-                                Природа: <span id="religion-value">+{{ $character->attributes->religion ?? 0 }}</span>
+                                Религия: <span id="religion-value">+{{ $character->attributes->religion ?? 0 }}</span>
                             </p>
                         </label>
                         <input type="hidden" name="religion" id="religion" value="{{ $character->attributes->religion ?? 0 }}">
