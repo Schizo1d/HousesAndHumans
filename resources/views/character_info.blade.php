@@ -78,12 +78,6 @@
                         <input type="hidden" name="sleight-of-hand" id="sleight-of-hand" value="{{ $character->attributes->sleight_of_hand ?? 0 }}">
 
                         <label>
-                            <input type="radio" class="radio-toggle" data-target="stealth"> Скрытность
-                        </label>
-                        <span id="stealth-value">0</span>
-                        <input type="hidden" name="stealth" id="stealth" value="0">
-
-                        <label>
                             <p class="skill-toggle" data-target="stealth">
                                 Акробатика: <span id="stealth-value">+{{ $character->attributes->stealth ?? 0 }}</span>
                             </p>
