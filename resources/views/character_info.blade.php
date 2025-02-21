@@ -253,9 +253,11 @@
                     let span = document.getElementById(targetId + "-value");
                     let input = document.getElementById(targetId);
 
-                    // Устанавливаем значение "2" при нажатии на радиокнопку
-                    span.innerText = 2;
-                    input.value = 2;
+                    // Если кнопка выбрана, установить значение 2, иначе 0
+                    if (this.checked) {
+                        span.innerText = 2;
+                        input.value = 2;
+                    }
                 });
             });
 
