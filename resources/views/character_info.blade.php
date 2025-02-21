@@ -72,14 +72,14 @@
 
                         <label>
                             <p class="skill-toggle" data-target="sleight-of-hand">
-                                Акробатика: <span id="sleight-of-hand-value">+{{ $character->attributes->sleight_of_hand ?? 0 }}</span>
+                                Ловкость рук: <span id="sleight-of-hand-value">+{{ $character->attributes->sleight_of_hand ?? 0 }}</span>
                             </p>
                         </label>
                         <input type="hidden" name="sleight-of-hand" id="sleight-of-hand" value="{{ $character->attributes->sleight_of_hand ?? 0 }}">
 
                         <label>
                             <p class="skill-toggle" data-target="stealth">
-                                Акробатика: <span id="stealth-value">+{{ $character->attributes->stealth ?? 0 }}</span>
+                                Скрытность: <span id="stealth-value">+{{ $character->attributes->stealth ?? 0 }}</span>
                             </p>
                         </label>
                         <input type="hidden" name="stealth" id="stealth" value="{{ $character->attributes->stealth ?? 0 }}">
