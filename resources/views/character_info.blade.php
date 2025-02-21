@@ -62,6 +62,7 @@
                         {{ $character->attributes->dexterity ?? 10 }}
                     </a>
                     <input type="hidden" id="dexterity" name="dexterity" value="{{ $character->attributes->dexterity ?? 10 }}">
+                    <button type="button" onclick="rollDice('dexterity')">Проверка</button>
 
                     <div class="sub-attributes">
                         <label>
@@ -94,6 +95,7 @@
                         {{ $character->attributes->constitution ?? 10 }}
                     </a>
                     <input type="hidden" id="constitution" name="constitution" value="{{ $character->attributes->constitution ?? 10 }}">
+                    <button type="button" onclick="rollDice('constitution')">Проверка</button>
                 </div>
 
                 <!-- Интеллект -->
@@ -103,6 +105,7 @@
                         {{ $character->attributes->intelligence ?? 10 }}
                     </a>
                     <input type="hidden" id="intelligence" name="intelligence" value="{{ $character->attributes->intelligence ?? 10 }}">
+                    <button type="button" onclick="rollDice('intelligence')">Проверка</button>
 
                     <div class="sub-attributes">
                         <label>
@@ -149,6 +152,7 @@
                         {{ $character->attributes->wisdom ?? 10 }}
                     </a>
                     <input type="hidden" id="wisdom" name="wisdom" value="{{ $character->attributes->wisdom ?? 10 }}">
+                    <button type="button" onclick="rollDice('wisdom')">Проверка</button>
 
                     <div class="sub-attributes">
                         <label>
@@ -195,6 +199,7 @@
                         {{ $character->attributes->charisma ?? 10 }}
                     </a>
                     <input type="hidden" id="charisma" name="charisma" value="{{ $character->attributes->charisma ?? 10 }}">
+                    <button type="button" onclick="rollDice('charisma')">Проверка</button>
 
                     <div class="sub-attributes">
                         <label>
