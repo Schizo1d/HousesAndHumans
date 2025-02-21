@@ -38,10 +38,10 @@
 
             <div class="attributes">
                 <div class="attribute-item">
-                    <span>Сила:</span>
-                    <button type="button" id="strength-button" onclick="openModal('strength')">
+                    <span onclick="openModal('strength')">Сила:</span>
+                    <a href="javascript:void(0);" id="strength-button" onclick="openModal('strength')">
                         {{ $character->attributes->strength ?? 10 }}
-                    </button>
+                    </a>
                     <input type="hidden" id="strength" name="strength" value="{{ $character->attributes->strength ?? 10 }}">
                 </div>
 
