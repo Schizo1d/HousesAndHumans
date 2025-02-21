@@ -155,26 +155,42 @@
                         </label>
                         <span id="perception-value">0</span>
                         <input type="hidden" name="perception" id="perception" value="0">
+
+
                         <label>
-                            <input type="radio" class="radio-toggle" data-target="survival"> Выживание
+                            <p class="skill-toggle" data-target="perception">
+                                Восприятие: <span id="perception-value">+{{ $character->attributes->perception ?? 0 }}</span>
+                            </p>
                         </label>
-                        <span id="survival-value">0</span>
-                        <input type="hidden" name="survival" id="survival" value="0">
+                        <input type="hidden" name="perception" id="perception" value="{{ $character->attributes->perception ?? 0 }}">
+
                         <label>
-                            <input type="radio" class="radio-toggle" data-target="medicine"> Медицина
+                            <p class="skill-toggle" data-target="survival">
+                                Выживание: <span id="survival-value">+{{ $character->attributes->survival ?? 0 }}</span>
+                            </p>
                         </label>
-                        <span id="medicine-value">0</span>
-                        <input type="hidden" name="medicine" id="medicine" value="0">
+                        <input type="hidden" name="survival" id="survival" value="{{ $character->attributes->survival ?? 0 }}">
+
                         <label>
-                            <input type="radio" class="radio-toggle" data-target="insight"> Проницательность
+                            <p class="skill-toggle" data-target="medicine">
+                                Медицина: <span id="medicine-value">+{{ $character->attributes->medicine ?? 0 }}</span>
+                            </p>
                         </label>
-                        <span id="insight-value">0</span>
-                        <input type="hidden" name="insight" id="insight" value="0">
+                        <input type="hidden" name="medicine" id="medicine" value="{{ $character->attributes->medicine ?? 0 }}">
+
                         <label>
-                            <input type="radio" class="radio-toggle" data-target="animal-handling"> Уход за животными
+                            <p class="skill-toggle" data-target="insight">
+                                Проницательность: <span id="insight-value">+{{ $character->attributes->insight ?? 0 }}</span>
+                            </p>
                         </label>
-                        <span id="animal-handling-value">0</span>
-                        <input type="hidden" name="animal-handling" id="animal-handling" value="0">
+                        <input type="hidden" name="insight" id="insight" value="{{ $character->attributes->insight ?? 0 }}">
+
+                        <label>
+                            <p class="skill-toggle" data-target="animal-handling">
+                                Уход за животными: <span id="animal-handling-value">+{{ $character->attributes->animal_handling ?? 0 }}</span>
+                            </p>
+                        </label>
+                        <input type="hidden" name="animal-handling" id="animal-handling" value="{{ $character->attributes->animal_handling ?? 0 }}">
                     </div>
                 </div>
 
@@ -188,25 +204,32 @@
 
                     <div class="sub-attributes">
                         <label>
-                            <input type="radio" class="radio-toggle" data-target="performance"> Выступление
+                            <p class="skill-toggle" data-target="performance">
+                                Выступление: <span id="performance-value">+{{ $character->attributes->performance ?? 0 }}</span>
+                            </p>
                         </label>
-                        <span id="performance-value">0</span>
-                        <input type="hidden" name="performance" id="performance" value="0">
+                        <input type="hidden" name="performance" id="performance" value="{{ $character->attributes->performance ?? 0 }}">
+
                         <label>
-                            <input type="radio" class="radio-toggle" data-target="intimidation"> Запугивание
+                            <p class="skill-toggle" data-target="intimidation">
+                                Запугивание: <span id="intimidation-value">+{{ $character->attributes->intimidation ?? 0 }}</span>
+                            </p>
                         </label>
-                        <span id="intimidation-value">0</span>
-                        <input type="hidden" name="intimidation" id="intimidation" value="0">
+                        <input type="hidden" name="intimidation" id="intimidation" value="{{ $character->attributes->intimidation ?? 0 }}">
+
                         <label>
-                            <input type="radio" class="radio-toggle" data-target="deception"> Обман
+                            <p class="skill-toggle" data-target="deception">
+                                Обман: <span id="deception-value">+{{ $character->attributes->deception ?? 0 }}</span>
+                            </p>
                         </label>
-                        <span id="deception-value">0</span>
-                        <input type="hidden" name="deception" id="deception" value="0">
+                        <input type="hidden" name="deception" id="deception" value="{{ $character->attributes->deception ?? 0 }}">
+
                         <label>
-                            <input type="radio" class="radio-toggle" data-target="persuasion"> Убеждение
+                            <p class="skill-toggle" data-target="persuasion">
+                                Убеждение: <span id="persuasion-value">+{{ $character->attributes->persuasion ?? 0 }}</span>
+                            </p>
                         </label>
-                        <span id="persuasion-value">0</span>
-                        <input type="hidden" name="persuasion" id="persuasion" value="0">
+                        <input type="hidden" name="persuasion" id="persuasion" value="{{ $character->attributes->persuasion ?? 0 }}">
                     </div>
                 </div>
             </div>
