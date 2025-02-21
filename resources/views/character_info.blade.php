@@ -45,11 +45,12 @@
                     <input type="hidden" id="strength" name="strength" value="{{ $character->attributes->strength ?? 10 }}">
 
                     <div class="sub-attributes">
-                        <label>
-                            <input type="radio" class="radio-toggle" name="athletics" data-target="athletics"> Атлетика
-                        </label>
-                        <span id="athletics-value">0</span>
-                        <input type="hidden" name="athletics" id="athletics" value="0">
+                        <!-- Атлетика -->
+                        <div class="sub-attributes">
+                            <label for="athletics">Атлетика:</label>
+                            <input type="number" id="athletics" name="athletics" value="{{ $character->attributes->athletics ?? 0 }}"
+                                   onchange="updateSkill('athletics')">
+                        </div>
                     </div>
                 </div>
 
@@ -65,8 +66,8 @@
                         <label>
                             <input type="radio" class="radio-toggle" data-target="acrobatics"> Акробатика
                         </label>
-                        <span id="acrobatics-value">{{ $character->acrobatics ?? 0 }}</span>
-                        <input type="hidden" name="acrobatics" id="acrobatics" value="{{ $character->acrobatics ?? 0 }}">
+                        <span id="acrobatics-value">0</span>
+                        <input type="hidden" name="acrobatics" id="acrobatics" value="0">
                         <label>
                             <input type="radio" class="radio-toggle" data-target="sleight-of-hand"> Ловкость рук
                         </label>
@@ -233,6 +234,17 @@
             // Закрыть модальное окно
             function closeModal() {
                 document.getElementById("attributeModal").style.display = "none";
+            }
+
+            function updateSkill(skillName) {
+                let input = document.getElementById(skillName);
+                let newValue = input.value;
+
+                // Обновляем значение (если есть скрытое поле)
+                let hiddenInput = document.querySelector(`input[name="${skillName}"]`);
+                if (hiddenInput) {
+                    hiddenInput.value = newValue;
+                }
             }
 
             // Сохранить значение атрибута
