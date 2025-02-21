@@ -45,14 +45,12 @@
                     <input type="hidden" id="strength" name="strength" value="{{ $character->attributes->strength ?? 10 }}">
 
                     <div class="sub-attributes">
-                        <div class="sub-attributes">
-                            <label for="athletics">Атлетика:</label>
-                            <input type="number" id="athletics" name="athletics"
-                                   value="{{ $character->attributes->athletics ?? 10 }}"
-                                   min="-9" max="100">
-                        </div>
+                        <label>
+                            <input type="radio" class="radio-toggle" name="athletics" data-target="athletics"> Атлетика
+                        </label>
+                        <span id="athletics-value">0</span>
+                        <input type="hidden" name="athletics" id="athletics" value="0">
                     </div>
-
                 </div>
 
                 <!-- Ловкость -->
