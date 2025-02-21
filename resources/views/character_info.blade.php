@@ -46,9 +46,9 @@
 
                     <div class="sub-attributes">
                         <label>
-                            <input type="radio" class="radio-toggle" data-target="athletics"> Атлетика
+                            <input type="radio" class="radio-toggle" name="athletics" data-target="athletics"> Атлетика
                         </label>
-                        <span id="athletics-value">0</span>
+                        <span id="athletics-value">+0</span>
                         <input type="hidden" name="athletics" id="athletics" value="0">
                     </div>
                 </div>
@@ -249,22 +249,25 @@
             // Обработчик для изменения значений радиокнопок навыков
             document.querySelectorAll('.radio-toggle').forEach(item => {
                 item.addEventListener('change', function () {
-                    let targetId = this.getAttribute('data-target');
-                    let span = document.getElementById(targetId + "-value");
-                    let input = document.getElementById(targetId);
+                    let targetId = this.getAttribute('data-target'); // Получаем целевой элемент
+                    let span = document.getElementById(targetId + "-value"); // Ищем соответствующий span
+                    let input = document.getElementById(targetId); // Ищем соответствующий скрытый input
 
-                    let currentValue = parseInt(span.innerText, 10) || 0;
+                    // Получаем текущее значение из span
+                    let currentValue = parseInt(span.innerText.replace('+', ''), 10) || 0;
 
+                    // Логика смены значений по циклу
                     if (currentValue === 0) {
                         currentValue = 2;
                     } else if (currentValue === 2) {
                         currentValue = 4;
                     } else {
-                        currentValue = 0; // Сброс к 0
+                        currentValue = 0; // Сброс на 0
                     }
 
-                    span.innerText = currentValue;
-                    input.value = currentValue;
+                    // Обновляем значение в span и в скрытом input
+                    span.innerText = `+${currentValue}`;
+                    input.value = currentValue; // Обновляем скрытое поле для отправки в форму
                 });
             });
         </script>
