@@ -221,6 +221,7 @@
                 charisma: "Харизма"
             };
 
+            // Открыть модальное окно для изменения значения атрибута
             function openModal(attr) {
                 currentAttr = attr;
                 let value = document.getElementById(attr).value;
@@ -229,10 +230,12 @@
                 document.getElementById("attributeModal").style.display = "flex";
             }
 
+            // Закрыть модальное окно
             function closeModal() {
                 document.getElementById("attributeModal").style.display = "none";
             }
 
+            // Сохранить значение атрибута
             function saveAttribute() {
                 let value = document.getElementById("modal-input").value;
                 if (!currentAttr) return;
@@ -243,6 +246,7 @@
                 closeModal();
             }
 
+            // Обработчик для изменения значений радиокнопок навыков
             document.querySelectorAll('.radio-toggle').forEach(item => {
                 item.addEventListener('click', function () {
                     let targetId = this.getAttribute('data-target');
@@ -250,19 +254,17 @@
                     let input = document.getElementById(targetId);
 
                     let currentValue = parseInt(span.innerText, 10);
-                    let newValue;
 
-                    // Логика нажатия на одну радиокнопку: 0 -> 2 -> 4 -> 0
-                    if (currentValue === 0) {
-                        newValue = 2;  // При первом нажатии +2
+                    if (currentValue === 100) {
+                        span.innerText = "-9";  // Сбрасываем в минимальное значение
+                        input.value = -9;
+                    } else if (currentValue === -9) {
+                        span.innerText = currentValue + 2;  // Увеличиваем на 2
+                        input.value = currentValue + 2;
                     } else if (currentValue === 2) {
-                        newValue = 4;  // При втором нажатии +4
-                    } else {
-                        newValue = 0;  // При третьем нажатии сброс на 0
+                        span.innerText = currentValue + 2;  // Увеличиваем на 4
+                        input.value = currentValue + 4;
                     }
-
-                    span.innerText = newValue;  // Обновляем отображаемое значение
-                    input.value = newValue;  // Обновляем скрытое значение в input
                 });
             });
         </script>

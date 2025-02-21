@@ -10,6 +10,7 @@ class CharacterAttributeController extends Controller
 {
     public function store(Request $request, Character $character)
     {
+        // Валидация атрибутов и навыков
         $request->validate([
             'strength' => 'required|integer|min:1|max:30',
             'dexterity' => 'required|integer|min:1|max:30',
@@ -18,7 +19,6 @@ class CharacterAttributeController extends Controller
             'wisdom' => 'required|integer|min:1|max:30',
             'charisma' => 'required|integer|min:1|max:30',
 
-            // Навыки теперь с диапазоном от -9 до 100
             'athletics' => 'nullable|integer|min:-9|max:100',
             'acrobatics' => 'nullable|integer|min:-9|max:100',
             'sleight_of_hand' => 'nullable|integer|min:-9|max:100',
@@ -39,7 +39,7 @@ class CharacterAttributeController extends Controller
             'persuasion' => 'nullable|integer|min:-9|max:100',
         ]);
 
-        // Сохраняем все атрибуты
+        // Сохраняем атрибуты и навыки
         $attributes = CharacterAttribute::updateOrCreate(
             ['character_id' => $character->id],
             $request->only([
@@ -51,8 +51,9 @@ class CharacterAttributeController extends Controller
             ])
         );
 
+        // Перенаправление с успешным сообщением
         return redirect()->route('character_info', ['id' => $character->id])
-            ->with('success', 'Атрибуты успешно сохранены!');
+            ->with('success', 'Атрибуты и навыки успешно сохранены!');
     }
 
     public function edit(Character $character)
