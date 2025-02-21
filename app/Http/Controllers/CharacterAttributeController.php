@@ -19,7 +19,7 @@ class CharacterAttributeController extends Controller
             'wisdom' => 'required|integer|min:1|max:30',
             'charisma' => 'required|integer|min:1|max:30',
 
-            'athletics' => 'required|integer|min:-9|max:100',
+            'athletics' => 'nullable|integer|min:-9|max:100',
             'acrobatics' => 'nullable|integer|min:-9|max:100',
             'sleight_of_hand' => 'nullable|integer|min:-9|max:100',
             'stealth' => 'nullable|integer|min:-9|max:100',
