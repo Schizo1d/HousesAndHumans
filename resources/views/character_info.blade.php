@@ -31,59 +31,43 @@
 </header>
 <main>
     <div class="container-info">
-        <form id="attributesForm" action="{{ route('character_attributes.store', ['character' => $character->id]) }}"
-              method="POST">
+        <form id="attributesForm" action="{{ route('character_attributes.store', ['character' => $character->id]) }}" method="POST">
             @csrf
             <input type="hidden" name="character_id" value="{{ $character->id }}">
 
             <div class="attributes">
-                <div class="attribute-item">
-                    <span onclick="openModal('strength')" style="cursor: pointer;">Сила:</span>
-                    <a href="javascript:void(0);" id="strength-button" onclick="openModal('strength')" style="cursor: pointer;">
-                        {{ $character->attributes->strength ?? 10 }}
-                    </a>
-                    <input type="hidden" id="strength" name="strength" value="{{ $character->attributes->strength ?? 10 }}">
-                </div>
+                @php
+                    $attributes = [
+                        'strength' => ['Сила', ['athletics' => 'Атлетика']],
+                        'dexterity' => ['Ловкость', ['acrobatics' => 'Акробатика', 'sleight-of-hand' => 'Ловкость рук', 'stealth' => 'Скрытность']],
+                        'constitution' => ['Телосложение', []],
+                        'intelligence' => ['Интеллект', ['analysis' => 'Анализ', 'history' => 'История', 'arcana' => 'Магия', 'nature' => 'Природа', 'religion' => 'Религия']],
+                        'wisdom' => ['Мудрость', ['perception' => 'Восприятие', 'survival' => 'Выживание', 'medicine' => 'Медицина', 'insight' => 'Проницательность', 'animal-handling' => 'Уход за животными']],
+                        'charisma' => ['Харизма', ['performance' => 'Выступление', 'intimidation' => 'Запугивание', 'deception' => 'Обман', 'persuasion' => 'Убеждение']]
+                    ];
+                @endphp
 
-                <div class="attribute-item">
-                    <span onclick="openModal('dexterity')" style="cursor: pointer;">Ловкость:</span>
-                    <a href="javascript:void(0);" id="dexterity-button" onclick="openModal('dexterity')" style="cursor: pointer;">
-                        {{ $character->attributes->dexterity ?? 10 }}
-                    </a>
-                    <input type="hidden" id="dexterity" name="dexterity" value="{{ $character->attributes->dexterity ?? 10 }}">
-                </div>
+                @foreach ($attributes as $key => [$name, $skills])
+                    <div class="attribute-item">
+                        <span onclick="openModal('{{ $key }}')" style="cursor: pointer;">{{ $name }}:</span>
+                        <a href="javascript:void(0);" id="{{ $key }}-button" onclick="openModal('{{ $key }}')" style="cursor: pointer;">
+                            {{ $character->attributes->$key ?? 10 }}
+                        </a>
+                        <input type="hidden" id="{{ $key }}" name="{{ $key }}" value="{{ $character->attributes->$key ?? 10 }}">
 
-                <div class="attribute-item">
-                    <span onclick="openModal('constitution')" style="cursor: pointer;">Телосложение:</span>
-                    <a href="javascript:void(0);" id="constitution-button" onclick="openModal('constitution')" style="cursor: pointer;">
-                        {{ $character->attributes->constitution ?? 10 }}
-                    </a>
-                    <input type="hidden" id="constitution" name="constitution" value="{{ $character->attributes->constitution ?? 10 }}">
-                </div>
-
-                <div class="attribute-item">
-                    <span onclick="openModal('intelligence')" style="cursor: pointer;">Интеллект:</span>
-                    <a href="javascript:void(0);" id="intelligence-button" onclick="openModal('intelligence')" style="cursor: pointer;">
-                        {{ $character->attributes->intelligence ?? 10 }}
-                    </a>
-                    <input type="hidden" id="intelligence" name="intelligence" value="{{ $character->attributes->intelligence ?? 10 }}">
-                </div>
-
-                <div class="attribute-item">
-                    <span onclick="openModal('wisdom')" style="cursor: pointer;">Мудрость:</span>
-                    <a href="javascript:void(0);" id="wisdom-button" onclick="openModal('wisdom')" style="cursor: pointer;">
-                        {{ $character->attributes->wisdom ?? 10 }}
-                    </a>
-                    <input type="hidden" id="wisdom" name="wisdom" value="{{ $character->attributes->wisdom ?? 10 }}">
-                </div>
-
-                <div class="attribute-item">
-                    <span onclick="openModal('charisma')" style="cursor: pointer;">Харизма:</span>
-                    <a href="javascript:void(0);" id="charisma-button" onclick="openModal('charisma')" style="cursor: pointer;">
-                        {{ $character->attributes->charisma ?? 10 }}
-                    </a>
-                    <input type="hidden" id="charisma" name="charisma" value="{{ $character->attributes->charisma ?? 10 }}">
-                </div>
+                        @if (!empty($skills))
+                            <div class="sub-attributes">
+                                @foreach ($skills as $skillKey => $skillName)
+                                    <label>
+                                        <input type="checkbox" class="radio-toggle" data-target="{{ $skillKey }}"> {{ $skillName }}
+                                    </label>
+                                    <span id="{{ $skillKey }}-value">0</span>
+                                    <input type="hidden" name="{{ $skillKey }}" id="{{ $skillKey }}" value="0">
+                                @endforeach
+                            </div>
+                        @endif
+                    </div>
+                @endforeach
             </div>
 
             <button type="submit">Сохранить атрибуты</button>
@@ -102,7 +86,6 @@
         <script>
             let currentAttr = null;
 
-            // Названия атрибутов для отображения
             const attributeNames = {
                 strength: "Сила",
                 dexterity: "Ловкость",
@@ -115,9 +98,7 @@
             function openModal(attr) {
                 currentAttr = attr;
                 let value = document.getElementById(attr).value;
-
-                // Устанавливаем заголовок модального окна
-                document.getElementById("modal-title").innerText = (attributeNames[attr] || attr);
+                document.getElementById("modal-title").innerText = attributeNames[attr] || attr;
                 document.getElementById("modal-input").value = value;
                 document.getElementById("attributeModal").style.display = "flex";
             }
@@ -130,14 +111,28 @@
                 let value = document.getElementById("modal-input").value;
                 if (!currentAttr) return;
 
-                // Обновляем кнопку
                 document.getElementById(`${currentAttr}-button`).textContent = value;
-
-                // Обновляем скрытый input
                 document.getElementById(currentAttr).value = value;
 
                 closeModal();
             }
+
+            document.querySelectorAll('.radio-toggle').forEach(item => {
+                item.addEventListener('click', function () {
+                    let targetId = this.getAttribute('data-target');
+                    let span = document.getElementById(targetId + "-value");
+                    let input = document.getElementById(targetId);
+
+                    let currentValue = parseInt(span.innerText, 10);
+                    if (currentValue >= 4) {
+                        span.innerText = "0";
+                        input.value = "0";
+                    } else {
+                        span.innerText = currentValue + 2;
+                        input.value = currentValue + 2;
+                    }
+                });
+            });
         </script>
 </body>
 </html>
