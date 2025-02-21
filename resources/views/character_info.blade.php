@@ -65,8 +65,8 @@
                         <label>
                             <input type="radio" class="radio-toggle" data-target="acrobatics"> Акробатика
                         </label>
-                        <span id="acrobatics-value">0</span>
-                        <input type="hidden" name="acrobatics" id="acrobatics" value="0">
+                        <span id="acrobatics-value">{{ $character->acrobatics ?? 0 }}</span>
+                        <input type="hidden" name="acrobatics" id="acrobatics" value="{{ $character->acrobatics ?? 0 }}">
                         <label>
                             <input type="radio" class="radio-toggle" data-target="sleight-of-hand"> Ловкость рук
                         </label>
