@@ -48,7 +48,7 @@
                         <label>
                             <input type="radio" class="radio-toggle" data-target="athletics"> Атлетика
                         </label>
-                        <span id="athletics-value">0</span>
+                        <span id="athletics-value">+0</span>
                         <input type="hidden" name="athletics" id="athletics" value="0">
                     </div>
                 </div>
@@ -253,8 +253,10 @@
                     let span = document.getElementById(targetId + "-value");
                     let input = document.getElementById(targetId);
 
-                    let currentValue = parseInt(span.innerText, 10) || 0;
+                    // Определяем текущее значение
+                    let currentValue = parseInt(span.innerText.replace('+', ''), 10) || 0;
 
+                    // Логика смены значений
                     if (currentValue === 0) {
                         currentValue = 2;
                     } else if (currentValue === 2) {
@@ -263,7 +265,8 @@
                         currentValue = 0; // Сброс к 0
                     }
 
-                    span.innerText = currentValue;
+                    // Обновляем текст в span и значение в скрытом input
+                    span.innerText = `+${currentValue}`;
                     input.value = currentValue;
                 });
             });

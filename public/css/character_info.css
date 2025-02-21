@@ -232,24 +232,14 @@ form label {
 }
 
 .radio-toggle {
-    display: none;
+    display: none; /* Скрываем стандартные радиокнопки */
 }
 
 .radio-toggle + label {
     cursor: pointer;
 }
 
-.radio-toggle + label::before {
-    content: "+0";
-    display: inline-block;
-    margin-left: 10px;
+#athletics-value {
     font-weight: bold;
-}
-
-.radio-toggle:checked + label::before {
-    content: "+2";
-}
-
-.radio-toggle:checked + label + span::before {
-    content: "+4";
+    margin-left: 10px;
 }
