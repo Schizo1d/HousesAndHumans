@@ -117,35 +117,59 @@
 </main>
 
 <script>
-    function openModal(attr, value) {
-        document.getElementById("modal-title").innerText = "Изменить " + attr;
-        document.getElementById("modal-input").value = value;
-        document.getElementById("modal-attribute").value = attr;
-        document.getElementById("attributeModal").style.display = "flex";
-    }
+    document.addEventListener('DOMContentLoaded', function () {
+        const modal = document.getElementById('attributeModal');
+        const modalInput = document.getElementById('modal-input');
+        const modalTitle = document.getElementById('modal-title');
+        const modalAttribute = document.getElementById('modal-attribute');
+        const saveButton = document.getElementById('save-attribute');
 
-    function closeModal() {
-        document.getElementById("attributeModal").style.display = "none";
-    }
+        // Находим все кнопки для открытия модального окна
+        document.querySelectorAll('.open-modal').forEach(button => {
+            button.addEventListener('click', function () {
+                const attr = this.getAttribute('data-attr');
+                const value = this.getAttribute('data-value');
 
-    document.querySelectorAll('.open-modal').forEach(button => {
-        button.addEventListener('click', function () {
-            openModal(this.getAttribute('data-attr'), this.getAttribute('data-value'));
+                modalTitle.innerText = `Изменить ${attr}`;
+                modalInput.value = value;
+                modalAttribute.value = attr;
+
+                modal.style.display = 'block';
+            });
+        });
+
+        // Закрытие модального окна при нажатии на крестик
+        document.querySelector('.close').addEventListener('click', function () {
+            modal.style.display = 'none';
+        });
+
+        // Закрытие при клике вне модального окна
+        window.addEventListener('click', function (event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Обновление значения при сохранении
+        saveButton.addEventListener('click', function () {
+            const attr = modalAttribute.value;
+            const value = modalInput.value;
+
+            document.querySelector(`[data-attr="${attr}"]`).textContent = value;
+
+            // Удаляем старый input, если он уже существует
+            document.querySelector(`input[name="${attr}"]`)?.remove();
+
+            // Создаем новый скрытый input с обновленным значением
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = attr;
+            input.value = value;
+            document.querySelector('form').appendChild(input);
+
+            modal.style.display = 'none';
         });
     });
-
-    function saveAttribute() {
-        let attr = document.getElementById("modal-attribute").value;
-        let value = document.getElementById("modal-input").value;
-        document.querySelector(`[data-attr="${attr}"]`).textContent = value;
-        document.querySelector(`input[name="${attr}"]`)?.remove();
-        let input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = attr;
-        input.value = value;
-        document.querySelector('form').appendChild(input);
-        closeModal();
-    }
 </script>
 </body>
 </html>
