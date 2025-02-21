@@ -34,7 +34,6 @@
 
 <main>
     <div class="container-info">
-        <h2>Добавить атрибуты персонажа</h2>
         <form action="{{ route('character_attributes.store', ['character' => $character->id]) }}" method="POST">
             @csrf
             <input type="hidden" name="character_id" value="{{ $character->id }}">
