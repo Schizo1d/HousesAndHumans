@@ -105,11 +105,11 @@
 
                     <div class="sub-attributes">
                         <label>
-                            <p class="skill-toggle" data-target="analysis">
-                                Анализ: <span id="analysis-value">+{{ $character->attributes->analysis ?? 0 }}</span>
+                            <p class="skill-toggle" data-target="investigation">
+                                Анализ: <span id="investigation-value">+{{ $character->attributes->investigation ?? 0 }}</span>
                             </p>
                         </label>
-                        <input type="hidden" name="analysis" id="analysis" value="{{ $character->attributes->analysis ?? 0 }}">
+                        <input type="hidden" name="investigation" id="investigation" value="{{ $character->attributes->investigation ?? 0 }}">
 
                         <label>
                             <p class="skill-toggle" data-target="history">
@@ -179,11 +179,11 @@
                         <input type="hidden" name="insight" id="insight" value="{{ $character->attributes->insight ?? 0 }}">
 
                         <label>
-                            <p class="skill-toggle" data-target="animal-handling">
-                                Уход за животными: <span id="animal-handling-value">+{{ $character->attributes->animal_handling ?? 0 }}</span>
+                            <p class="skill-toggle" data-target="animal_handling">
+                                Уход за животными: <span id="animal_handling-value">+{{ $character->attributes->animal_handling ?? 0 }}</span>
                             </p>
                         </label>
-                        <input type="hidden" name="animal-handling" id="animal-handling" value="{{ $character->attributes->animal_handling ?? 0 }}">
+                        <input type="hidden" name="animal_handling" id="animal_handling" value="{{ $character->attributes->animal_handling ?? 0 }}">
                     </div>
                 </div>
 
