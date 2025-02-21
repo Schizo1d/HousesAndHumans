@@ -64,10 +64,12 @@
 
                     <div class="sub-attributes">
                         <label>
-                            <input type="radio" class="radio-toggle" data-target="acrobatics"> Акробатика
+                            <p class="skill-toggle" data-target="acrobatics">
+                                Акробатика: <span id="acrobatics-value">+{{ $character->attributes->acrobatics ?? 0 }}</span>
+                            </p>
                         </label>
-                        <span id="acrobatics-value">0</span>
-                        <input type="hidden" name="acrobatics" id="acrobatics" value="0">
+                        <input type="hidden" name="acrobatics" id="acrobatics" value="{{ $character->attributes->acrobatics ?? 0 }}">
+
                         <label>
                             <input type="radio" class="radio-toggle" data-target="sleight-of-hand"> Ловкость рук
                         </label>
