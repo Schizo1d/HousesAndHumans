@@ -36,7 +36,7 @@
     <div class="container-info">
         <form action="{{ route('character_attributes.store', ['character' => $character->id]) }}" method="POST">
             @csrf
-            <input type="number" name="character_id" value="{{ $character->id }}">
+            <input type="hidden" name="character_id" value="{{ $character->id }}">
 
             <label for="strength"><img src="{{asset('img/strenght.png')}}" alt="">Сила:</label>
             <input type="number" id="strength" name="strength" value="{{ $character->attributes->strength ?? '' }}" required>
