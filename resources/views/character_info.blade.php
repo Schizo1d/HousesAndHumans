@@ -253,10 +253,10 @@
                     let span = document.getElementById(targetId + "-value");
                     let input = document.getElementById(targetId);
 
-                    // Если кнопка выбрана, установить значение 2, иначе 0
                     if (this.checked) {
-                        span.innerText = 2;
-                        input.value = 2;
+                        let newValue = 2; // Устанавливаем значение
+                        span.innerText = newValue;
+                        input.value = newValue; // Обновляем скрытый input
                     }
                 });
             });
