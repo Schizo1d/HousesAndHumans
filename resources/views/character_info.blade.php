@@ -45,44 +45,43 @@
                     <input type="hidden" id="strength" name="strength" value="{{ $character->attributes->strength ?? 10 }}">
                 </div>
 
-
                 <div class="attribute-item">
-                    <span>Ловкость:</span>
-                    <button type="button" id="dexterity-button" onclick="openModal('dexterity')">
+                    <span onclick="openModal('dexterity')" style="cursor: pointer;">Ловкость:</span>
+                    <a href="javascript:void(0);" id="dexterity-button" onclick="openModal('dexterity')" style="cursor: pointer;">
                         {{ $character->attributes->dexterity ?? 10 }}
-                    </button>
+                    </a>
                     <input type="hidden" id="dexterity" name="dexterity" value="{{ $character->attributes->dexterity ?? 10 }}">
                 </div>
 
                 <div class="attribute-item">
-                    <span>Телосложение:</span>
-                    <button type="button" id="constitution-button" onclick="openModal('constitution')">
+                    <span onclick="openModal('constitution')" style="cursor: pointer;">Телосложение:</span>
+                    <a href="javascript:void(0);" id="constitution-button" onclick="openModal('constitution')" style="cursor: pointer;">
                         {{ $character->attributes->constitution ?? 10 }}
-                    </button>
+                    </a>
                     <input type="hidden" id="constitution" name="constitution" value="{{ $character->attributes->constitution ?? 10 }}">
                 </div>
 
                 <div class="attribute-item">
-                    <span>Интеллект:</span>
-                    <button type="button" id="intelligence-button" onclick="openModal('intelligence')">
+                    <span onclick="openModal('intelligence')" style="cursor: pointer;">Интеллект:</span>
+                    <a href="javascript:void(0);" id="intelligence-button" onclick="openModal('intelligence')" style="cursor: pointer;">
                         {{ $character->attributes->intelligence ?? 10 }}
-                    </button>
+                    </a>
                     <input type="hidden" id="intelligence" name="intelligence" value="{{ $character->attributes->intelligence ?? 10 }}">
                 </div>
 
                 <div class="attribute-item">
-                    <span>Мудрость:</span>
-                    <button type="button" id="wisdom-button" onclick="openModal('wisdom')">
+                    <span onclick="openModal('wisdom')" style="cursor: pointer;">Мудрость:</span>
+                    <a href="javascript:void(0);" id="wisdom-button" onclick="openModal('wisdom')" style="cursor: pointer;">
                         {{ $character->attributes->wisdom ?? 10 }}
-                    </button>
+                    </a>
                     <input type="hidden" id="wisdom" name="wisdom" value="{{ $character->attributes->wisdom ?? 10 }}">
                 </div>
 
                 <div class="attribute-item">
-                    <span>Харизма:</span>
-                    <button type="button" id="charisma-button" onclick="openModal('charisma')">
+                    <span onclick="openModal('charisma')" style="cursor: pointer;">Харизма:</span>
+                    <a href="javascript:void(0);" id="charisma-button" onclick="openModal('charisma')" style="cursor: pointer;">
                         {{ $character->attributes->charisma ?? 10 }}
-                    </button>
+                    </a>
                     <input type="hidden" id="charisma" name="charisma" value="{{ $character->attributes->charisma ?? 10 }}">
                 </div>
             </div>
