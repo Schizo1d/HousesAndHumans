@@ -43,6 +43,7 @@
                         {{ $character->attributes->strength ?? 10 }}
                     </a>
                     <input type="hidden" id="strength" name="strength" value="{{ $character->attributes->strength ?? 10 }}">
+                    <button type="button" onclick="rollDice('strength')">Проверка</button>
 
                     <div class="sub-attributes">
                         <label>
@@ -349,6 +350,14 @@
                     span.innerText = finalValue >= 0 ? `+${finalValue}` : finalValue;
                 });
             });
+
+            function rollDice(attribute) {
+                let value = parseInt(document.getElementById(attribute).value);
+                let modifier = Math.floor((value - 10) / 2);
+                let roll = Math.floor(Math.random() * 20) + 1;
+                let total = roll + modifier;
+                alert(`Результат броска: ${roll} + ${modifier} = ${total}`);
+            }
 
             // Первоначальное обновление значений навыков при загрузке
             document.addEventListener("DOMContentLoaded", function () {
