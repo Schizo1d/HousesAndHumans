@@ -253,20 +253,12 @@
                     let span = document.getElementById(targetId + "-value");
                     let input = document.getElementById(targetId);
 
-                    let currentValue = parseInt(span.innerText, 10) || 0;
-
-                    if (currentValue === 0) {
-                        currentValue = 2;
-                    } else if (currentValue === 2) {
-                        currentValue = 4;
-                    } else {
-                        currentValue = 0; // Сброс к 0
-                    }
-
-                    span.innerText = currentValue;
-                    input.value = currentValue;
+                    // Устанавливаем значение "2" при нажатии на радиокнопку
+                    span.innerText = 2;
+                    input.value = 2;
                 });
             });
+
         </script>
 </body>
 </html>
