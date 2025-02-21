@@ -148,6 +148,8 @@
                         {{ $character->attributes->wisdom ?? 10 }}
                     </a>
                     <input type="hidden" id="wisdom" name="wisdom" value="{{ $character->attributes->wisdom ?? 10 }}">
+
+                    <div class="sub-attributes">
                         <label>
                             <p class="skill-toggle" data-target="perception">
                                 Восприятие: <span id="perception-value">+{{ $character->attributes->perception ?? 0 }}</span>
