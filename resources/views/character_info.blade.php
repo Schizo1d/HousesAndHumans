@@ -117,7 +117,7 @@
                 let value = document.getElementById(attr).value;
 
                 // Устанавливаем заголовок модального окна
-                document.getElementById("modal-title").innerText = "Изменить " + (attributeNames[attr] || attr);
+                document.getElementById("modal-title").innerText = (attributeNames[attr] || attr);
                 document.getElementById("modal-input").value = value;
                 document.getElementById("attributeModal").style.display = "flex";
             }
