@@ -59,10 +59,7 @@
                             <div class="sub-attributes">
                                 @foreach ($skills as $skillKey => $skillName)
                                     <label>
-                                        <input type="radio" class="radio-toggle" data-target="{{ $skillKey }}" data-increment="2"> +2
-                                    </label>
-                                    <label>
-                                        <input type="radio" class="radio-toggle" data-target="{{ $skillKey }}" data-increment="4"> +4
+                                        <input type="radio" class="radio-toggle" data-target="{{ $skillKey }}"> {{ $skillName }}
                                     </label>
                                     <span id="{{ $skillKey }}-value">0</span>
                                     <input type="hidden" name="{{ $skillKey }}" id="{{ $skillKey }}" value="0">
@@ -127,19 +124,15 @@
                     let input = document.getElementById(targetId);
 
                     let currentValue = parseInt(span.innerText, 10);
+                    let newValue;
 
-                    // Получаем значение, на сколько увеличиваем
-                    let increment = 2;  // По умолчанию прибавляем 2
-                    if (this.checked && this.dataset.increment === "4") {
-                        increment = 4;  // Если выбрана кнопка с data-increment="4", прибавляем 4
-                    }
-
-                    // Обновляем значение
-                    let newValue = currentValue + increment;
-
-                    // Если новое значение больше 100, то не изменяем
-                    if (newValue > 100) {
-                        newValue = 100;
+                    // Логика нажатия на одну радиокнопку: 0 -> 2 -> 4 -> 0
+                    if (currentValue === 0) {
+                        newValue = 2;  // При первом нажатии +2
+                    } else if (currentValue === 2) {
+                        newValue = 4;  // При втором нажатии +4
+                    } else {
+                        newValue = 0;  // При третьем нажатии сброс на 0
                     }
 
                     span.innerText = newValue;  // Обновляем отображаемое значение
