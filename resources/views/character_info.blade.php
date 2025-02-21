@@ -37,16 +37,38 @@
         <form action="{{ route('character_attributes.store', ['character' => $character->id]) }}" method="POST">
             @csrf
             <input type="hidden" name="character_id" value="{{ $character->id }}">
-            <div class="attributes">
-                @foreach(['strength' => 'Сила', 'dexterity' => 'Ловкость', 'constitution' => 'Телосложение', 'intelligence' => 'Интеллект', 'wisdom' => 'Мудрость', 'charisma' => 'Харизма'] as $attr => $label)
-                    <div class="attribute-item">
-                        <span class="attribute-label">{{ $label }}:</span>
-                        <button type="button" class="open-modal" data-attr="{{ $attr }}" data-value="{{ $character->attributes->$attr ?? '' }}">
-                            {{ $character->attributes->$attr ?? '' }}
-                        </button>
-                    </div>
-                @endforeach
+
+            <!-- Основные атрибуты -->
+            <div class="attribute-item">
+                <label for="strength">Сила:</label>
+                <input type="number" name="strength" id="strength" value="{{ $character->attributes->strength ?? 10 }}" min="1" max="30">
             </div>
+
+            <div class="attribute-item">
+                <label for="dexterity">Ловкость:</label>
+                <input type="number" name="dexterity" id="dexterity" value="{{ $character->attributes->dexterity ?? 10 }}" min="1" max="30">
+            </div>
+
+            <div class="attribute-item">
+                <label for="constitution">Телосложение:</label>
+                <input type="number" name="constitution" id="constitution" value="{{ $character->attributes->constitution ?? 10 }}" min="1" max="30">
+            </div>
+
+            <div class="attribute-item">
+                <label for="intelligence">Интеллект:</label>
+                <input type="number" name="intelligence" id="intelligence" value="{{ $character->attributes->intelligence ?? 10 }}" min="1" max="30">
+            </div>
+
+            <div class="attribute-item">
+                <label for="wisdom">Мудрость:</label>
+                <input type="number" name="wisdom" id="wisdom" value="{{ $character->attributes->wisdom ?? 10 }}" min="1" max="30">
+            </div>
+
+            <div class="attribute-item">
+                <label for="charisma">Харизма:</label>
+                <input type="number" name="charisma" id="charisma" value="{{ $character->attributes->charisma ?? 10 }}" min="1" max="30">
+            </div>
+
             <button type="submit">Сохранить атрибуты</button>
         </form>
     </div>
