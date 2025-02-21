@@ -295,7 +295,7 @@
                     let currentValue = parseInt(input.value);
 
                     // Логика циклического изменения значений: 0 → 2 → 4 → 0
-                    let newValue = currentValue === 2 ? 0 : currentValue + 4;
+                    let newValue = currentValue === 4 ? 0 : currentValue + 2;
 
                     span.innerText = `+${newValue}`;
                     input.value = newValue;
