@@ -221,6 +221,5 @@ form label {
 
 /* Анимация при наведении на кнопки */
 .open-modal:hover {
-    background: #6a4fbb;
     transform: scale(1.05);
 }
