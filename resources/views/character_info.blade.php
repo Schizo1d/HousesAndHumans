@@ -43,7 +43,9 @@
                         {{ $character->attributes->strength ?? 10 }}
                     </a>
                     <input type="hidden" id="strength" name="strength" value="{{ $character->attributes->strength ?? 10 }}">
-                    <button type="button" onclick="rollDice('strength')">Проверка</button>
+                    <button type="button" onclick="rollDice('strength')">Проверка <p id="strength-modifier" class="modifier">
+                            ({{ floor(($character->attributes->strength ?? 10 - 10) / 2) }})
+                        </p></button>
 
                     <div class="sub-attributes">
                         <label>
@@ -318,19 +320,6 @@
                 }
             }
 
-            // Сохранение атрибута и обновление навыков
-            function saveAttribute() {
-                let value = parseInt(document.getElementById("modal-input").value);
-                if (!currentAttr) return;
-
-                document.getElementById(`${currentAttr}-button`).textContent = value;
-                document.getElementById(currentAttr).value = value;
-
-                updateSkills(currentAttr); // Обновить навыки при изменении атрибута
-
-                closeModal();
-            }
-
             // Обработчик клика по навыкам (увеличение циклически)
             document.querySelectorAll('.skill-toggle').forEach(item => {
                 item.addEventListener('click', function () {
@@ -364,9 +353,27 @@
                 alert(`Результат броска: ${roll} + ${modifier} = ${total}`);
             }
 
-            // Первоначальное обновление значений навыков при загрузке
+            function updateModifier(attribute) {
+                let attrValue = parseInt(document.getElementById(attribute).value);
+                let modifier = getModifier(attrValue);
+                document.getElementById(`${attribute}-modifier`).textContent = `(${modifier})`;
+            }
+
+            function saveAttribute() {
+                let value = parseInt(document.getElementById("modal-input").value);
+                if (!currentAttr) return;
+
+                document.getElementById(`${currentAttr}-button`).textContent = value;
+                document.getElementById(currentAttr).value = value;
+
+                updateModifier(currentAttr);
+                updateSkills(currentAttr);
+
+                closeModal();
+            }
+
             document.addEventListener("DOMContentLoaded", function () {
-                Object.keys(attributeNames).forEach(attr => updateSkills(attr));
+                Object.keys(attributeNames).forEach(attr => updateModifier(attr));
             });
         </script>
 </body>
