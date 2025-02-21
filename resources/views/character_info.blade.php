@@ -39,10 +39,12 @@
             <input type="hidden" name="character_id" value="{{ $character->id }}">
             <div class="attributes">
                 @foreach(['strength' => 'Сила', 'dexterity' => 'Ловкость', 'constitution' => 'Телосложение', 'intelligence' => 'Интеллект', 'wisdom' => 'Мудрость', 'charisma' => 'Харизма'] as $attr => $label)
-                    <label>{{ $label }}:</label>
-                    <button type="button" class="open-modal" data-attr="{{ $attr }}" data-value="{{ $character->attributes->$attr ?? '' }}">
-                        {{ $character->attributes->$attr ?? '' }}
-                    </button>
+                    <div class="attribute-item">
+                        <span class="attribute-label">{{ $label }}:</span>
+                        <button type="button" class="open-modal" data-attr="{{ $attr }}" data-value="{{ $character->attributes->$attr ?? '' }}">
+                            {{ $character->attributes->$attr ?? '' }}
+                        </button>
+                    </div>
                 @endforeach
             </div>
             <button type="submit">Сохранить атрибуты</button>

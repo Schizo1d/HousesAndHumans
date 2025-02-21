@@ -185,3 +185,42 @@ form label {
 .modal-save-btn:hover {
     background: #0056b3;
 }
+/* Стили для контейнера атрибутов */
+.attributes {
+    display: flex;
+    flex-wrap: wrap; /* Размещаем атрибуты в несколько строк, если не помещаются */
+    gap: 20px;
+    justify-content: space-between;
+}
+
+/* Стили для каждого атрибута */
+.attribute-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Метка атрибута */
+.attribute-label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+}
+
+/* Стили для кнопок */
+.open-modal {
+    background: #edca99;
+    color: white;
+    font-size: 16px;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+}
+
+/* Анимация при наведении на кнопки */
+.open-modal:hover {
+    background: #6a4fbb;
+    transform: scale(1.05);
+}
