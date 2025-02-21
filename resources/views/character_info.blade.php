@@ -124,11 +124,12 @@
                     let input = document.getElementById(targetId);
 
                     let currentValue = parseInt(span.innerText, 10);
-                    if (currentValue >= 4) {
-                        span.innerText = "0";
-                        input.value = "0";
+
+                    if (currentValue >= 100) {
+                        span.innerText = "-9";  // Сбрасываем в минимальное значение
+                        input.value = -9;
                     } else {
-                        span.innerText = currentValue + 2;
+                        span.innerText = currentValue + 2;  // Увеличиваем на 2
                         input.value = currentValue + 2;
                     }
                 });
