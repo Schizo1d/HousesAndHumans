@@ -45,11 +45,12 @@
                     <input type="hidden" id="strength" name="strength" value="{{ $character->attributes->strength ?? 10 }}">
 
                     <div class="sub-attributes">
-                        <span onclick="openModal('athletics')" style="cursor: pointer;">Сила:</span>
-                        <a href="javascript:void(0);" id="athletics-button" onclick="openModal('athletics')" style="cursor: pointer;">
-                            {{ $character->attributes->athletics ?? 10 }}
-                        </a>
-                        <input type="hidden" id="athletics" name="athletics" value="{{ $character->attributes->athletics ?? 10 }}">
+                        <div class="sub-attributes">
+                            <label for="athletics">Атлетика:</label>
+                            <input type="number" id="athletics" name="athletics"
+                                   value="{{ $character->attributes->athletics ?? 10 }}"
+                                   min="-9" max="100">
+                        </div>
                     </div>
 
                 </div>
