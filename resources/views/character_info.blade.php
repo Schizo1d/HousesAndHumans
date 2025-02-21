@@ -118,22 +118,26 @@
                         </label>
                         <input type="hidden" name="history" id="history" value="{{ $character->attributes->history ?? 0 }}">
 
+                        <label>
+                            <p class="skill-toggle" data-target="history">
+                                Магия: <span id="arcana-value">+{{ $character->attributes->arcana ?? 0 }}</span>
+                            </p>
+                        </label>
+                        <input type="hidden" name="arcana" id="arcana" value="{{ $character->attributes->arcana ?? 0 }}">
 
                         <label>
-                            <input type="radio" class="radio-toggle" data-target="arcana"> Магия
+                            <p class="skill-toggle" data-target="history">
+                                Природа: <span id="nature-value">+{{ $character->attributes->nature ?? 0 }}</span>
+                            </p>
                         </label>
-                        <span id="arcana-value">0</span>
-                        <input type="hidden" name="arcana" id="arcana" value="0">
+                        <input type="hidden" name="nature" id="nature" value="{{ $character->attributes->nature ?? 0 }}">
+
                         <label>
-                            <input type="radio" class="radio-toggle" data-target="nature"> Природа
+                            <p class="skill-toggle" data-target="religion">
+                                Природа: <span id="religion-value">+{{ $character->attributes->religion ?? 0 }}</span>
+                            </p>
                         </label>
-                        <span id="nature-value">0</span>
-                        <input type="hidden" name="nature" id="nature" value="0">
-                        <label>
-                            <input type="radio" class="radio-toggle" data-target="religion"> Религия
-                        </label>
-                        <span id="religion-value">0</span>
-                        <input type="hidden" name="religion" id="religion" value="0">
+                        <input type="hidden" name="religion" id="religion" value="{{ $character->attributes->religion ?? 0 }}">
                     </div>
                 </div>
 
