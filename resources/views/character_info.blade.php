@@ -38,12 +38,13 @@
 
             <div class="attributes">
                 <div class="attribute-item">
-                    <span onclick="openModal('strength')">Сила:</span>
-                    <a href="javascript:void(0);" id="strength-button" onclick="openModal('strength')">
+                    <span onclick="openModal('strength')" style="cursor: pointer;">Сила:</span>
+                    <a href="javascript:void(0);" id="strength-button" onclick="openModal('strength')" style="cursor: pointer;">
                         {{ $character->attributes->strength ?? 10 }}
                     </a>
                     <input type="hidden" id="strength" name="strength" value="{{ $character->attributes->strength ?? 10 }}">
                 </div>
+
 
                 <div class="attribute-item">
                     <span>Ловкость:</span>
