@@ -67,7 +67,7 @@
         document.getElementById("modal-title").innerText = "Изменить " + attr;
         document.getElementById("modal-input").value = value;
         document.getElementById("modal-attribute").value = attr;
-        document.getElementById("attributeModal").style.display = "flex"; // показываем модалку
+        document.getElementById("attributeModal").style.display = "flex";  // для открытия
     }
 
     // Функция для закрытия модального окна
