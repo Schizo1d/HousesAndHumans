@@ -49,7 +49,7 @@
                         <a href="javascript:void(0);" id="athletics-button" onclick="openModal('athletics')" style="cursor: pointer;">
                             {{ $character->attributes->athletics ?? 10 }}
                         </a>
-                        <input type="hidden" id="athletics" name="strength" value="{{ $character->attributes->athletics ?? 10 }}">
+                        <input type="hidden" id="athletics" name="athletics" value="{{ $character->attributes->athletics ?? 10 }}">
                     </div>
 
                 </div>
