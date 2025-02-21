@@ -8,59 +8,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 <body>
-<script>
-    let currentAttr = null;
-
-    const attributeNames = {
-        strength: "Сила",
-        dexterity: "Ловкость",
-        constitution: "Телосложение",
-        intelligence: "Интеллект",
-        wisdom: "Мудрость",
-        charisma: "Харизма"
-    };
-
-    // Открыть модальное окно для изменения значения атрибута
-    function openModal(attr) {
-        currentAttr = attr;
-        let value = document.getElementById(attr).value;
-        document.getElementById("modal-title").innerText = attributeNames[attr] || attr;
-        document.getElementById("modal-input").value = value;
-        document.getElementById("attributeModal").style.display = "flex";
-    }
-
-    // Закрыть модальное окно
-    function closeModal() {
-        document.getElementById("attributeModal").style.display = "none";
-    }
-
-    // Сохранить значение атрибута
-    function saveAttribute() {
-        let value = document.getElementById("modal-input").value;
-        if (!currentAttr) return;
-
-        document.getElementById(`${currentAttr}-button`).textContent = value;
-        document.getElementById(currentAttr).value = value;
-
-        closeModal();
-    }
-
-    // Обработчик для изменения значений радиокнопок навыков
-    document.querySelectorAll('.radio-toggle').forEach(item => {
-        item.addEventListener('change', function () {
-            let targetId = this.getAttribute('data-target');
-            let span = document.getElementById(targetId + "-value");
-            let input = document.getElementById(targetId);
-
-            if (this.checked) {
-                let newValue = 2; // Устанавливаем значение
-                span.innerText = newValue;
-                input.value = newValue; // Обновляем скрытый input
-            }
-        });
-    });
-
-</script>
 <header>
     <div class="container">
         <div class="background-image-main">
@@ -262,6 +209,58 @@
             </div>
         </div>
 
+        <script>
+            let currentAttr = null;
 
+            const attributeNames = {
+                strength: "Сила",
+                dexterity: "Ловкость",
+                constitution: "Телосложение",
+                intelligence: "Интеллект",
+                wisdom: "Мудрость",
+                charisma: "Харизма"
+            };
+
+            // Открыть модальное окно для изменения значения атрибута
+            function openModal(attr) {
+                currentAttr = attr;
+                let value = document.getElementById(attr).value;
+                document.getElementById("modal-title").innerText = attributeNames[attr] || attr;
+                document.getElementById("modal-input").value = value;
+                document.getElementById("attributeModal").style.display = "flex";
+            }
+
+            // Закрыть модальное окно
+            function closeModal() {
+                document.getElementById("attributeModal").style.display = "none";
+            }
+
+            // Сохранить значение атрибута
+            function saveAttribute() {
+                let value = document.getElementById("modal-input").value;
+                if (!currentAttr) return;
+
+                document.getElementById(`${currentAttr}-button`).textContent = value;
+                document.getElementById(currentAttr).value = value;
+
+                closeModal();
+            }
+
+            // Обработчик для изменения значений радиокнопок навыков
+            document.querySelectorAll('.radio-toggle').forEach(item => {
+                item.addEventListener('change', function () {
+                    let targetId = this.getAttribute('data-target');
+                    let span = document.getElementById(targetId + "-value");
+                    let input = document.getElementById(targetId);
+
+                    if (this.checked) {
+                        let newValue = 2; // Устанавливаем значение
+                        span.innerText = newValue;
+                        input.value = newValue; // Обновляем скрытый input
+                    }
+                });
+            });
+
+        </script>
 </body>
 </html>
