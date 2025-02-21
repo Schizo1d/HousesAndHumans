@@ -243,16 +243,35 @@
         <script>
             let currentAttr = null;
 
-            const attributeNames = {
-                strength: "Сила",
-                dexterity: "Ловкость",
-                constitution: "Телосложение",
-                intelligence: "Интеллект",
-                wisdom: "Мудрость",
-                charisma: "Харизма"
-            };
+            // Функция расчета модификатора атрибута (по правилам D&D)
+            function getModifier(attributeValue) {
+                return Math.floor((attributeValue - 10) / 2);
+            }
 
-            // Открыть модальное окно для изменения значения атрибута
+            // Обновить навыки при изменении атрибута
+            function updateSkills(attribute) {
+                let attrValue = parseInt(document.getElementById(attribute).value);
+                let modifier = getModifier(attrValue);
+
+                let skills = {
+                    strength: ["athletics"],
+                    dexterity: ["acrobatics", "sleight_of_hand", "stealth"],
+                    intelligence: ["investigation", "history", "arcana", "nature", "religion"],
+                    wisdom: ["perception", "survival", "medicine", "insight", "animal_handling"],
+                    charisma: ["performance", "intimidation", "deception", "persuasion"]
+                };
+
+                if (skills[attribute]) {
+                    skills[attribute].forEach(skill => {
+                        let skillValue = parseInt(document.getElementById(skill).value); // Бонус навыка
+                        let finalValue = modifier + skillValue; // Модификатор атрибута + бонус навыка
+
+                        document.getElementById(skill + "-value").innerText = finalValue >= 0 ? `+${finalValue}` : finalValue;
+                    });
+                }
+            }
+
+            // Открытие модального окна и установка текущего атрибута
             function openModal(attr) {
                 currentAttr = attr;
                 let value = document.getElementById(attr).value;
@@ -261,23 +280,25 @@
                 document.getElementById("attributeModal").style.display = "flex";
             }
 
-            // Закрыть модальное окно
+            // Закрытие модального окна
             function closeModal() {
                 document.getElementById("attributeModal").style.display = "none";
             }
 
-            // Сохранить значение атрибута
+            // Сохранение атрибута и обновление навыков
             function saveAttribute() {
-                let value = document.getElementById("modal-input").value;
+                let value = parseInt(document.getElementById("modal-input").value);
                 if (!currentAttr) return;
 
                 document.getElementById(`${currentAttr}-button`).textContent = value;
                 document.getElementById(currentAttr).value = value;
 
+                updateSkills(currentAttr); // Обновить навыки при изменении атрибута
+
                 closeModal();
             }
 
-            // Обработчик для изменения значений радиокнопок навыков
+            // Обработчик клика по навыкам (увеличение циклически)
             document.querySelectorAll('.skill-toggle').forEach(item => {
                 item.addEventListener('click', function () {
                     let targetId = this.getAttribute('data-target');
@@ -285,13 +306,26 @@
                     let input = document.getElementById(targetId);
 
                     let currentValue = parseInt(input.value);
-
-                    // Логика циклического изменения значений: 0 → 2 → 4 → 0
                     let newValue = currentValue === 4 ? 0 : currentValue + 2;
 
-                    span.innerText = `+${newValue}`;
                     input.value = newValue;
+
+                    // Найти, к какому атрибуту относится навык
+                    let attribute = Object.keys(attributeNames).find(attr =>
+                        document.getElementById(attr) && this.closest('.attribute-item').contains(document.getElementById(attr))
+                    );
+
+                    let attributeValue = parseInt(document.getElementById(attribute).value);
+                    let modifier = getModifier(attributeValue);
+                    let finalValue = modifier + newValue;
+
+                    span.innerText = finalValue >= 0 ? `+${finalValue}` : finalValue;
                 });
+            });
+
+            // Первоначальное обновление значений навыков при загрузке
+            document.addEventListener("DOMContentLoaded", function () {
+                Object.keys(attributeNames).forEach(attr => updateSkills(attr));
             });
 
         </script>
