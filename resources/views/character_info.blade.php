@@ -38,21 +38,6 @@
             @csrf
             <input type="hidden" name="character_id" value="{{ $character->id }}">
 
-            <div class="digital_ability">
-                <span>СИЛА</span>
-                <input type="number" class="ability-value" id="strength" name="strength" value="{{ $character->attributes->strength ?? '' }}" required min="1" max="30">
-
-                <div class="ability-checks">
-                    <button class="check-button">ПРОВЕРКА</button>
-                    <button class="save-throw-button">СПАСБРОСОК</button>
-                </div>
-
-                <div class="ability-skill">
-                    <div class="skill-title">АТЛЕТИКА</div>
-                    <span class="skill-value">0</span>
-                </div>
-            </div>
-
             <label for="strength"><img src="{{asset('img/strenght.png')}}" alt="">Сила:</label>
             <input type="number" id="strength" name="strength" value="{{ $character->attributes->strength ?? '' }}" required>
 
