@@ -7,6 +7,62 @@
     <title>Персонажи</title>
     <link rel="stylesheet" href="{{ asset('css/character_info.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <style>
+        .modal {
+            display: none;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 20px;
+            width: 320px;
+            text-align: center;
+            border-radius: 15px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .modal-close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 26px;
+            cursor: pointer;
+            color: #555;
+            background: none;
+            border: none;
+        }
+
+        .modal-close-btn:hover {
+            color: #000;
+        }
+
+        .modal-save-btn {
+            display: block;
+            margin: 10px auto;
+            padding: 10px 15px;
+            border: none;
+            background: #007bff;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+
+        .modal-save-btn:hover {
+            background: #0056b3;
+        }
+    </style>
 </head>
 
 <body>
@@ -37,93 +93,60 @@
         <form action="{{ route('character_attributes.store', ['character' => $character->id]) }}" method="POST">
             @csrf
             <input type="hidden" name="character_id" value="{{ $character->id }}">
-
             <div class="attributes">
-                <label>Сила:</label>
-                <button type="button" class="open-modal" data-attr="strength" data-value="{{ $character->attributes->strength ?? '' }}">
-                    {{ $character->attributes->strength ?? '' }}
-                </button>
-
-                <label>Ловкость:</label>
-                <button type="button" class="open-modal" data-attr="dexterity" data-value="{{ $character->attributes->dexterity ?? '' }}">
-                    {{ $character->attributes->dexterity ?? '' }}
-                </button>
-
-                <label>Телосложение:</label>
-                <button type="button" class="open-modal" data-attr="constitution" data-value="{{ $character->attributes->constitution ?? '' }}">
-                    {{ $character->attributes->constitution ?? '' }}
-                </button>
-
-                <label>Интеллект:</label>
-                <button type="button" class="open-modal" data-attr="intelligence" data-value="{{ $character->attributes->intelligence ?? '' }}">
-                    {{ $character->attributes->intelligence ?? '' }}
-                </button>
-
-                <label>Мудрость:</label>
-                <button type="button" class="open-modal" data-attr="wisdom" data-value="{{ $character->attributes->wisdom ?? '' }}">
-                    {{ $character->attributes->wisdom ?? '' }}
-                </button>
-
-                <label>Харизма:</label>
-                <button type="button" class="open-modal" data-attr="charisma" data-value="{{ $character->attributes->charisma ?? '' }}">
-                    {{ $character->attributes->charisma ?? '' }}
-                </button>
+                @foreach(['strength' => 'Сила', 'dexterity' => 'Ловкость', 'constitution' => 'Телосложение', 'intelligence' => 'Интеллект', 'wisdom' => 'Мудрость', 'charisma' => 'Харизма'] as $attr => $label)
+                    <label>{{ $label }}:</label>
+                    <button type="button" class="open-modal" data-attr="{{ $attr }}" data-value="{{ $character->attributes->$attr ?? '' }}">
+                        {{ $character->attributes->$attr ?? '' }}
+                    </button>
+                @endforeach
             </div>
-
             <button type="submit">Сохранить атрибуты</button>
         </form>
     </div>
 
-    <!-- Модальное окно -->
     <div id="attributeModal" class="modal">
         <div class="modal-content">
-            <span class="close">&times;</span>
+            <button class="modal-close-btn" onclick="closeModal()">✖</button>
             <h3 id="modal-title"></h3>
             <input type="number" id="modal-input" min="1" max="30">
             <input type="hidden" id="modal-attribute">
-            <button id="save-attribute">Сохранить</button>
+            <button class="modal-save-btn" onclick="saveAttribute()">Сохранить</button>
         </div>
     </div>
-
-    <style>
-        .modal { display: none; position: fixed; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); }
-        .modal-content { background: white; padding: 20px; margin: 15% auto; width: 300px; text-align: center; }
-        .close { float: right; font-size: 24px; cursor: pointer; }
-        button { display: block; margin: 10px; padding: 10px; }
-    </style>
-
-    <script>
-        document.querySelectorAll('.open-modal').forEach(button => {
-            button.addEventListener('click', function () {
-                const attr = this.getAttribute('data-attr');
-                const value = this.getAttribute('data-value');
-                document.getElementById('modal-title').innerText = `Изменить ${attr}`;
-                document.getElementById('modal-input').value = value;
-                document.getElementById('modal-attribute').value = attr;
-                document.getElementById('attributeModal').style.display = 'block';
-            });
-        });
-
-        document.querySelector('.close').addEventListener('click', function () {
-            document.getElementById('attributeModal').style.display = 'none';
-        });
-
-        document.getElementById('save-attribute').addEventListener('click', function () {
-            const attr = document.getElementById('modal-attribute').value;
-            const value = document.getElementById('modal-input').value;
-            document.querySelector(`[data-attr="${attr}"]`).textContent = value;
-            document.querySelector(`input[name="${attr}"]`)?.remove();
-            const input = document.createElement('input');
-            input.type = 'hidden';
-            input.name = attr;
-            input.value = value;
-            document.querySelector('form').appendChild(input);
-            document.getElementById('attributeModal').style.display = 'none';
-        });
-    </script>
 </main>
 
-</body>
+<script>
+    function openModal(attr, value) {
+        document.getElementById("modal-title").innerText = "Изменить " + attr;
+        document.getElementById("modal-input").value = value;
+        document.getElementById("modal-attribute").value = attr;
+        document.getElementById("attributeModal").style.display = "flex";
+    }
 
+    function closeModal() {
+        document.getElementById("attributeModal").style.display = "none";
+    }
+
+    document.querySelectorAll('.open-modal').forEach(button => {
+        button.addEventListener('click', function () {
+            openModal(this.getAttribute('data-attr'), this.getAttribute('data-value'));
+        });
+    });
+
+    function saveAttribute() {
+        let attr = document.getElementById("modal-attribute").value;
+        let value = document.getElementById("modal-input").value;
+        document.querySelector(`[data-attr="${attr}"]`).textContent = value;
+        document.querySelector(`input[name="${attr}"]`)?.remove();
+        let input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = attr;
+        input.value = value;
+        document.querySelector('form').appendChild(input);
+        closeModal();
+    }
+</script>
+</body>
 </html>
 
