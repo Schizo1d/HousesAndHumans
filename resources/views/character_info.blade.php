@@ -48,7 +48,7 @@
                         <label>
                             <input type="radio" class="radio-toggle" name="athletics" data-target="athletics"> Атлетика
                         </label>
-                        <span id="athletics-value">+0</span>
+                        <span id="athletics-value">0</span>
                         <input type="hidden" name="athletics" id="athletics" value="0">
                     </div>
                 </div>
