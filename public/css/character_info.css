@@ -61,14 +61,6 @@ header {
     font-size: 24px;
 }
 
-/* Заголовок */
-h2 {
-    text-align: center;
-    color: #fff;
-    margin-bottom: 20px;
-    font-size: 22px;
-}
-
 /* Форма */
 form {
     display: flex;
