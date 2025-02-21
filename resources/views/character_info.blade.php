@@ -38,28 +38,89 @@
             @csrf
             <input type="hidden" name="character_id" value="{{ $character->id }}">
 
-            <label for="strength"><img src="{{asset('img/strenght.png')}}" alt="">Сила:</label>
-            <input type="number" id="strength" name="strength" value="{{ $character->attributes->strength ?? '' }}" required>
+            <div class="attributes">
+                <label>Сила:</label>
+                <button type="button" class="open-modal" data-attr="strength" data-value="{{ $character->attributes->strength ?? '' }}">
+                    {{ $character->attributes->strength ?? '' }}
+                </button>
 
-            <label for="dexterity"><img src="{{asset('img/agility.png')}}" alt="">Ловкость:</label>
-            <input type="number" id="dexterity" name="dexterity" value="{{ $character->attributes->dexterity ?? '' }}" required>
+                <label>Ловкость:</label>
+                <button type="button" class="open-modal" data-attr="dexterity" data-value="{{ $character->attributes->dexterity ?? '' }}">
+                    {{ $character->attributes->dexterity ?? '' }}
+                </button>
 
-            <label for="constitution"><img src="{{asset('img/Physique.png')}}" alt="">Телосложение:</label>
-            <input type="number" id="constitution" name="constitution" value="{{ $character->attributes->constitution ?? '' }}" required>
+                <label>Телосложение:</label>
+                <button type="button" class="open-modal" data-attr="constitution" data-value="{{ $character->attributes->constitution ?? '' }}">
+                    {{ $character->attributes->constitution ?? '' }}
+                </button>
 
-            <label for="intelligence"><img src="{{asset('img/artificial-intelligence.png')}}" alt="">Интеллект:</label>
-            <input type="number" id="intelligence" name="intelligence" value="{{ $character->attributes->intelligence ?? '' }}" required>
+                <label>Интеллект:</label>
+                <button type="button" class="open-modal" data-attr="intelligence" data-value="{{ $character->attributes->intelligence ?? '' }}">
+                    {{ $character->attributes->intelligence ?? '' }}
+                </button>
 
-            <label for="wisdom"><img src="{{asset('img/Wisdom.png')}}" alt="">Мудрость:</label>
-            <input type="number" id="wisdom" name="wisdom" value="{{ $character->attributes->wisdom ?? '' }}" required>
+                <label>Мудрость:</label>
+                <button type="button" class="open-modal" data-attr="wisdom" data-value="{{ $character->attributes->wisdom ?? '' }}">
+                    {{ $character->attributes->wisdom ?? '' }}
+                </button>
 
-            <label for="charisma"><img src="{{asset('img/charisma.png')}}" alt="">Харизма:</label>
-            <input type="number" id="charisma" name="charisma" value="{{ $character->attributes->charisma ?? '' }}" required>
+                <label>Харизма:</label>
+                <button type="button" class="open-modal" data-attr="charisma" data-value="{{ $character->attributes->charisma ?? '' }}">
+                    {{ $character->attributes->charisma ?? '' }}
+                </button>
+            </div>
 
             <button type="submit">Сохранить атрибуты</button>
         </form>
-
     </div>
+
+    <!-- Модальное окно -->
+    <div id="attributeModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3 id="modal-title"></h3>
+            <input type="number" id="modal-input" min="1" max="30">
+            <input type="hidden" id="modal-attribute">
+            <button id="save-attribute">Сохранить</button>
+        </div>
+    </div>
+
+    <style>
+        .modal { display: none; position: fixed; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); }
+        .modal-content { background: white; padding: 20px; margin: 15% auto; width: 300px; text-align: center; }
+        .close { float: right; font-size: 24px; cursor: pointer; }
+        button { display: block; margin: 10px; padding: 10px; }
+    </style>
+
+    <script>
+        document.querySelectorAll('.open-modal').forEach(button => {
+            button.addEventListener('click', function () {
+                const attr = this.getAttribute('data-attr');
+                const value = this.getAttribute('data-value');
+                document.getElementById('modal-title').innerText = `Изменить ${attr}`;
+                document.getElementById('modal-input').value = value;
+                document.getElementById('modal-attribute').value = attr;
+                document.getElementById('attributeModal').style.display = 'block';
+            });
+        });
+
+        document.querySelector('.close').addEventListener('click', function () {
+            document.getElementById('attributeModal').style.display = 'none';
+        });
+
+        document.getElementById('save-attribute').addEventListener('click', function () {
+            const attr = document.getElementById('modal-attribute').value;
+            const value = document.getElementById('modal-input').value;
+            document.querySelector(`[data-attr="${attr}"]`).textContent = value;
+            document.querySelector(`input[name="${attr}"]`)?.remove();
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = attr;
+            input.value = value;
+            document.querySelector('form').appendChild(input);
+            document.getElementById('attributeModal').style.display = 'none';
+        });
+    </script>
 </main>
 
 </body>
