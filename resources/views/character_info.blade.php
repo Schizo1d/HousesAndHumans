@@ -46,9 +46,8 @@
 
                     <div class="sub-attributes">
                         <label>
-                            <input type="radio" class="radio-toggle" name="athletics" data-target="athletics"> Атлетика
+                            <p class="skill-toggle" data-target="athletics">Атлетика: <span id="athletics-value">+0</span></p>
                         </label>
-                        <span id="athletics-value">0</span>
                         <input type="hidden" name="athletics" id="athletics" value="0">
                     </div>
                 </div>
@@ -247,17 +246,19 @@
             }
 
             // Обработчик для изменения значений радиокнопок навыков
-            document.querySelectorAll('.radio-toggle').forEach(item => {
-                item.addEventListener('change', function () {
+            document.querySelectorAll('.skill-toggle').forEach(item => {
+                item.addEventListener('click', function () {
                     let targetId = this.getAttribute('data-target');
                     let span = document.getElementById(targetId + "-value");
                     let input = document.getElementById(targetId);
 
-                    if (this.checked) {
-                        let newValue = 2; // Устанавливаем значение
-                        span.innerText = newValue;
-                        input.value = newValue; // Обновляем скрытый input
-                    }
+                    let currentValue = parseInt(input.value);
+
+                    // Логика циклического изменения значений: 0 → 2 → 4 → 0
+                    let newValue = currentValue === 4 ? 0 : currentValue + 2;
+
+                    span.innerText = `+${newValue}`;
+                    input.value = newValue;
                 });
             });
 
