@@ -59,17 +59,19 @@
                 <p class="text-authorization">Войти в аккаунт</p>
             </div>
             <div class="input-block">
-                <form id="login-form">
-                    <input type="email" id="login-email" name="email" placeholder="Email" required>
-                    <input type="password" id="login-password" name="password" placeholder="Пароль" required>
-                    <button type="submit">Войти</button>
-                </form>
-                <div class="buttons-container">
-                    <button type="button">войти через <i class="fa-brands fa-google"></i></button>
-                    <a href="{{route('vk.auth')}}">
-                        <button type="button">войти через <i class="fa-brands fa-vk"></i></button>
-                    </a>
+                <div class="input-text">
+                    <form id="login-form">
+                        <input type="email" id="login-email" name="email" placeholder="Email" required>
+                        <input type="password" id="login-password" name="password" placeholder="Пароль" required>
+                        <button type="submit" class="btn-auth">Войти</button>
+                    </form>
                 </div>
+            </div>
+            <div class="buttons-container">
+                <button type="button" class="btn-social">Войти через <i class="fa-brands fa-google"></i></button>
+                <a href="{{route('vk.auth')}}">
+                    <button type="button" class="btn-social">Войти через <i class="fa-brands fa-vk"></i></button>
+                </a>
             </div>
             <p class="switch-modal">Нет аккаунта? <a href="#" id="register-link">Зарегистрироваться</a></p>
         </div>
@@ -85,13 +87,15 @@
                 <p class="text-authorization">Регистрация</p>
             </div>
             <div class="input-block">
-                <form id="register-form">
-                    <input type="text" id="register-name" name="name" placeholder="Имя" required>
-                    <input type="email" id="register-email" name="email" placeholder="Email" required>
-                    <input type="password" id="register-password" name="password" placeholder="Пароль" required>
-                    <input type="password" id="register-password-confirm" name="password_confirmation" placeholder="Подтвердите пароль" required>
-                    <button type="submit">Зарегистрироваться</button>
-                </form>
+                <div class="input-text">
+                    <form id="register-form">
+                        <input type="text" id="register-name" name="name" placeholder="Имя" required>
+                        <input type="email" id="register-email" name="email" placeholder="Email" required>
+                        <input type="password" id="register-password" name="password" placeholder="Пароль" required>
+                        <input type="password" id="register-password-confirm" name="password_confirmation" placeholder="Подтвердите пароль" required>
+                        <button type="submit" class="btn-auth">Зарегистрироваться</button>
+                    </form>
+                </div>
             </div>
             <p class="switch-modal">Уже есть аккаунт? <a href="#" id="login-link">Войти</a></p>
         </div>
