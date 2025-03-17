@@ -17,10 +17,16 @@ class AuthController extends Controller
             'password' => 'required|string|min:6|confirmed',
         ]);
 
+        // Генерация случайного 9-значного socialite_id
+        do {
+            $socialite_id = random_int(100000000, 999999999);
+        } while (User::where('socialite_id', $socialite_id)->exists()); // Убеждаемся, что ID уникален
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'socialite_id' => $socialite_id, // Добавляем socialite_id
         ]);
 
         Auth::login($user);
