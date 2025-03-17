@@ -59,24 +59,19 @@
                 <p class="text-authorization">Войти в аккаунт</p>
             </div>
             <div class="input-block">
-                <div class="input-text">
-                    <input type="text" placeholder="Email">
-                    <input type="password" placeholder="Пароль">
-                    <div class="buttons-container">
-                        <button type="button">войти через<i style="margin-left: 20px" class="fa-brands fa-google"></i></button>
-                        <a style="text-decoration: none" href="{{route('vk.auth')}}">
-                            <button type="button">войти через<i style="margin-left: 20px" class="fa-brands fa-vk"></i></button>
-                        </a>
-                    </div>
+                <form id="login-form">
+                    <input type="email" id="login-email" name="email" placeholder="Email" required>
+                    <input type="password" id="login-password" name="password" placeholder="Пароль" required>
+                    <button type="submit">Войти</button>
+                </form>
+                <div class="buttons-container">
+                    <button type="button">войти через <i class="fa-brands fa-google"></i></button>
+                    <a href="{{route('vk.auth')}}">
+                        <button type="button">войти через <i class="fa-brands fa-vk"></i></button>
+                    </a>
                 </div>
             </div>
-            <form id="register-form">
-                <input type="text" name="name" placeholder="Имя" required>
-                <input type="email" name="email" placeholder="Email" required>
-                <input type="password" name="password" placeholder="Пароль" required>
-                <input type="password" name="password_confirmation" placeholder="Подтвердите пароль" required>
-                <button type="submit">Зарегистрироваться</button>
-            </form>
+            <p class="switch-modal">Нет аккаунта? <a href="#" id="register-link">Зарегистрироваться</a></p>
         </div>
     </div>
 
@@ -90,68 +85,61 @@
                 <p class="text-authorization">Регистрация</p>
             </div>
             <div class="input-block">
-                <div class="input-text">
-                    <input type="text" placeholder="Имя">
-                    <input type="text" placeholder="Email">
-                    <input type="password" placeholder="Пароль">
-                    <input type="password" placeholder="Подтвердите пароль">
-                    <div class="buttons-container">
-                        <button type="button">Зарегистрироваться</button>
-                    </div>
-                </div>
+                <form id="register-form">
+                    <input type="text" id="register-name" name="name" placeholder="Имя" required>
+                    <input type="email" id="register-email" name="email" placeholder="Email" required>
+                    <input type="password" id="register-password" name="password" placeholder="Пароль" required>
+                    <input type="password" id="register-password-confirm" name="password_confirmation" placeholder="Подтвердите пароль" required>
+                    <button type="submit">Зарегистрироваться</button>
+                </form>
             </div>
-            <form id="login-form">
-                <input type="email" name="email" placeholder="Email" required>
-                <input type="password" name="password" placeholder="Пароль" required>
-                <button type="submit">Войти</button>
-            </form>
+            <p class="switch-modal">Уже есть аккаунт? <a href="#" id="login-link">Войти</a></p>
         </div>
     </div>
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            document.getElementById("register-form").addEventListener("submit", function (event) {
-                event.preventDefault();
-                let formData = new FormData(this);
+        document.getElementById("register-form").addEventListener("submit", function (event) {
+            event.preventDefault();
+            let formData = new FormData(this);
 
-                fetch("{{ route('register') }}", {
-                    method: "POST",
-                    headers: {
-                        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
-                    },
-                    body: formData
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            alert(data.message);
-                            location.reload();
-                        } else {
-                            alert("Ошибка регистрации");
-                        }
-                    });
-            });
+            fetch("{{ route('register') }}", {
+                method: "POST",
+                headers: {
+                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+                },
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("Регистрация успешна!");
+                        location.reload();
+                    } else {
+                        alert("Ошибка: " + (data.message || "Попробуйте снова."));
+                    }
+                });
+        });
 
-            document.getElementById("login-form").addEventListener("submit", function (event) {
-                event.preventDefault();
-                let formData = new FormData(this);
+        // Обработчик формы входа
+        document.getElementById("login-form").addEventListener("submit", function (event) {
+            event.preventDefault();
+            let formData = new FormData(this);
 
-                fetch("{{ route('login') }}", {
-                    method: "POST",
-                    headers: {
-                        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
-                    },
-                    body: formData
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            alert(data.message);
-                            location.reload();
-                        } else {
-                            alert("Ошибка входа");
-                        }
-                    });
-            });
+            fetch("{{ route('login') }}", {
+                method: "POST",
+                headers: {
+                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+                },
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("Вход выполнен успешно!");
+                        location.reload();
+                    } else {
+                        alert("Ошибка: " + (data.message || "Неверные данные."));
+                    }
+                });
         });
     </script>
 </header>
