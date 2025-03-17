@@ -68,7 +68,7 @@
                 </div>
             </div>
             <div class="buttons-container">
-                <button type="button" onclick="location.href='{{route('google.auth')}}'">
+                <button type="button">
                     Войти через <i class="fa-brands fa-google"></i>
                 </button>
                 <button type="button" onclick="location.href='{{route('vk.auth')}}'">
