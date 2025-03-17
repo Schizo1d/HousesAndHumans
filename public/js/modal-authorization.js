@@ -1,16 +1,19 @@
-const modal = document.getElementsByClassName("modal-bg")[0];
-const openModal = () => {
-    modal.style.display = "block";
+function openLoginModal() {
+    document.getElementById("login-modal").style.display = "flex";
+    document.getElementById("register-modal").style.display = "none";
+}
+
+function openRegisterModal() {
+    document.getElementById("register-modal").style.display = "flex";
+    document.getElementById("login-modal").style.display = "none";
 }
 
 function switchToRegister() {
-    document.getElementById("login-modal").style.display = "none";
-    document.getElementById("register-modal").style.display = "flex";
+    openRegisterModal();
 }
 
 function switchToLogin() {
-    document.getElementById("register-modal").style.display = "none";
-    document.getElementById("login-modal").style.display = "flex";
+    openLoginModal();
 }
 
 function closeModal() {
