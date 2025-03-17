@@ -4,12 +4,18 @@ use App\Http\Controllers\CharacterAttributeController;
 use App\Http\Controllers\CharacterController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\SocialController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+
 
 Route::get('/', function () {
     return view('main');
 });
+
+Route::post('/register', [AuthController::class, 'register'])->name('register');
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Auth::routes();
 

@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Houses&Humans</title>
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('css/font-style.css') }}">
@@ -69,7 +70,13 @@
                     </div>
                 </div>
             </div>
-            <p class="switch-modal">Нет аккаунта? <a href="#" id="register-link">Зарегистрироваться</a></p>
+            <form id="register-form">
+                <input type="text" name="name" placeholder="Имя" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="password" name="password" placeholder="Пароль" required>
+                <input type="password" name="password_confirmation" placeholder="Подтвердите пароль" required>
+                <button type="submit">Зарегистрироваться</button>
+            </form>
         </div>
     </div>
 
@@ -93,9 +100,60 @@
                     </div>
                 </div>
             </div>
-            <p class="switch-modal">Уже есть аккаунт? <a href="#" id="login-link">Войти</a></p>
+            <form id="login-form">
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="password" name="password" placeholder="Пароль" required>
+                <button type="submit">Войти</button>
+            </form>
         </div>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("register-form").addEventListener("submit", function (event) {
+                event.preventDefault();
+                let formData = new FormData(this);
+
+                fetch("{{ route('register') }}", {
+                    method: "POST",
+                    headers: {
+                        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+                    },
+                    body: formData
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert(data.message);
+                            location.reload();
+                        } else {
+                            alert("Ошибка регистрации");
+                        }
+                    });
+            });
+
+            document.getElementById("login-form").addEventListener("submit", function (event) {
+                event.preventDefault();
+                let formData = new FormData(this);
+
+                fetch("{{ route('login') }}", {
+                    method: "POST",
+                    headers: {
+                        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+                    },
+                    body: formData
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert(data.message);
+                            location.reload();
+                        } else {
+                            alert("Ошибка входа");
+                        }
+                    });
+            });
+        });
+    </script>
 </header>
 <main>
             <div class="background-image-main">
