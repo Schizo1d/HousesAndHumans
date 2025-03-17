@@ -1,19 +1,16 @@
-function openLoginModal() {
-    document.getElementById("login-modal").style.display = "flex";
-    document.getElementById("register-modal").style.display = "none";
-}
-
-function openRegisterModal() {
-    document.getElementById("register-modal").style.display = "flex";
-    document.getElementById("login-modal").style.display = "none";
+const modal = document.getElementsByClassName("modal-bg")[0];
+const openModal = () => {
+    modal.style.display = "block";
 }
 
 function switchToRegister() {
-    openRegisterModal();
+    document.getElementById("login-modal").style.display = "none";
+    document.getElementById("register-modal").style.display = "flex";
 }
 
 function switchToLogin() {
-    openLoginModal();
+    document.getElementById("register-modal").style.display = "none";
+    document.getElementById("login-modal").style.display = "flex";
 }
 
 function closeModal() {
