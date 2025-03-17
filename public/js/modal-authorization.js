@@ -18,3 +18,14 @@ function closeModal() {
     document.getElementById("register-modal").style.display = "none";
 }
 
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("register-link").addEventListener("click", function (event) {
+        event.preventDefault();
+        switchToRegister();
+    });
+
+    document.getElementById("login-link").addEventListener("click", function (event) {
+        event.preventDefault();
+        switchToLogin();
+    });
+});
