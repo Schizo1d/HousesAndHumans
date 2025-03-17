@@ -66,15 +66,16 @@
                         <button type="submit" class="btn-auth">Войти</button>
                     </form>
                 </div>
+                <div class="buttons-container">
+                    <button type="button">
+                        Войти через <i class="fa-brands fa-google"></i>
+                    </button>
+                    <button type="button" onclick="location.href='{{route('vk.auth')}}'">
+                        Войти через <i class="fa-brands fa-vk"></i>
+                    </button>
+                </div>
             </div>
-            <div class="buttons-container">
-                <button type="button">
-                    Войти через <i class="fa-brands fa-google"></i>
-                </button>
-                <button type="button" onclick="location.href='{{route('vk.auth')}}'">
-                    Войти через <i class="fa-brands fa-vk"></i>
-                </button>
-            </div>
+
             <p class="switch-modal">Нет аккаунта? <a href="#" id="register-link">Зарегистрироваться</a></p>
         </div>
     </div>
