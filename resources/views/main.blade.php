@@ -69,7 +69,7 @@
                     </div>
                 </div>
             </div>
-            <p class="switch-modal">Нет аккаунта? <a href="#" onclick="switchToRegister()">Зарегистрироваться</a></p>
+            <p class="switch-modal">Нет аккаунта? <a href="#" id="register-link">Зарегистрироваться</a></p>
         </div>
     </div>
 
@@ -93,7 +93,7 @@
                     </div>
                 </div>
             </div>
-            <p class="switch-modal">Уже есть аккаунт? <a href="#" onclick="switchToLogin()">Войти</a></p>
+            <p class="switch-modal">Уже есть аккаунт? <a href="#" id="login-link">Войти</a></p>
         </div>
     </div>
 </header>
