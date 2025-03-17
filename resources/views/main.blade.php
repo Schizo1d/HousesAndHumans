@@ -101,49 +101,33 @@
         </div>
     </div>
     <script>
+        function switchToRegister() {
+            document.getElementById("login-modal").style.display = "none";
+            document.getElementById("register-modal").style.display = "flex";
+        }
+
+        // Функция переключения на вход
+        function switchToLogin() {
+            document.getElementById("register-modal").style.display = "none";
+            document.getElementById("login-modal").style.display = "flex";
+        }
+
+        // Функция закрытия модального окна
+        function closeModal() {
+            document.getElementById("login-modal").style.display = "none";
+            document.getElementById("register-modal").style.display = "none";
+        }
+
+        // Обработчик формы регистрации
         document.getElementById("register-form").addEventListener("submit", function (event) {
             event.preventDefault();
-            let formData = new FormData(this);
-
-            fetch("{{ route('register') }}", {
-                method: "POST",
-                headers: {
-                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
-                },
-                body: formData
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert("Регистрация успешна!");
-                        location.reload();
-                    } else {
-                        alert("Ошибка: " + (data.message || "Попробуйте снова."));
-                    }
-                });
+            alert("Регистрация отправлена!");
         });
 
         // Обработчик формы входа
         document.getElementById("login-form").addEventListener("submit", function (event) {
             event.preventDefault();
-            let formData = new FormData(this);
-
-            fetch("{{ route('login') }}", {
-                method: "POST",
-                headers: {
-                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
-                },
-                body: formData
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert("Вход выполнен успешно!");
-                        location.reload();
-                    } else {
-                        alert("Ошибка: " + (data.message || "Неверные данные."));
-                    }
-                });
+            alert("Вход выполнен!");
         });
     </script>
 </header>
