@@ -68,10 +68,12 @@
                 </div>
             </div>
             <div class="buttons-container">
-                <button type="button" class="btn-social">Войти через <i class="fa-brands fa-google"></i></button>
-                <a href="{{route('vk.auth')}}">
-                    <button type="button" class="btn-social">Войти через <i class="fa-brands fa-vk"></i></button>
-                </a>
+                <button type="button" onclick="location.href='{{route('google.auth')}}'">
+                    Войти через <i class="fa-brands fa-google"></i>
+                </button>
+                <button type="button" onclick="location.href='{{route('vk.auth')}}'">
+                    Войти через <i class="fa-brands fa-vk"></i>
+                </button>
             </div>
             <p class="switch-modal">Нет аккаунта? <a href="#" id="register-link">Зарегистрироваться</a></p>
         </div>
