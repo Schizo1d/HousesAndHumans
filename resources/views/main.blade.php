@@ -115,19 +115,4 @@
 </body>
 <script src="{{ asset('js/modal-authorization.js') }}"></script>
 </html>
-<script>
-    function switchToRegister() {
-        document.getElementById("login-modal").style.display = "none";
-        document.getElementById("register-modal").style.display = "flex";
-    }
 
-    function switchToLogin() {
-        document.getElementById("register-modal").style.display = "none";
-        document.getElementById("login-modal").style.display = "flex";
-    }
-
-    function closeModal() {
-        document.getElementById("login-modal").style.display = "none";
-        document.getElementById("register-modal").style.display = "none";
-    }
-</script>
