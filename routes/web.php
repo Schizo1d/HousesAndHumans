@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('main');
 });
-
 Route::get('/character_list', [CharacterController::class, 'index'])->name('character_list');
 
 Route::post('/character/{character}/attributes', [CharacterAttributeController::class, 'store'])
