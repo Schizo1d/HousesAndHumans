@@ -48,7 +48,7 @@
         </div>
     </div>
 
-    <div class="modal-bg">
+    <div class="modal-bg" id="login-modal">
         <div class="modal">
             <i class="fa-solid fa-xmark close-modal" onclick="closeModal()"></i>
             <img class="modal-img-frame1-3" src="{{asset('img/frame1-3.png')}}" alt="">
@@ -59,15 +59,41 @@
             </div>
             <div class="input-block">
                 <div class="input-text">
-                    <input type="text">
-                    <input type="text">
+                    <input type="text" placeholder="Email">
+                    <input type="password" placeholder="Пароль">
                     <div class="buttons-container">
-                        <button  type="button">войти через<i style="margin-left: 20px" class="fa-brands fa-google"></i></button>
-                        <a style="text-decoration: none" href="{{route('vk.auth')}}"><button  type="button">войти через<i style="margin-left: 20px" class="fa-brands fa-vk"></i></button></a>
+                        <button type="button">войти через<i style="margin-left: 20px" class="fa-brands fa-google"></i></button>
+                        <a style="text-decoration: none" href="{{route('vk.auth')}}">
+                            <button type="button">войти через<i style="margin-left: 20px" class="fa-brands fa-vk"></i></button>
+                        </a>
                     </div>
                 </div>
             </div>
+            <p class="switch-modal">Нет аккаунта? <a href="#" onclick="switchToRegister()">Зарегистрироваться</a></p>
+        </div>
+    </div>
 
+    <div class="modal-bg" id="register-modal" style="display: none;">
+        <div class="modal">
+            <i class="fa-solid fa-xmark close-modal" onclick="closeModal()"></i>
+            <img class="modal-img-frame1-3" src="{{asset('img/frame1-3.png')}}" alt="">
+            <img class="modal-img-frame2-3" src="{{asset('img/frame2-3.png')}}" alt="">
+            <div class="text-modal-authorization">
+                <img class="modal-img-frame3-3" src="{{asset('img/frame3-3.png')}}" alt="">
+                <p class="text-authorization">Регистрация</p>
+            </div>
+            <div class="input-block">
+                <div class="input-text">
+                    <input type="text" placeholder="Имя">
+                    <input type="text" placeholder="Email">
+                    <input type="password" placeholder="Пароль">
+                    <input type="password" placeholder="Подтвердите пароль">
+                    <div class="buttons-container">
+                        <button type="button">Зарегистрироваться</button>
+                    </div>
+                </div>
+            </div>
+            <p class="switch-modal">Уже есть аккаунт? <a href="#" onclick="switchToLogin()">Войти</a></p>
         </div>
     </div>
 </header>
@@ -89,3 +115,19 @@
 </body>
 <script src="{{ asset('js/modal-authorization.js') }}"></script>
 </html>
+<script>
+    function switchToRegister() {
+        document.getElementById("login-modal").style.display = "none";
+        document.getElementById("register-modal").style.display = "flex";
+    }
+
+    function switchToLogin() {
+        document.getElementById("register-modal").style.display = "none";
+        document.getElementById("login-modal").style.display = "flex";
+    }
+
+    function closeModal() {
+        document.getElementById("login-modal").style.display = "none";
+        document.getElementById("register-modal").style.display = "none";
+    }
+</script>
