@@ -44,14 +44,14 @@ document.getElementById("register-form").addEventListener("submit", function (ev
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                alert("Регистрация успешна!");
-                location.reload(); // Перезагрузить страницу после успешной регистрации
+                location.reload(); // Перезагрузка страницы после успешной регистрации
             } else {
-                alert("Ошибка регистрации: " + data.message);
+                alert(data.message);
             }
         })
         .catch(error => console.error("Ошибка:", error));
 });
+
 document.getElementById("login-form").addEventListener("submit", function (event) {
     event.preventDefault();
 
@@ -67,10 +67,9 @@ document.getElementById("login-form").addEventListener("submit", function (event
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                alert("Вход выполнен успешно!");
-                location.reload(); // Перезагрузить страницу после успешного входа
+                location.reload(); // Перезагрузка страницы после успешного входа
             } else {
-                alert("Ошибка входа: " + data.message);
+                alert(data.message);
             }
         })
         .catch(error => console.error("Ошибка:", error));

@@ -17,30 +17,33 @@ class AuthController extends Controller
             'password' => 'required|string|min:6|confirmed',
         ]);
 
-        // Генерация уникального socialite_id, как в VK-авторизации
         do {
             $socialite_id = random_int(100000000, 999999999);
         } while (User::where('socialite_id', $socialite_id)->exists());
 
-
-        // Создание пользователя
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'socialite_id' => $socialite_id,
-            'avatar' => 'default.png', // Можно добавить дефолтную аватарку
         ]);
 
-        // Авторизация пользователя после регистрации
         Auth::login($user);
 
-        session([
-            'user_name' => $user->name,
-            'user_avatar' => $user->avatar,
+        return response()->json(['success' => true]);
+    }
+
+    public function login(Request $request)
+    {
+        $credentials = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required'
         ]);
 
-        // Перенаправляем на главную страницу после успешного входа
-        return redirect('/');
+        if (Auth::attempt($credentials)) {
+            return response()->json(['success' => true]);
+        }
+
+        return response()->json(['success' => false, 'message' => 'Неверные данные!'], 401);
     }
 }
