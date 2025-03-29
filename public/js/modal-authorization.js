@@ -60,6 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.error("Ошибка запроса:", error);
                 alert("Ошибка соединения с сервером.");
             }
+            window.location.reload();
         }
 
         // Навешиваем обработчики на формы регистрации и логина
