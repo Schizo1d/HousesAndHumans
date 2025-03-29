@@ -29,11 +29,12 @@ document.addEventListener("DOMContentLoaded", function () {
         event.preventDefault();
         switchToLogin();
     });
+});
 
     document.addEventListener("DOMContentLoaded", function () {
         // Обработчик отправки формы
         async function handleFormSubmit(event, route) {
-            event.preventDefault();
+            event.preventDefault(); // Останавливаем стандартное поведение
             let form = event.target;
             let formData = new FormData(form);
 
@@ -45,15 +46,15 @@ document.addEventListener("DOMContentLoaded", function () {
                         "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
                         "Accept": "application/json"
                     },
-                    credentials: "include",  // ⚠️ важно для работы с сессиями
+                    credentials: "include", // Для работы с сессиями
                 });
 
                 let data = await response.json();
                 if (data.success) {
-                    // Меняем перезагрузку на редирект на главную страницу
-                    window.location.replace("/");
+                    // Если успех, перезагружаем страницу
+                    window.location.reload(); // Страница перезагружается, и пользователь входит
                 } else {
-                    alert(data.message);
+                    alert(data.message); // Показываем сообщение об ошибке
                 }
             } catch (error) {
                 console.error("Ошибка запроса:", error);
@@ -70,4 +71,4 @@ document.addEventListener("DOMContentLoaded", function () {
             handleFormSubmit(event, "/login")
         );
     });
-});
+

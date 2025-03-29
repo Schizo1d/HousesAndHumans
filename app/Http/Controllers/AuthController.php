@@ -32,7 +32,7 @@ class AuthController extends Controller
             'user_avatar' => $user->avatar,
         ]);
 
-        return response()->json(['success' => true]);
+        return response()->json(['success' => true]); // Успешная регистрация
     }
 
     public function login(Request $request)
@@ -51,9 +51,9 @@ class AuthController extends Controller
                 'user_avatar' => $user->avatar,
             ]);
 
-            return response()->json(['success' => true]);
+            return response()->json(['success' => true]); // Отправляем успешный ответ
         }
 
-        return response()->json(['success' => false, 'message' => 'Неверные данные'], 401);
+        return response()->json(['success' => false, 'message' => 'Неверные данные'], 401); // Отправляем ошибку, если данные неверные
     }
 }
