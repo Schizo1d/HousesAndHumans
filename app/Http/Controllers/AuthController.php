@@ -44,7 +44,7 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
-            session()->regenerate(); // 💥 Важно! Перегенерация сессии
+            session()->regenerate(); // 💥 Фикс проблемы с сессией
 
             session([
                 'user_name' => $user->name,
