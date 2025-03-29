@@ -22,6 +22,8 @@ class AuthController extends Controller
             $socialite_id = random_int(100000000, 999999999);
         } while (User::where('socialite_id', $socialite_id)->exists());
 
+        dd($socialite_id);
+
         // Создание пользователя
         $user = User::create([
             'name' => $request->name,
