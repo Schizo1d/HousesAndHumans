@@ -51,15 +51,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
             let data = await response.json();
 
-            // Если запрос успешный, перезагружаем страницу
+            // Если сервер ответил успешным статусом, перезагружаем страницу
             if (data.success) {
-                window.location.reload(); // Перезагружаем страницу
+                window.location.href = window.location.href; // Это гарантированно обновит страницу
             } else {
-                alert(data.message); // Если ошибка, показываем сообщение
+                console.error("Ошибка:", data.message); // Выводим ошибку в консоль
             }
+
         } catch (error) {
             console.error("Ошибка запроса:", error);
-            alert("Ошибка соединения с сервером.");
         }
     }
 
