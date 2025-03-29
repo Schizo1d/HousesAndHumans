@@ -31,45 +31,43 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-    document.addEventListener("DOMContentLoaded", function () {
-        // Обработчик отправки формы
-        async function handleFormSubmit(event, route) {
-            event.preventDefault(); // Останавливаем стандартное поведение
-            let form = event.target;
-            let formData = new FormData(form);
+document.addEventListener("DOMContentLoaded", function () {
+    // Функция для обработки отправки форм
+    async function handleFormSubmit(event, route) {
+        event.preventDefault(); // Остановим стандартное поведение формы
+        let form = event.target;
+        let formData = new FormData(form);
 
-            try {
-                let response = await fetch(route, {
-                    method: "POST",
-                    body: formData,
-                    headers: {
-                        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
-                        "Accept": "application/json"
-                    },
-                    credentials: "include", // Для работы с сессиями
-                });
+        try {
+            let response = await fetch(route, {
+                method: "POST",
+                body: formData,
+                headers: {
+                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
+                    "Accept": "application/json"
+                },
+                credentials: "include", // Для работы с сессиями
+            });
 
-                let data = await response.json();
-                if (data.success) {
-                    // Если успех, перезагружаем страницу
-                    window.location.reload(); // Страница перезагружается, и пользователь входит
-                } else {
-                    alert(data.message); // Показываем сообщение об ошибке
-                }
-            } catch (error) {
-                console.error("Ошибка запроса:", error);
-                alert("Ошибка соединения с сервером.");
+            let data = await response.json();
+
+            // Если запрос успешный, перезагружаем страницу
+            if (data.success) {
+                window.location.reload(); // Перезагружаем страницу
             }
-            window.location.reload();
+        } catch (error) {
+            console.error("Ошибка запроса:", error);
+            // Оставляем консольную ошибку без alert
         }
+    }
 
-        // Навешиваем обработчики на формы регистрации и логина
-        document.getElementById("register-form").addEventListener("submit", (event) =>
-            handleFormSubmit(event, "/register")
-        );
+    // Навешиваем обработчики на формы регистрации и логина
+    document.getElementById("register-form").addEventListener("submit", (event) =>
+        handleFormSubmit(event, "/register")
+    );
 
-        document.getElementById("login-form").addEventListener("submit", (event) =>
-            handleFormSubmit(event, "/login")
-        );
-    });
+    document.getElementById("login-form").addEventListener("submit", (event) =>
+        handleFormSubmit(event, "/login")
+    );
+});
 
