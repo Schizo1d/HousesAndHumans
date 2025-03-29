@@ -30,36 +30,44 @@ document.addEventListener("DOMContentLoaded", function () {
         switchToLogin();
     });
 
-    async function handleFormSubmit(event, route) {
-        event.preventDefault();
-        let form = event.target;
-        let formData = new FormData(form);
+    document.addEventListener("DOMContentLoaded", function () {
+        // Обработчик отправки формы
+        async function handleFormSubmit(event, route) {
+            event.preventDefault();
+            let form = event.target;
+            let formData = new FormData(form);
 
-        try {
-            let response = await fetch(route, {
-                method: "POST",
-                body: formData,
-                headers: {
-                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
-                    "Accept": "application/json"
-                },
-                credentials: "include"  // 💥 ВАЖНО! Позволяет браузеру сохранять сессию
-            });
+            try {
+                let response = await fetch(route, {
+                    method: "POST",
+                    body: formData,
+                    headers: {
+                        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
+                        "Accept": "application/json"
+                    },
+                    credentials: "include",  // ⚠️ важно для работы с сессиями
+                });
 
-            let data = await response.json();
-            if (data.success) {
-                window.location.href = "/";  // 💥 Вместо reload, редирект на главную
+                let data = await response.json();
+                if (data.success) {
+                    // Меняем перезагрузку на редирект на главную страницу
+                    window.location.replace("/");
+                } else {
+                    alert(data.message);
+                }
+            } catch (error) {
+                console.error("Ошибка запроса:", error);
+                alert("Ошибка соединения с сервером.");
             }
-        } catch (error) {
-            console.error("Ошибка запроса:", error);
         }
-    }
 
-    document.getElementById("register-form").addEventListener("submit", (event) =>
-        handleFormSubmit(event, "/register")
-    );
+        // Навешиваем обработчики на формы регистрации и логина
+        document.getElementById("register-form").addEventListener("submit", (event) =>
+            handleFormSubmit(event, "/register")
+        );
 
-    document.getElementById("login-form").addEventListener("submit", (event) =>
-        handleFormSubmit(event, "/login")
-    );
+        document.getElementById("login-form").addEventListener("submit", (event) =>
+            handleFormSubmit(event, "/login")
+        );
+    });
 });

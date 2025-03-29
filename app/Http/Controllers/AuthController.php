@@ -25,7 +25,7 @@ class AuthController extends Controller
         ]);
 
         Auth::login($user);
-        session()->regenerate(); // 💥
+        session()->regenerate(); // Обновляем сессию после регистрации
 
         session([
             'user_name' => $user->name,
@@ -44,7 +44,7 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
-            session()->regenerate(); // 💥 Фикс проблемы с сессией
+            session()->regenerate(); // Обновляем сессию после логина
 
             session([
                 'user_name' => $user->name,
