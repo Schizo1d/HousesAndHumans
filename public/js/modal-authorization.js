@@ -30,13 +30,37 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById("register-form").addEventListener("submit", function (event) {
+    async function handleFormSubmit(event, route) {
         event.preventDefault();
-        this.submit(); // Отправка формы без AJAX, браузер сам перезагрузит страницу
-    });
+        let form = event.target;
+        let formData = new FormData(form);
 
-    document.getElementById("login-form").addEventListener("submit", function (event) {
-        event.preventDefault();
-        this.submit(); // Отправка формы без AJAX
-    });
+        try {
+            let response = await fetch(route, {
+                method: "POST",
+                body: formData,
+                headers: {
+                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+                }
+            });
+
+            let data = await response.json();
+            if (data.success) {
+                window.location.reload(); // Перезагрузка страницы после успешного входа
+            } else {
+                alert(data.message);
+            }
+        } catch (error) {
+            console.error("Ошибка запроса:", error);
+            alert("Ошибка соединения с сервером.");
+        }
+    }
+
+    document.getElementById("register-form").addEventListener("submit", (event) =>
+        handleFormSubmit(event, "/register")
+    );
+
+    document.getElementById("login-form").addEventListener("submit", (event) =>
+        handleFormSubmit(event, "/login")
+    );
 });
