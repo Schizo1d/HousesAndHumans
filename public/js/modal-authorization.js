@@ -54,11 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             let data = await response.json();
 
-            if (data.success) {
                 window.location.reload(true); // Принудительная перезагрузка страницы без кеша
-            } else {
-                console.error("Ошибка авторизации/регистрации:", data.message);
-            }
         } catch (error) {
             console.error("Ошибка запроса:", error);
         }
