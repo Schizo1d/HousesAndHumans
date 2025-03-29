@@ -25,14 +25,8 @@ class AuthController extends Controller
         ]);
 
         Auth::login($user);
-        session()->regenerate(); // Обновляем сессию после регистрации
 
-        session([
-            'user_name' => $user->name,
-            'user_avatar' => $user->avatar,
-        ]);
-
-        return response()->json(['success' => true]); // Успешный ответ
+        return response()->json(['success' => true]);
     }
 
     public function login(Request $request)
@@ -43,17 +37,9 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
-            $user = Auth::user();
-            session()->regenerate(); // Обновляем сессию после логина
-
-            session([
-                'user_name' => $user->name,
-                'user_avatar' => $user->avatar,
-            ]);
-
-            return response()->json(['success' => true]); // Успешный ответ
+            return response()->json(['success' => true]);
         }
 
-        return response()->json(['success' => false, 'message' => 'Неверные данные'], 401); // Ошибка
+        return response()->json(['success' => false, 'message' => 'Неверные данные'], 401);
     }
 }

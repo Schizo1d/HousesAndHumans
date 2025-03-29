@@ -32,7 +32,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-    // Функция для обработки отправки форм
     async function handleFormSubmit(event, route) {
         event.preventDefault(); // Остановим стандартное поведение формы
         let form = event.target;
@@ -51,13 +50,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
             let data = await response.json();
 
-            // Если сервер ответил успешным статусом, перезагружаем страницу
             if (data.success) {
-                window.location.href = window.location.href; // Это гарантированно обновит страницу
+                // Используем location.replace(), чтобы обновить страницу и избавиться от кэширования
+                location.replace(window.location.href); // Это должно обновить страницу после успешного входа
             } else {
                 console.error("Ошибка:", data.message); // Выводим ошибку в консоль
             }
-
         } catch (error) {
             console.error("Ошибка запроса:", error);
         }
