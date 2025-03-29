@@ -61,7 +61,7 @@
             <div class="input-block">
                 <div class="input-text">
                     <form id="login-form">
-                        <input type="email" id="login-email" name="email" placeholder="Email" required>
+                        <input type="email" id="login-email" name="email" placeholder="Email" required autocomplete="email">
                         <input type="password" id="login-password" name="password" placeholder="Пароль" required>
                         <button type="submit" class="btn-auth">Войти</button>
                     </form>
@@ -92,8 +92,8 @@
             <div class="input-block">
                 <div class="input-text">
                     <form id="register-form">
-                        <input type="text" id="register-name" name="name" placeholder="Имя" required>
-                        <input type="email" id="register-email" name="email" placeholder="Email" required>
+                        <input type="text" id="register-name" name="name" placeholder="Имя" required autocomplete="name">
+                        <input type="email" id="register-email" name="email" placeholder="Email" required autocomplete="email">
                         <input type="password" id="register-password" name="password" placeholder="Пароль" required>
                         <input type="password" id="register-password-confirm" name="password_confirmation" placeholder="Подтвердите пароль" required>
                         <button type="submit" class="btn-auth">Зарегистрироваться</button>
