@@ -104,36 +104,6 @@
             <p class="switch-modal">Уже есть аккаунт? <a href="#" id="login-link">Войти</a></p>
         </div>
     </div>
-    <script>
-        function switchToRegister() {
-            document.getElementById("login-modal").style.display = "none";
-            document.getElementById("register-modal").style.display = "flex";
-        }
-
-        // Функция переключения на вход
-        function switchToLogin() {
-            document.getElementById("register-modal").style.display = "none";
-            document.getElementById("login-modal").style.display = "flex";
-        }
-
-        // Функция закрытия модального окна
-        function closeModal() {
-            document.getElementById("login-modal").style.display = "none";
-            document.getElementById("register-modal").style.display = "none";
-        }
-
-        // Обработчик формы регистрации
-        document.getElementById("register-form").addEventListener("submit", function (event) {
-            event.preventDefault();
-            alert("Регистрация отправлена!");
-        });
-
-        // Обработчик формы входа
-        document.getElementById("login-form").addEventListener("submit", function (event) {
-            event.preventDefault();
-            alert("Вход выполнен!");
-        });
-    </script>
 </header>
 <main>
             <div class="background-image-main">
