@@ -49,12 +49,9 @@ document.addEventListener("DOMContentLoaded", function () {
             let data = await response.json();
             if (data.success) {
                 window.location.href = "/";  // 💥 Вместо reload, редирект на главную
-            } else {
-                alert(data.message);
             }
         } catch (error) {
             console.error("Ошибка запроса:", error);
-            alert("Ошибка соединения с сервером.");
         }
     }
 
