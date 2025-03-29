@@ -41,13 +41,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 body: formData,
                 headers: {
                     "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
-                    "Accept": "application/json"  // <-- важно
-                }
+                    "Accept": "application/json"
+                },
+                credentials: "include"  // 💥 ВАЖНО! Позволяет браузеру сохранять сессию
             });
 
             let data = await response.json();
             if (data.success) {
-                window.location.reload();
+                window.location.href = "/";  // 💥 Вместо reload, редирект на главную
             } else {
                 alert(data.message);
             }

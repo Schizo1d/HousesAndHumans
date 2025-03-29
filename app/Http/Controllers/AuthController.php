@@ -25,10 +25,11 @@ class AuthController extends Controller
         ]);
 
         Auth::login($user);
+        session()->regenerate(); // 💥
 
         session([
-            'user_name' => auth()->user()->name,
-            'user_avatar' => auth()->user()->avatar,
+            'user_name' => $user->name,
+            'user_avatar' => $user->avatar,
         ]);
 
         return response()->json(['success' => true]);
@@ -42,9 +43,12 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+            session()->regenerate(); // 💥 Важно! Перегенерация сессии
+
             session([
-                'user_name' => auth()->user()->name,
-                'user_avatar' => auth()->user()->avatar,
+                'user_name' => $user->name,
+                'user_avatar' => $user->avatar,
             ]);
 
             return response()->json(['success' => true]);
