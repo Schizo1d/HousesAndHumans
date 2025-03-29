@@ -48,13 +48,16 @@ document.addEventListener("DOMContentLoaded", function () {
                 credentials: "include", // Для работы с сессиями
             });
 
+            if (!response.ok) {
+                throw new Error(`HTTP ошибка! Статус: ${response.status}`);
+            }
+
             let data = await response.json();
 
             if (data.success) {
-                // Используем location.replace(), чтобы обновить страницу и избавиться от кэширования
-                location.replace(window.location.href); // Это должно обновить страницу после успешного входа
+                window.location.reload(true); // Принудительная перезагрузка страницы без кеша
             } else {
-                console.error("Ошибка:", data.message); // Выводим ошибку в консоль
+                console.error("Ошибка авторизации/регистрации:", data.message);
             }
         } catch (error) {
             console.error("Ошибка запроса:", error);
@@ -70,6 +73,3 @@ document.addEventListener("DOMContentLoaded", function () {
         handleFormSubmit(event, "/login")
     );
 });
-
-
-
