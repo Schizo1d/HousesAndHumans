@@ -1,4 +1,5 @@
 const modal = document.getElementsByClassName("modal-bg")[0];
+
 const openModal = () => {
     modal.style.display = "block";
 }
@@ -28,8 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
         event.preventDefault();
         switchToLogin();
     });
-});
-document.addEventListener("DOMContentLoaded", function () {
+
     async function handleFormSubmit(event, route) {
         event.preventDefault();
         let form = event.target;
@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             let data = await response.json();
             if (data.success) {
-                window.location.reload(); // Перезагрузка страницы после успешного входа
+                window.location.href = "/"; // Перенаправляем на главную страницу
             } else {
                 alert(data.message);
             }
