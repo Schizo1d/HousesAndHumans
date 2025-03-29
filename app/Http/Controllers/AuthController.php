@@ -17,6 +17,7 @@ class AuthController extends Controller
             'password' => 'required|string|min:6|confirmed',
         ]);
 
+        // Генерация уникального socialite_id
         do {
             $socialite_id = random_int(100000000, 999999999);
         } while (User::where('socialite_id', $socialite_id)->exists());
@@ -30,7 +31,12 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return response()->json(['success' => true]);
+        session([
+            'user_name' => $user->name,
+            'user_avatar' => $user->avatar,
+        ]);
+
+        return redirect()->route('home'); // Перенаправление после регистрации
     }
 
     public function login(Request $request)
@@ -41,9 +47,22 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
-            return response()->json(['success' => true]);
+            $user = Auth::user();
+
+            session([
+                'user_name' => $user->name,
+                'user_avatar' => $user->avatar,
+            ]);
+
+            return redirect()->route('home'); // Перенаправление после входа
         }
 
-        return response()->json(['success' => false, 'message' => 'Неверные данные!'], 401);
+        return back()->withErrors(['email' => 'Неверные данные']);
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('home'); // Перенаправление после выхода
     }
 }

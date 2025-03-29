@@ -30,43 +30,37 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById("register-form").addEventListener("submit", async function (event) {
+    async function handleFormSubmit(event, route) {
         event.preventDefault();
-        let formData = new FormData(this);
+        let form = event.target;
+        let formData = new FormData(form);
 
-        let response = await fetch("{{ route('register') }}", {
-            method: "POST",
-            body: formData,
-            headers: {
-                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+        try {
+            let response = await fetch(route, {
+                method: "POST",
+                body: formData,
+                headers: {
+                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+                }
+            });
+
+            let data = await response.json();
+            if (data.success) {
+                window.location.reload(); // Перезагрузка страницы после успешного входа
+            } else {
+                alert(data.message);
             }
-        });
-
-        let data = await response.json();
-        if (data.success) {
-            location.reload();
-        } else {
-            alert(data.message);
+        } catch (error) {
+            console.error("Ошибка запроса:", error);
+            alert("Ошибка соединения с сервером.");
         }
-    });
+    }
 
-    document.getElementById("login-form").addEventListener("submit", async function (event) {
-        event.preventDefault();
-        let formData = new FormData(this);
+    document.getElementById("register-form").addEventListener("submit", (event) =>
+        handleFormSubmit(event, "/register")
+    );
 
-        let response = await fetch("{{ route('login') }}", {
-            method: "POST",
-            body: formData,
-            headers: {
-                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
-            }
-        });
-
-        let data = await response.json();
-        if (data.success) {
-            location.reload();
-        } else {
-            alert(data.message);
-        }
-    });
+    document.getElementById("login-form").addEventListener("submit", (event) =>
+        handleFormSubmit(event, "/login")
+    );
 });
