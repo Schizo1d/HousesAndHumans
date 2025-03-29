@@ -51,13 +51,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
             let data = await response.json();
 
-            // Если запрос успешный, перезагружаем страницу
+            // Если сервер ответил успешным статусом, перезагружаем страницу
             if (data.success) {
-                window.location.reload(); // Перезагружаем страницу
+                window.location.href = window.location.href; // Это гарантированно обновит страницу
+            } else {
+                console.error("Ошибка:", data.message); // Выводим ошибку в консоль
             }
+
         } catch (error) {
             console.error("Ошибка запроса:", error);
-            // Оставляем консольную ошибку без alert
         }
     }
 
@@ -70,5 +72,6 @@ document.addEventListener("DOMContentLoaded", function () {
         handleFormSubmit(event, "/login")
     );
 });
+
 
 
