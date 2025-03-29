@@ -17,11 +17,16 @@ class AuthController extends Controller
             'password' => 'required|string|min:6|confirmed',
         ]);
 
+        // Генерация уникального socialite_id
+        do {
+            $socialite_id = random_int(100000000, 999999999);
+        } while (User::where('socialite_id', $socialite_id)->exists());
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'socialite_id' => random_int(100000000, 999999999),
+            'socialite_id' => $socialite_id,
         ]);
 
         Auth::login($user);
@@ -31,7 +36,7 @@ class AuthController extends Controller
             'user_avatar' => $user->avatar,
         ]);
 
-        return response()->json(['success' => true]);
+        return redirect()->route('home'); // Перенаправление после регистрации
     }
 
     public function login(Request $request)
@@ -49,9 +54,15 @@ class AuthController extends Controller
                 'user_avatar' => $user->avatar,
             ]);
 
-            return response()->json(['success' => true]);
+            return redirect()->route('home'); // Перенаправление после входа
         }
 
-        return response()->json(['success' => false, 'message' => 'Неверные данные'], 401);
+        return back()->withErrors(['email' => 'Неверные данные']);
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('home'); // Перенаправление после выхода
     }
 }
