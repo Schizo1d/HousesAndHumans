@@ -22,7 +22,6 @@ class AuthController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
-                'socialite_id' => random_int(100000000, 999999999),
             ]);
 
             Auth::login($user);
