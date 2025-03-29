@@ -40,6 +40,7 @@ class AuthController extends Controller
             'user_avatar' => $user->avatar,
         ]);
 
-        return response()->json(['success' => true, 'message' => 'Регистрация успешна!']);
+        // Перенаправляем на главную страницу после успешного входа
+        return redirect('/');
     }
 }
