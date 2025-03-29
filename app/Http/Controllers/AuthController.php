@@ -22,13 +22,12 @@ class AuthController extends Controller
         } while (User::where('socialite_id', $socialite_id)->exists());
 
 
-        $user = \App\Models\User::create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-            'password' => \Illuminate\Support\Facades\Hash::make('password'),
-            'socialite_id' => random_int(100000000, 999999999),
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'socialite_id' => $socialite_id, // <---- должно записываться
         ]);
-        $user->toArray();
 
 
         Auth::login($user);
