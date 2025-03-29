@@ -40,13 +40,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 method: "POST",
                 body: formData,
                 headers: {
-                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
+                    "Accept": "application/json"  // <-- важно
                 }
             });
 
             let data = await response.json();
             if (data.success) {
-                window.location.href = "/"; // Перенаправляем на главную страницу
+                window.location.reload();
             } else {
                 alert(data.message);
             }
