@@ -14,7 +14,7 @@ class CharacterController extends Controller
         $character = Character::with('attributes')->find($id);
 
         if (!$character) {
-            return redirect()->route('character_list')->with('error', 'Персонаж не найден.');
+            return redirect()->route('main')->with('error', 'Персонаж не найден.');
         }
 
         return view('character_info', compact('character'));
@@ -29,7 +29,7 @@ class CharacterController extends Controller
         }
 
         // Если пользователь не авторизован, редиректим на страницу входа
-        return redirect('character_list')->with('success', 'Атрибуты успешно сохранены!');
+        return redirect('/character_list')->with('success', 'Атрибуты успешно сохранены!');
     }
 
     public function store(Request $request)
