@@ -18,13 +18,23 @@ class AuthController extends Controller
                 'password' => 'required|string|min:6|confirmed',
             ]);
 
+            // Устанавливаем дефолтный аватар для новых пользователей
+            $defaultAvatar = asset('img/default-avatar.png'); // Укажи путь к стандартному аватару
+
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
+                'avatar' => $defaultAvatar, // Сохраняем аватар в базу
             ]);
 
             Auth::login($user);
+
+            // Устанавливаем имя и аватар в сессию
+            session([
+                'user_name' => $user->name,
+                'user_avatar' => $user->avatar,
+            ]);
 
             return response()->json(['success' => true, 'redirect' => '/']);
         } catch (\Exception $e) {
@@ -40,6 +50,14 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+
+            // Устанавливаем имя и аватар в сессию после входа
+            session([
+                'user_name' => $user->name,
+                'user_avatar' => $user->avatar,
+            ]);
+
             return response()->json(['success' => true, 'redirect' => '/']);
         }
 
