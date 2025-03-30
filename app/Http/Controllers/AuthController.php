@@ -52,7 +52,10 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
 
-            // Устанавливаем имя и аватар в сессию после входа
+            // Очистка предыдущих данных из сессии
+            session()->flush();
+
+            // Записываем имя и аватар нового пользователя
             session([
                 'user_name' => $user->name,
                 'user_avatar' => $user->avatar,
