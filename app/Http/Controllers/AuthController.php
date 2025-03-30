@@ -26,9 +26,9 @@ class AuthController extends Controller
 
             Auth::login($user);
 
-            return response()->json(['success' => true, 'redirect' => '/']);
+            return redirect('/'); // Серверный редирект на главную страницу
         } catch (\Exception $e) {
-            return response()->json(['success' => false, 'message' => 'Ошибка регистрации: ' . $e->getMessage()], 500);
+            return back()->withErrors(['error' => 'Ошибка регистрации: ' . $e->getMessage()]);
         }
     }
 
@@ -40,9 +40,9 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
-            return response()->json(['success' => true, 'redirect' => '/']);
+            return redirect('/'); // Серверный редирект на главную страницу
         }
 
-        return response()->json(['success' => false, 'message' => 'Неверные данные'], 401);
+        return back()->withErrors(['email' => 'Неверные данные'])->withInput();
     }
 }
