@@ -19,7 +19,7 @@ class AuthController extends Controller
             ]);
 
             // Устанавливаем дефолтный аватар для новых пользователей
-            $defaultAvatar = asset('img/default-avatar.png'); // Укажи путь к стандартному аватару
+            $defaultAvatar = asset('img/avatar.png'); // Укажи путь к стандартному аватару
 
             $user = User::create([
                 'name' => $request->name,
