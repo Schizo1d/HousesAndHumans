@@ -11,26 +11,28 @@ class AuthController extends Controller
 {
     public function register(Request $request)
     {
+        // Валидация данных формы
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ]);
 
-        // Создаём пользователя с дефолтным аватаром
+        // Создание нового пользователя
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'avatar' => 'img/default-avatar.png', // Указываем путь к дефолтному аватару
+            'avatar' => 'img/default-avatar.png', // Дефолтный аватар для новых пользователей
         ]);
 
+        // Авторизация пользователя
         Auth::login($user);
 
-        // Сохраняем имя и аватар в сессии
+        // Сохранение данных пользователя в сессии
         session([
             'user_name' => $user->name,
-            'user_avatar' => $user->avatar,
+            'user_avatar' => $user->avatar,  // Сохраняем аватар
         ]);
 
         return response()->json(['success' => true, 'redirect' => '/']);
@@ -38,18 +40,20 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
+        // Валидация данных формы
         $credentials = $request->validate([
             'email' => 'required|email',
             'password' => 'required'
         ]);
 
+        // Попытка авторизации
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
 
-            // Сохраняем имя и аватар в сессии
+            // Сохранение данных пользователя в сессии
             session([
                 'user_name' => $user->name,
-                'user_avatar' => $user->avatar,
+                'user_avatar' => $user->avatar,  // Сохраняем аватар
             ]);
 
             return response()->json(['success' => true, 'redirect' => '/']);
@@ -58,4 +62,3 @@ class AuthController extends Controller
         return response()->json(['success' => false, 'message' => 'Неверные данные'], 401);
     }
 }
-
