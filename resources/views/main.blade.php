@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://cdnjs.cloudflare.com;">
     <title>Houses&Humans</title>
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('css/font-style.css') }}">
@@ -38,7 +37,7 @@
                     @else
                         <!-- Плашка с кнопкой для авторизации, если пользователь не авторизован -->
                         <img src="{{ asset('img/frame2.png') }}" alt="">
-                        <a id="auth-button" style="font-size: 56px; top: 38%; cursor: pointer;" class="text-overlay">авторизация</a>
+                        <a style="font-size: 56px; top: 38%; cursor: pointer;" class="text-overlay" onclick="openModal();">авторизация</a>
                     @endif
                 </div>
                 <div class="image-text-container" style="height: 80px">
