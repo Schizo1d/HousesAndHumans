@@ -54,16 +54,16 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
-            // Проверяем, вернул ли сервер JSON
+            // Проверяем, что сервер вернул JSON
             let contentType = response.headers.get("content-type");
             if (!contentType || !contentType.includes("application/json")) {
-                throw new Error("Сервер вернул не JSON, возможно, произошёл редирект");
+                throw new Error("Сервер вернул не JSON, возможно, произошёл редирект или ошибка");
             }
 
             let data = await response.json();
 
             if (data.success) {
-                window.location.replace(data.redirect);
+                window.location.replace(data.redirect); // Перенаправляем на главную
             } else {
                 console.error("Ошибка авторизации/регистрации:", data.message);
             }
