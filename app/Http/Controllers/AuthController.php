@@ -17,20 +17,17 @@ class AuthController extends Controller
             'password' => 'required|string|min:6|confirmed',
         ]);
 
+        // Создаём пользователя с дефолтным аватаром
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'avatar' => '/img/avatar.png', // Теперь точно сохранится в БД
+            'avatar' => 'img/default-avatar.png', // Указываем путь к дефолтному аватару
         ]);
 
         Auth::login($user);
 
-        // Очищаем и обновляем сессию
-        session()->invalidate();
-        session()->regenerateToken();
-
-        // Записываем данные пользователя в сессию
+        // Сохраняем имя и аватар в сессии
         session([
             'user_name' => $user->name,
             'user_avatar' => $user->avatar,
@@ -49,14 +46,10 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
 
-            // Очищаем всю сессию перед записью новых данных
-            $request->session()->invalidate();
-            $request->session()->regenerateToken();
-
-            // Обновляем данные сессии с новым пользователем
+            // Сохраняем имя и аватар в сессии
             session([
                 'user_name' => $user->name,
-                'user_avatar' => $user->avatar ?? asset('img/default-avatar.png'), // Указываем аватар по умолчанию
+                'user_avatar' => $user->avatar,
             ]);
 
             return response()->json(['success' => true, 'redirect' => '/']);
@@ -65,3 +58,4 @@ class AuthController extends Controller
         return response()->json(['success' => false, 'message' => 'Неверные данные'], 401);
     }
 }
+
