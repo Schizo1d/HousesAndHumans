@@ -13,11 +13,10 @@
 
 </head>
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        document.getElementById("auth-btn").addEventListener("click", function () {
-            console.log("Клик по кнопке авторизации");
-            openModal();
-        });
+    document.getElementById("auth-btn").addEventListener("click", function () {
+        console.log("Клик по кнопке авторизации");
+        openModal();
+        console.log("openModal вызван");
     });
 </script>
 <body>
