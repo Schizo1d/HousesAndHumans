@@ -64,7 +64,9 @@ document.addEventListener("DOMContentLoaded", function () {
             let data = await response.json();
 
             if (data.success) {
-                window.location.replace(data.redirect || '/'); // Перенаправляем на главную
+                setTimeout(() => {
+                    window.location.href = data.redirect;
+                }, 1000); // Перенаправляем на главную
             } else {
                 console.error("Ошибка авторизации/регистрации:", data.message);
             }
