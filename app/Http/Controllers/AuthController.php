@@ -52,13 +52,14 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
 
-            // Очистка предыдущих данных из сессии
-            session()->flush();
+            // Очищаем всю сессию перед записью новых данных
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
 
-            // Записываем имя и аватар нового пользователя
+            // Обновляем данные сессии с новым пользователем
             session([
                 'user_name' => $user->name,
-                'user_avatar' => $user->avatar,
+                'user_avatar' => $user->avatar ?? asset('img/default-avatar.png'), // Указываем аватар по умолчанию
             ]);
 
             return response()->json(['success' => true, 'redirect' => '/']);
