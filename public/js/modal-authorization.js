@@ -4,6 +4,13 @@ const openModal = () => {
     modal.style.display = "block";
 }
 
+document.addEventListener("DOMContentLoaded", function () {
+    let authButton = document.getElementById("auth-button");
+    if (authButton) {
+        authButton.addEventListener("click", openModal);
+    }
+});
+
 function switchToRegister() {
     document.getElementById("login-modal").style.display = "none";
     document.getElementById("register-modal").style.display = "flex";

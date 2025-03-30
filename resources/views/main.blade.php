@@ -38,7 +38,7 @@
                     @else
                         <!-- Плашка с кнопкой для авторизации, если пользователь не авторизован -->
                         <img src="{{ asset('img/frame2.png') }}" alt="">
-                        <a style="font-size: 56px; top: 38%; cursor: pointer;" class="text-overlay" onclick="openModal();">авторизация</a>
+                        <a id="auth-button" style="font-size: 56px; top: 38%; cursor: pointer;" class="text-overlay">авторизация</a>
                     @endif
                 </div>
                 <div class="image-text-container" style="height: 80px">
