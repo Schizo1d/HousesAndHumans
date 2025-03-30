@@ -18,19 +18,20 @@ class AuthController extends Controller
                 'password' => 'required|string|min:6|confirmed',
             ]);
 
-            // Устанавливаем дефолтный аватар для новых пользователей
-            $defaultAvatar = asset('img/avatar.png'); // Укажи путь к стандартному аватару
-
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
-                'avatar' => $defaultAvatar, // Сохраняем аватар в базу
+                'avatar' => asset('img/default-avatar.png'), // Аватар по умолчанию
             ]);
 
             Auth::login($user);
 
-            // Устанавливаем имя и аватар в сессию
+            // Очищаем и обновляем сессию
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+
+            // Записываем данные пользователя в сессию
             session([
                 'user_name' => $user->name,
                 'user_avatar' => $user->avatar,
