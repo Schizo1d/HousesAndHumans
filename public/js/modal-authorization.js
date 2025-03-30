@@ -48,16 +48,22 @@ document.addEventListener("DOMContentLoaded", function () {
                 credentials: "include",
             });
 
-// Если серверный редирект произошел
+            // Проверяем, был ли редирект
             if (response.redirected) {
                 window.location.href = response.url;
                 return;
             }
 
+            // Проверяем, вернул ли сервер JSON
+            let contentType = response.headers.get("content-type");
+            if (!contentType || !contentType.includes("application/json")) {
+                throw new Error("Сервер вернул не JSON, возможно, произошёл редирект");
+            }
+
             let data = await response.json();
 
             if (data.success) {
-                window.location.replace('/');
+                window.location.replace(data.redirect);
             } else {
                 console.error("Ошибка авторизации/регистрации:", data.message);
             }
@@ -67,11 +73,11 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Навешиваем обработчики на формы регистрации и логина
-    document.getElementById("register-form").addEventListener("submit", (event) =>
+    document.getElementById("register-form")?.addEventListener("submit", (event) =>
         handleFormSubmit(event, "/register")
     );
 
-    document.getElementById("login-form").addEventListener("submit", (event) =>
+    document.getElementById("login-form")?.addEventListener("submit", (event) =>
         handleFormSubmit(event, "/login")
     );
 });
