@@ -24,7 +24,7 @@
                 <div class="image-text-container">
                     @if (Auth::check())
                         <div id="user-info" style="text-align: center;">
-                            <img id="avatar" src="{{ session('user_avatar') }}" alt="Avatar" style="width: 50px; height: 50px; border-radius: 50%; margin-bottom: 10px;">
+                            <img id="avatar" src="{{ session('user_avatar') }}" alt="{{ asset('img/avatar.png') }}" style="width: 50px; height: 50px; border-radius: 50%; margin-bottom: 10px;">
                             <span id="username" style="font-size: 24px; display: block; margin-bottom: 10px;">{{ session('user_name') }}</span>
                             <!-- Кнопка выхода ниже аватара и имени -->
                             <form action="{{ route('logout') }}" method="POST" style="display:inline;">
