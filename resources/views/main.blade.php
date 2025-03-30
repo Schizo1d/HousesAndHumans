@@ -12,15 +12,6 @@
     <link rel="stylesheet" href="{{asset('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css')}}">
 
 </head>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        document.getElementById("auth-btn").addEventListener("click", function () {
-            console.log("Клик по кнопке авторизации");
-            openModal();
-            console.log("openModal вызван");
-        });
-    });
-</script>
 <body>
 <header>
     <div class="container">

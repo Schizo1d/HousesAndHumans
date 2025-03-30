@@ -45,33 +45,27 @@ document.addEventListener("DOMContentLoaded", function () {
                     "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
                     "Accept": "application/json"
                 },
-                credentials: "include",
-                redirect: "follow" // Позволяет fetch автоматически следовать редиректам
+                credentials: "include"
             });
 
-            // Если браузер сам обработал редирект, просто завершаем выполнение
-            if (response.redirected) {
-                window.location.href = response.url;
+            let data;
+            try {
+                data = await response.json();
+            } catch (e) {
+                console.error("Ошибка парсинга JSON:", e);
+                window.location.reload(); // Если сервер вернул HTML (редирект), просто перезагрузим страницу
                 return;
             }
 
-            // Проверяем, что сервер вернул JSON
-            let contentType = response.headers.get("content-type");
-            if (!contentType || !contentType.includes("application/json")) {
-                throw new Error("Сервер вернул не JSON, возможно, произошёл редирект или ошибка.");
-            }
-
-            let data = await response.json();
-
             if (data.success) {
-                setTimeout(() => {
-                    window.location.href = data.redirect;
-                }, 1000); // Перенаправляем на главную
+                console.log("Авторизация/регистрация успешна, редирект на:", data.redirect);
+                window.location.href = data.redirect; // Перенаправляем пользователя
             } else {
                 console.error("Ошибка авторизации/регистрации:", data.message);
             }
         } catch (error) {
             console.error("Ошибка запроса:", error);
+            window.location.reload(); // Если что-то пошло не так, принудительно обновим страницу
         }
     }
 
