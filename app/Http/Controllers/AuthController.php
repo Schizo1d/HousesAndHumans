@@ -11,36 +11,32 @@ class AuthController extends Controller
 {
     public function register(Request $request)
     {
-        try {
-            $request->validate([
-                'name' => 'required|string|max:255',
-                'email' => 'required|string|email|max:255|unique:users',
-                'password' => 'required|string|min:6|confirmed',
-            ]);
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6|confirmed',
+        ]);
 
-            $user = User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-                'avatar' => asset('img/default-avatar.png'), // Аватар по умолчанию
-            ]);
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'avatar' => '/img/avatar.png', // Теперь точно сохранится в БД
+        ]);
 
-            Auth::login($user);
+        Auth::login($user);
 
-            // Очищаем и обновляем сессию
-            $request->session()->invalidate();
-            $request->session()->regenerateToken();
+        // Очищаем и обновляем сессию
+        session()->invalidate();
+        session()->regenerateToken();
 
-            // Записываем данные пользователя в сессию
-            session([
-                'user_name' => $user->name,
-                'user_avatar' => $user->avatar,
-            ]);
+        // Записываем данные пользователя в сессию
+        session([
+            'user_name' => $user->name,
+            'user_avatar' => $user->avatar,
+        ]);
 
-            return response()->json(['success' => true, 'redirect' => '/']);
-        } catch (\Exception $e) {
-            return response()->json(['success' => false, 'message' => 'Ошибка регистрации: ' . $e->getMessage()], 500);
-        }
+        return response()->json(['success' => true, 'redirect' => '/']);
     }
 
     public function login(Request $request)
