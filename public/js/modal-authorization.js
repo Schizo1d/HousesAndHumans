@@ -45,18 +45,19 @@ document.addEventListener("DOMContentLoaded", function () {
                     "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
                     "Accept": "application/json"
                 },
-                credentials: "include", // Для работы с сессиями
+                credentials: "include",
             });
 
-            if (!response.ok) {
-                throw new Error(`HTTP ошибка! Статус: ${response.status}`);
+// Если серверный редирект произошел
+            if (response.redirected) {
+                window.location.href = response.url;
+                return;
             }
 
             let data = await response.json();
 
             if (data.success) {
-                console.log('Успешная авторизация/регистрация');
-                window.location.replace('/'); // Принудительное перенаправление
+                window.location.replace('/');
             } else {
                 console.error("Ошибка авторизации/регистрации:", data.message);
             }
