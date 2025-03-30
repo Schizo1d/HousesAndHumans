@@ -1,9 +1,16 @@
 const modal = document.getElementsByClassName("modal-bg")[0];
 
+/*
 const openModal = () => {
     modal.style.display = "block";
 }
-
+*/
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("auth-btn").addEventListener("click", function () {
+        console.log("Клик по кнопке авторизации");
+        openModal();
+    });
+});
 function switchToRegister() {
     document.getElementById("login-modal").style.display = "none";
     document.getElementById("register-modal").style.display = "flex";
