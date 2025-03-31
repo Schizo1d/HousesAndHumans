@@ -18,15 +18,15 @@ class AuthController extends Controller
             'password' => 'required|string|min:6|confirmed',
         ]);
 
-        // Проверка на наличие аватара, если не передан, устанавливаем дефолтный
-        $avatar = $request->has('avatar') ? $request->avatar : 'img/default-avatar.png';
+        // Устанавливаем дефолтный аватар, если его нет в запросе
+        $avatar = 'img/avatar.png';
 
         // Создание нового пользователя
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'avatar' => $avatar,  // Устанавливаем путь к аватару
+            'avatar' => $avatar,  // Теперь аватар всегда будет указан
         ]);
 
         // Авторизация пользователя
