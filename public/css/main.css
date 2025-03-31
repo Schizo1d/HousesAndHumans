@@ -49,6 +49,13 @@ body {
     width: 40%;
 }
 
+.city-img {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 40%;
+}
+
 .image-text-container {
     position: relative;
     display: inline-block;
