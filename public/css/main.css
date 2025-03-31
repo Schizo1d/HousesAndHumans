@@ -41,7 +41,18 @@ body {
     justify-content: flex-end;
 }
 
-.house-div::after {
+.house-img {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 40%;
+}
+
+.city-div {
+    position: relative;
+    display: inline-block;
+}
+.city-div::after {
     content: '';
     position: absolute;
     top: 0;
@@ -51,14 +62,6 @@ body {
     background-color: rgba(254 250 224); /* Красный цвет с прозрачностью */
     mix-blend-mode: multiply; /* Режим наложения */
 }
-
-.house-img {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 40%;
-}
-
 .city-img {
     position: absolute;
     bottom: 0;
