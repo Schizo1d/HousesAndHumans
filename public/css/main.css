@@ -64,6 +64,7 @@ body {
     height: 100%;
     background-color: rgba(254 250 224); /* Красный цвет с прозрачностью */
     mix-blend-mode: multiply; /* Режим наложения */
+    z-index: -4;
 }
 .city-img {
     position: absolute;
