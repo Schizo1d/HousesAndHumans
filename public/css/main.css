@@ -67,8 +67,9 @@ body {
 }
 .city-img {
     position: absolute;
-    bottom: -20px;
+    bottom: 0;
     right: 0;
+    top: 120px;
     width: 100%;
     z-index: -5;
     filter: blur(3px);
