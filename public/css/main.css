@@ -41,6 +41,16 @@ body {
     justify-content: flex-end;
 }
 
+.image-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(254 250 224); /* Красный цвет с прозрачностью */
+    mix-blend-mode: multiply; /* Режим наложения */
+}
 
 .house-img {
     position: absolute;
@@ -53,13 +63,18 @@ body {
     position: absolute;
     bottom: 0;
     right: 0;
-    width: 40%;
+    width: 100%;
+    z-index: -5;
+    filter: blur(3px);
+    height: 90%;
 }
 
 .image-text-container {
     position: relative;
     display: inline-block;
 }
+
+
 
 .text-overlay {
     position: absolute;
