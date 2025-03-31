@@ -4,8 +4,8 @@
     user-select: none;
 }
 
-.overflow-hidden {
-    overflow-x: hidden; // Горизонтального скроллбара больше нет
+html, body {
+    overflow-y: hidden;
 }
 
 body {
