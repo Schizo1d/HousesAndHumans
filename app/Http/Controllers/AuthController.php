@@ -19,7 +19,7 @@ class AuthController extends Controller
         ]);
 
         // Проверяем, передал ли пользователь аватар, если нет - дефолтный
-        $avatar = $request->avatar ?? 'img/default-avatar.png';
+        $avatar = $request->avatar ?? 'img/avatar.png';
 
         // Создание нового пользователя
         $user = User::create([
