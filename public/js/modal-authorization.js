@@ -58,8 +58,9 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             if (data.success) {
-                console.log("Авторизация/регистрация успешна, редирект на:", data.redirect);
-                window.location.href = data.redirect; // Перенаправляем пользователя
+                console.log("Авторизация/регистрация успешна, перезагрузка страницы...");
+                window.location.href = data.redirect;
+                window.location.reload(true); // Принудительно обновляем страницу
             } else {
                 console.error("Ошибка авторизации/регистрации:", data.message);
             }
