@@ -114,7 +114,7 @@
             <div class="house-div">
                 <img class="house-img" src="{{asset('img/House.png')}}" alt="">
             </div>
-            <div class="city-div">
+            <div class="city-div overflow-hidden">
                 <img class="city-img" src="{{asset('img/city3.png')}}" alt="">
             </div>
 

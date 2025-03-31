@@ -2,7 +2,10 @@
     -moz-user-select: none;
     -webkit-user-select: none;
     user-select: none;
-    overflow-x: hidden;
+}
+
+.overflow-hidden {
+    overflow-x: hidden; // Горизонтального скроллбара больше нет
 }
 
 body {
