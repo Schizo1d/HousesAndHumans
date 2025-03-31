@@ -41,7 +41,7 @@ body {
     justify-content: flex-end;
 }
 
-.image-container::after {
+.house-div::after {
     content: '';
     position: absolute;
     top: 0;
