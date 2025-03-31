@@ -18,24 +18,27 @@ class AuthController extends Controller
             'password' => 'required|string|min:6|confirmed',
         ]);
 
-        // Устанавливаем дефолтный аватар, если его нет в запросе
-        $avatar = 'img/avatar.png';
+        // Очищаем сессию, чтобы не оставался прошлый пользователь
+        session()->flush();
+
+        // Устанавливаем дефолтный аватар
+        $avatar = 'img/default-avatar.png';
 
         // Создание нового пользователя
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'avatar' => $avatar,  // Теперь аватар всегда будет указан
+            'avatar' => $avatar,
         ]);
 
-        // Авторизация пользователя
+        // Авторизуем пользователя
         Auth::login($user);
 
-        // Сохранение данных пользователя в сессии
+        // Перезаписываем сессию
         session([
             'user_name' => $user->name,
-            'user_avatar' => asset($user->avatar),  // Делаем путь абсолютным
+            'user_avatar' => asset($user->avatar),
         ]);
 
         return response()->json(['success' => true, 'redirect' => '/']);
@@ -44,6 +47,9 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
+        // Очищаем сессию перед авторизацией
+        session()->flush();
+
         // Валидация данных формы
         $credentials = $request->validate([
             'email' => 'required|email',
@@ -54,10 +60,10 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
 
-            // Сохранение данных пользователя в сессии
+            // Записываем актуальные данные в сессию
             session([
                 'user_name' => $user->name,
-                'user_avatar' => asset($user->avatar),  // Делаем путь абсолютным
+                'user_avatar' => asset($user->avatar),
             ]);
 
             return response()->json(['success' => true, 'redirect' => '/']);
