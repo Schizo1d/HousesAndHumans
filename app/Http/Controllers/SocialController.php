@@ -36,6 +36,7 @@ class SocialController extends Controller
 
         // Выполняем вход пользователя в систему
         Auth::login($existingUser);
+        session()->regenerate();
 
         session([
             'user_name' => $existingUser->name,

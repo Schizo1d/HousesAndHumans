@@ -34,6 +34,7 @@ class AuthController extends Controller
 
         // Авторизуем пользователя
         Auth::login($user);
+        session()->regenerate();
 
         // Перезаписываем сессию
         session([
