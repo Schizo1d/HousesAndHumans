@@ -112,10 +112,10 @@
                 <p class="text-overlay-logo">клуб настольных<br>ролевых игр</p>
             </div>
             <div class="house-div">
-                <img class="city-img" src="{{asset('img/city3.png')}}" alt="">
                 <img class="house-img" src="{{asset('img/House.png')}}" alt="">
             </div>
             <div class="city-div">
+                <img class="city-img" src="{{asset('img/city3.png')}}" alt="">
             </div>
 
 </main>
