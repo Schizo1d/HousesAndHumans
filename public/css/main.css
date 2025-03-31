@@ -2,10 +2,9 @@
     -moz-user-select: none;
     -webkit-user-select: none;
     user-select: none;
+    overflow-x: hidden;
 }
-::-webkit-scrollbar {
-    width: 0;
-}
+
 body {
     font-family: TildaSans, sans-serif;
     background-color: #fefae0;
