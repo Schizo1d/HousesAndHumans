@@ -3,7 +3,9 @@
     -webkit-user-select: none;
     user-select: none;
 }
-
+::-webkit-scrollbar {
+    width: 0;
+}
 body {
     font-family: TildaSans, sans-serif;
     background-color: #fefae0;
