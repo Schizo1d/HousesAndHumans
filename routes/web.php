@@ -8,7 +8,7 @@ use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::post('/character/update-name', [CharacterController::class, 'updateName'])->name('character.updateName');
+
 
 Route::get('/', function () {
     return view('main');
@@ -42,6 +42,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 // Роуты для персонажей с авторизацией
 Route::middleware(['auth'])->group(function () {
+    Route::post('/character/update-name', [CharacterController::class, 'updateName'])->name('character.updateName');
     Route::post('/characters', [CharacterController::class, 'store'])->name('characters.store');
     Route::delete('/characters/{character}', [CharacterController::class, 'destroy'])->name('characters.destroy');
 });
