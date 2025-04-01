@@ -53,11 +53,12 @@ class CharacterController extends Controller
 
     public function updateName(Request $request)
     {
+        // Валидация входных данных
         $request->validate([
             'name' => 'required|string|max:255',
         ]);
 
-        // Получаем пользователя
+        // Получаем текущего пользователя
         $user = Auth::user();
 
         // Проверяем, есть ли у пользователя персонаж
@@ -65,8 +66,10 @@ class CharacterController extends Controller
             return response()->json(['success' => false, 'error' => 'Персонаж не найден'], 404);
         }
 
-        // Обновляем имя персонажа
+        // Получаем персонажа пользователя
         $character = $user->character;
+
+        // Обновляем имя персонажа
         $character->name = $request->name;
         $character->save();
 
