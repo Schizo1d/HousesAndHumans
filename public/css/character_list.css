@@ -142,6 +142,25 @@ header {
     align-items: center;
 }
 
+.back-button {
+    display: inline-block;
+    background-color: #db934e; /* Цвет кнопки */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+.back-button:hover {
+    background-color: #b87b3d; /* Темнее при наведении */
+    transform: scale(1.05);
+}
+
 .footer {
     position: absolute;
     left: 0;

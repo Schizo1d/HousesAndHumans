@@ -14,7 +14,7 @@
     <div class="container">
         <div class="header__inner">
             <nav class="nav">
-                <a href="{{ route('main') }}"><i class="fa-solid fa-backward"></i></a>
+                <a href="{{ route('main') }}" class="back-button">Назад</a>
                 <h1>Вселенные</h1>
                 @if(Auth::check())
                     <div class="user-info-avatar" id="user-info">
@@ -31,7 +31,7 @@
 <main>
     <div class="container">
         <div class="background-image-main">
-            <img src="{{asset ('img/clouds.png')}}" alt="контур">
+            <img src="{{asset ('img/clouds.png')}}" alt="облака">
         </div>
         @if(Auth::check())
             <p style="font-size: 36px" class="list-text-title">
