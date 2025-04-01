@@ -30,10 +30,12 @@ header{
     text-decoration: none;
     color: black;
 }
-.container-character{
+.container-div {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+.container-character{
     width: 1500px;
     height: 800px;
     background-color: #8a4e2c;

@@ -28,7 +28,7 @@
         </div>
     </div>
 </header>
-<main>
+<main class="container-div">
     <div class="container-character">
         <div class="container">
             <div class="background-image-main">
