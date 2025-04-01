@@ -29,17 +29,25 @@
         </div>
     </div>
 </header>
-<div class="character-nav">
-    <div class="character-photo">
-        <img src="{{ $character->photo ?? 'path/to/default/avatar.jpg' }}" alt="Персонаж" class="character-photo-img">
+<header>
+    <div class="container">
+        <nav class="nav">
+            <div class="character-nav">
+                <div class="character-photo">
+                    <img src="{{ $character->photo ?? 'path/to/default/avatar.jpg' }}" alt="Персонаж"
+                         class="character-photo-img">
+                </div>
+                <div class="character-name">
+                    <h2>{{ $character->name }}</h2>
+                </div>
+            </div>
+        </nav>
     </div>
-    <div class="character-name">
-        <h2>{{ $character->name }}</h2>
-    </div>
-</div>
+</header>
 <main>
     <div class="container-info">
-        <form id="attributesForm" action="{{ route('character_attributes.store', ['character' => $character->id]) }}" method="POST">
+        <form id="attributesForm" action="{{ route('character_attributes.store', ['character' => $character->id]) }}"
+              method="POST">
             @csrf
             <input type="hidden" name="character_id" value="{{ $character->id }}">
 
@@ -47,68 +55,84 @@
                 <!-- Сила -->
                 <div class="attribute-item">
                     <span onclick="openModal('strength')" style="cursor: pointer;">Сила:</span>
-                    <a href="javascript:void(0);" id="strength-button" onclick="openModal('strength')" style="cursor: pointer;">
+                    <a href="javascript:void(0);" id="strength-button" onclick="openModal('strength')"
+                       style="cursor: pointer;">
                         {{ $character->attributes->strength ?? 10 }}
                     </a>
-                    <input type="hidden" id="strength" name="strength" value="{{ $character->attributes->strength ?? 10 }}">
+                    <input type="hidden" id="strength" name="strength"
+                           value="{{ $character->attributes->strength ?? 10 }}">
 
-                    <button type="button" onclick="rollDice('strength')">Проверка<p id="strength-modifier" class="modifier">
+                    <button type="button" onclick="rollDice('strength')">Проверка<p id="strength-modifier"
+                                                                                    class="modifier">
                             ({{ floor(($character->attributes->strength ?? 10 - 10) / 2) }})
-                        </p> </button>
+                        </p></button>
 
                     <div class="sub-attributes">
                         <label>
                             <p class="skill-toggle" data-target="athletics">
-                                Атлетика: <span id="athletics-value">+{{ $character->attributes->athletics ?? 0 }}</span>
+                                Атлетика: <span
+                                    id="athletics-value">+{{ $character->attributes->athletics ?? 0 }}</span>
                             </p>
                         </label>
-                        <input type="hidden" name="athletics" id="athletics" value="{{ $character->attributes->athletics ?? 0 }}">
+                        <input type="hidden" name="athletics" id="athletics"
+                               value="{{ $character->attributes->athletics ?? 0 }}">
                     </div>
                 </div>
 
                 <!-- Ловкость -->
                 <div class="attribute-item">
                     <span onclick="openModal('dexterity')" style="cursor: pointer;">Ловкость:</span>
-                    <a href="javascript:void(0);" id="dexterity-button" onclick="openModal('dexterity')" style="cursor: pointer;">
+                    <a href="javascript:void(0);" id="dexterity-button" onclick="openModal('dexterity')"
+                       style="cursor: pointer;">
                         {{ $character->attributes->dexterity ?? 10 }}
                     </a>
-                    <input type="hidden" id="dexterity" name="dexterity" value="{{ $character->attributes->dexterity ?? 10 }}">
-                    <button type="button" onclick="rollDice('dexterity')">Проверка<p id="dexterity-modifier" class="modifier">
+                    <input type="hidden" id="dexterity" name="dexterity"
+                           value="{{ $character->attributes->dexterity ?? 10 }}">
+                    <button type="button" onclick="rollDice('dexterity')">Проверка<p id="dexterity-modifier"
+                                                                                     class="modifier">
                             ({{ floor(($character->attributes->dexterity ?? 10 - 10) / 2) }})
                         </p></button>
 
                     <div class="sub-attributes">
                         <label>
                             <p class="skill-toggle" data-target="acrobatics">
-                                Акробатика: <span id="acrobatics-value">+{{ $character->attributes->acrobatics ?? 0 }}</span>
+                                Акробатика: <span
+                                    id="acrobatics-value">+{{ $character->attributes->acrobatics ?? 0 }}</span>
                             </p>
                         </label>
-                        <input type="hidden" name="acrobatics" id="acrobatics" value="{{ $character->attributes->acrobatics ?? 0 }}">
+                        <input type="hidden" name="acrobatics" id="acrobatics"
+                               value="{{ $character->attributes->acrobatics ?? 0 }}">
 
                         <label>
                             <p class="skill-toggle" data-target="sleight_of_hand">
-                                Ловкость рук: <span id="sleight_of_hand-value">+{{ $character->attributes->sleight_of_hand ?? 0 }}</span>
+                                Ловкость рук: <span
+                                    id="sleight_of_hand-value">+{{ $character->attributes->sleight_of_hand ?? 0 }}</span>
                             </p>
                         </label>
-                        <input type="hidden" name="sleight_of_hand" id="sleight_of_hand" value="{{ $character->attributes->sleight_of_hand ?? 0 }}">
+                        <input type="hidden" name="sleight_of_hand" id="sleight_of_hand"
+                               value="{{ $character->attributes->sleight_of_hand ?? 0 }}">
 
                         <label>
                             <p class="skill-toggle" data-target="stealth">
                                 Скрытность: <span id="stealth-value">+{{ $character->attributes->stealth ?? 0 }}</span>
                             </p>
                         </label>
-                        <input type="hidden" name="stealth" id="stealth" value="{{ $character->attributes->stealth ?? 0 }}">
+                        <input type="hidden" name="stealth" id="stealth"
+                               value="{{ $character->attributes->stealth ?? 0 }}">
                     </div>
                 </div>
 
                 <!-- Телосложение -->
                 <div class="attribute-item">
                     <span onclick="openModal('constitution')" style="cursor: pointer;">Телосложение:</span>
-                    <a href="javascript:void(0);" id="constitution-button" onclick="openModal('constitution')" style="cursor: pointer;">
+                    <a href="javascript:void(0);" id="constitution-button" onclick="openModal('constitution')"
+                       style="cursor: pointer;">
                         {{ $character->attributes->constitution ?? 10 }}
                     </a>
-                    <input type="hidden" id="constitution" name="constitution" value="{{ $character->attributes->constitution ?? 10 }}">
-                    <button type="button" onclick="rollDice('constitution')">Проверка<p id="constitution-modifier" class="modifier">
+                    <input type="hidden" id="constitution" name="constitution"
+                           value="{{ $character->attributes->constitution ?? 10 }}">
+                    <button type="button" onclick="rollDice('constitution')">Проверка<p id="constitution-modifier"
+                                                                                        class="modifier">
                             ({{ floor(($character->attributes->constitution ?? 10 - 10) / 2) }})
                         </p></button>
                 </div>
@@ -116,56 +140,66 @@
                 <!-- Интеллект -->
                 <div class="attribute-item">
                     <span onclick="openModal('intelligence')" style="cursor: pointer;">Интеллект:</span>
-                    <a href="javascript:void(0);" id="intelligence-button" onclick="openModal('intelligence')" style="cursor: pointer;">
+                    <a href="javascript:void(0);" id="intelligence-button" onclick="openModal('intelligence')"
+                       style="cursor: pointer;">
                         {{ $character->attributes->intelligence ?? 10 }}
                     </a>
-                    <input type="hidden" id="intelligence" name="intelligence" value="{{ $character->attributes->intelligence ?? 10 }}">
-                    <button type="button" onclick="rollDice('intelligence')">Проверка<p id="intelligence-modifier" class="modifier">
+                    <input type="hidden" id="intelligence" name="intelligence"
+                           value="{{ $character->attributes->intelligence ?? 10 }}">
+                    <button type="button" onclick="rollDice('intelligence')">Проверка<p id="intelligence-modifier"
+                                                                                        class="modifier">
                             ({{ floor(($character->attributes->intelligence ?? 10 - 10) / 2) }})
                         </p></button>
 
                     <div class="sub-attributes">
                         <label>
                             <p class="skill-toggle" data-target="investigation">
-                                Анализ: <span id="investigation-value">+{{ $character->attributes->investigation ?? 0 }}</span>
+                                Анализ: <span
+                                    id="investigation-value">+{{ $character->attributes->investigation ?? 0 }}</span>
                             </p>
                         </label>
-                        <input type="hidden" name="investigation" id="investigation" value="{{ $character->attributes->investigation ?? 0 }}">
+                        <input type="hidden" name="investigation" id="investigation"
+                               value="{{ $character->attributes->investigation ?? 0 }}">
 
                         <label>
                             <p class="skill-toggle" data-target="history">
                                 История: <span id="history-value">+{{ $character->attributes->history ?? 0 }}</span>
                             </p>
                         </label>
-                        <input type="hidden" name="history" id="history" value="{{ $character->attributes->history ?? 0 }}">
+                        <input type="hidden" name="history" id="history"
+                               value="{{ $character->attributes->history ?? 0 }}">
 
                         <label>
                             <p class="skill-toggle" data-target="arcana">
                                 Магия: <span id="arcana-value">+{{ $character->attributes->arcana ?? 0 }}</span>
                             </p>
                         </label>
-                        <input type="hidden" name="arcana" id="arcana" value="{{ $character->attributes->arcana ?? 0 }}">
+                        <input type="hidden" name="arcana" id="arcana"
+                               value="{{ $character->attributes->arcana ?? 0 }}">
 
                         <label>
                             <p class="skill-toggle" data-target="nature">
                                 Природа: <span id="nature-value">+{{ $character->attributes->nature ?? 0 }}</span>
                             </p>
                         </label>
-                        <input type="hidden" name="nature" id="nature" value="{{ $character->attributes->nature ?? 0 }}">
+                        <input type="hidden" name="nature" id="nature"
+                               value="{{ $character->attributes->nature ?? 0 }}">
 
                         <label>
                             <p class="skill-toggle" data-target="religion">
                                 Религия: <span id="religion-value">+{{ $character->attributes->religion ?? 0 }}</span>
                             </p>
                         </label>
-                        <input type="hidden" name="religion" id="religion" value="{{ $character->attributes->religion ?? 0 }}">
+                        <input type="hidden" name="religion" id="religion"
+                               value="{{ $character->attributes->religion ?? 0 }}">
                     </div>
                 </div>
 
                 <!-- Мудрость -->
                 <div class="attribute-item">
                     <span onclick="openModal('wisdom')" style="cursor: pointer;">Мудрость:</span>
-                    <a href="javascript:void(0);" id="wisdom-button" onclick="openModal('wisdom')" style="cursor: pointer;">
+                    <a href="javascript:void(0);" id="wisdom-button" onclick="openModal('wisdom')"
+                       style="cursor: pointer;">
                         {{ $character->attributes->wisdom ?? 10 }}
                     </a>
                     <input type="hidden" id="wisdom" name="wisdom" value="{{ $character->attributes->wisdom ?? 10 }}">
@@ -176,80 +210,98 @@
                     <div class="sub-attributes">
                         <label>
                             <p class="skill-toggle" data-target="perception">
-                                Восприятие: <span id="perception-value">+{{ $character->attributes->perception ?? 0 }}</span>
+                                Восприятие: <span
+                                    id="perception-value">+{{ $character->attributes->perception ?? 0 }}</span>
                             </p>
                         </label>
-                        <input type="hidden" name="perception" id="perception" value="{{ $character->attributes->perception ?? 0 }}">
+                        <input type="hidden" name="perception" id="perception"
+                               value="{{ $character->attributes->perception ?? 0 }}">
 
                         <label>
                             <p class="skill-toggle" data-target="survival">
                                 Выживание: <span id="survival-value">+{{ $character->attributes->survival ?? 0 }}</span>
                             </p>
                         </label>
-                        <input type="hidden" name="survival" id="survival" value="{{ $character->attributes->survival ?? 0 }}">
+                        <input type="hidden" name="survival" id="survival"
+                               value="{{ $character->attributes->survival ?? 0 }}">
 
                         <label>
                             <p class="skill-toggle" data-target="medicine">
                                 Медицина: <span id="medicine-value">+{{ $character->attributes->medicine ?? 0 }}</span>
                             </p>
                         </label>
-                        <input type="hidden" name="medicine" id="medicine" value="{{ $character->attributes->medicine ?? 0 }}">
+                        <input type="hidden" name="medicine" id="medicine"
+                               value="{{ $character->attributes->medicine ?? 0 }}">
 
                         <label>
                             <p class="skill-toggle" data-target="insight">
-                                Проницательность: <span id="insight-value">+{{ $character->attributes->insight ?? 0 }}</span>
+                                Проницательность: <span
+                                    id="insight-value">+{{ $character->attributes->insight ?? 0 }}</span>
                             </p>
                         </label>
-                        <input type="hidden" name="insight" id="insight" value="{{ $character->attributes->insight ?? 0 }}">
+                        <input type="hidden" name="insight" id="insight"
+                               value="{{ $character->attributes->insight ?? 0 }}">
 
                         <label>
                             <p class="skill-toggle" data-target="animal_handling">
-                                Уход за животными: <span id="animal_handling-value">+{{ $character->attributes->animal_handling ?? 0 }}</span>
+                                Уход за животными: <span
+                                    id="animal_handling-value">+{{ $character->attributes->animal_handling ?? 0 }}</span>
                             </p>
                         </label>
-                        <input type="hidden" name="animal_handling" id="animal_handling" value="{{ $character->attributes->animal_handling ?? 0 }}">
+                        <input type="hidden" name="animal_handling" id="animal_handling"
+                               value="{{ $character->attributes->animal_handling ?? 0 }}">
                     </div>
                 </div>
 
                 <!-- Харизма -->
                 <div class="attribute-item">
                     <span onclick="openModal('charisma')" style="cursor: pointer;">Харизма:</span>
-                    <a href="javascript:void(0);" id="charisma-button" onclick="openModal('charisma')" style="cursor: pointer;">
+                    <a href="javascript:void(0);" id="charisma-button" onclick="openModal('charisma')"
+                       style="cursor: pointer;">
                         {{ $character->attributes->charisma ?? 10 }}
                     </a>
-                    <input type="hidden" id="charisma" name="charisma" value="{{ $character->attributes->charisma ?? 10 }}">
-                    <button type="button" onclick="rollDice('charisma')">Проверка<p id="charisma-modifier" class="modifier">
+                    <input type="hidden" id="charisma" name="charisma"
+                           value="{{ $character->attributes->charisma ?? 10 }}">
+                    <button type="button" onclick="rollDice('charisma')">Проверка<p id="charisma-modifier"
+                                                                                    class="modifier">
                             ({{ floor(($character->attributes->charisma ?? 10 - 10) / 2) }})
                         </p></button>
 
                     <div class="sub-attributes">
                         <label>
                             <p class="skill-toggle" data-target="performance">
-                                Выступление: <span id="performance-value">+{{ $character->attributes->performance ?? 0 }}</span>
+                                Выступление: <span
+                                    id="performance-value">+{{ $character->attributes->performance ?? 0 }}</span>
                             </p>
                         </label>
-                        <input type="hidden" name="performance" id="performance" value="{{ $character->attributes->performance ?? 0 }}">
+                        <input type="hidden" name="performance" id="performance"
+                               value="{{ $character->attributes->performance ?? 0 }}">
 
                         <label>
                             <p class="skill-toggle" data-target="intimidation">
-                                Запугивание: <span id="intimidation-value">+{{ $character->attributes->intimidation ?? 0 }}</span>
+                                Запугивание: <span
+                                    id="intimidation-value">+{{ $character->attributes->intimidation ?? 0 }}</span>
                             </p>
                         </label>
-                        <input type="hidden" name="intimidation" id="intimidation" value="{{ $character->attributes->intimidation ?? 0 }}">
+                        <input type="hidden" name="intimidation" id="intimidation"
+                               value="{{ $character->attributes->intimidation ?? 0 }}">
 
                         <label>
                             <p class="skill-toggle" data-target="deception">
                                 Обман: <span id="deception-value">+{{ $character->attributes->deception ?? 0 }}</span>
                             </p>
                         </label>
-                        <input type="hidden" name="deception" id="deception" value="{{ $character->attributes->deception ?? 0 }}">
+                        <input type="hidden" name="deception" id="deception"
+                               value="{{ $character->attributes->deception ?? 0 }}">
 
                         <label>
                             <p class="skill-toggle" data-target="persuasion">
-                                Убеждение: <span id="persuasion-value">+{{ $character->attributes->persuasion ?? 0 }}</span>
+                                Убеждение: <span
+                                    id="persuasion-value">+{{ $character->attributes->persuasion ?? 0 }}</span>
                             </p>
                         </label>
-                        <input type="hidden" name="persuasion" id="persuasion" value="{{ $character->attributes->persuasion ?? 0 }}">
+                        <input type="hidden" name="persuasion" id="persuasion"
+                               value="{{ $character->attributes->persuasion ?? 0 }}">
                     </div>
                 </div>
             </div>
