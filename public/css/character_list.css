@@ -33,14 +33,15 @@ body {
 header {
     display: flex;
     justify-content: center;
-    height: 50px;
+    height: 70px;
+    background-color: #e8c27f;
 }
 
 .nav {
     display: flex
 ;
     justify-content: space-between;
-    height: 50px;
+    height: 70px;
 }
 
 .nav a {
