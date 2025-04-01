@@ -13,4 +13,8 @@ class Character extends Model
     {
         return $this->hasOne(CharacterAttribute::class);
     }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

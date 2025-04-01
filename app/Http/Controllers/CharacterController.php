@@ -61,8 +61,13 @@ class CharacterController extends Controller
         // Получаем текущего пользователя
         $user = Auth::user();
 
+        // Выводим информацию о текущем пользователе
+        if (!$user) {
+            return response()->json(['success' => false, 'error' => 'Пользователь не авторизован'], 404);
+        }
+
         // Проверяем, есть ли у пользователя персонаж
-        if (!$user || !$user->character) {
+        if (!$user->character) {
             return response()->json(['success' => false, 'error' => 'Персонаж не найден'], 404);
         }
 
