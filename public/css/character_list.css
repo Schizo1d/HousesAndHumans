@@ -31,9 +31,9 @@ header{
     color: black;
 }
 .container-character{
-    width: 1300px;
-    height: 500px;
-    background-color: #653010;
+    width: 1500px;
+    height: 800px;
+    background-color: #8a4e2c;
     border-radius: 10px;
 }
 .window-auth{
