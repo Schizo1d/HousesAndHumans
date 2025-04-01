@@ -468,46 +468,28 @@
                     }
                 });
             });
-            document.addEventListener("DOMContentLoaded", function () {
-                const nameInput = document.getElementById("character-name-input");
-                const saveButton = document.getElementById("save-character-name");
-                const saveMessage = document.getElementById("save-message");
-                const characterNameElement = document.querySelector(".character-name h2");
+            document.getElementById('save-character-name').addEventListener('click', function () {
+                let newName = document.getElementById('character-name-input').value;
 
-                saveButton.addEventListener("click", function () {
-                    const newName = nameInput.value.trim();
-
-
-                    if (newName === "") {
-                        alert("Имя не может быть пустым!");
-                        return;
-                    } // Не отправляем пустые значения
-
-                    fetch("/character/update-name", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
-                        },
-                        body: JSON.stringify({ name: newName })
+                fetch("{{ route('character.update', $character->id) }}", {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content
+                    },
+                    body: JSON.stringify({ name: newName })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            document.getElementById('save-message').style.display = "block";
+                            setTimeout(() => { location.reload(); }, 1000);
+                        } else {
+                            alert("Ошибка: " + data.message);
+                        }
                     })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                characterNameElement.textContent = data.newName; // Меняем имя в интерфейсе
-                                saveMessage.textContent = "Имя сохранено!";
-                                saveMessage.style.color = "#28a745"; // Зеленый цвет успеха
-                            } else {
-                                saveMessage.textContent = "Ошибка!";
-                                saveMessage.style.color = "red";
-                            }
-                            saveMessage.style.display = "block";
-                            setTimeout(() => saveMessage.style.display = "none", 2000);
-                        })
-                        .catch(error => console.error("Ошибка:", error));
-                });
+                    .catch(error => console.error("Ошибка:", error));
             });
-
         </script>
         <div class="sidebar-modal" id="settings-modal">
             <div class="sidebar-content">
