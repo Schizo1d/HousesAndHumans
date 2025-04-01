@@ -157,7 +157,7 @@ header {
 }
 
 .back-button:hover {
-    background-color: #b87b3d; /* Темнее при наведении */
+    background-color: #efc6a4; /* Темнее при наведении */
     transform: scale(1.05);
 }
 
