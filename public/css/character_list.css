@@ -19,8 +19,6 @@ body {
 header{
         display: flex;
         justify-content: center;
-        background-color: #db934e;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
 .nav {
     display: flex;
@@ -112,7 +110,6 @@ header{
 
 .footer {
     position: absolute;
-    background-color: #db934e;
     left: 0;
     bottom: 0;
     width: 100%;
