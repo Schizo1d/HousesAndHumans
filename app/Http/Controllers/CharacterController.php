@@ -56,6 +56,7 @@ class CharacterController extends Controller
         // Валидация входных данных
         $request->validate([
             'name' => 'required|string|max:255',
+            'character_id' => 'required|exists:characters,id'  // Мы теперь передаем ID персонажа
         ]);
 
         // Получаем текущего авторизованного пользователя
@@ -65,8 +66,8 @@ class CharacterController extends Controller
             return response()->json(['success' => false, 'error' => 'Пользователь не авторизован'], 401);
         }
 
-        // Проверяем, есть ли у пользователя персонажи
-        $character = $user->characters()->first(); // Получаем первого персонажа
+        // Получаем персонажа по ID, который был передан в запросе
+        $character = $user->characters()->find($request->character_id);
 
         if (!$character) {
             return response()->json(['success' => false, 'error' => 'Персонаж не найден для данного пользователя'], 404);
@@ -76,7 +77,19 @@ class CharacterController extends Controller
         $character->name = $request->name;
         $character->save();
 
-        return response()->json(['success' => true, 'newName' => $character->name]);
+        // Теперь нужно сохранить все атрибуты, если они изменены
+        // Например, если у персонажа есть атрибуты, их можно обновлять таким образом:
+        if ($request->has('attributes')) {
+            foreach ($request->attributes as $attribute) {
+                // Обновляем атрибуты персонажа, например:
+                $character->attributes()->updateOrCreate(
+                    ['id' => $attribute['id']], // Найдем атрибут по ID, если он существует
+                    ['value' => $attribute['value']] // Обновим или создадим новый атрибут
+                );
+            }
+        }
+
+        return response()->json(['success' => true, 'newName' => $character->name, 'attributes' => $character->attributes]);
     }
     public function destroy(Character $character)
     {

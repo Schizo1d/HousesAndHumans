@@ -472,6 +472,8 @@
                 const nameInput = document.getElementById("character-name-input");
                 const saveButton = document.getElementById("save-character-name");
                 const saveMessage = document.getElementById("save-message");
+                const characterNameElement = document.querySelector(".character-name h2");
+                const characterId = /* Здесь передаем ID персонажа, который нужно обновить */;
 
                 saveButton.addEventListener("click", function () {
                     const newName = nameInput.value.trim();
@@ -481,26 +483,28 @@
                         return;
                     }
 
+                    // Передаем запрос с character_id
                     fetch("/character/update-name", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
                             "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
                         },
-                        body: JSON.stringify({ name: newName })
+                        body: JSON.stringify({
+                            name: newName,
+                            character_id: characterId, // Отправляем ID персонажа
+                            // Если нужно обновить атрибуты, можно добавить их сюда:
+                            // attributes: [{id: 1, value: 'new value'}, ...]
+                        })
                     })
                         .then(response => response.json())
                         .then(data => {
                             if (data.success) {
-                                // Обновление имени в интерфейсе (везде)
-                                document.querySelectorAll('.character-name').forEach(element => {
-                                    element.textContent = data.newName;
-                                });
-
+                                characterNameElement.textContent = data.newName; // Меняем имя в интерфейсе
                                 saveMessage.textContent = "Имя сохранено!";
-                                saveMessage.style.color = "#28a745";
+                                saveMessage.style.color = "#28a745"; // Зеленый цвет успеха
                             } else {
-                                saveMessage.textContent = "Ошибка: " + data.error;
+                                saveMessage.textContent = "Ошибка! " + data.error;
                                 saveMessage.style.color = "red";
                             }
                             saveMessage.style.display = "block";
