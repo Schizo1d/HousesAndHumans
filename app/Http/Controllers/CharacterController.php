@@ -51,15 +51,17 @@ class CharacterController extends Controller
         return response()->json(['error' => 'User is not authenticated.'], 403);
     }
 
-    public function update(Request $request, Character $character)
+    public function updateName(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',
         ]);
 
-        $character->update(['name' => $request->name]);
+        $character = Auth::user()->character; // Или другой способ нахождения персонажа
+        $character->name = $request->name;
+        $character->save();
 
-        return response()->json(['success' => true, 'message' => 'Имя обновлено!']);
+        return response()->json(['success' => true, 'newName' => $character->name]);
     }
     public function destroy(Character $character)
     {

@@ -8,7 +8,7 @@ use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::patch('/character/{character}', [CharacterController::class, 'update'])->name('character.update');
+Route::post('/character/update-name', [CharacterController::class, 'updateName'])->name('character.updateName');
 
 Route::get('/', function () {
     return view('main');
