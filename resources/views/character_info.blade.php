@@ -473,7 +473,9 @@
                 const saveButton = document.getElementById("save-character-name");
                 const saveMessage = document.getElementById("save-message");
                 const characterNameElement = document.querySelector(".character-name h2");
-                const characterId = /* Здесь должен быть ID персонажа, который ты хочешь обновить. Например: */ 1;
+
+                // Убедись, что передаешь правильный ID персонажа. Например:
+                const characterId = /* Здесь должен быть ID персонажа, который ты хочешь обновить */ 1;
 
                 saveButton.addEventListener("click", function () {
                     const newName = nameInput.value.trim();
@@ -507,7 +509,12 @@
                             saveMessage.style.display = "block";
                             setTimeout(() => saveMessage.style.display = "none", 2000);
                         })
-                        .catch(error => console.error("Ошибка:", error));
+                        .catch(error => {
+                            console.error("Ошибка:", error);
+                            saveMessage.textContent = "Ошибка при запросе!";
+                            saveMessage.style.color = "red";
+                            saveMessage.style.display = "block";
+                        });
                 });
             });
 
