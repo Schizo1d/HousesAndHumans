@@ -80,7 +80,7 @@ header {
     display: flex;
     flex-wrap: wrap;
     overflow-x: auto;
-    gap: 10px;
+    gap: 7px;
     padding: 10px 0;
 }
 
