@@ -2,6 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Персонажи</title>
     <link rel="stylesheet" href="{{ asset('css/character_info.css') }}">
@@ -484,12 +485,50 @@
                     }
                 });
             });
+            document.addEventListener("DOMContentLoaded", function () {
+                const nameInput = document.getElementById("character-name-input");
+                const saveButton = document.getElementById("save-character-name");
+                const saveMessage = document.getElementById("save-message");
+                const characterNameElement = document.querySelector(".character-name h2");
+
+                saveButton.addEventListener("click", function () {
+                    const newName = nameInput.value.trim();
+
+                    if (newName === "") return; // Не отправляем пустые значения
+
+                    fetch("/character/update-name", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+                        },
+                        body: JSON.stringify({ name: newName })
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                characterNameElement.textContent = data.newName; // Меняем имя в интерфейсе
+                                saveMessage.textContent = "Имя сохранено!";
+                                saveMessage.style.color = "#28a745"; // Зеленый цвет успеха
+                            } else {
+                                saveMessage.textContent = "Ошибка!";
+                                saveMessage.style.color = "red";
+                            }
+                            saveMessage.style.display = "block";
+                            setTimeout(() => saveMessage.style.display = "none", 2000);
+                        })
+                        .catch(error => console.error("Ошибка:", error));
+                });
+            });
         </script>
         <div class="sidebar-modal" id="settings-modal">
             <div class="sidebar-content">
                 <button class="close-sidebar" id="close-sidebar">&times;</button>
                 <h2>Настройки</h2>
-                <p>Тут будут настройки персонажа...</p>
+                <label for="character-name-input">Имя персонажа:</label>
+                <input type="text" id="character-name-input" value="{{ $character->name }}">
+                <button id="save-character-name">Сохранить</button>
+                <p id="save-message" style="display: none; color: #28a745;">Имя сохранено!</p>
             </div>
         </div>
 </body>
