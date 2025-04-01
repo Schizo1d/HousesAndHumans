@@ -86,8 +86,9 @@ header {
 }
 
 .character-card {
+    position: relative; /* Теперь кнопки будут привязаны к карточке */
     width: 150px;
-    height: 200px; /* Увеличенная высота */
+    height: 200px; /* Делаем выше, если надо */
     background-color: #f4f4f4;
     border-radius: 10px;
     display: flex;
@@ -128,7 +129,6 @@ header {
     position: absolute;
     top: 10px;
     right: 10px;
-    display: inline-block;
 }
 
 /* Кнопка с тремя точками */
@@ -167,7 +167,7 @@ header {
     background-color: #cc1f1a;
 }
 
-/* Показывать меню при клике */
+/* Показывать меню при наведении */
 .menu:hover .menu-content {
     display: block;
 }

@@ -42,15 +42,15 @@
                 @foreach($characters as $character)
 
                     <div class="character-card" data-id="{{ $character->id }}">
-                        <a style="text-decoration: none" href="{{route('character_info', ['id' => $character->id])}}">
-                            <div class="character-name">{{ $character->name }}</div>
-                        </a>
                         <div class="menu">
                             <button class="menu-button">⋮</button>
                             <div class="menu-content">
                                 <button class="delete-button">Удалить</button>
                             </div>
                         </div>
+                        <a style="text-decoration: none" href="{{ route('character_info', ['id' => $character->id]) }}">
+                            <div class="character-name">{{ $character->name }}</div>
+                        </a>
                     </div>
 
                 @endforeach
