@@ -53,16 +53,19 @@ class CharacterController extends Controller
 
     public function updateName(Request $request)
     {
-        // Здесь твоя логика для обновления имени
-        $character = auth()->user()->character;  // Получаем персонажа текущего пользователя
+        // Получаем персонажа текущего пользователя
+        $character = auth()->user()->character;
 
         if ($character) {
-            $character->name = $request->input('name');  // Обновляем имя персонажа
-            $character->save();  // Сохраняем изменения в базе данных
+            // Обновляем имя
+            $character->name = $request->input('name');
+            $character->save();  // Сохраняем изменения
 
+            // Возвращаем ответ с новым именем
             return response()->json(['success' => true, 'newName' => $character->name]);
         }
 
+        // Если персонаж не найден
         return response()->json(['success' => false, 'message' => 'Персонаж не найден.']);
     }
     public function destroy(Character $character)
