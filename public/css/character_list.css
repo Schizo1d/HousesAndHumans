@@ -34,7 +34,7 @@ header {
     display: flex;
     justify-content: center;
     height: 70px;
-    background-color: #8a4e2c;
+    background-color: #b16639;
 }
 
 .nav {
@@ -156,5 +156,5 @@ header {
     bottom: 0;
     width: 100%;
     height: 100px;
-    background-color: #8a4e2c;
+    background-color: #b16639;
 }
