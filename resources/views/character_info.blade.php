@@ -34,7 +34,7 @@
         <nav class="nav">
             <div class="character-nav">
                 <div class="character-photo">
-                    <img src="{{ $character->photo ?? 'path/to/default/avatar.jpg' }}" alt="Персонаж"
+                    <img src="{{ $character->photo ?? asset('img/avatar.png') }}" alt="Персонаж"
                          class="character-photo-img">
                 </div>
                 <div class="character-name">
