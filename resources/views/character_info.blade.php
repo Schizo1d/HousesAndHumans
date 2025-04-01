@@ -465,6 +465,32 @@
                     event.stopPropagation();
                 });
             });
+            document.addEventListener("DOMContentLoaded", function () {
+                const settingsBtn = document.getElementById("settings-btn");
+                const sidebarModal = document.getElementById("settings-modal");
+                const closeSidebar = document.getElementById("close-sidebar");
+
+                settingsBtn.addEventListener("click", function () {
+                    sidebarModal.classList.add("show");
+                });
+
+                closeSidebar.addEventListener("click", function () {
+                    sidebarModal.classList.remove("show");
+                });
+
+                document.addEventListener("click", function (event) {
+                    if (!sidebarModal.contains(event.target) && !settingsBtn.contains(event.target)) {
+                        sidebarModal.classList.remove("show");
+                    }
+                });
+            });
         </script>
+        <div class="sidebar-modal" id="settings-modal">
+            <div class="sidebar-content">
+                <button class="close-sidebar" id="close-sidebar">&times;</button>
+                <h2>Настройки</h2>
+                <p>Тут будут настройки персонажа...</p>
+            </div>
+        </div>
 </body>
 </html>
