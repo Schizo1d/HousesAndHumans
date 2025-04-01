@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('main');
 });
+Route::delete('/characters/{id}', [CharacterController::class, 'destroy'])->name('character.destroy');
 Route::post('/character/update-name', [CharacterController::class, 'updateName'])->name('character.update-name');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
