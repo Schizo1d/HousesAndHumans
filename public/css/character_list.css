@@ -124,6 +124,54 @@ header {
     align-items: center;
 }
 
+.menu {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: inline-block;
+}
+
+/* Кнопка с тремя точками */
+.menu-button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 5px;
+}
+
+/* Скрытое меню */
+.menu-content {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 0;
+    background: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    overflow: hidden;
+    z-index: 10;
+}
+
+/* Кнопка "Удалить" */
+.menu-content .delete-button {
+    width: 100%;
+    background-color: #e3342f;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+}
+.menu-content .delete-button:hover {
+    background-color: #cc1f1a;
+}
+
+/* Показывать меню при клике */
+.menu:hover .menu-content {
+    display: block;
+}
+
 .delete-button {
     margin-top: 10px;
     padding: 5px 10px;

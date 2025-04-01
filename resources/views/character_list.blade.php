@@ -41,13 +41,17 @@
                 <!-- Загружаем сохранённые персонажи -->
                 @foreach($characters as $character)
 
-                        <div class="character-card" data-id="{{ $character->id }}">
-                            <a style="text-decoration: none" href="{{route('character_info', ['id' => $character->id])}}">
+                    <div class="character-card" data-id="{{ $character->id }}">
+                        <a style="text-decoration: none" href="{{route('character_info', ['id' => $character->id])}}">
                             <div class="character-name">{{ $character->name }}</div>
-                            </a>
-                            <button class="delete-button">Удалить</button>
+                        </a>
+                        <div class="menu">
+                            <button class="menu-button">⋮</button>
+                            <div class="menu-content">
+                                <button class="delete-button">Удалить</button>
+                            </div>
                         </div>
-
+                    </div>
 
                 @endforeach
 
@@ -69,6 +73,7 @@
                     // Показываем или скрываем кнопку "+"
                     addCharacterButton.style.display = totalCharacters >= 16 ? "none" : "flex";
                 }
+
                 // Вызываем функцию при загрузке страницы
                 updateCharacterCounter();
 
@@ -101,8 +106,15 @@
                         const newCharacter = document.createElement('div');
                         newCharacter.className = 'character-card';
                         newCharacter.setAttribute('data-id', character.id);
-                        newCharacter.innerHTML = `<div class="character-name">${character.name}</div>
-        <button class="delete-button">Удалить</button>`;
+                        newCharacter.innerHTML = `
+    <div class="character-name">${character.name}</div>
+    <div class="menu">
+        <button class="menu-button">⋮</button>
+        <div class="menu-content">
+            <button class="delete-button">Удалить</button>
+        </div>
+    </div>
+`;
 
                         // Подключаем событие удаления
                         newCharacter.querySelector('.delete-button').addEventListener('click', () => {
