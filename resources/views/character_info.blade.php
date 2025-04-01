@@ -473,7 +473,7 @@
                 const saveButton = document.getElementById("save-character-name");
                 const saveMessage = document.getElementById("save-message");
                 const characterNameElement = document.querySelector(".character-name h2");
-                const characterId = /* Здесь передаем ID персонажа, который нужно обновить */;
+                const characterId = /* Здесь должен быть ID персонажа, который ты хочешь обновить. Например: */ 1;
 
                 saveButton.addEventListener("click", function () {
                     const newName = nameInput.value.trim();
@@ -483,7 +483,6 @@
                         return;
                     }
 
-                    // Передаем запрос с character_id
                     fetch("/character/update-name", {
                         method: "POST",
                         headers: {
@@ -492,9 +491,7 @@
                         },
                         body: JSON.stringify({
                             name: newName,
-                            character_id: characterId, // Отправляем ID персонажа
-                            // Если нужно обновить атрибуты, можно добавить их сюда:
-                            // attributes: [{id: 1, value: 'new value'}, ...]
+                            character_id: characterId  // Отправляем ID персонажа
                         })
                     })
                         .then(response => response.json())
