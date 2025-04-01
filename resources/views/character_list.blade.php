@@ -113,8 +113,7 @@
         <div class="menu-content">
             <button class="delete-button">Удалить</button>
         </div>
-    </div>
-`;
+    </div>`;
 
                         // Подключаем событие удаления
                         newCharacter.querySelector('.delete-button').addEventListener('click', () => {
