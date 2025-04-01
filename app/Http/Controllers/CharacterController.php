@@ -58,21 +58,19 @@ class CharacterController extends Controller
             'name' => 'required|string|max:255',
         ]);
 
-        // Получаем текущего пользователя
+        // Получаем текущего авторизованного пользователя
         $user = Auth::user();
 
-        // Выводим информацию о текущем пользователе
         if (!$user) {
-            return response()->json(['success' => false, 'error' => 'Пользователь не авторизован'], 404);
+            return response()->json(['success' => false, 'error' => 'Пользователь не авторизован'], 401);
         }
 
         // Проверяем, есть ли у пользователя персонаж
-        if (!$user->character) {
-            return response()->json(['success' => false, 'error' => 'Персонаж не найден'], 404);
-        }
-
-        // Получаем персонажа пользователя
         $character = $user->character;
+
+        if (!$character) {
+            return response()->json(['success' => false, 'error' => 'Персонаж не найден для данного пользователя'], 404);
+        }
 
         // Обновляем имя персонажа
         $character->name = $request->name;

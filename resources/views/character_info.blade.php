@@ -473,13 +473,6 @@
                 const saveButton = document.getElementById("save-character-name");
                 const saveMessage = document.getElementById("save-message");
 
-                // Найдём все элементы, где отображается имя персонажа
-                function updateCharacterName(newName) {
-                    document.querySelectorAll(".character-name h2, h1").forEach(el => {
-                        el.textContent = newName;
-                    });
-                }
-
                 saveButton.addEventListener("click", function () {
                     const newName = nameInput.value.trim();
 
@@ -499,11 +492,15 @@
                         .then(response => response.json())
                         .then(data => {
                             if (data.success) {
-                                updateCharacterName(data.newName); // Обновляем везде
+                                // Обновление имени в интерфейсе (везде)
+                                document.querySelectorAll('.character-name').forEach(element => {
+                                    element.textContent = data.newName;
+                                });
+
                                 saveMessage.textContent = "Имя сохранено!";
-                                saveMessage.style.color = "#28a745"; // Зеленый цвет успеха
+                                saveMessage.style.color = "#28a745";
                             } else {
-                                saveMessage.textContent = "Ошибка!";
+                                saveMessage.textContent = "Ошибка: " + data.error;
                                 saveMessage.style.color = "red";
                             }
                             saveMessage.style.display = "block";
