@@ -520,33 +520,7 @@
                         .catch(error => console.error("Ошибка:", error));
                 });
             });
-            document.getElementById("save-name-btn").addEventListener("click", function () {
-                let newName = document.getElementById("character-name-input").value;
 
-                fetch("/character/update-name", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
-                    },
-                    body: JSON.stringify({ name: newName })
-                })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error("Ошибка сервера: " + response.status);
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        if (data.success) {
-                            document.getElementById("character-name").innerText = data.newName;
-                            console.log("Имя персонажа обновлено:", data.newName);
-                        } else {
-                            throw new Error("Ошибка: " + data.message);
-                        }
-                    })
-                    .catch(error => console.error("Ошибка:", error));
-            });
         </script>
         <div class="sidebar-modal" id="settings-modal">
             <div class="sidebar-content">
