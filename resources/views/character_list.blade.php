@@ -167,6 +167,34 @@
                         deleteCharacter(characterId, characterElement);
                     });
                 });
+                document.addEventListener("DOMContentLoaded", function () {
+                    document.querySelectorAll(".menu-button").forEach(button => {
+                        button.addEventListener("click", function (event) {
+                            event.stopPropagation(); // Чтобы клик не закрывал сразу меню
+                            const menu = this.closest(".menu");
+
+                            // Закрываем все открытые меню перед открытием текущего
+                            document.querySelectorAll(".menu").forEach(m => {
+                                if (m !== menu) m.classList.remove("open");
+                            });
+
+                            // Переключаем состояние текущего меню
+                            menu.classList.toggle("open");
+                        });
+                    });
+
+                    // Закрываем меню при клике вне его
+                    document.addEventListener("click", function () {
+                        document.querySelectorAll(".menu").forEach(menu => menu.classList.remove("open"));
+                    });
+
+                    // Чтобы клик внутри меню не закрывал его
+                    document.querySelectorAll(".menu-content").forEach(menu => {
+                        menu.addEventListener("click", function (event) {
+                            event.stopPropagation();
+                        });
+                    });
+                });
             </script>
         @else
             <h1 class="list-text-title">Интерактивный лист персонажа для D&D 5e</h1>

@@ -167,8 +167,13 @@ header {
     background-color: #cc1f1a;
 }
 
-/* Показывать меню при наведении */
-.menu:hover .menu-content {
+/* Скрываем меню по умолчанию */
+.menu-content {
+    display: none;
+}
+
+/* Показываем меню, если у родителя есть класс "open" */
+.menu.open .menu-content {
     display: block;
 }
 
