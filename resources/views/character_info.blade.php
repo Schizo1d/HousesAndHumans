@@ -33,9 +33,12 @@
     <div class="container">
         <nav class="nav">
             <div class="character-nav">
-                <div class="character-photo">
-                    <img src="{{ $character->photo ?? asset('img/avatar.png') }}" alt="Персонаж"
-                         class="character-photo-img">
+                <div class="character-photo" id="character-avatar">
+                    <img src="{{ $character->photo ?? asset('img/avatar.png') }}" alt="Персонаж" class="character-photo-img">
+                    <div class="dropdown-menu" id="character-dropdown">
+                        <button class="dropdown-item" id="settings-btn">Настройки</button>
+                        <button class="dropdown-item" id="logout-btn">Выход</button>
+                    </div>
                 </div>
                 <div class="character-name">
                     <h2>{{ $character->name }}</h2>
@@ -445,6 +448,23 @@
 
             document.addEventListener("DOMContentLoaded", function () {
                 Object.keys(attributeNames).forEach(attr => updateModifier(attr));
+            });
+            document.addEventListener("DOMContentLoaded", function () {
+                const characterAvatar = document.getElementById("character-avatar");
+                const dropdown = document.getElementById("character-dropdown");
+
+                characterAvatar.addEventListener("click", function (event) {
+                    event.stopPropagation();
+                    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+                });
+
+                document.addEventListener("click", function () {
+                    dropdown.style.display = "none";
+                });
+
+                dropdown.addEventListener("click", function (event) {
+                    event.stopPropagation();
+                });
             });
         </script>
 </body>

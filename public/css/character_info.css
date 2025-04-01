@@ -260,3 +260,35 @@ form label {
     font-weight: bold;
     margin: 0;
 }
+.character-photo {
+    position: relative; /* Нужно для позиционирования выпадающего меню */
+    cursor: pointer;
+}
+
+.dropdown-menu {
+    display: none; /* Скрываем по умолчанию */
+    position: absolute;
+    top: 100%; /* Размещаем под аватаркой */
+    left: 0;
+    background: #db934e;
+    padding: 10px;
+    border-radius: 6px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+    min-width: 150px;
+}
+
+.dropdown-item {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 8px;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+.dropdown-item:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
