@@ -37,7 +37,6 @@
                     <img src="{{ $character->photo ?? asset('img/avatar.png') }}" alt="Персонаж" class="character-photo-img">
                     <div class="dropdown-menu" id="character-dropdown">
                         <button class="dropdown-item" id="settings-btn">Настройки</button>
-                        <button class="dropdown-item" id="logout-btn">Выход</button>
                     </div>
                 </div>
                 <div class="character-name">
