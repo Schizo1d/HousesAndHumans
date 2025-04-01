@@ -59,11 +59,6 @@
             </div>
             <div class="input-block">
                 <div class="input-text">
-                    <form id="login-form">
-                        <input type="email" id="login-email" name="email" placeholder="Email" required autocomplete="email">
-                        <input type="password" id="login-password" name="password" placeholder="Пароль" required>
-                        <button type="submit" class="btn-auth">Войти</button>
-                    </form>
                     <div class="buttons-container">
                         <button type="button">
                             Войти через <i class="fa-brands fa-google"></i>
@@ -74,32 +69,6 @@
                     </div>
                 </div>
             </div>
-
-            <p class="switch-modal">Нет аккаунта? <a href="#" id="register-link">Зарегистрироваться</a></p>
-        </div>
-    </div>
-
-    <div class="modal-bg" id="register-modal" style="display: none;">
-        <div class="modal">
-            <i class="fa-solid fa-xmark close-modal" onclick="closeModal()"></i>
-            <img class="modal-img-frame1-3" src="{{asset('img/frame1-3.png')}}" alt="">
-            <img class="modal-img-frame2-3" src="{{asset('img/frame2-3.png')}}" alt="">
-            <div class="text-modal-authorization">
-                <img class="modal-img-frame3-3" src="{{asset('img/frame3-3.png')}}" alt="">
-                <p class="text-authorization">Регистрация</p>
-            </div>
-            <div class="input-block">
-                <div class="input-text">
-                    <form id="register-form">
-                        <input type="text" id="register-name" name="name" placeholder="Имя" required autocomplete="name">
-                        <input type="email" id="register-email" name="email" placeholder="Email" required autocomplete="email">
-                        <input type="password" id="register-password" name="password" placeholder="Пароль" required>
-                        <input type="password" id="register-password-confirm" name="password_confirmation" placeholder="Подтвердите пароль" required>
-                        <button type="submit" class="btn-auth">Зарегистрироваться</button>
-                    </form>
-                </div>
-            </div>
-            <p class="switch-modal">Уже есть аккаунт? <a href="#" id="login-link">Войти</a></p>
         </div>
     </div>
 </header>
