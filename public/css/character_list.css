@@ -86,7 +86,8 @@ header {
 
 .character-card {
     min-width: 200px;
-    height: 100px;
+    width: 200px;
+    height: 300px; /* Увеличенная высота */
     background-color: #f4f4f4;
     border-radius: 10px;
     display: flex;
