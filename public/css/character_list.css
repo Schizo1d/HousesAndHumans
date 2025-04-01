@@ -34,12 +34,11 @@ header {
     display: flex;
     justify-content: center;
     height: 70px;
-    background-color: #e8c27f;
+    background-color: #8a4e2c;
 }
 
 .nav {
-    display: flex
-;
+    display: flex;
     justify-content: space-between;
     height: 70px;
 }
@@ -157,4 +156,5 @@ header {
     bottom: 0;
     width: 100%;
     height: 100px;
+    background-color: #8a4e2c;
 }
