@@ -485,40 +485,32 @@
                     }
                 });
             });
-            document.addEventListener("DOMContentLoaded", function () {
-                const nameInput = document.getElementById("character-name-input");
-                const saveButton = document.getElementById("save-character-name");
-                const saveMessage = document.getElementById("save-message");
-                const characterNameElement = document.querySelector(".character-name h2");
+            document.getElementById("save-name-btn").addEventListener("click", function () {
+                let newName = document.getElementById("character-name-input").value;
 
-                saveButton.addEventListener("click", function () {
-                    const newName = nameInput.value.trim();
-
-                    if (newName === "") return; // Не отправляем пустые значения
-
-                    fetch("/character/update-name", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
-                        },
-                        body: JSON.stringify({ name: newName })
+                fetch("/character/update-name", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+                    },
+                    body: JSON.stringify({ name: newName })
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error("Ошибка сервера: " + response.status);
+                        }
+                        return response.json();
                     })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                characterNameElement.textContent = data.newName; // Меняем имя в интерфейсе
-                                saveMessage.textContent = "Имя сохранено!";
-                                saveMessage.style.color = "#28a745"; // Зеленый цвет успеха
-                            } else {
-                                saveMessage.textContent = "Ошибка!";
-                                saveMessage.style.color = "red";
-                            }
-                            saveMessage.style.display = "block";
-                            setTimeout(() => saveMessage.style.display = "none", 2000);
-                        })
-                        .catch(error => console.error("Ошибка:", error));
-                });
+                    .then(data => {
+                        if (data.success) {
+                            document.getElementById("character-name").innerText = data.newName;
+                            console.log("Имя персонажа обновлено:", data.newName);
+                        } else {
+                            throw new Error("Ошибка: " + data.message);
+                        }
+                    })
+                    .catch(error => console.error("Ошибка:", error));
             });
         </script>
         <div class="sidebar-modal" id="settings-modal">
