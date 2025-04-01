@@ -63,15 +63,11 @@
 
                 // Функция для обновления счетчика
                 function updateCharacterCounter() {
-                    const totalCharacters = document.querySelectorAll('.character-card').length - 1; // -1, чтобы не учитывать кнопку "+"
+                    const totalCharacters = document.querySelectorAll('.character-card').length - 1; // Исключаем кнопку "+"
                     characterCounter.textContent = `(${totalCharacters}/16)`;
 
-                    // Скрываем кнопку добавления, если достигнут лимит
-                    if (totalCharacters >= 17) {
-                        addCharacterButton.style.display = "none";
-                    } else {
-                        addCharacterButton.style.display = "flex";
-                    }
+                    // Показываем или скрываем кнопку "+"
+                    addCharacterButton.style.display = totalCharacters >= 16 ? "none" : "flex";
                 }
                 // Вызываем функцию при загрузке страницы
                 updateCharacterCounter();
@@ -115,7 +111,7 @@
 
                         // Добавляем новый элемент перед кнопкой добавления
                         characterContainer.insertBefore(newCharacter, addCharacterButton);
-
+                        updateCharacterCounter();
                         // Проверяем, если персонажей уже 16, убираем кнопку добавления
                         if (document.querySelectorAll('.character-card').length >= 17) {
                             addCharacterButton.style.display = "none";
