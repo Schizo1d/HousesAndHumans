@@ -60,8 +60,11 @@
 
                 // Добавление нового персонажа
                 addCharacterButton.addEventListener('click', async () => {
-                    if (document.querySelectorAll('.character-card').length >= 16) {
+                    const characterCards = document.querySelectorAll('.character-card').length;
+
+                    if (characterCards >= 16) {
                         alert("Максимальное количество персонажей достигнуто!");
+                        addCharacterButton.style.display = "none"; // Скрываем кнопку добавления
                         return;
                     }
 
@@ -94,6 +97,11 @@
 
                         // Добавляем новый элемент перед кнопкой добавления
                         characterContainer.insertBefore(newCharacter, addCharacterButton);
+
+                        // Проверяем, если персонажей уже 16, убираем кнопку добавления
+                        if (document.querySelectorAll('.character-card').length >= 16) {
+                            addCharacterButton.style.display = "none";
+                        }
                     } catch (error) {
                         console.error('Ошибка при добавлении персонажа:', error);
                     }
@@ -114,6 +122,11 @@
 
                         // Удаляем элемент из DOM
                         element.remove();
+
+                        // Если персонажей стало меньше 16, показываем кнопку добавления
+                        if (document.querySelectorAll('.character-card').length < 16) {
+                            addCharacterButton.style.display = "flex";
+                        }
                     } catch (error) {
                         console.error('Ошибка при удалении персонажа:', error);
                     }
