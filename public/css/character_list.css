@@ -34,7 +34,7 @@ header {
     display: flex;
     justify-content: center;
     height: 70px;
-    background-color: #b16639;
+    background-color: #db934e;
 }
 
 .nav {
@@ -54,14 +54,6 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.container-character {
-    width: 1450px;
-    height: 800px;
-    background-color: #8a4e2c;
-    border-radius: 50px;
-    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0.5, 0.5);
 }
 
 .window-auth {
@@ -156,5 +148,5 @@ header {
     bottom: 0;
     width: 100%;
     height: 100px;
-    background-color: #b16639;
+    background-color: #db934e;
 }
