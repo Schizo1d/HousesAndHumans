@@ -122,6 +122,42 @@
                         deleteCharacter(characterId, characterElement);
                     });
                 });
+                addCharacterButton.addEventListener('click', async () => {
+                    if (document.querySelectorAll('.character-card').length >= 16) {
+                        alert("Максимальное количество персонажей достигнуто!");
+                        return;
+                    }
+
+                    let name = prompt("Введите имя персонажа:");
+                    name = name ? name.trim() : "Безымянный персонаж";
+
+                    try {
+                        const response = await fetch('/characters', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            },
+                            body: JSON.stringify({name}),
+                        });
+
+                        const character = await response.json();
+
+                        const newCharacter = document.createElement('div');
+                        newCharacter.className = 'character-card';
+                        newCharacter.setAttribute('data-id', character.id);
+                        newCharacter.innerHTML = `<div class="character-name">${character.name}</div>
+        <button class="delete-button">Удалить</button>`;
+
+                        newCharacter.querySelector('.delete-button').addEventListener('click', () => {
+                            deleteCharacter(character.id, newCharacter);
+                        });
+
+                        characterContainer.insertBefore(newCharacter, addCharacterButton);
+                    } catch (error) {
+                        console.error('Ошибка при добавлении персонажа:', error);
+                    }
+                });
             </script>
         @else
             <h1 class="list-text-title">Интерактивный лист персонажа для D&D 5e</h1>
