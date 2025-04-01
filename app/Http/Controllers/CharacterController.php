@@ -57,7 +57,16 @@ class CharacterController extends Controller
             'name' => 'required|string|max:255',
         ]);
 
-        $character = Auth::user()->character; // Или другой способ нахождения персонажа
+        // Получаем пользователя
+        $user = Auth::user();
+
+        // Проверяем, есть ли у пользователя персонаж
+        if (!$user || !$user->character) {
+            return response()->json(['success' => false, 'error' => 'Персонаж не найден'], 404);
+        }
+
+        // Обновляем имя персонажа
+        $character = $user->character;
         $character->name = $request->name;
         $character->save();
 
