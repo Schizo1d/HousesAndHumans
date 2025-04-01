@@ -61,7 +61,6 @@ class CharacterController extends Controller
 
         // Получаем текущего авторизованного пользователя
         $user = Auth::user();
-
         if (!$user) {
             return response()->json(['success' => false, 'error' => 'Пользователь не авторизован'], 401);
         }
