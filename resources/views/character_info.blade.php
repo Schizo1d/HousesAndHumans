@@ -29,6 +29,14 @@
         </div>
     </div>
 </header>
+<div class="character-nav">
+    <div class="character-photo">
+        <img src="{{ $character->photo ?? 'path/to/default/avatar.jpg' }}" alt="Персонаж" class="character-photo-img">
+    </div>
+    <div class="character-name">
+        <h2>{{ $character->name }}</h2>
+    </div>
+</div>
 <main>
     <div class="container-info">
         <form id="attributesForm" action="{{ route('character_attributes.store', ['character' => $character->id]) }}" method="POST">
