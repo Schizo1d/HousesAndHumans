@@ -34,7 +34,9 @@
             <img src="{{asset ('img/clouds.png')}}" alt="контур">
         </div>
         @if(Auth::check())
-            <p style="font-size: 36px" class="list-text-title">Мои персонажи</p>
+            <p style="font-size: 36px" class="list-text-title">
+                Мои персонажи <span id="character-counter">(0/16)</span>
+            </p>
             <div id="character-container" class="characters-container">
                 <!-- Загружаем сохранённые персонажи -->
                 @foreach($characters as $character)
@@ -57,11 +59,27 @@
             <script>
                 const characterContainer = document.getElementById('character-container');
                 const addCharacterButton = document.getElementById('add-character');
+                const characterCounter = document.getElementById('character-counter');
+
+                // Функция для обновления счетчика
+                function updateCharacterCounter() {
+                    const totalCharacters = document.querySelectorAll('.character-card').length - 1; // -1, чтобы не учитывать кнопку "+"
+                    characterCounter.textContent = `(${totalCharacters}/16)`;
+
+                    // Скрываем кнопку добавления, если достигнут лимит
+                    if (totalCharacters >= 17) {
+                        addCharacterButton.style.display = "none";
+                    } else {
+                        addCharacterButton.style.display = "flex";
+                    }
+                }
+                // Вызываем функцию при загрузке страницы
+                updateCharacterCounter();
 
                 // Добавление нового персонажа
                 addCharacterButton.addEventListener('click', async () => {
                     const characterCards = document.querySelectorAll('.character-card').length;
-
+                    updateCharacterCounter();
                     if (characterCards >= 17) {
                         alert("Максимальное количество персонажей достигнуто!");
                         addCharacterButton.style.display = "none"; // Скрываем кнопку добавления
@@ -124,6 +142,7 @@
                         element.remove();
 
                         // Если персонажей стало меньше 16, показываем кнопку добавления
+                        updateCharacterCounter();
                         if (document.querySelectorAll('.character-card').length < 17) {
                             addCharacterButton.style.display = "flex";
                         }
