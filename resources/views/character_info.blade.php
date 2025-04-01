@@ -491,26 +491,20 @@
                         },
                         body: JSON.stringify({ name: newName })
                     })
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error('Ошибка запроса');
-                            }
-                            return response.json();
-                        })
+                        .then(response => response.json())
                         .then(data => {
                             if (data.success) {
-                                characterNameElement.textContent = data.newName;
+                                characterNameElement.textContent = data.newName; // Меняем имя в интерфейсе
                                 saveMessage.textContent = "Имя сохранено!";
+                                saveMessage.style.color = "#28a745"; // Зеленый цвет успеха
                             } else {
                                 saveMessage.textContent = "Ошибка!";
+                                saveMessage.style.color = "red";
                             }
-                        })
-                        .catch(error => {
-                            console.error("Ошибка при обновлении имени:", error);
-                            saveMessage.textContent = "Ошибка при обновлении имени.";
-                            saveMessage.style.color = "red";
                             saveMessage.style.display = "block";
-                        });
+                            setTimeout(() => saveMessage.style.display = "none", 2000);
+                        })
+                        .catch(error => console.error("Ошибка:", error));
                 });
             });
 

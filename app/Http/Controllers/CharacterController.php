@@ -54,7 +54,7 @@ class CharacterController extends Controller
     public function updateName(Request $request)
     {
         // Получаем текущего пользователя и его персонажа
-        $character = auth()->user()->character;
+        $character = Character::where('id', $request->character_id)->where('user_id', auth()->id())->first();
 
         if (!$character) {
             return response()->json(['success' => false, 'message' => 'Персонаж не найден.']);
