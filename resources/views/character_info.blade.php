@@ -348,23 +348,6 @@
                 document.getElementById("attributeModal").style.display = "none";
             }
 
-            // Обработчик для изменения значений радиокнопок навыков
-            document.querySelectorAll('.skill-toggle').forEach(item => {
-                item.addEventListener('click', function () {
-                    let targetId = this.getAttribute('data-target');
-                    let span = document.getElementById(targetId + "-value");
-                    let input = document.getElementById(targetId);
-
-                    let currentValue = parseInt(input.value);
-
-                    // Логика циклического изменения значений: 0 → 2 → 4 → 0
-                    let newValue = currentValue === 4 ? 0 : currentValue + 2;
-
-                    span.innerText = `+${newValue}`;
-                    input.value = newValue;
-                });
-            });
-
 
             // Функция расчета модификатора атрибута (по правилам D&D)
             function getModifier(attributeValue) {
