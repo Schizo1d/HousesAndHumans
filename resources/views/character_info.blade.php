@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="character-id" content="{{ $character->id }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Персонажи</title>
     <link rel="stylesheet" href="{{ asset('css/character_info.css') }}">
@@ -474,47 +475,41 @@
                 const saveMessage = document.getElementById("save-message");
                 const characterNameElement = document.querySelector(".character-name h2");
 
-                // Убедись, что передаешь правильный ID персонажа. Например:
-                const characterId = /* Здесь должен быть ID персонажа, который ты хочешь обновить */ 1;
-
                 saveButton.addEventListener("click", function () {
                     const newName = nameInput.value.trim();
 
+                    // Проверка, чтобы имя не было пустым
                     if (newName === "") {
                         alert("Имя не может быть пустым!");
                         return;
                     }
 
+                    // ID персонажа
+                    const characterId = document.querySelector('meta[name="character-id"]').getAttribute("content");
+
+                    // Отправляем запрос
                     fetch("/character/update-name", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
                             "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
                         },
-                        body: JSON.stringify({
-                            name: newName,
-                            character_id: characterId  // Отправляем ID персонажа
-                        })
+                        body: JSON.stringify({ name: newName, character_id: characterId })
                     })
                         .then(response => response.json())
                         .then(data => {
                             if (data.success) {
-                                characterNameElement.textContent = data.newName; // Меняем имя в интерфейсе
+                                characterNameElement.textContent = data.newName; // Меняем имя на странице
                                 saveMessage.textContent = "Имя сохранено!";
                                 saveMessage.style.color = "#28a745"; // Зеленый цвет успеха
                             } else {
-                                saveMessage.textContent = "Ошибка! " + data.error;
+                                saveMessage.textContent = "Ошибка!";
                                 saveMessage.style.color = "red";
                             }
                             saveMessage.style.display = "block";
                             setTimeout(() => saveMessage.style.display = "none", 2000);
                         })
-                        .catch(error => {
-                            console.error("Ошибка:", error);
-                            saveMessage.textContent = "Ошибка при запросе!";
-                            saveMessage.style.color = "red";
-                            saveMessage.style.display = "block";
-                        });
+                        .catch(error => console.error("Ошибка:", error));
                 });
             });
 

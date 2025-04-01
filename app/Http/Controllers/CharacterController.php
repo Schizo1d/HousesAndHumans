@@ -53,21 +53,14 @@ class CharacterController extends Controller
 
     public function updateName(Request $request)
     {
-        // Валидация входных данных
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'character_id' => 'required|exists:characters,id'  // Проверка, что переданный ID персонажа существует в базе данных
-        ]);
-
-        // Получаем текущего авторизованного пользователя
+        // Проверяем, что пользователь авторизован
         $user = Auth::user();
         if (!$user) {
             return response()->json(['success' => false, 'error' => 'Пользователь не авторизован'], 401);
         }
 
-        // Получаем персонажа по ID, который был передан в запросе
+        // Проверяем, что передан корректный идентификатор персонажа
         $character = $user->characters()->find($request->character_id);
-
         if (!$character) {
             return response()->json(['success' => false, 'error' => 'Персонаж не найден для данного пользователя'], 404);
         }

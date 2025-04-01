@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="character-id" content="{{ $character->id }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Персонажи</title>
     <link rel="stylesheet" href="{{ asset('css/character_list.css') }}">
