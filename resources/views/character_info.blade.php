@@ -29,7 +29,7 @@
         </div>
     </div>
 </header>
-<header>
+<div class="header-two">
     <div class="container">
         <nav class="nav">
             <div class="character-nav">
@@ -43,7 +43,7 @@
             </div>
         </nav>
     </div>
-</header>
+</div>
 <main>
     <div class="container-info">
         <form id="attributesForm" action="{{ route('character_attributes.store', ['character' => $character->id]) }}"

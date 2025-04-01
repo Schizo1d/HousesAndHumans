@@ -25,6 +25,12 @@ header {
     background-color: #db934e;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
+.header-two{
+    display: flex;
+    justify-content: center;
+    background-color: #915f32;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
 
 .nav {
     display: flex;
