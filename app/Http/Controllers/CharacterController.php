@@ -19,7 +19,6 @@ class CharacterController extends Controller
 
         return view('character_info', compact('character'));
     }
-
     public function index()
     {
         // Проверяем, авторизован ли пользователь
@@ -69,7 +68,6 @@ class CharacterController extends Controller
 
         return response()->json(['success' => false, 'message' => 'Персонаж не найден'], 404);
     }
-
     public function destroy(Character $character)
     {
         // Проверяем, что персонаж принадлежит текущему пользователю
