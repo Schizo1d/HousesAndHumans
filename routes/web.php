@@ -8,12 +8,11 @@ use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-
+Route::post('/character/update-name', [CharacterController::class, 'updateName'])->name('character.updateName');
 Route::get('/', function () {
     return view('main');
 });
 Route::delete('/characters/{id}', [CharacterController::class, 'destroy'])->name('character.destroy');
-Route::post('/character/update-name', [CharacterController::class, 'updateName'])->name('character.update-name');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
