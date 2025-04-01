@@ -32,7 +32,7 @@
     <div class="container-character">
         <div class="container">
             <div class="background-image-main">
-                <img src="{{asset ('img/character-list-frame.png')}}" alt="контур">
+                <img class="frame-list" src="{{asset ('img/character-list-frame.png')}}" alt="контур">
             </div>
             @if(Auth::check())
                 <p style="font-size: 36px" class="list-text-title">Мои персонажи</p>

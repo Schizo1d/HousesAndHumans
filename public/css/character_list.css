@@ -6,9 +6,11 @@ body {
 }
 .background-image-main {
     position: absolute;
-    z-index: -1;
     top:10%;
     left: 0;
+}
+.frame-list{
+    width: 40%;
 }
 .container{
     max-width: 1250px;
@@ -37,7 +39,7 @@ header{
 }
 .container-character{
     width: 1500px;
-    height: 800px;
+    height: 750px;
     background-color: #8a4e2c;
     border-radius: 10px;
 }
