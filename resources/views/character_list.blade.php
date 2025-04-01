@@ -14,7 +14,7 @@
     <div class="container">
         <div class="header__inner">
             <nav class="nav">
-                <a href="{{ route('main') }}" class="back-button">Назад</a>
+                <a href="{{ route('main') }}" class="back-button">На главную</a>
                 <h1>Вселенные</h1>
                 @if(Auth::check())
                     <div class="user-info-avatar" id="user-info">
