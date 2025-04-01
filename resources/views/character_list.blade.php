@@ -96,10 +96,14 @@
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
                             },
-                            body: JSON.stringify({name}),
+                            body: JSON.stringify({ name }),
                         });
+
+                        if (!response.ok) {
+                            throw new Error(`Ошибка при создании персонажа: ${response.status}`);
+                        }
 
                         const character = await response.json();
 
