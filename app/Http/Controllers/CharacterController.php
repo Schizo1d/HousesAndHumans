@@ -65,8 +65,8 @@ class CharacterController extends Controller
             return response()->json(['success' => false, 'error' => 'Пользователь не авторизован'], 401);
         }
 
-        // Проверяем, есть ли у пользователя персонаж
-        $character = $user->character;
+        // Проверяем, есть ли у пользователя персонажи
+        $character = $user->characters()->first(); // Получаем первого персонажа
 
         if (!$character) {
             return response()->json(['success' => false, 'error' => 'Персонаж не найден для данного пользователя'], 404);
