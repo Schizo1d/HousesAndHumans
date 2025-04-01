@@ -99,7 +99,7 @@
                         characterContainer.insertBefore(newCharacter, addCharacterButton);
 
                         // Проверяем, если персонажей уже 16, убираем кнопку добавления
-                        if (document.querySelectorAll('.character-card').length >= 16) {
+                        if (document.querySelectorAll('.character-card').length >= 17) {
                             addCharacterButton.style.display = "none";
                         }
                     } catch (error) {
