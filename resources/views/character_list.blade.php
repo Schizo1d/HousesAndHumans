@@ -30,10 +30,11 @@
 </header>
 <main class="container-div">
     <div class="container-character">
+        <div class="background-image-main">
+            <img class="frame-list" src="{{asset ('img/character-list-frame.png')}}" alt="контур">
+        </div>
         <div class="container">
-            <div class="background-image-main">
-                <img class="frame-list" src="{{asset ('img/character-list-frame.png')}}" alt="контур">
-            </div>
+
             @if(Auth::check())
                 <p style="font-size: 36px" class="list-text-title">Мои персонажи</p>
                 <div id="character-container" class="characters-container">
