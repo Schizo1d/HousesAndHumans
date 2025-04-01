@@ -124,7 +124,7 @@
                         element.remove();
 
                         // Если персонажей стало меньше 16, показываем кнопку добавления
-                        if (document.querySelectorAll('.character-card').length < 16) {
+                        if (document.querySelectorAll('.character-card').length < 17) {
                             addCharacterButton.style.display = "flex";
                         }
                     } catch (error) {
