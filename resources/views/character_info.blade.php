@@ -477,7 +477,11 @@
                 saveButton.addEventListener("click", function () {
                     const newName = nameInput.value.trim();
 
-                    if (newName === "") return; // Не отправляем пустые значения
+
+                    if (newName === "") {
+                        alert("Имя не может быть пустым!");
+                        return;
+                    } // Не отправляем пустые значения
 
                     fetch("/character/update-name", {
                         method: "POST",
