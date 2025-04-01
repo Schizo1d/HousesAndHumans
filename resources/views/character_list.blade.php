@@ -29,7 +29,7 @@
     </div>
 </header>
 <main>
-    <div class="container">
+    <div class="container container-character">
         <div class="background-image-main">
             <img src="{{asset ('img/character-list-frame.png')}}" alt="контур">
         </div>

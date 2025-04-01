@@ -30,6 +30,10 @@ header{
     text-decoration: none;
     color: black;
 }
+.container-character{
+    width: 1300px;
+    height: 500px;
+}
 .window-auth{
     display: flex;
     align-items: center;
