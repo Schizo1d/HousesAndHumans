@@ -33,6 +33,8 @@ header{
 .container-character{
     width: 1300px;
     height: 500px;
+    background-color: #653010;
+    border-radius: 10px;
 }
 .window-auth{
     display: flex;
