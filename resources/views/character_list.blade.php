@@ -62,7 +62,7 @@
                 addCharacterButton.addEventListener('click', async () => {
                     const characterCards = document.querySelectorAll('.character-card').length;
 
-                    if (characterCards >= 16) {
+                    if (characterCards >= 17) {
                         alert("Максимальное количество персонажей достигнуто!");
                         addCharacterButton.style.display = "none"; // Скрываем кнопку добавления
                         return;
