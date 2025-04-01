@@ -145,6 +145,7 @@ header {
 .back-button {
     display: inline-block;
     background-color: #db934e; /* Цвет кнопки */
+    height: 10px;
     color: white;
     padding: 10px 20px;
     border-radius: 5px;
