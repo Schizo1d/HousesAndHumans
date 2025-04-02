@@ -143,23 +143,33 @@
                     if (!confirm('Вы уверены, что хотите удалить этого персонажа?')) return;
 
                     try {
-                        await fetch(`/characters/${id}`, {
+                        const response = await fetch(`/characters/${id}`, {
                             method: 'DELETE',
                             headers: {
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
                             },
                         });
 
-                        // Удаляем элемент из DOM
-                        element.remove();
+                        const data = await response.json();
 
-                        // Если персонажей стало меньше 16, показываем кнопку добавления
+                        if (!response.ok || !data.success) {
+                            throw new Error(data.error || "Ошибка при удалении персонажа");
+                        }
+
+                        // Удаляем элемент из DOM
+                        if (element) element.remove();
+
+                        // Обновляем счётчик персонажей
                         updateCharacterCounter();
+
+                        // Показываем кнопку "Добавить", если персонажей < 16
                         if (document.querySelectorAll('.character-card').length < 17) {
                             addCharacterButton.style.display = "flex";
                         }
                     } catch (error) {
                         console.error('Ошибка при удалении персонажа:', error);
+                        alert('Не удалось удалить персонажа. Попробуйте ещё раз.');
                     }
                 };
 
