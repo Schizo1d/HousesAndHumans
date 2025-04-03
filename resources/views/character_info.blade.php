@@ -86,8 +86,9 @@
                         </label>
                         <div>
                             <p class="skill-toggle" data-target="athletics">
-                                Атлетика: <span id="athletics-value">+{{ $character->attributes->athletics ?? 0 }}</span>
+                                Атлетика:
                             </p>
+                            <span id="athletics-value">{{ $character->attributes->athletics ?? 0 }}</span>
                         </div>
                         <input type="hidden" name="athletics" id="athletics"
                                value="{{ $character->attributes->athletics ?? 0 }}">
