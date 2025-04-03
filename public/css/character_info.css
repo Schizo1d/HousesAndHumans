@@ -250,11 +250,13 @@ form label {
     font-weight: bold;
     color: #fff;
 }
-.attribute-skill-name{
+.attribute-skill-name {
     width: 100%;
     padding-left: 10px;
+    color: inherit;
+    text-decoration: none;
 }
-.attribute-skill{
+.attribute-skill {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -262,6 +264,9 @@ form label {
     background-color: #915f32;
     border-radius: 5px 0px 0px 5px;
     height: 30px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s;
 }
 /* Стили для кнопок */
 .open-modal {
