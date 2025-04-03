@@ -204,7 +204,10 @@ form label {
     color: white;
     text-decoration: none
 }
-
+.attribute-checks p{
+    color: #ffffff;
+    font-size: 19px;
+}
 /* Стили для каждого атрибута */
 .attribute-item {
     display: flex;
