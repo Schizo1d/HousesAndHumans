@@ -81,9 +81,6 @@
                         </button>
                     </div>
                     <div class="sub-attributes">
-                        <label>
-
-                        </label>
                         <div class="attribute-skill">
                             <a href="javascript:void(0);" class="attribute-skill-name" data-target="athletics" onclick="toggleSkill(this)">
                                 Атлетика
