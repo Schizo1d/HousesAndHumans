@@ -389,6 +389,22 @@
                     let input = document.getElementById(targetId);
 
                     let currentValue = parseInt(input.value);
+                    let newValue = currentValue === 4 ? 0 : currentValue + 2; // Сначала обновляем значение
+
+                    input.value = newValue;
+
+                    // Найти, к какому атрибуту относится навык
+                    let attribute = Object.keys(attributeNames).find(attr =>
+                        document.getElementById(attr) && this.closest('.attribute-item').contains(document.getElementById(attr))
+                    );
+
+                    let attributeValue = parseInt(document.getElementById(attribute).value);
+                    let modifier = getModifier(attributeValue);
+                    let finalValue = modifier + newValue;
+
+                    span.innerText = finalValue >= 0 ? `+${finalValue}` : finalValue;
+
+                    // Теперь отправляем новое значение в базу
                     fetch("/character/update-skill", {
                         method: "POST",
                         headers: {
@@ -408,20 +424,6 @@
                             }
                         })
                         .catch(error => console.error("Ошибка:", error));
-                    let newValue = currentValue === 4 ? 0 : currentValue + 2;
-
-                    input.value = newValue;
-
-                    // Найти, к какому атрибуту относится навык
-                    let attribute = Object.keys(attributeNames).find(attr =>
-                        document.getElementById(attr) && this.closest('.attribute-item').contains(document.getElementById(attr))
-                    );
-
-                    let attributeValue = parseInt(document.getElementById(attribute).value);
-                    let modifier = getModifier(attributeValue);
-                    let finalValue = modifier + newValue;
-
-                    span.innerText = finalValue >= 0 ? `+${finalValue}` : finalValue;
                 });
             });
 
