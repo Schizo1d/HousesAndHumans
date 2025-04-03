@@ -197,7 +197,13 @@ form label {
     font-size: 20px;
     text-transform: uppercase;
 }
-
+.attribute-link {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    text-decoration: none;
+    color: inherit;
+}
 .line-container {
     flex: 1; /* Занимает все доступное пространство */
     padding: 0 10px; /* Отступы от текста */
