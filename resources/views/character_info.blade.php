@@ -381,17 +381,6 @@
                     });
                 }
             }
-            document.querySelectorAll('.skill-toggle').forEach(item => {
-                item.addEventListener('click', function () {
-                    let targetId = this.getAttribute('data-target');
-                    let span = document.getElementById(targetId + "-value");
-                    let input = document.getElementById(targetId);
-                    let currentValue = parseInt(input.value);
-                    let newValue = currentValue === 4 ? 0 : currentValue + 2;
-                    input.value = newValue;
-                    span.innerText = `+${newValue}`;
-                });
-            });
             // Обработчик клика по навыкам (увеличение циклически)
             document.querySelectorAll('.skill-toggle').forEach(item => {
                 item.addEventListener('click', function () {
@@ -400,6 +389,25 @@
                     let input = document.getElementById(targetId);
 
                     let currentValue = parseInt(input.value);
+                    fetch("/character/update-skill", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+                        },
+                        body: JSON.stringify({
+                            skill: targetId, // ID навыка
+                            value: newValue, // Новое значение навыка
+                            character_id: document.querySelector('meta[name="character-id"]').getAttribute("content")
+                        })
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (!data.success) {
+                                alert("Ошибка сохранения!");
+                            }
+                        })
+                        .catch(error => console.error("Ошибка:", error));
                     let newValue = currentValue === 4 ? 0 : currentValue + 2;
 
                     input.value = newValue;

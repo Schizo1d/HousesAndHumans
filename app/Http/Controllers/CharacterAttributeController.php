@@ -55,7 +55,19 @@ class CharacterAttributeController extends Controller
         return redirect()->route('character_info', ['id' => $character->id])
             ->with('success', 'Атрибуты и навыки успешно сохранены!');
     }
+    public function updateSkill(Request $request)
+    {
+        $character = Character::find($request->character_id);
+        if (!$character) {
+            return response()->json(['success' => false, 'error' => 'Персонаж не найден']);
+        }
 
+        // Обновляем навык
+        $character->skills[$request->skill] = $request->value;
+        $character->save();
+
+        return response()->json(['success' => true]);
+    }
     public function edit(Character $character)
     {
         return view('character_attributes', compact('character'));
