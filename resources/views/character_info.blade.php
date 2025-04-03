@@ -389,7 +389,7 @@
                     let finalValue = modifier + newValue;
 
                     // Отображаем итоговое значение (модификатор + бонус)
-                    span.innerText = finalValue >= 0 ? `+${finalValue}` : finalValue;
+                    span.innerText = finalValue;
                 });
             });
             document.addEventListener("DOMContentLoaded", function () {
