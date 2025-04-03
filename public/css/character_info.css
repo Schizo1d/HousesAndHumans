@@ -211,6 +211,9 @@ form label {
     gap: 20px;
     justify-content: space-between;
 }
+.sub-attributes{
+    gap: 20px;
+}
 .attribute-main-stat{
     display: flex;
     justify-content: space-between;
