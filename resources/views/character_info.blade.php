@@ -417,7 +417,7 @@
                         let finalValue = modifier + skillBonus; // Итоговый бонус
 
                         document.getElementById(skill + "-value").innerText =
-                            finalValue >= 0 ? `+${finalValue}` : finalValue;
+                            finalValue >= 0 ? `${finalValue}` : finalValue;
                     });
                 }
             }
