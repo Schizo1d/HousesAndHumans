@@ -86,7 +86,7 @@
                         </label>
                         <div>
                             <a href="#" class="attribute-skill-name" data-target="athletics">
-                                Атлетика:
+                                Атлетика
                             </a>
                             <button type="button" class="dice-roll-button" id="athletics-button" onclick="document.querySelector('[data-target=athletics]').click()">
                                 <span id="athletics-value">{{ $character->attributes->athletics ?? 0 }}</span>
