@@ -69,11 +69,14 @@
                                value="{{ $character->attributes->strength ?? 10 }}">
                     </div>
                     <div class="attribute-checks">
-                    <a href="#" class="dice-roll-button" onclick="rollDice('strength'); return false;">
-                        <p id="strength-modifier" class="modifier">
-                            {{ floor(($character->attributes->strength ?? 10 - 10) / 2) }}
-                        </p>
-                    </a>
+                        <div>
+                            <a href="#" class="check-link" onclick="openModal('strength'); return false;">Проверка</a>
+                        </div>
+                        <a href="#" class="dice-roll-button" onclick="rollDice('strength'); return false;">
+                            <p id="strength-modifier" class="modifier">
+                                {{ floor(($character->attributes->strength ?? 10 - 10) / 2) }}
+                            </p>
+                        </a>
                     </div>
                     <div class="sub-attributes">
                         <label>
@@ -361,7 +364,7 @@
 
 
             document.querySelectorAll('.skill-toggle').forEach(item => {
-                item.addEventListener('click', function() {
+                item.addEventListener('click', function () {
                     let targetId = this.getAttribute('data-target');
                     let span = document.getElementById(targetId + "-value");
                     let input = document.getElementById(targetId);
@@ -384,12 +387,13 @@
                     span.innerText = finalValue >= 0 ? `+${finalValue}` : finalValue;
                 });
             });
-            document.addEventListener("DOMContentLoaded", function() {
+            document.addEventListener("DOMContentLoaded", function () {
                 Object.keys(attributeNames).forEach(attr => {
                     updateModifier(attr);
                     updateSkills(attr);
                 });
             });
+
             function updateSkills(attribute) {
                 let attrValue = parseInt(document.getElementById(attribute).value);
                 let modifier = getModifier(attrValue);
@@ -412,6 +416,7 @@
                     });
                 }
             }
+
             function rollDice(attribute) {
                 let value = parseInt(document.getElementById(attribute).value);
                 let modifier = Math.floor((value - 10) / 2);
