@@ -250,6 +250,9 @@ form label {
     font-weight: bold;
     color: #fff;
 }
+.attribute-skill-name{
+    width: 100%;
+}
 .attribute-skill{
     display: flex;
     justify-content: space-between;
@@ -257,6 +260,7 @@ form label {
     font-size: 14px;
     background-color: #915f32;
     border-radius: 5px 0px 0px 5px;
+    height: 30px;
 }
 /* Стили для кнопок */
 .open-modal {
