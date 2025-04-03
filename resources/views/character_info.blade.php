@@ -36,7 +36,8 @@
         <nav class="nav">
             <div class="character-nav">
                 <div class="character-photo" id="character-avatar">
-                    <img src="{{ $character->photo ?? asset('img/avatar.png') }}" alt="Персонаж" class="character-photo-img">
+                    <img src="{{ $character->photo ?? asset('img/avatar.png') }}" alt="Персонаж"
+                         class="character-photo-img">
                     <div class="dropdown-menu" id="character-dropdown">
                         <button class="dropdown-item" id="settings-btn">Настройки</button>
                     </div>
@@ -58,14 +59,15 @@
             <div class="attributes">
                 <!-- Сила -->
                 <div class="attribute-item">
-                    <span onclick="openModal('strength')" style="cursor: pointer;">Сила:</span>
-                    <a href="javascript:void(0);" id="strength-button" onclick="openModal('strength')"
-                       style="cursor: pointer;">
-                        {{ $character->attributes->strength ?? 10 }}
-                    </a>
-                    <input type="hidden" id="strength" name="strength"
-                           value="{{ $character->attributes->strength ?? 10 }}">
-
+                    <div class="attribute-main-stat">
+                        <span onclick="openModal('strength')" style="cursor: pointer;">Сила:</span>
+                        <a href="javascript:void(0);" id="strength-button" onclick="openModal('strength')"
+                           style="cursor: pointer;">
+                            {{ $character->attributes->strength ?? 10 }}
+                        </a>
+                        <input type="hidden" id="strength" name="strength"
+                               value="{{ $character->attributes->strength ?? 10 }}">
+                    </div>
                     <button type="button" onclick="rollDice('strength')">Проверка<p id="strength-modifier"
                                                                                     class="modifier">
                             ({{ floor(($character->attributes->strength ?? 10 - 10) / 2) }})
@@ -494,7 +496,7 @@
                             "Content-Type": "application/json",
                             "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
                         },
-                        body: JSON.stringify({ name: newName, character_id: characterId })
+                        body: JSON.stringify({name: newName, character_id: characterId})
                     })
                         .then(response => response.json())
                         .then(data => {
