@@ -252,6 +252,7 @@ form label {
 }
 .attribute-skill-name{
     width: 100%;
+    padding-left: 10px;
 }
 .attribute-skill{
     display: flex;
