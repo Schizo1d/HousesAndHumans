@@ -381,3 +381,8 @@ form label {
     font-size: 0.9em;
     opacity: 0.8;
 }
+.attribute-checks{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
