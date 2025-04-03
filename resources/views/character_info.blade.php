@@ -423,7 +423,7 @@
             function updateModifier(attribute) {
                 let attrValue = parseInt(document.getElementById(attribute).value);
                 let modifier = getModifier(attrValue);
-                document.getElementById(`${attribute}-modifier`).textContent = `(${modifier})`;
+                document.getElementById(`${attribute}-modifier`).textContent = `${modifier}`;
             }
 
             function saveAttribute() {
