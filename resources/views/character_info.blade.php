@@ -68,10 +68,12 @@
                         <input type="hidden" id="strength" name="strength"
                                value="{{ $character->attributes->strength ?? 10 }}">
                     </div>
-                    <button type="button" onclick="rollDice('strength')">Проверка<p id="strength-modifier"
-                                                                                    class="modifier">
+                    <a href="#" class="dice-roll-button" onclick="rollDice('strength'); return false;">
+                        Проверка
+                        <p id="strength-modifier" class="modifier">
                             ({{ floor(($character->attributes->strength ?? 10 - 10) / 2) }})
-                        </p></button>
+                        </p>
+                    </a>
 
                     <div class="sub-attributes">
                         <label>
