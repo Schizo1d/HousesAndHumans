@@ -204,7 +204,7 @@ form label {
     color: white;
     text-decoration: none
 }
-.attribute-checks p{
+.attribute-checks span{
     color: #ffffff;
     font-size: 19px;
 }
