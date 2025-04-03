@@ -204,6 +204,10 @@ form label {
     color: white;
     text-decoration: none
 }
+.attribute-checks{
+    display: flex;
+    align-items: center;
+}
 .attribute-checks span{
     color: #ffffff;
     font-size: 19px;
@@ -217,7 +221,7 @@ form label {
     text-transform: uppercase;
 }
 .attribute-skill-wrap{
-    border-radius: 5px;
+    border-radius: 5px 5px 0px 0px;
     outline: 2px solid #edca99;
     font-size: 12px;
     padding: 5px 10px;
@@ -390,8 +394,4 @@ form label {
     font-size: 0.9em;
     opacity: 0.8;
 }
-.attribute-checks{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+
