@@ -359,6 +359,31 @@
                 return Math.floor((attributeValue - 10) / 2);
             }
 
+
+            // Обработчик клика по навыкам (увеличение циклически)
+            document.querySelectorAll('.skill-toggle').forEach(item => {
+                item.addEventListener('click', function () {
+                    let targetId = this.getAttribute('data-target');
+                    let span = document.getElementById(targetId + "-value");
+                    let input = document.getElementById(targetId);
+
+                    let currentValue = parseInt(input.value);
+                    let newValue = currentValue === 4 ? 0 : currentValue + 2;
+
+                    input.value = newValue;
+
+                    // Найти, к какому атрибуту относится навык
+                    let attribute = Object.keys(attributeNames).find(attr =>
+                        document.getElementById(attr) && this.closest('.attribute-item').contains(document.getElementById(attr))
+                    );
+
+                    let attributeValue = parseInt(document.getElementById(attribute).value);
+                    let modifier = getModifier(attributeValue);
+                    let finalValue = modifier + newValue;
+
+                    span.innerText = finalValue >= 0 ? `+${finalValue}` : finalValue;
+                });
+            });
             // Обновить навыки при изменении атрибута
             function updateSkills(attribute) {
                 let attrValue = parseInt(document.getElementById(attribute).value);
@@ -381,52 +406,6 @@
                     });
                 }
             }
-            // Обработчик клика по навыкам (увеличение циклически)
-            document.querySelectorAll('.skill-toggle').forEach(item => {
-                item.addEventListener('click', function () {
-                    let targetId = this.getAttribute('data-target');
-                    let span = document.getElementById(targetId + "-value");
-                    let input = document.getElementById(targetId);
-
-                    let currentValue = parseInt(input.value);
-                    let newValue = currentValue === 4 ? 0 : currentValue + 2; // Сначала обновляем значение
-
-                    input.value = newValue;
-
-                    // Найти, к какому атрибуту относится навык
-                    let attribute = Object.keys(attributeNames).find(attr =>
-                        document.getElementById(attr) && this.closest('.attribute-item').contains(document.getElementById(attr))
-                    );
-
-                    let attributeValue = parseInt(document.getElementById(attribute).value);
-                    let modifier = getModifier(attributeValue);
-                    let finalValue = modifier + newValue;
-
-                    span.innerText = finalValue >= 0 ? `+${finalValue}` : finalValue;
-
-                    // Теперь отправляем новое значение в базу
-                    fetch("/character/update-skill", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
-                        },
-                        body: JSON.stringify({
-                            skill: targetId, // ID навыка
-                            value: newValue, // Новое значение навыка
-                            character_id: document.querySelector('meta[name="character-id"]').getAttribute("content")
-                        })
-                    })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (!data.success) {
-                                alert("Ошибка сохранения!");
-                            }
-                        })
-                        .catch(error => console.error("Ошибка:", error));
-                });
-            });
-
             function rollDice(attribute) {
                 let value = parseInt(document.getElementById(attribute).value);
                 let modifier = Math.floor((value - 10) / 2);
