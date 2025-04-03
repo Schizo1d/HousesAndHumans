@@ -212,7 +212,9 @@ form label {
     justify-content: space-between;
 }
 .sub-attributes{
-    gap: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 .attribute-main-stat{
     display: flex;
