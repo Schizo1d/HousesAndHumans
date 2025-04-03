@@ -249,7 +249,7 @@ form label {
     font-weight: bold;
     color: #fff;
 }
-.attribute-skill-name{
+.attribute-skill{
     display: flex;
     justify-content: space-between;
     align-items: center;

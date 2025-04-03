@@ -84,7 +84,7 @@
                         <label>
 
                         </label>
-                        <div>
+                        <div class="attribute-skill">
                             <a href="#" class="attribute-skill-name" data-target="athletics">
                                 Атлетика
                             </a>
