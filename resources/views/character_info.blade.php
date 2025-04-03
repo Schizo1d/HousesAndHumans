@@ -85,7 +85,7 @@
 
                         </label>
                         <div>
-                            <a href="#" class="skill-toggle" data-target="athletics">
+                            <a href="#" class="attribute-skill-name" data-target="athletics">
                                 Атлетика:
                             </a>
                             <button type="button" class="dice-roll-button" id="athletics-button" onclick="document.querySelector('[data-target=athletics]').click()">

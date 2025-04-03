@@ -249,7 +249,11 @@ form label {
     font-weight: bold;
     color: #fff;
 }
-
+.attribute-skill-name{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 /* Стили для кнопок */
 .open-modal {
     background: #edca99;
