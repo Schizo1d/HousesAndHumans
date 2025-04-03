@@ -360,19 +360,18 @@
             }
 
 
-            // Обработчик клика по навыкам (увеличение циклически)
             document.querySelectorAll('.skill-toggle').forEach(item => {
-                item.addEventListener('click', function () {
+                item.addEventListener('click', function() {
                     let targetId = this.getAttribute('data-target');
                     let span = document.getElementById(targetId + "-value");
                     let input = document.getElementById(targetId);
 
+                    // Циклически меняем бонус владения: 0 -> 2 -> 4 -> 0
                     let currentValue = parseInt(input.value);
                     let newValue = currentValue === 4 ? 0 : currentValue + 2;
-
                     input.value = newValue;
 
-                    // Найти, к какому атрибуту относится навык
+                    // Найти родительский атрибут
                     let attribute = Object.keys(attributeNames).find(attr =>
                         document.getElementById(attr) && this.closest('.attribute-item').contains(document.getElementById(attr))
                     );
@@ -381,10 +380,16 @@
                     let modifier = getModifier(attributeValue);
                     let finalValue = modifier + newValue;
 
+                    // Отображаем итоговое значение (модификатор + бонус)
                     span.innerText = finalValue >= 0 ? `+${finalValue}` : finalValue;
                 });
             });
-            // Обновить навыки при изменении атрибута
+            document.addEventListener("DOMContentLoaded", function() {
+                Object.keys(attributeNames).forEach(attr => {
+                    updateModifier(attr);
+                    updateSkills(attr);
+                });
+            });
             function updateSkills(attribute) {
                 let attrValue = parseInt(document.getElementById(attribute).value);
                 let modifier = getModifier(attrValue);
@@ -399,10 +404,11 @@
 
                 if (skills[attribute]) {
                     skills[attribute].forEach(skill => {
-                        let skillValue = parseInt(document.getElementById(skill).value); // Бонус навыка
-                        let finalValue = modifier + skillValue; // Модификатор атрибута + бонус навыка
+                        let skillBonus = parseInt(document.getElementById(skill).value); // Бонус владения (0, 2, 4)
+                        let finalValue = modifier + skillBonus; // Итоговый бонус
 
-                        document.getElementById(skill + "-value").innerText = finalValue >= 0 ? `+${finalValue}` : finalValue;
+                        document.getElementById(skill + "-value").innerText =
+                            finalValue >= 0 ? `+${finalValue}` : finalValue;
                     });
                 }
             }
