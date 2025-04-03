@@ -54,6 +54,7 @@ header {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     color: white;
     font-family: Arial, sans-serif;
+    font-weight: 700;
 }
 
 .container-info label img {
