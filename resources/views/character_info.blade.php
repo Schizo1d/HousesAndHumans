@@ -82,11 +82,13 @@
                     </div>
                     <div class="sub-attributes">
                         <label>
-                            <p class="skill-toggle" data-target="athletics">
-                                Атлетика: <span
-                                    id="athletics-value">+{{ $character->attributes->athletics ?? 0 }}</span>
-                            </p>
+
                         </label>
+                        <div>
+                            <p class="skill-toggle" data-target="athletics">
+                                Атлетика: <span id="athletics-value">+{{ $character->attributes->athletics ?? 0 }}</span>
+                            </p>
+                        </div>
                         <input type="hidden" name="athletics" id="athletics"
                                value="{{ $character->attributes->athletics ?? 0 }}">
                     </div>
