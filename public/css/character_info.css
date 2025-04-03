@@ -363,7 +363,7 @@ form label {
     align-items: center;
     gap: 4px;
     padding: 6px 12px;
-    background-color: #f0f0f0;
+    background-color: #edca99;
     border: 1px solid #ccc;
     border-radius: 4px;
     color: #333;
@@ -374,7 +374,7 @@ form label {
 }
 
 .dice-roll-button:hover {
-    background-color: #e0e0e0;
+    background-color: #edca99;
 }
 
 .modifier {
