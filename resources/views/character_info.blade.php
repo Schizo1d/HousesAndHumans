@@ -161,7 +161,9 @@
                     <div class="attribute-main-stat">
                         <a href="javascript:void(0);" class="attribute-link" onclick="openModal('constitution')">
                             <span class="attribute-name">Телосложение</span>
-                            <div class="line"></div>
+                            <div class="line-container">
+                                <div class="line"></div>
+                            </div>
                             <span class="attribute-value" id="constitution-button">
                 {{ $character->attributes->constitution ?? 10 }}
             </span>

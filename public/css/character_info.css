@@ -198,11 +198,20 @@ form label {
     text-transform: uppercase;
 }
 
-.line{
-    content: '';
-    width: 100px;
-    background-color: #edca99;
+.line-container {
+    flex: 1; /* Занимает все доступное пространство */
+    padding: 0 10px; /* Отступы от текста */
+    display: flex;
+    align-items: center;
+}
+
+.line {
     height: 1px;
+    background-color: #edca99;
+    width: 100%; /* Линия растягивается на всю ширину контейнера */
+}
+.attribute-name, .attribute-value {
+    white-space: nowrap; /* Текст не переносится */
 }
 /* Стили для контейнера атрибутов */
 .attributes {
