@@ -73,9 +73,9 @@
                             <a href="#" class="check-link" onclick="openModal('strength'); return false;">Проверка</a>
                         </div>
                         <button type="button" class="dice-roll-button" onclick="rollDice('strength'); return false;">
-                            <p id="strength-modifier" class="modifier">
+                            <span id="strength-modifier" class="modifier">
                                 {{ floor(($character->attributes->strength ?? 10 - 10) / 2) }}
-                            </p>
+                            </span>
                         </button>
                     </div>
                     <div class="sub-attributes">
