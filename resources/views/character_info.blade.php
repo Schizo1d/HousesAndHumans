@@ -71,7 +71,7 @@
                     <div class="attribute-checks">
                     <a href="#" class="dice-roll-button" onclick="rollDice('strength'); return false;">
                         <p id="strength-modifier" class="modifier">
-                            ({{ floor(($character->attributes->strength ?? 10 - 10) / 2) }})
+                            {{ floor(($character->attributes->strength ?? 10 - 10) / 2) }}
                         </p>
                     </a>
                     </div>
