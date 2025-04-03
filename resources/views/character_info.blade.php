@@ -421,7 +421,29 @@
                     });
                 }
             }
+            function toggleSkill(element) {
+                const targetId = element.getAttribute('data-target');
+                const span = document.getElementById(targetId + "-value");
+                const input = document.getElementById(targetId);
 
+                // Циклическое изменение значения: 0 → 2 → 4 → 0
+                let currentValue = parseInt(input.value);
+                let newValue = currentValue === 4 ? 0 : currentValue + 2;
+                input.value = newValue;
+
+                // Находим связанный атрибут
+                const attribute = Object.keys(attributeNames).find(attr =>
+                    element.closest('.attribute-item').contains(document.getElementById(attr))
+                );
+
+                // Рассчитываем итоговое значение
+                const attributeValue = parseInt(document.getElementById(attribute).value);
+                const modifier = Math.floor((attributeValue - 10) / 2);
+                const finalValue = modifier + newValue;
+
+                // Обновляем отображение
+                span.textContent = finalValue;
+            }
             function rollDice(attribute) {
                 let value = parseInt(document.getElementById(attribute).value);
                 let modifier = Math.floor((value - 10) / 2);
