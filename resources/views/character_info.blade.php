@@ -156,7 +156,7 @@
                            value="{{ $character->attributes->intelligence ?? 10 }}">
                     <button type="button" onclick="rollDice('intelligence')">Проверка<p id="intelligence-modifier"
                                                                                         class="modifier">
-                            ({{ floor(($character->attributes->intelligence ?? 10 - 10) / 2) }})
+                            {{ floor(($character->attributes->intelligence ?? 10 - 10) / 2) }}
                         </p></button>
 
                     <div class="sub-attributes">
