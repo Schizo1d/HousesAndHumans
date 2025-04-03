@@ -205,7 +205,7 @@ form label {
     content: '';
     width: 100px;
     background-color: #edca99;
-    height: 2px;
+    height: 1px;
 }
 /* Стили для контейнера атрибутов */
 .attributes {
@@ -218,6 +218,7 @@ form label {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-size: 22px;
 }
 .attributes a {
     color: white;
