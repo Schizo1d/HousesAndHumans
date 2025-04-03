@@ -41,7 +41,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 // Роуты для персонажей с авторизацией
 Route::middleware(['auth'])->group(function () {
-    Route::post('/character/update-skill', [CharacterController::class, 'updateSkill']);
+    Route::post('/character/update-skill', [CharacterAttributeController::class, 'updateSkill']);
     Route::post('/character/update-name', [CharacterController::class, 'updateName'])->name('character.updateName');
     Route::post('/characters', [CharacterController::class, 'store'])->name('characters.store');
     Route::delete('/characters/{character}', [CharacterController::class, 'destroy'])->name('characters.destroy');
