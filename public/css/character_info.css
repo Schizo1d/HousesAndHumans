@@ -218,7 +218,7 @@ form label {
 }
 .attribute-skill-wrap{
     border-radius: 5px;
-    border-color: #edca99;
+    border: 2px #edca99;
 }
 /* Метка атрибута */
 .attribute-label {
