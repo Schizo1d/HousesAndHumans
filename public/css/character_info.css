@@ -220,6 +220,10 @@ form label {
     align-items: center;
     font-size: 22px;
 }
+.attribute-link{
+    display: flex;
+    align-items: center;
+}
 .attributes a {
     color: white;
     text-decoration: none
