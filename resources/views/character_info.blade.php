@@ -156,7 +156,7 @@
                            value="{{ $character->attributes->intelligence ?? 10 }}">
                     <button type="button" onclick="rollDice('intelligence')">Проверка<p id="intelligence-modifier"
                                                                                         class="modifier">
-                            {{ floor(($character->attributes->intelligence ?? 10 - 10) / 2) }}
+                            ({{ floor(($character->attributes->intelligence ?? 10 - 10) / 2) }})
                         </p></button>
 
                     <div class="sub-attributes">
@@ -404,9 +404,35 @@
                     let finalValue = modifier + newValue;
 
                     span.innerText = finalValue >= 0 ? `+${finalValue}` : finalValue;
+
+                    // Сохраняем в базу итоговое значение (бонус + модификатор)
+                    saveSkillToDatabase(targetId, finalValue);
                 });
             });
+            // Функция для сохранения навыка в базу
+            function saveSkillToDatabase(skillId, finalValue) {
+                const characterId = document.querySelector('meta[name="character-id"]').getAttribute("content");
 
+                fetch("/character/update-skill", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+                    },
+                    body: JSON.stringify({
+                        skill_id: skillId,
+                        value: finalValue, // Теперь сохраняем итоговое значение
+                        character_id: characterId
+                    })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (!data.success) {
+                            console.error("Ошибка при сохранении навыка");
+                        }
+                    })
+                    .catch(error => console.error("Ошибка:", error));
+            }
             function rollDice(attribute) {
                 let value = parseInt(document.getElementById(attribute).value);
                 let modifier = Math.floor((value - 10) / 2);
