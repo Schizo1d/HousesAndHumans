@@ -68,13 +68,14 @@
                         <input type="hidden" id="strength" name="strength"
                                value="{{ $character->attributes->strength ?? 10 }}">
                     </div>
+                    <div class="attribute-checks">
                     <a href="#" class="dice-roll-button" onclick="rollDice('strength'); return false;">
                         Проверка
-                        <p id="strength-modifier" class="modifier">
-                            ({{ floor(($character->attributes->strength ?? 10 - 10) / 2) }})
-                        </p>
                     </a>
-
+                    <p id="strength-modifier" class="modifier">
+                        ({{ floor(($character->attributes->strength ?? 10 - 10) / 2) }})
+                    </p>
+                    </div>
                     <div class="sub-attributes">
                         <label>
                             <p class="skill-toggle" data-target="athletics">
