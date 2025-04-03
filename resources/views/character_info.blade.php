@@ -69,7 +69,7 @@
                                value="{{ $character->attributes->strength ?? 10 }}">
                     </div>
                     <div class="attribute-checks">
-                        <div>
+                        <div class="attribute-skill-wrap">
                             <a href="#" class="check-link" onclick="openModal('strength'); return false;">Проверка</a>
                         </div>
                         <button type="button" class="dice-roll-button" onclick="rollDice('strength'); return false;">

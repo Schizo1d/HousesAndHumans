@@ -216,7 +216,10 @@ form label {
     font-size: 20px;
     text-transform: uppercase;
 }
-
+.attribute-skill-wrap{
+    border-radius: 5px;
+    border-color: #edca99;
+}
 /* Метка атрибута */
 .attribute-label {
     font-size: 16px;
