@@ -413,11 +413,9 @@
 
                 if (skills[attribute]) {
                     skills[attribute].forEach(skill => {
-                        let skillBonus = parseInt(document.getElementById(skill).value); // Бонус владения (0, 2, 4)
-                        let finalValue = modifier + skillBonus; // Итоговый бонус
-
-                        document.getElementById(skill + "-value").innerText =
-                            finalValue >= 0 ? `${finalValue}` : finalValue;
+                        let skillBonus = parseInt(document.getElementById(skill).value);
+                        let finalValue = modifier + skillBonus;
+                        document.getElementById(skill + "-value").innerText = finalValue;
                     });
                 }
             }
@@ -433,7 +431,7 @@
             function updateModifier(attribute) {
                 let attrValue = parseInt(document.getElementById(attribute).value);
                 let modifier = getModifier(attrValue);
-                document.getElementById(`${attribute}-modifier`).textContent = `${modifier}`;
+                document.getElementById(`${attribute}-modifier`).textContent = modifier;
             }
 
             function saveAttribute() {
