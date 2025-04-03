@@ -191,7 +191,12 @@ form label {
 .modal-save-btn:hover {
     background: #0056b3;
 }
-
+.line{
+    content: '';
+    width: 100px;
+    background-color: #edca99;
+    height: 2px;
+}
 /* Стили для контейнера атрибутов */
 .attributes {
     display: flex;
