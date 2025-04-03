@@ -220,6 +220,7 @@ form label {
     border-radius: 5px;
     outline: 2px solid #edca99;
     font-size: 12px;
+    padding: 5px 10px;
 }
 /* Метка атрибута */
 .attribute-label {
