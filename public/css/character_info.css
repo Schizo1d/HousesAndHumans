@@ -354,7 +354,7 @@ form label {
 #save-character-name:hover {
     background: #0056b3;
 }
-.attribute-item{
+.attribute-main-stat{
     display: flex;
     justify-content: space-between;
 }
