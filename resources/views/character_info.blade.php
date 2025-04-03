@@ -85,7 +85,7 @@
 
                         </label>
                         <div class="attribute-skill">
-                            <a href="#" class="attribute-skill-name" data-target="athletics">
+                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="athletics" onclick="toggleSkill(this)">
                                 Атлетика
                             </a>
                             <button type="button" class="dice-roll-button" id="athletics-button" onclick="document.querySelector('[data-target=athletics]').click()">
