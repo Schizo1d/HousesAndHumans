@@ -60,11 +60,12 @@
                 <!-- Сила -->
                 <div class="attribute-item">
                     <div class="attribute-main-stat">
-                        <span onclick="openModal('strength')" style="cursor: pointer;">Сила</span>
-                        <div class="line" onclick="openModal('strength')" style="cursor: pointer;"></div>
-                        <a href="javascript:void(0);" id="strength-button" onclick="openModal('strength')"
-                           style="cursor: pointer;">
-                            {{ $character->attributes->strength ?? 10 }}
+                        <a href="javascript:void(0);" class="attribute-link" onclick="openModal('strength')">
+                            <span class="attribute-name">Сила</span>
+                            <div class="line"></div>
+                            <span class="attribute-value" id="strength-button">
+                                {{ $character->attributes->strength ?? 10 }}
+                            </span>
                         </a>
                         <input type="hidden" id="strength" name="strength"
                                value="{{ $character->attributes->strength ?? 10 }}">
