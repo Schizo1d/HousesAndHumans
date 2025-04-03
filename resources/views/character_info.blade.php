@@ -72,11 +72,11 @@
                         <div>
                             <a href="#" class="check-link" onclick="openModal('strength'); return false;">Проверка</a>
                         </div>
-                        <a href="#" class="dice-roll-button" onclick="rollDice('strength'); return false;">
-                            <p id="strength-modifier" class="modifier">
+                        <button type="button" class="dice-roll-button" onclick="rollDice('strength'); return false;">
+                            <span id="strength-modifier" class="modifier">
                                 {{ floor(($character->attributes->strength ?? 10 - 10) / 2) }}
-                            </p>
-                        </a>
+                            </span>
+                        </button>
                     </div>
                     <div class="sub-attributes">
                         <label>
