@@ -191,6 +191,17 @@ form label {
 .modal-save-btn:hover {
     background: #0056b3;
 }
+
+/* Стили для каждого атрибута */
+.attribute-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-direction:column;
+    font-size: 20px;
+    text-transform: uppercase;
+}
+
 .line{
     content: '';
     width: 100px;
@@ -217,14 +228,7 @@ form label {
     color: #ffffff;
     font-size: 19px;
 }
-/* Стили для каждого атрибута */
-.attribute-item {
-    display: flex;
-    gap: 10px;
-    flex-direction:column;
-    font-size: 20px;
-    text-transform: uppercase;
-}
+
 .attribute-skill-wrap{
     border-radius: 5px 0px 0px 5px;
     outline: 2px solid #edca99;
