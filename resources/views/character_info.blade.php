@@ -646,27 +646,31 @@
             }
 
             function rollDice(attribute) {
-                const value = parseInt(document.getElementById(attribute).value);
+                const value = parseInt(document.getElementById(attribute).value) || 10; // Значение по умолчанию 10
                 const modifier = Math.floor((value - 10) / 2);
                 const roll = Math.floor(Math.random() * 20) + 1;
                 const total = roll + modifier;
 
                 addNotification(
-                    `ПРОВЕРКА ${attributeName(attribute)}`,
-                    `${roll} + ${modifier}`,
+                    'ПРОВЕРКА',
+                    attribute,
+                    roll,
+                    modifier,
                     total
                 );
             }
 
             function rollSave(attribute) {
-                const value = parseInt(document.getElementById(attribute).value);
+                const value = parseInt(document.getElementById(attribute).value) || 10; // Значение по умолчанию 10
                 const modifier = Math.floor((value - 10) / 2);
                 const roll = Math.floor(Math.random() * 20) + 1;
                 const total = roll + modifier;
 
                 addNotification(
-                    `СПАСБРОСОК ${attributeName(attribute)}`,
-                    `${roll} + ${modifier}`,
+                    'СПАСБРОСОК',
+                    attribute,
+                    roll,
+                    modifier,
                     total
                 );
             }
