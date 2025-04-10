@@ -900,7 +900,7 @@
         </div>
         <div class="notifications-wrapper" id="notificationsWrapper">
             <div class="notifications-container" id="notificationsContainer"></div>
-            <button class="close-all-btn" onclick="clearAllNotifications()">×</button>
+            <button class="close-all-btn" hidden onclick="clearAllNotifications()">×</button>
         </div>
 </body>
 </html>
