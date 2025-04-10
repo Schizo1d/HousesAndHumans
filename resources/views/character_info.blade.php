@@ -792,13 +792,6 @@
                 document.getElementById('rollFormula').textContent = formula;
                 document.getElementById('rollResult').textContent = result;
                 alertElement.style.display = 'block';
-
-                // Автоматическое скрытие через 5 секунд
-                setTimeout(() => {
-                    if (alertElement.style.display === 'block') {
-                        hideBottomLeftAlert();
-                    }
-                }, 5000);
             }
 
             function hideBottomLeftAlert() {
