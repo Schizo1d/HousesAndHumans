@@ -372,7 +372,7 @@ form label {
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
     padding: 20px;
     transition: left 0.3s ease-in-out;
-    z-index: 1000;
+    z-index: 1050;
 }
 
 .sidebar-content {
