@@ -650,7 +650,7 @@
                 let modifier = Math.floor((value - 10) / 2);
                 let roll = Math.floor(Math.random() * 20) + 1;
                 let total = roll + modifier;
-                alert(`Результат броска: ${roll} + ${modifier} = ${total}`);
+                showCustomAlert(`Результат броска: ${roll} + ${modifier} = ${total}`);
             }
 
             function rollSave(attribute) {
@@ -658,7 +658,7 @@
                 let modifier = Math.floor((value - 10) / 2);
                 let roll = Math.floor(Math.random() * 20) + 1;
                 let total = roll + modifier;
-                alert(`Результат спасброска: ${roll} + ${modifier} = ${total}`);
+                showCustomAlert(`Результат спасброска: ${roll} + ${modifier} = ${total}`);
             }
 
             function updateModifier(attribute) {
@@ -763,6 +763,16 @@
                         .catch(error => console.error("Ошибка:", error));
                 });
             });
+            function showCustomAlert(message) {
+                document.getElementById('customAlertMessage').textContent = message;
+                document.getElementById('customAlertOverlay').style.display = 'block';
+                document.getElementById('customAlert').style.display = 'block';
+            }
+
+            function hideCustomAlert() {
+                document.getElementById('customAlertOverlay').style.display = 'none';
+                document.getElementById('customAlert').style.display = 'none';
+            }
 
         </script>
         <div class="sidebar-modal" id="settings-modal">
@@ -774,6 +784,11 @@
                 <button id="save-character-name">Сохранить</button>
                 <p id="save-message" style="display: none; color: #28a745;">Имя сохранено!</p>
             </div>
+        </div>
+        <div class="custom-alert-overlay" id="customAlertOverlay"></div>
+        <div class="custom-alert" id="customAlert">
+            <div id="customAlertMessage"></div>
+            <button onclick="hideCustomAlert()">OK</button>
         </div>
 </body>
 </html>
