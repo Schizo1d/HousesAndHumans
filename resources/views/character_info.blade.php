@@ -836,6 +836,19 @@
                 while (container.children.length > MAX_NOTIFICATIONS) {
                     container.lastChild.remove();
                 }
+                updateCloseButtonVisibility();
+            }
+            // Показываем/скрываем крестик при наличии уведомлений
+            function updateCloseButtonVisibility() {
+                const wrapper = document.getElementById('notificationsWrapper');
+                const container = document.getElementById('notificationsContainer');
+                const closeBtn = wrapper.querySelector('.close-all-btn');
+
+                if (container.children.length > 0) {
+                    wrapper.classList.add('has-notifications');
+                } else {
+                    wrapper.classList.remove('has-notifications');
+                }
             }
             function showBottomLeftAlert(header, formula, result) {
                 const alertElement = document.getElementById('bottomLeftAlert');
@@ -862,7 +875,18 @@
             function clearAllNotifications() {
                 document.getElementById('notificationsContainer').innerHTML = '';
                 currentNotifications = 0;
+                updateCloseButtonVisibility();
             }
+            // Добавляем обработчик для ручного управления видимостью
+            document.getElementById('notificationsWrapper').addEventListener('mouseenter', function() {
+                if (this.querySelector('.notifications-container').children.length > 0) {
+                    this.querySelector('.close-all-btn').style.opacity = '1';
+                }
+            });
+
+            document.getElementById('notificationsWrapper').addEventListener('mouseleave', function() {
+                this.querySelector('.close-all-btn').style.opacity = '0';
+            });
         </script>
         <div class="sidebar-modal" id="settings-modal">
             <div class="sidebar-content">
@@ -874,7 +898,7 @@
                 <p id="save-message" style="display: none; color: #28a745;">Имя сохранено!</p>
             </div>
         </div>
-        <div class="notifications-wrapper">
+        <div class="notifications-wrapper" id="notificationsWrapper">
             <div class="notifications-container" id="notificationsContainer"></div>
             <button class="close-all-btn" onclick="clearAllNotifications()">×</button>
         </div>

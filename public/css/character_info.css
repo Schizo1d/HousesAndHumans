@@ -25,7 +25,8 @@ header {
     background-color: #db934e;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
-.header-two{
+
+.header-two {
     display: flex;
     justify-content: center;
     background-color: #915f32;
@@ -193,11 +194,12 @@ form label {
 .attribute-item {
     display: flex;
     gap: 10px;
-    flex-direction:column;
+    flex-direction: column;
     font-size: 20px;
     text-transform: uppercase;
     width: 300px;
 }
+
 .attribute-link {
     display: flex;
     align-items: center;
@@ -205,6 +207,7 @@ form label {
     text-decoration: none;
     color: inherit;
 }
+
 .line-container {
     flex: 1; /* Занимает все доступное пространство */
     padding: 0 10px; /* Отступы от текста */
@@ -217,13 +220,16 @@ form label {
     background-color: #edca99;
     width: 100%; /* Линия растягивается на всю ширину контейнера */
 }
+
 .check-block, .save-block {
     display: flex;
     align-items: center;
 }
+
 .attribute-name, .attribute-value {
     white-space: nowrap; /* Текст не переносится */
 }
+
 /* Стили для контейнера атрибутов */
 .attributes {
     display: flex;
@@ -231,53 +237,62 @@ form label {
     gap: 20px;
     justify-content: space-between;
 }
-.sub-attributes{
+
+.sub-attributes {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
-.attribute-main-stat{
+
+.attribute-main-stat {
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: 22px;
 }
-.attribute-link{
+
+.attribute-link {
     display: flex;
     align-items: center;
 }
+
 .attributes a {
     color: white;
     text-decoration: none
 }
-.attribute-checks{
+
+.attribute-checks {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
-.dice-roll-button span{
+
+.dice-roll-button span {
     color: #ffffff;
     font-size: 19px;
 }
 
-.attribute-skill-wrap{
+.attribute-skill-wrap {
     border-radius: 5px 0px 0px 5px;
     outline: 2px solid #edca99;
     font-size: 12px;
     padding: 5px 10px;
 }
+
 /* Метка атрибута */
 .attribute-label {
     font-size: 16px;
     font-weight: bold;
     color: #fff;
 }
+
 .attribute-skill-name {
     width: 100%;
     padding-left: 10px;
     color: inherit;
     text-decoration: none;
 }
+
 .attribute-skill {
     display: flex;
     justify-content: space-between;
@@ -290,6 +305,7 @@ form label {
     cursor: pointer;
     transition: background-color 0.2s;
 }
+
 /* Стили для кнопок */
 .open-modal {
     background: #edca99;
@@ -306,6 +322,7 @@ form label {
 .open-modal:hover {
     transform: scale(1.05);
 }
+
 .character-nav {
     display: flex;
     justify-content: flex-start;
@@ -329,6 +346,7 @@ form label {
     font-weight: bold;
     margin: 0;
 }
+
 .character-photo {
     position: relative; /* Нужно для позиционирования выпадающего меню */
     cursor: pointer;
@@ -361,6 +379,7 @@ form label {
 .dropdown-item:hover {
     background: rgba(255, 255, 255, 0.2);
 }
+
 /* Скрываем модалку по умолчанию */
 .sidebar-modal {
     position: fixed;
@@ -399,6 +418,7 @@ form label {
 .sidebar-modal.show {
     left: 0;
 }
+
 #character-name-input {
     width: 80%;
     padding: 10px;
@@ -457,12 +477,13 @@ form label {
     color: white;
     padding: 10px 15px;
     border-radius: 5px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     animation: slideIn 0.3s ease-out;
     font-family: 'Arial', sans-serif;
     white-space: nowrap;
     position: relative;
 }
+
 .notifications-wrapper {
     position: fixed;
     bottom: 20px;
@@ -472,6 +493,7 @@ form label {
     gap: 10px;
     z-index: 1000;
 }
+
 .close-all-btn {
     background: rgba(40, 40, 40, 0.9);
     color: #aaa;
@@ -485,16 +507,30 @@ form label {
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    opacity: 0; /* Изначально невидим */
+    transition: opacity 0.2s ease;
 }
+
+.notifications-wrapper:hover .close-all-btn {
+    opacity: 1; /* Показываем при наведении */
+}
+
 .close-all-btn:hover {
     background: rgba(60, 60, 60, 0.9);
     color: white;
 }
 
 @keyframes slideIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
+
 .notification-header {
     font-size: 14px;
     color: #aaa;
@@ -532,6 +568,7 @@ form label {
 .notification-header .save-text {
     color: #53a5a7; /* Бирюзовый для слова "СПАСБРОСОК" */
 }
+
 .check-text {
     color: #3a75ff !important; /* Синий */
 }
@@ -539,6 +576,7 @@ form label {
 .save-text {
     color: #53a5a7 !important; /* Бирюзовый */
 }
+
 /* Границы для старых уведомлений */
 .notification.old.check {
     border-left: 3px solid #3a75ff;
@@ -547,6 +585,7 @@ form label {
 .notification.old.save {
     border-left: 3px solid #53a5a7;
 }
+
 /* Стиль для нового уведомления */
 .notification.new {
     min-width: 220px;
@@ -558,8 +597,14 @@ form label {
 }
 
 @keyframes slideIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Стили для скроллбара */
