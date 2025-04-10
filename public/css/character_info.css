@@ -524,3 +524,75 @@ form label {
     cursor: pointer;
     padding: 0 5px;
 }
+.notifications-container {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 8px;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.notification {
+    background-color: rgba(40, 40, 40, 0.9);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    animation: slideIn 0.3s ease-out;
+    font-family: 'Arial', sans-serif;
+    width: 220px;
+    border-left: 3px solid #ffcc00;
+}
+
+.notification-header {
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffcc00;
+    margin-bottom: 5px;
+}
+
+.notification-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.notification-formula {
+    font-size: 14px;
+    color: #ccc;
+}
+
+.notification-result {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Стили для скроллбара */
+.notifications-container::-webkit-scrollbar {
+    width: 4px;
+}
+
+.notifications-container::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.notifications-container::-webkit-scrollbar-thumb {
+    background: #666;
+    border-radius: 2px;
+}

@@ -651,9 +651,9 @@
                 const roll = Math.floor(Math.random() * 20) + 1;
                 const total = roll + modifier;
 
-                showBottomLeftAlert(
-                    `ПРОВЕРКА ${attributeName(attribute).toUpperCase()}`,
-                    `(${roll}) + ${modifier}`,
+                addNotification(
+                    `ПРОВЕРКА ${attributeName(attribute)}`,
+                    `${roll} + ${modifier}`,
                     total
                 );
             }
@@ -664,21 +664,21 @@
                 const roll = Math.floor(Math.random() * 20) + 1;
                 const total = roll + modifier;
 
-                showBottomLeftAlert(
-                    `СПАСБРОСОК ${attributeName(attribute).toUpperCase()}`,
-                    `(${roll}) + ${modifier}`,
+                addNotification(
+                    `СПАСБРОСОК ${attributeName(attribute)}`,
+                    `${roll} + ${modifier}`,
                     total
                 );
             }
             // Функция для перевода названий атрибутов
             function attributeName(attr) {
                 const names = {
-                    'strength': 'Сила',
-                    'dexterity': 'Ловкость',
-                    'constitution': 'Телосложение',
-                    'intelligence': 'Интеллект',
-                    'wisdom': 'Мудрость',
-                    'charisma': 'Харизма'
+                    'strength': 'СИЛА',
+                    'dexterity': 'ЛОВКОСТЬ',
+                    'constitution': 'ТЕЛОСЛОЖЕНИЕ',
+                    'intelligence': 'ИНТЕЛЛЕКТ',
+                    'wisdom': 'МУДРОСТЬ',
+                    'charisma': 'ХАРИЗМА'
                 };
                 return names[attr] || attr;
             }
@@ -786,6 +786,41 @@
                         .catch(error => console.error("Ошибка:", error));
                 });
             });
+            const MAX_NOTIFICATIONS = 4;
+
+            function addNotification(header, formula, result) {
+                const container = document.getElementById('notificationsContainer');
+
+                // Создаем новое уведомление
+                const notification = document.createElement('div');
+                notification.className = 'notification';
+
+                notification.innerHTML = `
+        <div class="notification-header">${result} ${header}</div>
+        <div class="notification-content">
+            <div class="notification-formula">${formula}</div>
+            <div class="notification-result">${result}</div>
+        </div>
+    `;
+
+                // Добавляем в начало контейнера
+                container.insertBefore(notification, container.firstChild);
+
+                // Ограничиваем количество уведомлений
+                while (container.children.length > MAX_NOTIFICATIONS) {
+                    container.removeChild(container.lastChild);
+                }
+
+                // Автоматическое удаление через 7 секунд
+                setTimeout(() => {
+                    if (notification.parentNode === container) {
+                        notification.style.opacity = '0';
+                        setTimeout(() => {
+                            container.removeChild(notification);
+                        }, 300);
+                    }
+                }, 7000);
+            }
             function showBottomLeftAlert(header, formula, result) {
                 const alertElement = document.getElementById('bottomLeftAlert');
                 document.getElementById('alertHeader').textContent = header;
@@ -829,5 +864,6 @@
             </div>
             <button class="close-alert-btn" onclick="hideBottomLeftAlert()">×</button>
         </div>
+        <div class="notifications-container" id="notificationsContainer"></div>
 </body>
 </html>
