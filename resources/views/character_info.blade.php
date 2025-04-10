@@ -809,7 +809,6 @@
             <span>${notif.dataset.result} </span>
             <span class="${oldTypeClass}">${notif.dataset.type}</span>
             <span> ${notif.dataset.attribute}</span>
-            <button class="close-btn" onclick="this.parentElement.remove()">×</button>
         `;
                 });
 
