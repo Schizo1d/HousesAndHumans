@@ -838,24 +838,14 @@
                     container.lastChild.remove();
                 }
                 if (container.children.length === 1) {
-                    document.querySelector('.close-all-btn').style.display = 'flex';
-                }
-
-
-                if (container.children.length === 1) {
-                    closeBtn.classList.add('visible');
+                    document.querySelector('.close-all-btn').classList.add('visible');
                 }
             }
             // Показываем/скрываем крестик при наличии уведомлений
             function clearAllNotifications() {
                 const container = document.getElementById('notificationsContainer');
-                const closeBtn = document.querySelector('.close-all-btn');
-
                 container.innerHTML = '';
                 currentNotifications = 0;
-
-                // Плавно скрываем крестик
-                closeBtn.classList.remove('visible');
             }
             function showBottomLeftAlert(header, formula, result) {
                 const alertElement = document.getElementById('bottomLeftAlert');
@@ -900,6 +890,15 @@
                     wrapper.classList.remove('has-notifications');
                 }
             }
+            function hideCloseButtonInstantly() {
+                const btn = document.querySelector('.close-all-btn');
+                btn.style.transition = 'none'; // Отключаем анимацию
+                btn.classList.remove('visible'); // Мгновенно скрываем
+                setTimeout(() => {
+                    btn.style.transition = ''; // Восстанавливаем анимацию
+                }, 10);
+            }
+
         </script>
         <div class="sidebar-modal" id="settings-modal">
             <div class="sidebar-content">
@@ -913,7 +912,7 @@
         </div>
         <div class="notifications-wrapper">
             <div class="notifications-container" id="notificationsContainer"></div>
-            <button class="close-all-btn" onclick="clearAllNotifications()">×</button>
+            <button class="close-all-btn" onclick="hideCloseButtonInstantly(); clearAllNotifications()">×</button>
         </div>
 </body>
 </html>
