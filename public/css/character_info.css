@@ -507,12 +507,7 @@ form label {
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    opacity: 0; /* Изначально невидим */
     transition: opacity 0.2s ease;
-}
-
-.notifications-wrapper:hover .close-all-btn {
-    opacity: 1; /* Показываем при наведении */
 }
 
 .close-all-btn:hover {
