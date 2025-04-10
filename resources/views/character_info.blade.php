@@ -650,7 +650,7 @@
                 let modifier = Math.floor((value - 10) / 2);
                 let roll = Math.floor(Math.random() * 20) + 1;
                 let total = roll + modifier;
-                showCustomAlert(`Результат броска: ${roll} + ${modifier} = ${total}`);
+                showBottomLeftAlert(`Бросок: ${roll} + ${modifier} = ${total}`);
             }
 
             function rollSave(attribute) {
@@ -658,7 +658,7 @@
                 let modifier = Math.floor((value - 10) / 2);
                 let roll = Math.floor(Math.random() * 20) + 1;
                 let total = roll + modifier;
-                showCustomAlert(`Результат спасброска: ${roll} + ${modifier} = ${total}`);
+                showBottomLeftAlert(`Спасбросок: ${roll} + ${modifier} = ${total}`);
             }
 
             function updateModifier(attribute) {
@@ -763,6 +763,17 @@
                         .catch(error => console.error("Ошибка:", error));
                 });
             });
+            function showBottomLeftAlert(message) {
+                const alertElement = document.getElementById('bottomLeftAlert');
+                alertElement.textContent = message;
+                alertElement.style.display = 'block';
+
+                // Автоматическое скрытие через 3 секунды
+                setTimeout(() => {
+                    alertElement.style.display = 'none';
+                }, 3000);
+            }
+
             function showCustomAlert(message) {
                 document.getElementById('customAlertMessage').textContent = message;
                 document.getElementById('customAlertOverlay').style.display = 'block';
@@ -790,5 +801,6 @@
             <div class="custom-alert-message" id="customAlertMessage"></div>
             <button onclick="hideCustomAlert()">OK</button>
         </div>
+        <div class="bottom-left-alert" id="bottomLeftAlert"></div>
 </body>
 </html>
