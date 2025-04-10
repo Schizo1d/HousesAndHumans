@@ -767,11 +767,6 @@
                 const alertElement = document.getElementById('bottomLeftAlert');
                 alertElement.textContent = message;
                 alertElement.style.display = 'block';
-
-                // Автоматическое скрытие через 3 секунды
-                setTimeout(() => {
-                    alertElement.style.display = 'none';
-                }, 3000);
             }
 
             function showCustomAlert(message) {
@@ -796,11 +791,9 @@
                 <p id="save-message" style="display: none; color: #28a745;">Имя сохранено!</p>
             </div>
         </div>
-        <div class="custom-alert-overlay" id="customAlertOverlay"></div>
-        <div class="custom-alert" id="customAlert">
-            <div class="custom-alert-message" id="customAlertMessage"></div>
-            <button onclick="hideCustomAlert()">OK</button>
+        <div class="bottom-left-alert" id="bottomLeftAlert">
+            <span id="alertMessage"></span>
+            <button class="close-alert" onclick="this.parentElement.style.display='none'">×</button>
         </div>
-        <div class="bottom-left-alert" id="bottomLeftAlert"></div>
 </body>
 </html>
