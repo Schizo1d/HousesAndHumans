@@ -646,19 +646,29 @@
             }
 
             function rollDice(attribute) {
-                let value = parseInt(document.getElementById(attribute).value);
-                let modifier = Math.floor((value - 10) / 2);
-                let roll = Math.floor(Math.random() * 20) + 1;
-                let total = roll + modifier;
-                showBottomLeftAlert(`${attributeName(attribute)}: ${roll} + ${modifier} = ${total}`);
+                const value = parseInt(document.getElementById(attribute).value);
+                const modifier = Math.floor((value - 10) / 2);
+                const roll = Math.floor(Math.random() * 20) + 1;
+                const total = roll + modifier;
+
+                showBottomLeftAlert(
+                    `ПРОВЕРКА ${attributeName(attribute).toUpperCase()}`,
+                    `(${roll}) + ${modifier}`,
+                    total
+                );
             }
 
             function rollSave(attribute) {
-                let value = parseInt(document.getElementById(attribute).value);
-                let modifier = Math.floor((value - 10) / 2);
-                let roll = Math.floor(Math.random() * 20) + 1;
-                let total = roll + modifier;
-                showBottomLeftAlert(`Спасбросок ${attributeName(attribute)}: ${roll} + ${modifier} = ${total}`);
+                const value = parseInt(document.getElementById(attribute).value);
+                const modifier = Math.floor((value - 10) / 2);
+                const roll = Math.floor(Math.random() * 20) + 1;
+                const total = roll + modifier;
+
+                showBottomLeftAlert(
+                    `СПАСБРОСОК ${attributeName(attribute).toUpperCase()}`,
+                    `(${roll}) + ${modifier}`,
+                    total
+                );
             }
             // Функция для перевода названий атрибутов
             function attributeName(attr) {
@@ -672,6 +682,7 @@
                 };
                 return names[attr] || attr;
             }
+
 
             function updateModifier(attribute) {
                 let attrValue = parseInt(document.getElementById(attribute).value);
@@ -775,16 +786,25 @@
                         .catch(error => console.error("Ошибка:", error));
                 });
             });
-            function showBottomLeftAlert(message) {
+            function showBottomLeftAlert(header, formula, result) {
                 const alertElement = document.getElementById('bottomLeftAlert');
-                const messageElement = document.getElementById('alertMessage');
-
-                messageElement.textContent = message;
+                document.getElementById('alertHeader').textContent = header;
+                document.getElementById('rollFormula').textContent = formula;
+                document.getElementById('rollResult').textContent = result;
                 alertElement.style.display = 'block';
+
+                // Автоматическое скрытие через 5 секунд
+                setTimeout(() => {
+                    if (alertElement.style.display === 'block') {
+                        hideBottomLeftAlert();
+                    }
+                }, 5000);
             }
+
             function hideBottomLeftAlert() {
                 document.getElementById('bottomLeftAlert').style.display = 'none';
             }
+
             function showCustomAlert(message) {
                 document.getElementById('customAlertMessage').textContent = message;
                 document.getElementById('customAlertOverlay').style.display = 'block';
@@ -809,7 +829,11 @@
         </div>
 
         <div class="bottom-left-alert" id="bottomLeftAlert">
-            <span id="alertMessage"></span>
+            <div class="alert-header" id="alertHeader"></div>
+            <div class="alert-roll">
+                <div class="roll-formula" id="rollFormula"></div>
+                <div class="roll-result" id="rollResult"></div>
+            </div>
             <button class="close-alert-btn" onclick="hideBottomLeftAlert()">×</button>
         </div>
 </body>

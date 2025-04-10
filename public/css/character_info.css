@@ -451,15 +451,14 @@ form label {
     left: 20px;
     background-color: #333;
     color: white;
-    padding: 15px 40px 15px 15px; /* Больше правый отступ для кнопки */
+    padding: 15px;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
     z-index: 1000;
     display: none;
     max-width: 300px;
     animation: fadeIn 0.3s;
-    font-size: 14px;
-    line-height: 1.4;
+    font-family: Arial, sans-serif;
 }
 .close-alert-btn {
     position: absolute;
@@ -478,7 +477,28 @@ form label {
     border-radius: 50%;
     transition: all 0.2s;
 }
+.alert-header {
+    font-size: 14px;
+    margin-bottom: 10px;
+    color: #ccc;
+}
 
+.alert-roll {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.roll-formula {
+    font-size: 16px;
+}
+
+.roll-result {
+    font-size: 50px;
+    font-weight: bold;
+    color: #ffcc00;
+    margin-left: auto;
+}
 .close-alert-btn:hover {
     color: white;
     background-color: rgba(255,255,255,0.2);
