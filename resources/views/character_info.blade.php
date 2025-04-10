@@ -650,7 +650,7 @@
                 let modifier = Math.floor((value - 10) / 2);
                 let roll = Math.floor(Math.random() * 20) + 1;
                 let total = roll + modifier;
-                showBottomLeftAlert(`Бросок: ${roll} + ${modifier} = ${total}`);
+                showBottomLeftAlert(`${attributeName(attribute)}: ${roll} + ${modifier} = ${total}`);
             }
 
             function rollSave(attribute) {
@@ -658,7 +658,19 @@
                 let modifier = Math.floor((value - 10) / 2);
                 let roll = Math.floor(Math.random() * 20) + 1;
                 let total = roll + modifier;
-                showBottomLeftAlert(`Спасбросок: ${roll} + ${modifier} = ${total}`);
+                showBottomLeftAlert(`Спасбросок ${attributeName(attribute)}: ${roll} + ${modifier} = ${total}`);
+            }
+            // Функция для перевода названий атрибутов
+            function attributeName(attr) {
+                const names = {
+                    'strength': 'Сила',
+                    'dexterity': 'Ловкость',
+                    'constitution': 'Телосложение',
+                    'intelligence': 'Интеллект',
+                    'wisdom': 'Мудрость',
+                    'charisma': 'Харизма'
+                };
+                return names[attr] || attr;
             }
 
             function updateModifier(attribute) {
@@ -765,10 +777,14 @@
             });
             function showBottomLeftAlert(message) {
                 const alertElement = document.getElementById('bottomLeftAlert');
-                alertElement.textContent = message;
+                const messageElement = document.getElementById('alertMessage');
+
+                messageElement.textContent = message;
                 alertElement.style.display = 'block';
             }
-
+            function hideBottomLeftAlert() {
+                document.getElementById('bottomLeftAlert').style.display = 'none';
+            }
             function showCustomAlert(message) {
                 document.getElementById('customAlertMessage').textContent = message;
                 document.getElementById('customAlertOverlay').style.display = 'block';
@@ -798,7 +814,7 @@
         </div>
         <div class="bottom-left-alert" id="bottomLeftAlert">
             <span id="alertMessage"></span>
-            <button class="close-alert" onclick="this.parentElement.style.display='none'">×</button>
+            <button class="close-alert-btn" onclick="hideBottomLeftAlert()">×</button>
         </div>
 </body>
 </html>
