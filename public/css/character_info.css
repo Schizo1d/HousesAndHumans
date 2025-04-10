@@ -221,9 +221,6 @@ form label {
     display: flex;
     align-items: center;
 }
-.check-block{
-    margin-right: 35px;
-}
 .attribute-name, .attribute-value {
     white-space: nowrap; /* Текст не переносится */
 }
@@ -256,6 +253,7 @@ form label {
 .attribute-checks{
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
 .dice-roll-button span{
     color: #ffffff;
