@@ -874,15 +874,6 @@
                 <p id="save-message" style="display: none; color: #28a745;">Имя сохранено!</p>
             </div>
         </div>
-
-        <div class="bottom-left-alert" id="bottomLeftAlert">
-            <div class="alert-header" id="alertHeader"></div>
-            <div class="alert-roll">
-                <div class="roll-formula" id="rollFormula"></div>
-                <div class="roll-result" id="rollResult"></div>
-            </div>
-            <button class="close-alert-btn" onclick="hideBottomLeftAlert()">×</button>
-        </div>
         <div class="notifications-container" id="notificationsContainer"></div>
 </body>
 </html>
