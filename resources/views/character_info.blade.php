@@ -787,7 +787,7 @@
         </div>
         <div class="custom-alert-overlay" id="customAlertOverlay"></div>
         <div class="custom-alert" id="customAlert">
-            <div id="customAlertMessage"></div>
+            <div class="custom-alert-message" id="customAlertMessage"></div>
             <button onclick="hideCustomAlert()">OK</button>
         </div>
 </body>
