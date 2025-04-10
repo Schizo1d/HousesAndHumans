@@ -506,11 +506,15 @@ form label {
     display: none; /* Изначально скрыт */
     align-items: center;
     justify-content: center;
+    opacity: 0;
+    pointer-events: none;
     transition: opacity 0.2s ease;
 }
 
 .notifications-wrapper:has(.notification) .close-all-btn {
     display: flex; /* Показываем только когда есть уведомления */
+    opacity: 1;
+    pointer-events: auto;
 }
 
 .close-all-btn:hover {
