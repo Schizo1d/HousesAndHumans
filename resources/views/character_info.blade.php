@@ -787,39 +787,42 @@
                 });
             });
             const MAX_NOTIFICATIONS = 4;
+            let currentNotifications = 0;
 
-            function addNotification(header, formula, result) {
+            function addNotification(type, attribute, roll, modifier, result) {
                 const container = document.getElementById('notificationsContainer');
+
+                // Сначала преобразуем все существующие уведомления в старые
+                const oldNotifications = document.querySelectorAll('.notification.new');
+                oldNotifications.forEach(notif => {
+                    notif.className = 'notification old';
+                    notif.innerHTML = `${notif.dataset.result} ${notif.dataset.type} ${notif.dataset.attribute}`;
+                });
 
                 // Создаем новое уведомление
                 const notification = document.createElement('div');
-                notification.className = 'notification';
+                notification.className = 'notification new';
+                notification.dataset.type = type;
+                notification.dataset.attribute = attributeName(attribute);
+                notification.dataset.result = result;
 
                 notification.innerHTML = `
-        <div class="notification-header">${result} ${header}</div>
+        <div class="notification-header">${type} ${attributeName(attribute)}</div>
         <div class="notification-content">
-            <div class="notification-formula">${formula}</div>
+            <div class="notification-formula">${roll} + ${modifier}</div>
             <div class="notification-result">${result}</div>
         </div>
     `;
 
                 // Добавляем в начало контейнера
                 container.insertBefore(notification, container.firstChild);
+                currentNotifications++;
 
-                // Ограничиваем количество уведомлений
-                while (container.children.length > MAX_NOTIFICATIONS) {
+                // Удаляем самые старые уведомления
+                while (currentNotifications > MAX_NOTIFICATIONS) {
                     container.removeChild(container.lastChild);
+                    currentNotifications--;
                 }
-
-                // Автоматическое удаление через 7 секунд
-                setTimeout(() => {
-                    if (notification.parentNode === container) {
-                        notification.style.opacity = '0';
-                        setTimeout(() => {
-                            container.removeChild(notification);
-                        }, 300);
-                    }
-                }, 7000);
             }
             function showBottomLeftAlert(header, formula, result) {
                 const alertElement = document.getElementById('bottomLeftAlert');
