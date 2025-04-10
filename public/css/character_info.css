@@ -507,8 +507,6 @@ form label {
     align-items: center;
     justify-content: center;
     transition: opacity 0.2s ease;
-    opacity: 0;
-    pointer-events: none;
 }
 
 .notifications-wrapper:has(.notification) .close-all-btn {
@@ -518,9 +516,6 @@ form label {
 .close-all-btn:hover {
     background: rgba(60, 60, 60, 0.9);
     color: white;
-    opacity: 1;
-    pointer-events: auto;
-
 }
 
 @keyframes slideIn {
