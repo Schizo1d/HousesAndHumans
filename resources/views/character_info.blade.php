@@ -796,27 +796,24 @@
             function addNotification(type, attribute, roll, modifier, result) {
                 const container = document.getElementById('notificationsContainer');
 
-                // Определяем тип и классы
                 const isCheck = type === 'ПРОВЕРКА';
                 const typeClass = isCheck ? 'check-text' : 'save-text';
                 const notificationType = isCheck ? 'check' : 'save';
-
-                // Форматируем модификатор
                 const modifierDisplay = modifier >= 0 ? `+${modifier}` : modifier;
 
-                // Преобразуем предыдущие уведомления в старые
-                const oldNotifications = document.querySelectorAll('.notification.new');
-                oldNotifications.forEach(notif => {
+                // Преобразуем старые уведомления
+                document.querySelectorAll('.notification.new').forEach(notif => {
                     const oldTypeClass = notif.dataset.notificationType === 'check' ? 'check-text' : 'save-text';
                     notif.className = `notification old ${notif.dataset.notificationType}`;
                     notif.innerHTML = `
             <span>${notif.dataset.result} </span>
             <span class="${oldTypeClass}">${notif.dataset.type}</span>
             <span> ${notif.dataset.attribute}</span>
+            <button class="close-btn" onclick="this.parentElement.remove()">×</button>
         `;
                 });
 
-                // Создаём новое уведомление
+                // Создаем новое уведомление
                 const notification = document.createElement('div');
                 notification.className = `notification new ${notificationType}`;
                 notification.dataset.type = type;
@@ -832,16 +829,14 @@
             <div class="notification-formula">${roll} ${modifierDisplay}</div>
             <div class="notification-result">${result}</div>
         </div>
+        <button class="close-btn" onclick="this.parentElement.remove()">×</button>
     `;
 
-                // Добавляем в контейнер
                 container.insertBefore(notification, container.firstChild);
-                currentNotifications++;
 
-                // Удаляем самые старые уведомления
-                while (currentNotifications > MAX_NOTIFICATIONS) {
-                    container.removeChild(container.lastChild);
-                    currentNotifications--;
+                // Лимит уведомлений
+                while (container.children.length > MAX_NOTIFICATIONS) {
+                    container.lastChild.remove();
                 }
             }
             function showBottomLeftAlert(header, formula, result) {
