@@ -446,44 +446,7 @@ form label {
     font-size: 0.9em;
     opacity: 0.8;
 }
-/* Стили для кастомного alert */
-.custom-alert {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    z-index: 1000;
-    max-width: 80%;
-    text-align: center;
-}
-.custom-alert-message{
-    color: #000000;
-}
-.custom-alert-overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.3);
-    z-index: 999;
-}
 
-.custom-alert button {
-    margin-top: 15px;
-    padding: 5px 15px;
-    background-color: #dc3545;
-    color: white;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-}
 .bottom-left-alert {
     position: fixed;
     bottom: 20px;
@@ -527,9 +490,8 @@ form label {
     to { opacity: 1; transform: translateY(0); }
 }
 .bottom-left-alert {
-    /* предыдущие стили */
-    padding-right: 35px; /* место для кнопки закрытия */
-    position: relative;
+    bottom: 20px; /* Отступ от нижнего края */
+    left: 20px;   /* Отступ от левого края */
 }
 
 .close-alert {

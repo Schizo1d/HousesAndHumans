@@ -807,11 +807,7 @@
                 <p id="save-message" style="display: none; color: #28a745;">Имя сохранено!</p>
             </div>
         </div>
-        <div class="custom-alert-overlay" id="customAlertOverlay"></div>
-        <div class="custom-alert" id="customAlert">
-            <div class="custom-alert-message" id="customAlertMessage"></div>
-            <button onclick="hideCustomAlert()">OK</button>
-        </div>
+
         <div class="bottom-left-alert" id="bottomLeftAlert">
             <span id="alertMessage"></span>
             <button class="close-alert-btn" onclick="hideBottomLeftAlert()">×</button>
