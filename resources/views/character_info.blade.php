@@ -829,7 +829,6 @@
             <div class="notification-formula">${roll} ${modifierDisplay}</div>
             <div class="notification-result">${result}</div>
         </div>
-        <button class="close-btn" onclick="this.parentElement.remove()">×</button>
     `;
 
                 container.insertBefore(notification, container.firstChild);
@@ -861,7 +860,10 @@
                 document.getElementById('customAlertOverlay').style.display = 'none';
                 document.getElementById('customAlert').style.display = 'none';
             }
-
+            function clearAllNotifications() {
+                document.getElementById('notificationsContainer').innerHTML = '';
+                currentNotifications = 0;
+            }
         </script>
         <div class="sidebar-modal" id="settings-modal">
             <div class="sidebar-content">
@@ -873,6 +875,9 @@
                 <p id="save-message" style="display: none; color: #28a745;">Имя сохранено!</p>
             </div>
         </div>
-        <div class="notifications-container" id="notificationsContainer"></div>
+        <div class="notifications-wrapper">
+            <div class="notifications-container" id="notificationsContainer"></div>
+            <button class="close-all-btn" onclick="clearAllNotifications()">×</button>
+        </div>
 </body>
 </html>
