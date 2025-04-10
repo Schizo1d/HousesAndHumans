@@ -836,7 +836,7 @@
                 while (container.children.length > MAX_NOTIFICATIONS) {
                     container.lastChild.remove();
                 }
-                updateCloseButtonVisibility();
+                updateNotificationsState();
             }
             // Показываем/скрываем крестик при наличии уведомлений
             function updateCloseButtonVisibility() {
@@ -887,6 +887,16 @@
             document.getElementById('notificationsWrapper').addEventListener('mouseleave', function() {
                 this.querySelector('.close-all-btn').style.opacity = '0';
             });
+            function updateNotificationsState() {
+                const wrapper = document.getElementById('notificationsWrapper');
+                const hasNotifications = document.getElementById('notificationsContainer').children.length > 0;
+
+                if (hasNotifications) {
+                    wrapper.classList.add('has-notifications');
+                } else {
+                    wrapper.classList.remove('has-notifications');
+                }
+            }
         </script>
         <div class="sidebar-modal" id="settings-modal">
             <div class="sidebar-content">

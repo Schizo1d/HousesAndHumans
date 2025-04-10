@@ -507,12 +507,14 @@ form label {
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    opacity: 0; /* Изначально невидим */
+    opacity: 0; /* Всегда невидим по умолчанию */
     transition: opacity 0.2s ease;
+    pointer-events: none; /* Блокируем клики когда невидим */
 }
 
-.notifications-wrapper:hover .close-all-btn {
-    opacity: 1; /* Показываем при наведении */
+.notifications-wrapper.has-notifications:hover .close-all-btn {
+    opacity: 1;
+    pointer-events: auto; /* Разрешаем клики */
 }
 
 .close-all-btn:hover {
