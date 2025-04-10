@@ -75,17 +75,27 @@
                             <a href="#" class="check-link" onclick="openModal('strength'); return false;">Проверка</a>
                         </div>
                         <button type="button" class="dice-roll-button" onclick="rollDice('strength'); return false;">
-                            <span id="strength-modifier" class="modifier">
-                                {{ floor(($character->attributes->strength ?? 10 - 10) / 2) }}
-                            </span>
+        <span id="strength-modifier" class="modifier">
+            {{ floor(($character->attributes->strength ?? 10 - 10) / 2) }}
+        </span>
+                        </button>
+                        <div class="attribute-skill-wrap">
+                            <a href="#" class="check-link" onclick="openModal('strength'); return false;">Спасбросок</a>
+                        </div>
+                        <button type="button" class="dice-roll-button" onclick="rollSave('strength'); return false;">
+        <span id="strength-save-modifier" class="modifier">
+            {{ floor(($character->attributes->strength ?? 10 - 10) / 2) }}
+        </span>
                         </button>
                     </div>
                     <div class="sub-attributes">
                         <div class="attribute-skill">
-                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="athletics" onclick="toggleSkill(this)">
+                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="athletics"
+                               onclick="toggleSkill(this)">
                                 Атлетика
                             </a>
-                            <button type="button" class="dice-roll-button" id="athletics-button" onclick="document.querySelector('[data-target=athletics]').click()">
+                            <button type="button" class="dice-roll-button" id="athletics-button"
+                                    onclick="document.querySelector('[data-target=athletics]').click()">
                                 <span id="athletics-value">{{ $character->attributes->athletics ?? 0 }}</span>
                             </button>
                         </div>
@@ -119,10 +129,12 @@
                     </div>
                     <div class="sub-attributes">
                         <div class="attribute-skill">
-                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="acrobatics" onclick="toggleSkill(this)">
+                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="acrobatics"
+                               onclick="toggleSkill(this)">
                                 Акробатика
                             </a>
-                            <button type="button" class="dice-roll-button" id="acrobatics-button" onclick="document.querySelector('[data-target=acrobatics]').click()">
+                            <button type="button" class="dice-roll-button" id="acrobatics-button"
+                                    onclick="document.querySelector('[data-target=acrobatics]').click()">
                                 <span id="acrobatics-value">{{ $character->attributes->acrobatics ?? 0 }}</span>
                             </button>
                         </div>
@@ -130,21 +142,26 @@
                                value="{{ $character->attributes->acrobatics ?? 0 }}">
 
                         <div class="attribute-skill">
-                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="sleight_of_hand" onclick="toggleSkill(this)">
+                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="sleight_of_hand"
+                               onclick="toggleSkill(this)">
                                 Ловкость рук
                             </a>
-                            <button type="button" class="dice-roll-button" id="sleight_of_hand-button" onclick="document.querySelector('[data-target=sleight_of_hand]').click()">
-                                <span id="sleight_of_hand-value">{{ $character->attributes->sleight_of_hand ?? 0 }}</span>
+                            <button type="button" class="dice-roll-button" id="sleight_of_hand-button"
+                                    onclick="document.querySelector('[data-target=sleight_of_hand]').click()">
+                                <span
+                                    id="sleight_of_hand-value">{{ $character->attributes->sleight_of_hand ?? 0 }}</span>
                             </button>
                         </div>
                         <input type="hidden" name="sleight_of_hand" id="sleight_of_hand"
                                value="{{ $character->attributes->sleight_of_hand ?? 0 }}">
 
                         <div class="attribute-skill">
-                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="stealth" onclick="toggleSkill(this)">
+                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="stealth"
+                               onclick="toggleSkill(this)">
                                 Скрытность
                             </a>
-                            <button type="button" class="dice-roll-button" id="stealth-button" onclick="document.querySelector('[data-target=stealth]').click()">
+                            <button type="button" class="dice-roll-button" id="stealth-button"
+                                    onclick="document.querySelector('[data-target=stealth]').click()">
                                 <span id="stealth-value">{{ $character->attributes->stealth ?? 0 }}</span>
                             </button>
                         </div>
@@ -168,9 +185,11 @@
                     </div>
                     <div class="attribute-checks">
                         <div class="attribute-skill-wrap">
-                            <a href="#" class="check-link" onclick="openModal('constitution'); return false;">Проверка</a>
+                            <a href="#" class="check-link"
+                               onclick="openModal('constitution'); return false;">Проверка</a>
                         </div>
-                        <button type="button" class="dice-roll-button" onclick="rollDice('constitution'); return false;">
+                        <button type="button" class="dice-roll-button"
+                                onclick="rollDice('constitution'); return false;">
             <span id="constitution-modifier" class="modifier">
                 {{ floor(($character->attributes->constitution ?? 10 - 10) / 2) }}
             </span>
@@ -193,9 +212,11 @@
                     </div>
                     <div class="attribute-checks">
                         <div class="attribute-skill-wrap">
-                            <a href="#" class="check-link" onclick="openModal('intelligence'); return false;">Проверка</a>
+                            <a href="#" class="check-link"
+                               onclick="openModal('intelligence'); return false;">Проверка</a>
                         </div>
-                        <button type="button" class="dice-roll-button" onclick="rollDice('intelligence'); return false;">
+                        <button type="button" class="dice-roll-button"
+                                onclick="rollDice('intelligence'); return false;">
             <span id="intelligence-modifier" class="modifier">
                 {{ floor(($character->attributes->intelligence ?? 10 - 10) / 2) }}
             </span>
@@ -203,10 +224,12 @@
                     </div>
                     <div class="sub-attributes">
                         <div class="attribute-skill">
-                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="investigation" onclick="toggleSkill(this)">
+                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="investigation"
+                               onclick="toggleSkill(this)">
                                 Анализ
                             </a>
-                            <button type="button" class="dice-roll-button" id="investigation-button" onclick="document.querySelector('[data-target=investigation]').click()">
+                            <button type="button" class="dice-roll-button" id="investigation-button"
+                                    onclick="document.querySelector('[data-target=investigation]').click()">
                                 <span id="investigation-value">{{ $character->attributes->investigation ?? 0 }}</span>
                             </button>
                         </div>
@@ -214,10 +237,12 @@
                                value="{{ $character->attributes->investigation ?? 0 }}">
 
                         <div class="attribute-skill">
-                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="history" onclick="toggleSkill(this)">
+                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="history"
+                               onclick="toggleSkill(this)">
                                 История
                             </a>
-                            <button type="button" class="dice-roll-button" id="history-button" onclick="document.querySelector('[data-target=history]').click()">
+                            <button type="button" class="dice-roll-button" id="history-button"
+                                    onclick="document.querySelector('[data-target=history]').click()">
                                 <span id="history-value">{{ $character->attributes->history ?? 0 }}</span>
                             </button>
                         </div>
@@ -225,10 +250,12 @@
                                value="{{ $character->attributes->history ?? 0 }}">
 
                         <div class="attribute-skill">
-                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="arcana" onclick="toggleSkill(this)">
+                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="arcana"
+                               onclick="toggleSkill(this)">
                                 Магия
                             </a>
-                            <button type="button" class="dice-roll-button" id="arcana-button" onclick="document.querySelector('[data-target=arcana]').click()">
+                            <button type="button" class="dice-roll-button" id="arcana-button"
+                                    onclick="document.querySelector('[data-target=arcana]').click()">
                                 <span id="arcana-value">{{ $character->attributes->arcana ?? 0 }}</span>
                             </button>
                         </div>
@@ -236,10 +263,12 @@
                                value="{{ $character->attributes->arcana ?? 0 }}">
 
                         <div class="attribute-skill">
-                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="nature" onclick="toggleSkill(this)">
+                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="nature"
+                               onclick="toggleSkill(this)">
                                 Природа
                             </a>
-                            <button type="button" class="dice-roll-button" id="nature-button" onclick="document.querySelector('[data-target=nature]').click()">
+                            <button type="button" class="dice-roll-button" id="nature-button"
+                                    onclick="document.querySelector('[data-target=nature]').click()">
                                 <span id="nature-value">{{ $character->attributes->nature ?? 0 }}</span>
                             </button>
                         </div>
@@ -247,10 +276,12 @@
                                value="{{ $character->attributes->nature ?? 0 }}">
 
                         <div class="attribute-skill">
-                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="religion" onclick="toggleSkill(this)">
+                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="religion"
+                               onclick="toggleSkill(this)">
                                 Религия
                             </a>
-                            <button type="button" class="dice-roll-button" id="religion-button" onclick="document.querySelector('[data-target=religion]').click()">
+                            <button type="button" class="dice-roll-button" id="religion-button"
+                                    onclick="document.querySelector('[data-target=religion]').click()">
                                 <span id="religion-value">{{ $character->attributes->religion ?? 0 }}</span>
                             </button>
                         </div>
@@ -284,10 +315,12 @@
                     </div>
                     <div class="sub-attributes">
                         <div class="attribute-skill">
-                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="perception" onclick="toggleSkill(this)">
+                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="perception"
+                               onclick="toggleSkill(this)">
                                 Восприятие
                             </a>
-                            <button type="button" class="dice-roll-button" id="perception-button" onclick="document.querySelector('[data-target=perception]').click()">
+                            <button type="button" class="dice-roll-button" id="perception-button"
+                                    onclick="document.querySelector('[data-target=perception]').click()">
                                 <span id="perception-value">{{ $character->attributes->perception ?? 0 }}</span>
                             </button>
                         </div>
@@ -295,10 +328,12 @@
                                value="{{ $character->attributes->perception ?? 0 }}">
 
                         <div class="attribute-skill">
-                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="survival" onclick="toggleSkill(this)">
+                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="survival"
+                               onclick="toggleSkill(this)">
                                 Выживание
                             </a>
-                            <button type="button" class="dice-roll-button" id="survival-button" onclick="document.querySelector('[data-target=survival]').click()">
+                            <button type="button" class="dice-roll-button" id="survival-button"
+                                    onclick="document.querySelector('[data-target=survival]').click()">
                                 <span id="survival-value">{{ $character->attributes->survival ?? 0 }}</span>
                             </button>
                         </div>
@@ -306,10 +341,12 @@
                                value="{{ $character->attributes->survival ?? 0 }}">
 
                         <div class="attribute-skill">
-                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="medicine" onclick="toggleSkill(this)">
+                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="medicine"
+                               onclick="toggleSkill(this)">
                                 Медицина
                             </a>
-                            <button type="button" class="dice-roll-button" id="medicine-button" onclick="document.querySelector('[data-target=medicine]').click()">
+                            <button type="button" class="dice-roll-button" id="medicine-button"
+                                    onclick="document.querySelector('[data-target=medicine]').click()">
                                 <span id="medicine-value">{{ $character->attributes->medicine ?? 0 }}</span>
                             </button>
                         </div>
@@ -317,10 +354,12 @@
                                value="{{ $character->attributes->medicine ?? 0 }}">
 
                         <div class="attribute-skill">
-                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="insight" onclick="toggleSkill(this)">
+                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="insight"
+                               onclick="toggleSkill(this)">
                                 Проницательность
                             </a>
-                            <button type="button" class="dice-roll-button" id="insight-button" onclick="document.querySelector('[data-target=insight]').click()">
+                            <button type="button" class="dice-roll-button" id="insight-button"
+                                    onclick="document.querySelector('[data-target=insight]').click()">
                                 <span id="insight-value">{{ $character->attributes->insight ?? 0 }}</span>
                             </button>
                         </div>
@@ -328,11 +367,14 @@
                                value="{{ $character->attributes->insight ?? 0 }}">
 
                         <div class="attribute-skill">
-                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="animal_handling" onclick="toggleSkill(this)">
+                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="animal_handling"
+                               onclick="toggleSkill(this)">
                                 Уход за животными
                             </a>
-                            <button type="button" class="dice-roll-button" id="animal_handling-button" onclick="document.querySelector('[data-target=animal_handling]').click()">
-                                <span id="animal_handling-value">{{ $character->attributes->animal_handling ?? 0 }}</span>
+                            <button type="button" class="dice-roll-button" id="animal_handling-button"
+                                    onclick="document.querySelector('[data-target=animal_handling]').click()">
+                                <span
+                                    id="animal_handling-value">{{ $character->attributes->animal_handling ?? 0 }}</span>
                             </button>
                         </div>
                         <input type="hidden" name="animal_handling" id="animal_handling"
@@ -365,10 +407,12 @@
                     </div>
                     <div class="sub-attributes">
                         <div class="attribute-skill">
-                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="performance" onclick="toggleSkill(this)">
+                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="performance"
+                               onclick="toggleSkill(this)">
                                 Выступление
                             </a>
-                            <button type="button" class="dice-roll-button" id="performance-button" onclick="document.querySelector('[data-target=performance]').click()">
+                            <button type="button" class="dice-roll-button" id="performance-button"
+                                    onclick="document.querySelector('[data-target=performance]').click()">
                                 <span id="performance-value">{{ $character->attributes->performance ?? 0 }}</span>
                             </button>
                         </div>
@@ -376,10 +420,12 @@
                                value="{{ $character->attributes->performance ?? 0 }}">
 
                         <div class="attribute-skill">
-                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="intimidation" onclick="toggleSkill(this)">
+                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="intimidation"
+                               onclick="toggleSkill(this)">
                                 Запугивание
                             </a>
-                            <button type="button" class="dice-roll-button" id="intimidation-button" onclick="document.querySelector('[data-target=intimidation]').click()">
+                            <button type="button" class="dice-roll-button" id="intimidation-button"
+                                    onclick="document.querySelector('[data-target=intimidation]').click()">
                                 <span id="intimidation-value">{{ $character->attributes->intimidation ?? 0 }}</span>
                             </button>
                         </div>
@@ -387,10 +433,12 @@
                                value="{{ $character->attributes->intimidation ?? 0 }}">
 
                         <div class="attribute-skill">
-                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="deception" onclick="toggleSkill(this)">
+                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="deception"
+                               onclick="toggleSkill(this)">
                                 Обман
                             </a>
-                            <button type="button" class="dice-roll-button" id="deception-button" onclick="document.querySelector('[data-target=deception]').click()">
+                            <button type="button" class="dice-roll-button" id="deception-button"
+                                    onclick="document.querySelector('[data-target=deception]').click()">
                                 <span id="deception-value">{{ $character->attributes->deception ?? 0 }}</span>
                             </button>
                         </div>
@@ -398,10 +446,12 @@
                                value="{{ $character->attributes->deception ?? 0 }}">
 
                         <div class="attribute-skill">
-                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="persuasion" onclick="toggleSkill(this)">
+                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="persuasion"
+                               onclick="toggleSkill(this)">
                                 Убеждение
                             </a>
-                            <button type="button" class="dice-roll-button" id="persuasion-button" onclick="document.querySelector('[data-target=persuasion]').click()">
+                            <button type="button" class="dice-roll-button" id="persuasion-button"
+                                    onclick="document.querySelector('[data-target=persuasion]').click()">
                                 <span id="persuasion-value">{{ $character->attributes->persuasion ?? 0 }}</span>
                             </button>
                         </div>
@@ -410,7 +460,7 @@
                     </div>
                 </div>
 
-            <button type="submit">Сохранить атрибуты</button>
+                <button type="submit">Сохранить атрибуты</button>
         </form>
 
         <!-- Модальное окно -->
@@ -507,6 +557,7 @@
                     });
                 }
             }
+
             function toggleSkill(element) {
                 const targetId = element.getAttribute('data-target');
                 const span = document.getElementById(targetId + "-value");
@@ -530,6 +581,7 @@
                 // Обновляем отображение
                 span.textContent = finalValue;
             }
+
             function rollDice(attribute) {
                 let value = parseInt(document.getElementById(attribute).value);
                 let modifier = Math.floor((value - 10) / 2);
@@ -538,10 +590,19 @@
                 alert(`Результат броска: ${roll} + ${modifier} = ${total}`);
             }
 
+            function rollSave(attribute) {
+                let value = parseInt(document.getElementById(attribute).value);
+                let modifier = Math.floor((value - 10) / 2);
+                let roll = Math.floor(Math.random() * 20) + 1;
+                let total = roll + modifier;
+                alert(`Результат спасброска: ${roll} + ${modifier} = ${total}`);
+            }
+
             function updateModifier(attribute) {
                 let attrValue = parseInt(document.getElementById(attribute).value);
                 let modifier = getModifier(attrValue);
                 document.getElementById(`${attribute}-modifier`).textContent = modifier;
+                document.getElementById(`${attribute}-save-modifier`).textContent = modifier;
             }
 
             function saveAttribute() {
