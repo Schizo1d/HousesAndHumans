@@ -536,13 +536,6 @@ form label {
     overflow-y: auto;
 }
 
-/* Стиль для нового уведомления */
-.notification.new {
-    background-color: rgba(40, 40, 40, 0.9);
-    padding: 12px 15px;
-    width: 240px;
-    border-left: 3px solid #ffcc00;
-}
 
 .notification-header {
     font-size: 14px;
@@ -596,6 +589,14 @@ form label {
 .notification.old.save {
     border-left: 3px solid #53a5a7;
 }
+/* Стиль для нового уведомления */
+.notification.new {
+    background-color: rgba(40, 40, 40, 0.9);
+    padding: 12px 15px;
+    width: 240px;
+    border-left: 3px solid #ffcc00;
+    border-radius: 10px;
+}
 
 /* Стиль для старых уведомлений */
 .notification.old {
@@ -603,6 +604,7 @@ form label {
     padding: 8px 12px;
     width: 180px;
     font-size: 14px;
+    border-radius: 10px;
 }
 
 @keyframes slideIn {
