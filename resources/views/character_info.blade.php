@@ -806,10 +806,15 @@
                 notification.dataset.attribute = attributeName(attribute);
                 notification.dataset.result = result;
 
+                // Проверяем, определен ли модификатор
+                const modifierDisplay = (modifier !== undefined && modifier !== null) ?
+                    (modifier >= 0 ? `+${modifier}` : modifier) :
+                    '+0';
+
                 notification.innerHTML = `
         <div class="notification-header">${type} ${attributeName(attribute)}</div>
         <div class="notification-content">
-            <div class="notification-formula">${roll} + ${modifier}</div>
+            <div class="notification-formula">${roll} ${modifierDisplay}</div>
             <div class="notification-result">${result}</div>
         </div>
     `;
