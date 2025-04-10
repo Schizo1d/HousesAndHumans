@@ -836,14 +836,20 @@
                 while (container.children.length > MAX_NOTIFICATIONS) {
                     container.lastChild.remove();
                 }
-                updateCloseButton();
+                updateCloseButtonVisibility();
             }
             // Показываем/скрываем крестик при наличии уведомлений
-            function updateCloseButton() {
-                const hasNotifications = document.getElementById('notificationsContainer').children.length > 0;
-                document.querySelector('.close-all-btn').hidden = !hasNotifications;
-            }
+            function updateCloseButtonVisibility() {
+                const wrapper = document.getElementById('notificationsWrapper');
+                const container = document.getElementById('notificationsContainer');
+                const closeBtn = wrapper.querySelector('.close-all-btn');
 
+                if (container.children.length > 0) {
+                    wrapper.classList.add('has-notifications');
+                } else {
+                    wrapper.classList.remove('has-notifications');
+                }
+            }
             function showBottomLeftAlert(header, formula, result) {
                 const alertElement = document.getElementById('bottomLeftAlert');
                 document.getElementById('alertHeader').textContent = header;
@@ -869,9 +875,8 @@
             function clearAllNotifications() {
                 document.getElementById('notificationsContainer').innerHTML = '';
                 currentNotifications = 0;
-                updateCloseButton(); // Обновляем после очистки
+                updateCloseButtonVisibility();
             }
-
             // Добавляем обработчик для ручного управления видимостью
             document.getElementById('notificationsWrapper').addEventListener('mouseenter', function() {
                 if (this.querySelector('.notifications-container').children.length > 0) {
@@ -895,7 +900,7 @@
         </div>
         <div class="notifications-wrapper" id="notificationsWrapper">
             <div class="notifications-container" id="notificationsContainer"></div>
-            <button class="close-all-btn" hidden onclick="clearAllNotifications()">×</button>
+            <button class="close-all-btn" onclick="clearAllNotifications()">×</button>
         </div>
 </body>
 </html>
