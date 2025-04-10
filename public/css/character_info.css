@@ -503,14 +503,19 @@ form label {
     border-radius: 50%;
     font-size: 18px;
     cursor: pointer;
-    display: none; /* Изначально скрыт */
+    display: flex;
     align-items: center;
     justify-content: center;
-    transition: opacity 0.2s ease;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
 }
 
-.notifications-wrapper:has(.notification) .close-all-btn {
-    display: flex; /* Показываем только когда есть уведомления */
+.close-all-btn.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
 }
 
 .close-all-btn:hover {

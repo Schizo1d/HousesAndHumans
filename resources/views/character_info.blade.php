@@ -795,6 +795,7 @@
 
             function addNotification(type, attribute, roll, modifier, result) {
                 const container = document.getElementById('notificationsContainer');
+                const closeBtn = document.querySelector('.close-all-btn');
 
                 const isCheck = type === 'ПРОВЕРКА';
                 const typeClass = isCheck ? 'check-text' : 'save-text';
@@ -814,7 +815,7 @@
 
                 // Создаем новое уведомление
                 const notification = document.createElement('div');
-                notification.className = `notification new ${notificationType}`;
+                notification.className = 'notification new';
                 notification.dataset.type = type;
                 notification.dataset.attribute = attributeName(attribute);
                 notification.dataset.result = result;
@@ -839,15 +840,22 @@
                 if (container.children.length === 1) {
                     document.querySelector('.close-all-btn').style.display = 'flex';
                 }
+
+
+                if (container.children.length === 1) {
+                    closeBtn.classList.add('visible');
+                }
             }
             // Показываем/скрываем крестик при наличии уведомлений
             function clearAllNotifications() {
                 const container = document.getElementById('notificationsContainer');
+                const closeBtn = document.querySelector('.close-all-btn');
+
                 container.innerHTML = '';
                 currentNotifications = 0;
 
-                // Скрываем крестик после удаления всех уведомлений
-                document.querySelector('.close-all-btn').style.display = 'none';
+                // Плавно скрываем крестик
+                closeBtn.classList.remove('visible');
             }
             function showBottomLeftAlert(header, formula, result) {
                 const alertElement = document.getElementById('bottomLeftAlert');
