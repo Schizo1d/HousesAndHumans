@@ -461,7 +461,9 @@ form label {
     max-width: 80%;
     text-align: center;
 }
-
+.customAlertMessage{
+    color: #000000;
+}
 .custom-alert-overlay {
     display: none;
     position: fixed;
