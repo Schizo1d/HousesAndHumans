@@ -796,7 +796,7 @@
             function addNotification(type, attribute, roll, modifier, result) {
                 const container = document.getElementById('notificationsContainer');
 
-                // Определяем тип уведомления
+                // Определяем тип и классы
                 const isCheck = type === 'ПРОВЕРКА';
                 const typeClass = isCheck ? 'check-text' : 'save-text';
                 const notificationType = isCheck ? 'check' : 'save';
@@ -807,9 +807,13 @@
                 // Преобразуем предыдущие уведомления в старые
                 const oldNotifications = document.querySelectorAll('.notification.new');
                 oldNotifications.forEach(notif => {
-                    const oldType = notif.dataset.notificationType === 'check' ? 'check' : 'save';
-                    notif.className = `notification old ${oldType}`;
-                    notif.innerHTML = notif.dataset.result + ' ' + notif.dataset.type + ' ' + notif.dataset.attribute;
+                    const oldTypeClass = notif.dataset.notificationType === 'check' ? 'check-text' : 'save-text';
+                    notif.className = `notification old ${notif.dataset.notificationType}`;
+                    notif.innerHTML = `
+            <span>${notif.dataset.result} </span>
+            <span class="${oldTypeClass}">${notif.dataset.type}</span>
+            <span> ${notif.dataset.attribute}</span>
+        `;
                 });
 
                 // Создаём новое уведомление

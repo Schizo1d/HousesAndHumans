@@ -570,7 +570,7 @@ form label {
 .notification-header,
 .notification-content,
 .notification.old {
-    color: white; /* Весь остальной текст белый */
+    color: white;
 }
 
 /* Стили для цветных слов в заголовках */
@@ -581,13 +581,20 @@ form label {
 .notification-header .save-text {
     color: #53a5a7; /* Бирюзовый для слова "СПАСБРОСОК" */
 }
-/* Цветные полосы для старых уведомлений */
+.check-text {
+    color: #3a75ff !important; /* Синий */
+}
+
+.save-text {
+    color: #53a5a7 !important; /* Бирюзовый */
+}
+/* Границы для старых уведомлений */
 .notification.old.check {
-    border-left: 3px solid #3a75ff; /* Синяя полоса для проверок */
+    border-left: 3px solid #3a75ff;
 }
 
 .notification.old.save {
-    border-left: 3px solid #53a5a7; /* Бирюзовая полоса для спасбросков */
+    border-left: 3px solid #53a5a7;
 }
 
 /* Стиль для старых уведомлений */
