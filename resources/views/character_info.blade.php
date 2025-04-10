@@ -71,22 +71,33 @@
                                value="{{ $character->attributes->strength ?? 10 }}">
                     </div>
                     <div class="attribute-checks">
-                        <div class="attribute-skill-wrap">
-                            <a href="#" class="check-link" onclick="openModal('strength'); return false;">Проверка</a>
+                        <!-- Блок для проверки -->
+                        <div class="check-block">
+                            <div class="attribute-skill-wrap">
+                                <a href="#" class="check-link"
+                                   onclick="openModal('strength'); return false;">Проверка</a>
+                            </div>
+                            <button type="button" class="dice-roll-button"
+                                    onclick="rollDice('strength'); return false;">
+            <span id="strength-modifier" class="modifier">
+                {{ floor(($character->attributes->strength ?? 10 - 10) / 2) }}
+            </span>
+                            </button>
                         </div>
-                        <button type="button" class="dice-roll-button" onclick="rollDice('strength'); return false;">
-        <span id="strength-modifier" class="modifier">
-            {{ floor(($character->attributes->strength ?? 10 - 10) / 2) }}
-        </span>
-                        </button>
-                        <div class="attribute-skill-wrap">
-                            <a href="#" class="check-link" onclick="openModal('strength'); return false;">Спасбросок</a>
+
+                        <!-- Блок для спасброска -->
+                        <div class="save-block">
+                            <div class="attribute-skill-wrap">
+                                <a href="#" class="save-link"
+                                   onclick="openModal('strength'); return false;">Спасбросок</a>
+                            </div>
+                            <button type="button" class="dice-roll-button"
+                                    onclick="rollSave('strength'); return false;">
+            <span id="strength-save-modifier" class="modifier">
+                {{ floor(($character->attributes->strength ?? 10 - 10) / 2) }}
+            </span>
+                            </button>
                         </div>
-                        <button type="button" class="dice-roll-button" onclick="rollSave('strength'); return false;">
-        <span id="strength-save-modifier" class="modifier">
-            {{ floor(($character->attributes->strength ?? 10 - 10) / 2) }}
-        </span>
-                        </button>
                     </div>
                     <div class="sub-attributes">
                         <div class="attribute-skill">
