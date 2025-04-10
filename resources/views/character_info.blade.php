@@ -796,19 +796,23 @@
             function addNotification(type, attribute, roll, modifier, result) {
                 const container = document.getElementById('notificationsContainer');
 
-                // Определяем тип уведомления для стилей
-                const notificationType = type === 'ПРОВЕРКА' ? 'check' : 'save';
+                // Определяем тип уведомления
+                const isCheck = type === 'ПРОВЕРКА';
+                const typeClass = isCheck ? 'check-text' : 'save-text';
+                const notificationType = isCheck ? 'check' : 'save';
+
+                // Форматируем модификатор
                 const modifierDisplay = modifier >= 0 ? `+${modifier}` : modifier;
 
-                // Сначала преобразуем все существующие уведомления в старые
+                // Преобразуем предыдущие уведомления в старые
                 const oldNotifications = document.querySelectorAll('.notification.new');
                 oldNotifications.forEach(notif => {
-                    const oldType = notif.dataset.notificationType;
+                    const oldType = notif.dataset.notificationType === 'check' ? 'check' : 'save';
                     notif.className = `notification old ${oldType}`;
-                    notif.innerHTML = `${notif.dataset.result} ${notif.dataset.type} ${notif.dataset.attribute}`;
+                    notif.innerHTML = notif.dataset.result + ' ' + notif.dataset.type + ' ' + notif.dataset.attribute;
                 });
 
-                // Создаем новое уведомление
+                // Создаём новое уведомление
                 const notification = document.createElement('div');
                 notification.className = `notification new ${notificationType}`;
                 notification.dataset.type = type;
@@ -817,14 +821,16 @@
                 notification.dataset.notificationType = notificationType;
 
                 notification.innerHTML = `
-        <div class="notification-header ${notificationType}">${type} ${attributeName(attribute)}</div>
+        <div class="notification-header">
+            <span class="${typeClass}">${type}</span> ${attributeName(attribute)}
+        </div>
         <div class="notification-content">
             <div class="notification-formula">${roll} ${modifierDisplay}</div>
             <div class="notification-result">${result}</div>
         </div>
     `;
 
-                // Добавляем в начало контейнера
+                // Добавляем в контейнер
                 container.insertBefore(notification, container.firstChild);
                 currentNotifications++;
 
