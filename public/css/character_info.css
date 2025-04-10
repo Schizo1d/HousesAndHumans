@@ -506,20 +506,21 @@ form label {
     display: none; /* Изначально скрыт */
     align-items: center;
     justify-content: center;
+    transition: opacity 0.2s ease;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.2s ease;
 }
 
 .notifications-wrapper:has(.notification) .close-all-btn {
     display: flex; /* Показываем только когда есть уведомления */
-    opacity: 1;
-    pointer-events: auto;
 }
 
 .close-all-btn:hover {
     background: rgba(60, 60, 60, 0.9);
     color: white;
+    opacity: 1;
+    pointer-events: auto;
+
 }
 
 @keyframes slideIn {
