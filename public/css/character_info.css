@@ -503,18 +503,14 @@ form label {
     border-radius: 50%;
     font-size: 18px;
     cursor: pointer;
-    display: flex;
+    display: none; /* Изначально скрыт */
     align-items: center;
     justify-content: center;
-    flex-shrink: 0;
-    opacity: 0; /* Всегда невидим по умолчанию */
     transition: opacity 0.2s ease;
-    pointer-events: none; /* Блокируем клики когда невидим */
 }
 
-.notifications-wrapper.has-notifications:hover .close-all-btn {
-    opacity: 1;
-    pointer-events: auto; /* Разрешаем клики */
+.notifications-wrapper:has(.notification) .close-all-btn {
+    display: flex; /* Показываем только когда есть уведомления */
 }
 
 .close-all-btn:hover {

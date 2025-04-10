@@ -836,19 +836,18 @@
                 while (container.children.length > MAX_NOTIFICATIONS) {
                     container.lastChild.remove();
                 }
-                updateNotificationsState();
+                if (container.children.length === 1) {
+                    document.querySelector('.close-all-btn').style.display = 'flex';
+                }
             }
             // Показываем/скрываем крестик при наличии уведомлений
-            function updateCloseButtonVisibility() {
-                const wrapper = document.getElementById('notificationsWrapper');
+            function clearAllNotifications() {
                 const container = document.getElementById('notificationsContainer');
-                const closeBtn = wrapper.querySelector('.close-all-btn');
+                container.innerHTML = '';
+                currentNotifications = 0;
 
-                if (container.children.length > 0) {
-                    wrapper.classList.add('has-notifications');
-                } else {
-                    wrapper.classList.remove('has-notifications');
-                }
+                // Скрываем крестик после удаления всех уведомлений
+                document.querySelector('.close-all-btn').style.display = 'none';
             }
             function showBottomLeftAlert(header, formula, result) {
                 const alertElement = document.getElementById('bottomLeftAlert');
@@ -872,11 +871,7 @@
                 document.getElementById('customAlertOverlay').style.display = 'none';
                 document.getElementById('customAlert').style.display = 'none';
             }
-            function clearAllNotifications() {
-                document.getElementById('notificationsContainer').innerHTML = '';
-                currentNotifications = 0;
-                updateCloseButtonVisibility();
-            }
+
             // Добавляем обработчик для ручного управления видимостью
             document.getElementById('notificationsWrapper').addEventListener('mouseenter', function() {
                 if (this.querySelector('.notifications-container').children.length > 0) {
@@ -908,7 +903,7 @@
                 <p id="save-message" style="display: none; color: #28a745;">Имя сохранено!</p>
             </div>
         </div>
-        <div class="notifications-wrapper" id="notificationsWrapper">
+        <div class="notifications-wrapper">
             <div class="notifications-container" id="notificationsContainer"></div>
             <button class="close-all-btn" onclick="clearAllNotifications()">×</button>
         </div>
