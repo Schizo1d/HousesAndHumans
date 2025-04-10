@@ -823,14 +823,6 @@
                     container.removeChild(container.lastChild);
                     currentNotifications--;
                 }
-
-                // Автоматическое удаление через 5 секунд
-                setTimeout(() => {
-                    if (notification.parentNode === container) {
-                        container.removeChild(notification);
-                        currentNotifications--;
-                    }
-                }, 5000);
             }
             function showBottomLeftAlert(header, formula, result) {
                 const alertElement = document.getElementById('bottomLeftAlert');
