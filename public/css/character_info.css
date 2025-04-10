@@ -567,6 +567,25 @@ form label {
     color: #ffcc00;
 }
 
+/* Стили для цветных заголовков */
+.notification-header.check {
+    color: #3a75ff !important; /* Синий для проверки */
+}
+
+.notification-header.save {
+    color: #53a5a7 !important; /* Бирюзовый для спасброска */
+}
+
+.notification.old.check {
+    color: #3a75ff !important; /* Синий для старых проверок */
+    border-left: 3px solid #3a75ff;
+}
+
+.notification.old.save {
+    color: #53a5a7 !important; /* Бирюзовый для старых спасбросков */
+    border-left: 3px solid #53a5a7;
+}
+
 /* Стиль для старых уведомлений */
 .notification.old {
     background-color: rgba(30, 30, 30, 0.8);

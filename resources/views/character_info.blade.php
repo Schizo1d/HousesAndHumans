@@ -796,27 +796,28 @@
             function addNotification(type, attribute, roll, modifier, result) {
                 const container = document.getElementById('notificationsContainer');
 
+                // Определяем тип уведомления для стилей
+                const notificationType = type === 'ПРОВЕРКА' ? 'check' : 'save';
+                const modifierDisplay = modifier >= 0 ? `+${modifier}` : modifier;
+
                 // Сначала преобразуем все существующие уведомления в старые
                 const oldNotifications = document.querySelectorAll('.notification.new');
                 oldNotifications.forEach(notif => {
-                    notif.className = 'notification old';
+                    const oldType = notif.dataset.notificationType;
+                    notif.className = `notification old ${oldType}`;
                     notif.innerHTML = `${notif.dataset.result} ${notif.dataset.type} ${notif.dataset.attribute}`;
                 });
 
                 // Создаем новое уведомление
                 const notification = document.createElement('div');
-                notification.className = 'notification new';
+                notification.className = `notification new ${notificationType}`;
                 notification.dataset.type = type;
                 notification.dataset.attribute = attributeName(attribute);
                 notification.dataset.result = result;
-
-                // Проверяем, определен ли модификатор
-                const modifierDisplay = (modifier !== undefined && modifier !== null) ?
-                    (modifier >= 0 ? `+${modifier}` : modifier) :
-                    '+0';
+                notification.dataset.notificationType = notificationType;
 
                 notification.innerHTML = `
-        <div class="notification-header">${type} ${attributeName(attribute)}</div>
+        <div class="notification-header ${notificationType}">${type} ${attributeName(attribute)}</div>
         <div class="notification-content">
             <div class="notification-formula">${roll} ${modifierDisplay}</div>
             <div class="notification-result">${result}</div>
