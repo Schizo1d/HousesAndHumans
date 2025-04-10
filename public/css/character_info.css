@@ -217,6 +217,11 @@ form label {
     background-color: #edca99;
     width: 100%; /* Линия растягивается на всю ширину контейнера */
 }
+.check-block, .save-block {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px; /* Отступ между блоками */
+}
 .attribute-name, .attribute-value {
     white-space: nowrap; /* Текст не переносится */
 }
