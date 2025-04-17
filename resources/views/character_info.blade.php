@@ -130,7 +130,7 @@
                         <!-- Блок для проверки -->
                         <div class="check-block">
                             <div class="attribute-skill-wrap">
-                                <button type="button" class="check-link" onclick="rollDice('dexterity'); return false;">Проверка</button>
+                                <a href="#" class="check-link" onclick="openModal('dexterity'); return false;">Проверка</a>
                             </div>
                             <button type="button" class="dice-roll-button" onclick="rollDice('dexterity'); return false;">
                 <span id="dexterity-modifier" class="modifier">
@@ -142,7 +142,7 @@
                         <!-- Блок для спасброска -->
                         <div class="save-block">
                             <div class="attribute-skill-wrap">
-                                <button type="button" class="save-link" onclick="rollSave('dexterity'); return false;">Спасбросок</button>
+                                <a href="#" class="save-link" onclick="openModal('dexterity'); return false;">Спасбросок</a>
                             </div>
                             <button type="button" class="dice-roll-button" onclick="rollSave('dexterity'); return false;">
                 <span id="dexterity-save-modifier" class="modifier">
@@ -204,7 +204,7 @@
                         <!-- Блок для проверки -->
                         <div class="check-block">
                             <div class="attribute-skill-wrap">
-                                <button type="button" class="check-link" onclick="rollDice('constitution'); return false;">Проверка</button>
+                                <a href="#" class="check-link" onclick="openModal('constitution'); return false;">Проверка</a>
                             </div>
                             <button type="button" class="dice-roll-button" onclick="rollDice('constitution'); return false;">
                 <span id="constitution-modifier" class="modifier">
@@ -216,7 +216,7 @@
                         <!-- Блок для спасброска -->
                         <div class="save-block">
                             <div class="attribute-skill-wrap">
-                                <button type="button" class="save-link" onclick="rollSave('constitution'); return false;">Спасбросок</button>
+                                <a href="#" class="save-link" onclick="openModal('constitution'); return false;">Спасбросок</a>
                             </div>
                             <button type="button" class="dice-roll-button" onclick="rollSave('constitution'); return false;">
                 <span id="constitution-save-modifier" class="modifier">
@@ -244,7 +244,7 @@
                         <!-- Блок для проверки -->
                         <div class="check-block">
                             <div class="attribute-skill-wrap">
-                                <button type="button" class="check-link" onclick="rollDice('intelligence'); return false;">Проверка</button>
+                                <a href="#" class="check-link" onclick="openModal('intelligence'); return false;">Проверка</a>
                             </div>
                             <button type="button" class="dice-roll-button" onclick="rollDice('intelligence'); return false;">
                 <span id="intelligence-modifier" class="modifier">
@@ -256,7 +256,7 @@
                         <!-- Блок для спасброска -->
                         <div class="save-block">
                             <div class="attribute-skill-wrap">
-                                <button type="button" class="save-link" onclick="rollSave('intelligence'); return false;">Спасбросок</button>
+                                <a href="#" class="save-link" onclick="openModal('intelligence'); return false;">Спасбросок</a>
                             </div>
                             <button type="button" class="dice-roll-button" onclick="rollSave('intelligence'); return false;">
                 <span id="intelligence-save-modifier" class="modifier">
@@ -340,7 +340,7 @@
                         <!-- Блок для проверки -->
                         <div class="check-block">
                             <div class="attribute-skill-wrap">
-                                <button type="button" class="check-link" onclick="rollDice('wisdom'); return false;">Проверка</button>
+                                <a href="#" class="check-link" onclick="openModal('wisdom'); return false;">Проверка</a>
                             </div>
                             <button type="button" class="dice-roll-button" onclick="rollDice('wisdom'); return false;">
                 <span id="wisdom-modifier" class="modifier">
@@ -352,7 +352,7 @@
                         <!-- Блок для спасброска -->
                         <div class="save-block">
                             <div class="attribute-skill-wrap">
-                                <button type="button" class="save-link" onclick="rollSave('wisdom'); return false;">Спасбросок</button>
+                                <a href="#" class="save-link" onclick="openModal('wisdom'); return false;">Спасбросок</a>
                             </div>
                             <button type="button" class="dice-roll-button" onclick="rollSave('wisdom'); return false;">
                 <span id="wisdom-save-modifier" class="modifier">
@@ -436,7 +436,7 @@
                         <!-- Блок для проверки -->
                         <div class="check-block">
                             <div class="attribute-skill-wrap">
-                                <button type="button" class="check-link" onclick="rollDice('charisma'); return false;">Проверка</button>
+                                <a href="#" class="check-link" onclick="openModal('charisma'); return false;">Проверка</a>
                             </div>
                             <button type="button" class="dice-roll-button" onclick="rollDice('charisma'); return false;">
                 <span id="charisma-modifier" class="modifier">
@@ -448,7 +448,7 @@
                         <!-- Блок для спасброска -->
                         <div class="save-block">
                             <div class="attribute-skill-wrap">
-                                <button type="button" class="save-link" onclick="rollSave('charisma'); return false;">Спасбросок</button>
+                                <a href="#" class="save-link" onclick="openModal('charisma'); return false;">Спасбросок</a>
                             </div>
                             <button type="button" class="dice-roll-button" onclick="rollSave('charisma'); return false;">
                 <span id="charisma-save-modifier" class="modifier">
