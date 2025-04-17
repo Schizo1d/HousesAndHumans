@@ -819,7 +819,7 @@
                 const isCheck = type === 'ПРОВЕРКА';
                 const typeClass = isCheck ? 'check-text' : 'save-text';
                 const notificationType = isCheck ? 'check' : 'save';
-                const modifierDisplay = modifier >= 0 ? `+${modifier}` : modifier;
+                const modifierDisplay = modifier >= 0 ? `+ ${modifier}` : modifier;
 
                 // Преобразуем старые уведомления
                 document.querySelectorAll('.notification.new').forEach(notif => {
