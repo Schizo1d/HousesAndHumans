@@ -101,12 +101,10 @@
                     </div>
                     <div class="sub-attributes">
                         <div class="attribute-skill">
-                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="athletics"
-                               onclick="toggleSkill(this)">
+                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="athletics" onclick="toggleSkill(this)">
                                 Атлетика
                             </a>
-                            <button type="button" class="dice-roll-button" id="athletics-button"
-                                    onclick="document.querySelector('[data-target=athletics]').click()">
+                            <button type="button" class="dice-roll-button" onclick="rollSkill('athletics', 'strength')">
                                 <span id="athletics-value">{{ $character->attributes->athletics ?? 0 }}</span>
                             </button>
                         </div>
@@ -671,6 +669,21 @@
                     attribute,
                     roll,
                     modifier,
+                    total
+                );
+            }
+            function rollSkill(skill, attribute) {
+                const skillBonus = parseInt(document.getElementById(skill).value) || 0;
+                const attrValue = parseInt(document.getElementById(attribute).value) || 10;
+                const attrModifier = Math.floor((attrValue - 10) / 2);
+                const roll = Math.floor(Math.random() * 20) + 1;
+                const total = roll + attrModifier + skillBonus;
+
+                addNotification(
+                    'НАВЫК',
+                    skill,
+                    roll,
+                    attrModifier + skillBonus, // Показываем общий модификатор (атрибут + бонус навыка)
                     total
                 );
             }
