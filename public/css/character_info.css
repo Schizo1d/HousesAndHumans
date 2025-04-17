@@ -710,3 +710,96 @@ form label {
 .notifications-container::-webkit-scrollbar-thumb:hover {
     background: rgba(255, 255, 255, 0.3);
 }
+/* Анимации для уведомлений */
+@keyframes gentleSlideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.98);
+        filter: blur(2px);
+    }
+    50% {
+        opacity: 0.8;
+        filter: blur(1px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+@keyframes softFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateX(-8px);
+    }
+    60% {
+        opacity: 0.6;
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Стили для новых уведомлений */
+.notification.new {
+    animation: gentleSlideIn 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
+    transition: all 0.3s ease;
+    transform-origin: bottom center;
+}
+
+/* Стили для старых уведомлений */
+.notification.old {
+    animation: softFadeIn 0.4s ease-out forwards;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* Эффекты при наведении */
+.notification:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Плавное исчезновение при удалении */
+.notification.fade-out {
+    animation: gentleFadeOut 0.4s ease-in forwards;
+}
+
+@keyframes gentleFadeOut {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+}
+
+/* Улучшенные параметры анимации для разных типов */
+.notification.new.check {
+    animation-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1.2);
+}
+
+.notification.new.save {
+    animation-timing-function: cubic-bezier(0.22, 0.9, 0.36, 1.1);
+}
+
+.notification.new.skill {
+    animation-timing-function: cubic-bezier(0.2, 0.95, 0.4, 1.15);
+}
+
+/* Плавное появление кнопки закрыть */
+.close-all-btn {
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+.close-all-btn.visible {
+    transform: scale(1) rotate(0deg);
+}
+
+.close-all-btn:hover {
+    transform: scale(1.1) rotate(90deg);
+    transition: all 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
