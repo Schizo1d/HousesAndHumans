@@ -464,13 +464,6 @@ form label {
     opacity: 0.8;
 }
 
-.notifications-container {
-    display: flex;
-    flex-direction: column-reverse;
-    gap: 8px;
-}
-
-
 .notification {
     background-color: rgba(40, 40, 40, 0.9);
     color: white;
@@ -483,53 +476,6 @@ form label {
     position: relative;
 }
 
-.notifications-wrapper {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    display: flex;
-    align-items: flex-end;
-    gap: 10px;
-    z-index: 1000;
-}
-
-.close-all-btn {
-    background: rgba(40, 40, 40, 0.9);
-    color: #aaa;
-    border: none;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    font-size: 18px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-}
-
-.close-all-btn.visible {
-    opacity: 1;
-    pointer-events: auto;
-}
-
-.close-all-btn:hover {
-    background: rgba(60, 60, 60, 0.9);
-    color: white;
-}
-
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
 
 .notification-header {
     font-size: 14px;
@@ -554,48 +500,173 @@ form label {
     color: #ffcc00;
 }
 
-.notification-header,
+/*.notification-header,
 .notification-content,
 .notification.old {
     color: white;
+}*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Базовые стили уведомлений */
+.notifications-wrapper {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    z-index: 1000;
 }
 
-/* Стили для цветных слов в заголовках */
-.notification-header .check-text {
-    color: #3a75ff; /* Синий для слова "ПРОВЕРКА" */
+.notifications-container {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 8px;
+    max-height: 70vh;
+    overflow-y: auto;
+    padding-right: 5px;
 }
 
-.notification-header .save-text {
-    color: #53a5a7; /* Бирюзовый для слова "СПАСБРОСОК" */
+/* Стили для старых уведомлений (адаптивные) */
+.notification.old {
+    background-color: rgba(40, 40, 40, 0.9);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    font-family: 'Arial', sans-serif;
+    white-space: nowrap;
+    max-width: 100%;
+    display: inline-block;
+    width: auto;
+    border-left: 3px solid transparent;
 }
 
-.check-text {
-    color: #3a75ff !important; /* Синий */
-}
-
-.save-text {
-    color: #53a5a7 !important; /* Бирюзовый */
-}
-
-/* Границы для старых уведомлений */
 .notification.old.check {
-    border-left: 3px solid #3a75ff;
+    border-left-color: #3a75ff;
 }
 
 .notification.old.save {
-    border-left: 3px solid #53a5a7;
+    border-left-color: #53a5a7;
 }
 
-/* Стиль для нового уведомления */
+.notification.old.skill {
+    border-left-color: #ff7043;
+}
+
+/* Стили для новых уведомлений (кастомизируемые) */
 .notification.new {
-    min-width: 220px;
+    background-color: rgba(30, 30, 30, 0.95);
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    font-family: 'Arial', sans-serif;
+    min-width: 250px;
+    max-width: 300px;
+    animation: slideIn 0.3s ease-out;
+    position: relative;
+    overflow: hidden;
 }
 
-/* Стиль для старых уведомлений */
-.notification.old {
-    padding: 8px 12px;
+/* Кастомизация новых уведомлений */
+.notification.new .notification-header {
+    font-size: 14px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
+.notification.new .notification-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.notification.new .notification-formula {
+    font-size: 16px;
+    color: #ccc;
+    font-family: 'Courier New', monospace;
+}
+
+.notification.new .notification-result {
+    font-size: 28px;
+    font-weight: bold;
+    color: #ffcc00;
+}
+
+/* Цвета для типов уведомлений */
+.notification.new.check .notification-header {
+    border-bottom: 2px solid #3a75ff;
+    padding-bottom: 5px;
+}
+
+.notification.new.save .notification-header {
+    border-bottom: 2px solid #53a5a7;
+    padding-bottom: 5px;
+}
+
+.notification.new.skill .notification-header {
+    border-bottom: 2px solid #ff7043;
+    padding-bottom: 5px;
+}
+
+.check-text {
+    color: #3a75ff;
+    font-weight: bold;
+}
+
+.save-text {
+    color: #53a5a7;
+    font-weight: bold;
+}
+
+.skill-text {
+    color: #ff7043;
+    font-weight: bold;
+}
+
+/* Кнопка закрыть все */
+.close-all-btn {
+    background: rgba(60, 60, 60, 0.9);
+    color: #aaa;
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: all 0.3s ease;
+    margin-bottom: 8px;
+}
+
+.close-all-btn.visible {
+    opacity: 1;
+}
+
+.close-all-btn:hover {
+    background: rgba(80, 80, 80, 0.9);
+    color: white;
+    transform: scale(1.1);
+}
+
+/* Анимация */
 @keyframes slideIn {
     from {
         opacity: 0;
@@ -607,16 +678,21 @@ form label {
     }
 }
 
-/* Стили для скроллбара */
+/* Полоса прокрутки */
 .notifications-container::-webkit-scrollbar {
-    width: 4px;
+    width: 6px;
 }
 
 .notifications-container::-webkit-scrollbar-track {
-    background: transparent;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
 }
 
 .notifications-container::-webkit-scrollbar-thumb {
-    background: #666;
-    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+}
+
+.notifications-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
 }
