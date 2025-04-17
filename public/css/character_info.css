@@ -457,6 +457,7 @@ form label {
     cursor: pointer;
     font-family: inherit;
     font-size: inherit;
+    min-width: 45px;
 }
 
 .modifier {
