@@ -572,7 +572,7 @@ form label {
     padding: 15px;
     border-radius: 8px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-    font-family: 'Arial', sans-serif;
+    font-family: 'TildaSans', sans-serif;
     min-width: 250px;
     max-width: 300px;
     animation: slideIn 0.3s ease-out;
