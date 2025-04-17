@@ -544,21 +544,20 @@ form label {
     animation: fadeIn 0.3s ease-out;
     white-space: nowrap;
     text-overflow: ellipsis;
+    gap: 5px;
 }
 
 .notification.old.check {
     border-left-color: #3a75ff;
-    background-color: rgba(58, 117, 255, 0.15);
+
 }
 
 .notification.old.save {
     border-left-color: #53a5a7;
-    background-color: rgba(83, 165, 167, 0.15);
 }
 
 .notification.old.skill {
     border-left-color: #ff7043;
-    background-color: rgba(255, 112, 67, 0.15);
 }
 
 /* Кастомизируемые новые уведомления */
