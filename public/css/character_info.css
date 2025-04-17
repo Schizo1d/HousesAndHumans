@@ -446,7 +446,6 @@ form label {
 
 
 .dice-roll-button {
-    display: inline-flex;
     align-items: center;
     gap: 4px;
     padding: 6px 12px;
