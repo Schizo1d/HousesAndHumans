@@ -598,7 +598,7 @@ form label {
 .notification.new .notification-formula {
     font-size: 16px;
     color: #ccc;
-    font-family: 'Courier New', monospace;
+    font-family: 'TildaSans', monospace;
 }
 
 .notification.new .notification-result {
