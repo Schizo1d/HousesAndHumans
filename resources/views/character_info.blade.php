@@ -117,7 +117,7 @@
                     </div>
                     <input type="hidden" name="athletics" id="athletics"
                            value="{{ $character->attributes->athletics ?? 0 }}">
-                    </div>
+
                 </div>
                 <!-- Ловкость -->
                 <div class="attribute-item">
