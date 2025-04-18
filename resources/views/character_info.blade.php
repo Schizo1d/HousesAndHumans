@@ -156,10 +156,17 @@
                         </div>
                     </div>
                     <div class="sub-attributes">
+                        <!-- Акробатика -->
                         <div class="attribute-skill">
-                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="acrobatics" onclick="toggleSkill(this)">
-                                Акробатика
-                            </a>
+                            <span class="attribute-skill-name">Акробатика</span>
+                            <label class="double-radio-container">
+                                <input type="checkbox" class="double-radio-input" id="acrobatics-radio"
+                                       name="acrobatics-radio" onclick="handleSkillRadio(this, 'acrobatics', 'dexterity')">
+                                <span class="double-radio-custom">
+                    <span class="radio-dot dot-1"></span>
+                    <span class="radio-dot dot-2"></span>
+                </span>
+                            </label>
                             <button type="button" class="dice-roll-button" onclick="rollSkill('acrobatics', 'dexterity')">
                                 <span id="acrobatics-value">{{ $character->attributes->acrobatics ?? 0 }}</span>
                             </button>
@@ -168,9 +175,15 @@
                                value="{{ $character->attributes->acrobatics ?? 0 }}">
 
                         <div class="attribute-skill">
-                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="sleight_of_hand" onclick="toggleSkill(this)">
-                                Ловкость рук
-                            </a>
+                            <span class="attribute-skill-name">Ловкость рук</span>
+                            <label class="double-radio-container">
+                                <input type="checkbox" class="double-radio-input" id="sleight_of_hand-radio"
+                                       name="sleight_of_hand-radio" onclick="handleSkillRadio(this, 'sleight_of_hand', 'dexterity')">
+                                <span class="double-radio-custom">
+                    <span class="radio-dot dot-1"></span>
+                    <span class="radio-dot dot-2"></span>
+                </span>
+                            </label>
                             <button type="button" class="dice-roll-button" onclick="rollSkill('sleight_of_hand', 'dexterity')">
                                 <span id="sleight_of_hand-value">{{ $character->attributes->sleight_of_hand ?? 0 }}</span>
                             </button>
@@ -179,9 +192,15 @@
                                value="{{ $character->attributes->sleight_of_hand ?? 0 }}">
 
                         <div class="attribute-skill">
-                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="stealth" onclick="toggleSkill(this)">
-                                Скрытность
-                            </a>
+                            <span class="attribute-skill-name">Скрытность</span>
+                            <label class="double-radio-container">
+                                <input type="checkbox" class="double-radio-input" id="stealth-radio"
+                                       name="stealth-radio" onclick="handleSkillRadio(this, 'stealth', 'dexterity')">
+                                <span class="double-radio-custom">
+                    <span class="radio-dot dot-1"></span>
+                    <span class="radio-dot dot-2"></span>
+                </span>
+                            </label>
                             <button type="button" class="dice-roll-button" onclick="rollSkill('stealth', 'dexterity')">
                                 <span id="stealth-value">{{ $character->attributes->stealth ?? 0 }}</span>
                             </button>
@@ -271,9 +290,15 @@
                     </div>
                     <div class="sub-attributes">
                         <div class="attribute-skill">
-                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="investigation" onclick="toggleSkill(this)">
-                                Анализ
-                            </a>
+                            <span class="attribute-skill-name">Анализ</span>
+                            <label class="double-radio-container">
+                                <input type="checkbox" class="double-radio-input" id="investigation-radio"
+                                       name="investigation-radio" onclick="handleSkillRadio(this, 'investigation', 'intelligence')">
+                                <span class="double-radio-custom">
+                    <span class="radio-dot dot-1"></span>
+                    <span class="radio-dot dot-2"></span>
+                </span>
+                            </label>
                             <button type="button" class="dice-roll-button" onclick="rollSkill('investigation', 'intelligence')">
                                 <span id="investigation-value">{{ $character->attributes->investigation ?? 0 }}</span>
                             </button>
@@ -282,15 +307,24 @@
                                value="{{ $character->attributes->investigation ?? 0 }}">
 
                         <div class="attribute-skill">
-                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="history" onclick="toggleSkill(this)">
-                                История
-                            </a>
+                            <span class="attribute-skill-name">История</span>
+                            <label class="double-radio-container">
+                                <input type="checkbox" class="double-radio-input" id="history-radio"
+                                       name="history-radio" onclick="handleSkillRadio(this, 'history', 'intelligence')">
+                                <span class="double-radio-custom">
+                    <span class="radio-dot dot-1"></span>
+                    <span class="radio-dot dot-2"></span>
+                </span>
+                            </label>
                             <button type="button" class="dice-roll-button" onclick="rollSkill('history', 'intelligence')">
                                 <span id="history-value">{{ $character->attributes->history ?? 0 }}</span>
                             </button>
                         </div>
                         <input type="hidden" name="history" id="history"
                                value="{{ $character->attributes->history ?? 0 }}">
+
+
+
 
                         <div class="attribute-skill">
                             <a href="javascript:void(0);" class="attribute-skill-name" data-target="arcana" onclick="toggleSkill(this)">
@@ -553,12 +587,13 @@
                 return Math.floor((attributeValue - 10) / 2);
             }
 
-            function handleAthleticsRadio(element) {
-                const hiddenInput = document.getElementById('athletics');
-                const displaySpan = document.getElementById('athletics-value');
+            // Общая функция для обработки всех радио-кнопок навыков
+            function handleSkillRadio(element, skillId, attributeId) {
+                const hiddenInput = document.getElementById(skillId);
+                const displaySpan = document.getElementById(skillId + '-value');
                 const customRadio = element.nextElementSibling;
 
-                // Определяем текущее и следующее значение
+                // Циклическое изменение значения: 0 → 2 → 4 → 0
                 let currentValue = parseInt(hiddenInput.value) || 0;
                 let newValue;
 
@@ -569,9 +604,9 @@
                 // Обновляем скрытое поле
                 hiddenInput.value = newValue;
 
-                // Рассчитываем итоговое значение с модификатором силы
-                const strengthValue = parseInt(document.getElementById('strength').value) || 10;
-                const modifier = Math.floor((strengthValue - 10) / 2);
+                // Рассчитываем итоговое значение с модификатором атрибута
+                const attributeValue = parseInt(document.getElementById(attributeId).value) || 10;
+                const modifier = Math.floor((attributeValue - 10) / 2);
                 const finalValue = modifier + newValue;
 
                 // Обновляем отображаемое значение
@@ -589,18 +624,48 @@
                 element.checked = false;
             }
 
-            // Инициализация состояния при загрузке
+            // Инициализация состояний при загрузке страницы
             document.addEventListener("DOMContentLoaded", function() {
-                const athleticsValue = parseInt(document.getElementById('athletics').value) || 0;
-                const radioCustom = document.querySelector('#athletics-radio + .double-radio-custom');
+                // Навыки ловкости
+                initSkillRadio('acrobatics');
+                initSkillRadio('sleight_of_hand');
+                initSkillRadio('stealth');
+
+                // Навыки интеллекта
+                initSkillRadio('investigation');
+                initSkillRadio('history');
+                initSkillRadio('arcana');
+                initSkillRadio('nature');
+                initSkillRadio('religion');
+
+                // Навыки мудрости
+                initSkillRadio('perception');
+                initSkillRadio('survival');
+                initSkillRadio('medicine');
+                initSkillRadio('insight');
+                initSkillRadio('animal_handling');
+
+                // Навыки харизмы
+                initSkillRadio('performance');
+                initSkillRadio('intimidation');
+                initSkillRadio('deception');
+                initSkillRadio('persuasion');
+            });
+
+            // Функция инициализации радио-кнопки навыка
+            function initSkillRadio(skillId) {
+                const skillValue = parseInt(document.getElementById(skillId).value) || 0;
+                const radioCustom = document.querySelector('#' + skillId + '-radio + .double-radio-custom');
+
+                if (!radioCustom) return;
 
                 radioCustom.classList.remove('half-checked', 'fully-checked');
-                if (athleticsValue === 2) {
+                if (skillValue === 2) {
                     radioCustom.classList.add('half-checked');
-                } else if (athleticsValue === 4) {
+                } else if (skillValue === 4) {
                     radioCustom.classList.add('fully-checked');
                 }
-            });
+            }
             document.querySelectorAll('.skill-toggle').forEach(item => {
                 item.addEventListener('click', function () {
                     let targetId = this.getAttribute('data-target');
