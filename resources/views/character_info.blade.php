@@ -136,9 +136,11 @@
                         <!-- Блок для проверки -->
                         <div class="check-block">
                             <div class="attribute-skill-wrap">
-                                <a href="#" class="check-link" onclick="openModal('dexterity'); return false;">Проверка</a>
+                                <a href="#" class="check-link"
+                                   onclick="openModal('dexterity'); return false;">Проверка</a>
                             </div>
-                            <button type="button" class="dice-roll-button" onclick="rollDice('dexterity'); return false;">
+                            <button type="button" class="dice-roll-button"
+                                    onclick="rollDice('dexterity'); return false;">
                 <span id="dexterity-modifier" class="modifier">
                     {{ floor(($character->attributes->dexterity ?? 10 - 10) / 2) }}
                 </span>
@@ -148,9 +150,11 @@
                         <!-- Блок для спасброска -->
                         <div class="save-block">
                             <div class="attribute-skill-wrap">
-                                <a href="#" class="save-link" onclick="openModal('dexterity'); return false;">Спасбросок</a>
+                                <a href="#" class="save-link"
+                                   onclick="openModal('dexterity'); return false;">Спасбросок</a>
                             </div>
-                            <button type="button" class="dice-roll-button" onclick="rollSave('dexterity'); return false;">
+                            <button type="button" class="dice-roll-button"
+                                    onclick="rollSave('dexterity'); return false;">
                 <span id="dexterity-save-modifier" class="modifier">
                     {{ floor(($character->attributes->dexterity ?? 10 - 10) / 2) }}
                 </span>
@@ -160,16 +164,19 @@
                     <div class="sub-attributes">
                         <!-- Акробатика -->
                         <div class="attribute-skill">
-                            <span class="attribute-skill-name">Акробатика</span>
                             <label class="double-radio-container">
                                 <input type="checkbox" class="double-radio-input" id="acrobatics-radio"
-                                       name="acrobatics-radio" onclick="handleSkillRadio(this, 'acrobatics', 'dexterity')">
+                                       name="acrobatics-radio"
+                                       onclick="handleSkillRadio(this, 'acrobatics', 'dexterity')">
                                 <span class="double-radio-custom">
                     <span class="radio-dot dot-1"></span>
                     <span class="radio-dot dot-2"></span>
                 </span>
                             </label>
-                            <button type="button" class="dice-roll-button" onclick="rollSkill('acrobatics', 'dexterity')">
+                            <span class="attribute-skill-name">Акробатика</span>
+
+                            <button type="button" class="dice-roll-button"
+                                    onclick="rollSkill('acrobatics', 'dexterity')">
                                 <span id="acrobatics-value">{{ $character->attributes->acrobatics ?? 0 }}</span>
                             </button>
                         </div>
@@ -177,24 +184,27 @@
                                value="{{ $character->attributes->acrobatics ?? 0 }}">
 
                         <div class="attribute-skill">
-                            <span class="attribute-skill-name">Ловкость рук</span>
                             <label class="double-radio-container">
                                 <input type="checkbox" class="double-radio-input" id="sleight_of_hand-radio"
-                                       name="sleight_of_hand-radio" onclick="handleSkillRadio(this, 'sleight_of_hand', 'dexterity')">
+                                       name="sleight_of_hand-radio"
+                                       onclick="handleSkillRadio(this, 'sleight_of_hand', 'dexterity')">
                                 <span class="double-radio-custom">
                     <span class="radio-dot dot-1"></span>
                     <span class="radio-dot dot-2"></span>
                 </span>
                             </label>
-                            <button type="button" class="dice-roll-button" onclick="rollSkill('sleight_of_hand', 'dexterity')">
-                                <span id="sleight_of_hand-value">{{ $character->attributes->sleight_of_hand ?? 0 }}</span>
+                            <span class="attribute-skill-name">Ловкость рук</span>
+
+                            <button type="button" class="dice-roll-button"
+                                    onclick="rollSkill('sleight_of_hand', 'dexterity')">
+                                <span
+                                    id="sleight_of_hand-value">{{ $character->attributes->sleight_of_hand ?? 0 }}</span>
                             </button>
                         </div>
                         <input type="hidden" name="sleight_of_hand" id="sleight_of_hand"
                                value="{{ $character->attributes->sleight_of_hand ?? 0 }}">
 
                         <div class="attribute-skill">
-                            <span class="attribute-skill-name">Скрытность</span>
                             <label class="double-radio-container">
                                 <input type="checkbox" class="double-radio-input" id="stealth-radio"
                                        name="stealth-radio" onclick="handleSkillRadio(this, 'stealth', 'dexterity')">
@@ -203,6 +213,8 @@
                     <span class="radio-dot dot-2"></span>
                 </span>
                             </label>
+                            <span class="attribute-skill-name">Скрытность</span>
+
                             <button type="button" class="dice-roll-button" onclick="rollSkill('stealth', 'dexterity')">
                                 <span id="stealth-value">{{ $character->attributes->stealth ?? 0 }}</span>
                             </button>
@@ -231,7 +243,8 @@
                             <div class="attribute-skill-wrap">
                                 <a href="#" class="check-link" onclick="openModal('constitution'); return false;">Проверка</a>
                             </div>
-                            <button type="button" class="dice-roll-button" onclick="rollDice('constitution'); return false;">
+                            <button type="button" class="dice-roll-button"
+                                    onclick="rollDice('constitution'); return false;">
                 <span id="constitution-modifier" class="modifier">
                     {{ floor(($character->attributes->constitution ?? 10 - 10) / 2) }}
                 </span>
@@ -243,7 +256,8 @@
                             <div class="attribute-skill-wrap">
                                 <a href="#" class="save-link" onclick="openModal('constitution'); return false;">Спасбросок</a>
                             </div>
-                            <button type="button" class="dice-roll-button" onclick="rollSave('constitution'); return false;">
+                            <button type="button" class="dice-roll-button"
+                                    onclick="rollSave('constitution'); return false;">
                 <span id="constitution-save-modifier" class="modifier">
                     {{ floor(($character->attributes->constitution ?? 10 - 10) / 2) }}
                 </span>
@@ -271,7 +285,8 @@
                             <div class="attribute-skill-wrap">
                                 <a href="#" class="check-link" onclick="openModal('intelligence'); return false;">Проверка</a>
                             </div>
-                            <button type="button" class="dice-roll-button" onclick="rollDice('intelligence'); return false;">
+                            <button type="button" class="dice-roll-button"
+                                    onclick="rollDice('intelligence'); return false;">
                 <span id="intelligence-modifier" class="modifier">
                     {{ floor(($character->attributes->intelligence ?? 10 - 10) / 2) }}
                 </span>
@@ -283,7 +298,8 @@
                             <div class="attribute-skill-wrap">
                                 <a href="#" class="save-link" onclick="openModal('intelligence'); return false;">Спасбросок</a>
                             </div>
-                            <button type="button" class="dice-roll-button" onclick="rollSave('intelligence'); return false;">
+                            <button type="button" class="dice-roll-button"
+                                    onclick="rollSave('intelligence'); return false;">
                 <span id="intelligence-save-modifier" class="modifier">
                     {{ floor(($character->attributes->intelligence ?? 10 - 10) / 2) }}
                 </span>
@@ -293,16 +309,19 @@
                     <div class="sub-attributes">
                         <!--Анализ-->
                         <div class="attribute-skill">
-                            <span class="attribute-skill-name">Анализ</span>
                             <label class="double-radio-container">
                                 <input type="checkbox" class="double-radio-input" id="investigation-radio"
-                                       name="investigation-radio" onclick="handleSkillRadio(this, 'investigation', 'intelligence')">
+                                       name="investigation-radio"
+                                       onclick="handleSkillRadio(this, 'investigation', 'intelligence')">
                                 <span class="double-radio-custom">
                     <span class="radio-dot dot-1"></span>
                     <span class="radio-dot dot-2"></span>
                 </span>
                             </label>
-                            <button type="button" class="dice-roll-button" onclick="rollSkill('investigation', 'intelligence')">
+                            <span class="attribute-skill-name">Анализ</span>
+
+                            <button type="button" class="dice-roll-button"
+                                    onclick="rollSkill('investigation', 'intelligence')">
                                 <span id="investigation-value">{{ $character->attributes->investigation ?? 0 }}</span>
                             </button>
                         </div>
@@ -310,7 +329,6 @@
                                value="{{ $character->attributes->investigation ?? 0 }}">
                         <!--История-->
                         <div class="attribute-skill">
-                            <span class="attribute-skill-name">История</span>
                             <label class="double-radio-container">
                                 <input type="checkbox" class="double-radio-input" id="history-radio"
                                        name="history-radio" onclick="handleSkillRadio(this, 'history', 'intelligence')">
@@ -319,7 +337,10 @@
                     <span class="radio-dot dot-2"></span>
                 </span>
                             </label>
-                            <button type="button" class="dice-roll-button" onclick="rollSkill('history', 'intelligence')">
+                            <span class="attribute-skill-name">История</span>
+
+                            <button type="button" class="dice-roll-button"
+                                    onclick="rollSkill('history', 'intelligence')">
                                 <span id="history-value">{{ $character->attributes->history ?? 0 }}</span>
                             </button>
                         </div>
@@ -328,7 +349,6 @@
 
                         <!--Магия-->
                         <div class="attribute-skill">
-                            <span class="attribute-skill-name">Магия</span>
                             <label class="double-radio-container">
                                 <input type="checkbox" class="double-radio-input" id="arcana-radio"
                                        name="arcana-radio" onclick="handleSkillRadio(this, 'arcana', 'intelligence')">
@@ -337,7 +357,10 @@
                     <span class="radio-dot dot-2"></span>
                 </span>
                             </label>
-                            <button type="button" class="dice-roll-button" onclick="rollSkill('arcana', 'intelligence')">
+                            <span class="attribute-skill-name">Магия</span>
+
+                            <button type="button" class="dice-roll-button"
+                                    onclick="rollSkill('arcana', 'intelligence')">
                                 <span id="arcana-value">{{ $character->attributes->arcana ?? 0 }}</span>
                             </button>
                         </div>
@@ -347,7 +370,6 @@
                         <!--Природа-->
 
                         <div class="attribute-skill">
-                            <span class="attribute-skill-name">Природа</span>
                             <label class="double-radio-container">
                                 <input type="checkbox" class="double-radio-input" id="nature-radio"
                                        name="nature-radio" onclick="handleSkillRadio(this, 'nature', 'intelligence')">
@@ -356,7 +378,10 @@
                     <span class="radio-dot dot-2"></span>
                 </span>
                             </label>
-                            <button type="button" class="dice-roll-button" onclick="rollSkill('nature', 'intelligence')">
+                            <span class="attribute-skill-name">Природа</span>
+
+                            <button type="button" class="dice-roll-button"
+                                    onclick="rollSkill('nature', 'intelligence')">
                                 <span id="nature-value">{{ $character->attributes->nature ?? 0 }}</span>
                             </button>
                         </div>
@@ -366,16 +391,19 @@
                         <!--Религия-->
 
                         <div class="attribute-skill">
-                            <span class="attribute-skill-name">Религия</span>
                             <label class="double-radio-container">
                                 <input type="checkbox" class="double-radio-input" id="religion-radio"
-                                       name="religion-radio" onclick="handleSkillRadio(this, 'religion', 'intelligence')">
+                                       name="religion-radio"
+                                       onclick="handleSkillRadio(this, 'religion', 'intelligence')">
                                 <span class="double-radio-custom">
                     <span class="radio-dot dot-1"></span>
                     <span class="radio-dot dot-2"></span>
                 </span>
                             </label>
-                            <button type="button" class="dice-roll-button" onclick="rollSkill('religion', 'intelligence')">
+                            <span class="attribute-skill-name">Религия</span>
+
+                            <button type="button" class="dice-roll-button"
+                                    onclick="rollSkill('religion', 'intelligence')">
                                 <span id="religion-value">{{ $character->attributes->religion ?? 0 }}</span>
                             </button>
                         </div>
@@ -413,7 +441,8 @@
                         <!-- Блок для спасброска -->
                         <div class="save-block">
                             <div class="attribute-skill-wrap">
-                                <a href="#" class="save-link" onclick="openModal('wisdom'); return false;">Спасбросок</a>
+                                <a href="#" class="save-link"
+                                   onclick="openModal('wisdom'); return false;">Спасбросок</a>
                             </div>
                             <button type="button" class="dice-roll-button" onclick="rollSave('wisdom'); return false;">
                 <span id="wisdom-save-modifier" class="modifier">
@@ -425,7 +454,6 @@
                     <div class="sub-attributes">
                         <!-- Восприятие -->
                         <div class="attribute-skill">
-                            <span class="attribute-skill-name">Восприятие</span>
                             <label class="double-radio-container">
                                 <input type="checkbox" class="double-radio-input" id="perception-radio"
                                        name="perception-radio" onclick="handleSkillRadio(this, 'perception', 'wisdom')">
@@ -434,6 +462,8 @@
                     <span class="radio-dot dot-2"></span>
                 </span>
                             </label>
+                            <span class="attribute-skill-name">Восприятие</span>
+
                             <button type="button" class="dice-roll-button" onclick="rollSkill('perception', 'wisdom')">
                                 <span id="perception-value">{{ $character->attributes->perception ?? 0 }}</span>
                             </button>
@@ -444,7 +474,6 @@
                         <!--Выживание-->
 
                         <div class="attribute-skill">
-                            <span class="attribute-skill-name">Выживание</span>
                             <label class="double-radio-container">
                                 <input type="checkbox" class="double-radio-input" id="survival-radio"
                                        name="survival-radio" onclick="handleSkillRadio(this, 'survival', 'wisdom')">
@@ -453,6 +482,8 @@
                     <span class="radio-dot dot-2"></span>
                 </span>
                             </label>
+                            <span class="attribute-skill-name">Выживание</span>
+
                             <button type="button" class="dice-roll-button" onclick="rollSkill('survival', 'wisdom')">
                                 <span id="survival-value">{{ $character->attributes->survival ?? 0 }}</span>
                             </button>
@@ -463,7 +494,6 @@
                         <!--Медицина-->
 
                         <div class="attribute-skill">
-                            <span class="attribute-skill-name">Медицина</span>
                             <label class="double-radio-container">
                                 <input type="checkbox" class="double-radio-input" id="medicine-radio"
                                        name="medicine-radio" onclick="handleSkillRadio(this, 'medicine', 'wisdom')">
@@ -472,6 +502,8 @@
                     <span class="radio-dot dot-2"></span>
                 </span>
                             </label>
+                            <span class="attribute-skill-name">Медицина</span>
+
                             <button type="button" class="dice-roll-button" onclick="rollSkill('medicine', 'wisdom')">
                                 <span id="medicine-value">{{ $character->attributes->medicine ?? 0 }}</span>
                             </button>
@@ -482,7 +514,6 @@
                         <!--Проницательность-->
 
                         <div class="attribute-skill">
-                            <span class="attribute-skill-name">Проницательность</span>
                             <label class="double-radio-container">
                                 <input type="checkbox" class="double-radio-input" id="insight-radio"
                                        name="insight-radio" onclick="handleSkillRadio(this, 'insight', 'wisdom')">
@@ -491,6 +522,8 @@
                     <span class="radio-dot dot-2"></span>
                 </span>
                             </label>
+                            <span class="attribute-skill-name">Проницательность</span>
+
                             <button type="button" class="dice-roll-button" onclick="rollSkill('insight', 'wisdom')">
                                 <span id="insight-value">{{ $character->attributes->insight ?? 0 }}</span>
                             </button>
@@ -501,17 +534,21 @@
                         {{--Уход за животными--}}
 
                         <div class="attribute-skill">
-                            <span class="attribute-skill-name">Уход за животными</span>
                             <label class="double-radio-container">
                                 <input type="checkbox" class="double-radio-input" id="animal_handling-radio"
-                                       name="animal_handling-radio" onclick="handleSkillRadio(this, 'animal_handling', 'wisdom')">
+                                       name="animal_handling-radio"
+                                       onclick="handleSkillRadio(this, 'animal_handling', 'wisdom')">
                                 <span class="double-radio-custom">
                     <span class="radio-dot dot-1"></span>
                     <span class="radio-dot dot-2"></span>
                 </span>
                             </label>
-                            <button type="button" class="dice-roll-button" onclick="rollSkill('animal_handling', 'wisdom')">
-                                <span id="animal_handling-value">{{ $character->attributes->animal_handling ?? 0 }}</span>
+                            <span class="attribute-skill-name">Уход за животными</span>
+
+                            <button type="button" class="dice-roll-button"
+                                    onclick="rollSkill('animal_handling', 'wisdom')">
+                                <span
+                                    id="animal_handling-value">{{ $character->attributes->animal_handling ?? 0 }}</span>
                             </button>
                         </div>
                         <input type="hidden" name="animal_handling" id="animal_handling"
@@ -536,9 +573,11 @@
                         <!-- Блок для проверки -->
                         <div class="check-block">
                             <div class="attribute-skill-wrap">
-                                <a href="#" class="check-link" onclick="openModal('charisma'); return false;">Проверка</a>
+                                <a href="#" class="check-link"
+                                   onclick="openModal('charisma'); return false;">Проверка</a>
                             </div>
-                            <button type="button" class="dice-roll-button" onclick="rollDice('charisma'); return false;">
+                            <button type="button" class="dice-roll-button"
+                                    onclick="rollDice('charisma'); return false;">
                 <span id="charisma-modifier" class="modifier">
                     {{ floor(($character->attributes->charisma ?? 10 - 10) / 2) }}
                 </span>
@@ -548,9 +587,11 @@
                         <!-- Блок для спасброска -->
                         <div class="save-block">
                             <div class="attribute-skill-wrap">
-                                <a href="#" class="save-link" onclick="openModal('charisma'); return false;">Спасбросок</a>
+                                <a href="#" class="save-link"
+                                   onclick="openModal('charisma'); return false;">Спасбросок</a>
                             </div>
-                            <button type="button" class="dice-roll-button" onclick="rollSave('charisma'); return false;">
+                            <button type="button" class="dice-roll-button"
+                                    onclick="rollSave('charisma'); return false;">
                 <span id="charisma-save-modifier" class="modifier">
                     {{ floor(($character->attributes->charisma ?? 10 - 10) / 2) }}
                 </span>
@@ -562,16 +603,19 @@
                         <!--Выступление-->
 
                         <div class="attribute-skill">
-                            <span class="attribute-skill-name">Выступление</span>
                             <label class="double-radio-container">
                                 <input type="checkbox" class="double-radio-input" id="performance-radio"
-                                       name="performance-radio" onclick="handleSkillRadio(this, 'performance', 'charisma')">
+                                       name="performance-radio"
+                                       onclick="handleSkillRadio(this, 'performance', 'charisma')">
                                 <span class="double-radio-custom">
                     <span class="radio-dot dot-1"></span>
                     <span class="radio-dot dot-2"></span>
                 </span>
                             </label>
-                            <button type="button" class="dice-roll-button" onclick="rollSkill('performance', 'charisma')">
+                            <span class="attribute-skill-name">Выступление</span>
+
+                            <button type="button" class="dice-roll-button"
+                                    onclick="rollSkill('performance', 'charisma')">
                                 <span id="performance-value">{{ $character->attributes->performance ?? 0 }}</span>
                             </button>
                         </div>
@@ -581,16 +625,19 @@
                         <!--Запугивание-->
 
                         <div class="attribute-skill">
-                            <span class="attribute-skill-name">Запугивание</span>
                             <label class="double-radio-container">
                                 <input type="checkbox" class="double-radio-input" id="intimidation-radio"
-                                       name="intimidation-radio" onclick="handleSkillRadio(this, 'intimidation', 'charisma')">
+                                       name="intimidation-radio"
+                                       onclick="handleSkillRadio(this, 'intimidation', 'charisma')">
                                 <span class="double-radio-custom">
                     <span class="radio-dot dot-1"></span>
                     <span class="radio-dot dot-2"></span>
                 </span>
                             </label>
-                            <button type="button" class="dice-roll-button" onclick="rollSkill('intimidation', 'charisma')">
+                            <span class="attribute-skill-name">Запугивание</span>
+
+                            <button type="button" class="dice-roll-button"
+                                    onclick="rollSkill('intimidation', 'charisma')">
                                 <span id="intimidation-value">{{ $character->attributes->intimidation ?? 0 }}</span>
                             </button>
                         </div>
@@ -600,7 +647,6 @@
                         <!--Обман-->
 
                         <div class="attribute-skill">
-                            <span class="attribute-skill-name">Обман</span>
                             <label class="double-radio-container">
                                 <input type="checkbox" class="double-radio-input" id="deception-radio"
                                        name="deception-radio" onclick="handleSkillRadio(this, 'deception', 'charisma')">
@@ -609,6 +655,8 @@
                     <span class="radio-dot dot-2"></span>
                 </span>
                             </label>
+                            <span class="attribute-skill-name">Обман</span>
+
                             <button type="button" class="dice-roll-button" onclick="rollSkill('deception', 'charisma')">
                                 <span id="deception-value">{{ $character->attributes->deception ?? 0 }}</span>
                             </button>
@@ -619,16 +667,19 @@
                         <!--Убеждение-->
 
                         <div class="attribute-skill">
-                            <span class="attribute-skill-name">Убеждение</span>
                             <label class="double-radio-container">
                                 <input type="checkbox" class="double-radio-input" id="persuasion-radio"
-                                       name="persuasion-radio" onclick="handleSkillRadio(this, 'persuasion', 'charisma')">
+                                       name="persuasion-radio"
+                                       onclick="handleSkillRadio(this, 'persuasion', 'charisma')">
                                 <span class="double-radio-custom">
                     <span class="radio-dot dot-1"></span>
                     <span class="radio-dot dot-2"></span>
                 </span>
                             </label>
-                            <button type="button" class="dice-roll-button" onclick="rollSkill('persuasion', 'charisma')">
+                            <span class="attribute-skill-name">Убеждение</span>
+
+                            <button type="button" class="dice-roll-button"
+                                    onclick="rollSkill('persuasion', 'charisma')">
                                 <span id="persuasion-value">{{ $character->attributes->persuasion ?? 0 }}</span>
                             </button>
                         </div>
@@ -721,7 +772,7 @@
             }
 
             // Инициализация состояний при загрузке страницы
-            document.addEventListener("DOMContentLoaded", function() {
+            document.addEventListener("DOMContentLoaded", function () {
                 // Навыки силы
                 initSkillRadio('athletics');
 
@@ -765,6 +816,7 @@
                     radioCustom.classList.add('fully-checked');
                 }
             }
+
             document.querySelectorAll('.skill-toggle').forEach(item => {
                 item.addEventListener('click', function () {
                     let targetId = this.getAttribute('data-target');
@@ -870,6 +922,7 @@
                     total
                 );
             }
+
             // Функция для броска навыка
             function rollSkill(skill, attribute) {
                 const skillBonus = parseInt(document.getElementById(skill).value) || 0;
@@ -908,6 +961,7 @@
                     total
                 );
             }
+
             // Функция для перевода названий атрибутов
             function attributeName(attr) {
                 const names = {
@@ -980,7 +1034,7 @@
                         sidebarModal.classList.remove("show");
                     }
                 });
-                document.getElementById('save-character-settings').addEventListener('click', function() {
+                document.getElementById('save-character-settings').addEventListener('click', function () {
                     const characterId = {{ $character->id }};
                     const name = document.getElementById('character-name-input').value;
                     const race = document.getElementById('character-race-input').value;
@@ -1097,12 +1151,14 @@
                     document.querySelector('.close-all-btn').classList.add('visible');
                 }
             }
+
             // Показываем/скрываем крестик при наличии уведомлений
             function clearAllNotifications() {
                 const container = document.getElementById('notificationsContainer');
                 container.innerHTML = '';
                 currentNotifications = 0;
             }
+
             function showBottomLeftAlert(header, formula, result) {
                 const alertElement = document.getElementById('bottomLeftAlert');
                 document.getElementById('alertHeader').textContent = header;
@@ -1127,15 +1183,16 @@
             }
 
             // Добавляем обработчик для ручного управления видимостью
-            document.getElementById('notificationsWrapper').addEventListener('mouseenter', function() {
+            document.getElementById('notificationsWrapper').addEventListener('mouseenter', function () {
                 if (this.querySelector('.notifications-container').children.length > 0) {
                     this.querySelector('.close-all-btn').style.opacity = '1';
                 }
             });
 
-            document.getElementById('notificationsWrapper').addEventListener('mouseleave', function() {
+            document.getElementById('notificationsWrapper').addEventListener('mouseleave', function () {
                 this.querySelector('.close-all-btn').style.opacity = '0';
             });
+
             function updateNotificationsState() {
                 const wrapper = document.getElementById('notificationsWrapper');
                 const hasNotifications = document.getElementById('notificationsContainer').children.length > 0;
@@ -1146,6 +1203,7 @@
                     wrapper.classList.remove('has-notifications');
                 }
             }
+
             function hideCloseButtonInstantly() {
                 const btn = document.querySelector('.close-all-btn');
                 btn.style.transition = 'none'; // Отключаем анимацию
