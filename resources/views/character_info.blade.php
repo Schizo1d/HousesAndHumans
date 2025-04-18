@@ -786,22 +786,6 @@
                             subclass: subclass
                         })
                     })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                const saveMessage = document.getElementById('save-message');
-                                saveMessage.style.display = 'block';
-                                saveMessage.textContent = 'Настройки сохранены!';
-
-                                // Скрываем сообщение через 3 секунды
-                                setTimeout(() => {
-                                    saveMessage.style.display = 'none';
-                                }, 3000);
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                        });
                 });
             });
             document.addEventListener("DOMContentLoaded", function () {
