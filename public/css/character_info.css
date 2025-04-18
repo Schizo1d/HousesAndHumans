@@ -738,7 +738,7 @@ form label {
     height: 20px;
     border: 2px solid #6b7280;
     border-radius: 50%;
-    background-color: #fff;
+    background-color: #db934e;
     transition: all 0.2s ease;
 }
 
@@ -748,31 +748,34 @@ form label {
 
 .radio-dot {
     position: absolute;
-    width: 8px;
-    height: 8px;
     border-radius: 50%;
-    background-color: transparent;
     transition: all 0.2s ease;
 }
 
 .dot-1 {
     width: 10px;
     height: 10px;
+    background-color: transparent;
 }
 
 .dot-2 {
-    bottom: 2px;
-    right: 2px;
+    width: 12px;
+    height: 12px;
+    border: 2px solid transparent;
+    background-color: transparent;
 }
 
-/* Состояние для +2 (одна точка) */
+/* Состояние для +2 (одна зеленая точка) */
 .double-radio-custom.half-checked .dot-1 {
-    background-color: #10b981; /* Зеленый цвет */
+    background-color: #10b981;
 }
 
-/* Состояние для +4 (две точки) */
-.double-radio-custom.fully-checked .dot-1,
+/* Состояние для +4 (зеленая точка и зеленый бублик) */
+.double-radio-custom.fully-checked .dot-1 {
+    background-color: #10b981;
+}
 .double-radio-custom.fully-checked .dot-2 {
-    background-color: #10b981; /* Зеленый цвет */
+    border-color: #10b981;
+    background-color: transparent;
 }
 
