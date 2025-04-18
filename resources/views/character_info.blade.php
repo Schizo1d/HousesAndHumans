@@ -101,12 +101,10 @@
                     </div>
                     <div class="sub-attributes">
                         <div class="attribute-skill">
-                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="athletics" onclick="toggleSkill(this)">
-                                Атлетика
-                            </a>
+                            <a href="javascript:void(0);" class="attribute-skill-name">Атлетика</a>
                             <label class="double-radio-container">
                                 <input type="checkbox" class="double-radio-input" id="athletics-radio"
-                                       name="athletics-radio" onclick="handleTripleRadio(this)">
+                                       name="athletics-radio" onclick="handleAthleticsRadio(this)">
                                 <span class="double-radio-custom">
                 <span class="radio-dot dot-1"></span>
                 <span class="radio-dot dot-2"></span>
@@ -116,8 +114,7 @@
                                 <span id="athletics-value">{{ $character->attributes->athletics ?? 0 }}</span>
                             </button>
                         </div>
-                        <input type="hidden" name="athletics" id="athletics"
-                               value="{{ $character->attributes->athletics ?? 0 }}">
+                        <input type="hidden" name="athletics" id="athletics" value="{{ $character->attributes->athletics ?? 0 }}">
                     </div>
                 </div>
                 <!-- Ловкость -->
@@ -556,43 +553,54 @@
                 return Math.floor((attributeValue - 10) / 2);
             }
 
-            function handleTripleRadio(element, skillId) {
-                const input = document.getElementById(skillId);
-                const span = document.getElementById(skillId + "-value");
+            function handleAthleticsRadio(element) {
+                const hiddenInput = document.getElementById('athletics');
+                const displaySpan = document.getElementById('athletics-value');
+                const customRadio = element.nextElementSibling;
 
-                // Циклическое изменение значения: 0 → 2 → 4 → 0
-                let currentValue = parseInt(input.value);
-                let newValue = currentValue === 4 ? 0 : currentValue + 2;
-                input.value = newValue;
+                // Определяем текущее и следующее значение
+                let currentValue = parseInt(hiddenInput.value) || 0;
+                let newValue;
 
-                // Находим связанный атрибут
-                const attribute = Object.keys(attributeNames).find(attr =>
-                    element.closest('.attribute-item').contains(document.getElementById(attr))
-                );
+                if (currentValue === 0) newValue = 2;
+                else if (currentValue === 2) newValue = 4;
+                else newValue = 0;
 
-                // Рассчитываем итоговое значение
-                const attributeValue = parseInt(document.getElementById(attribute).value);
-                const modifier = Math.floor((attributeValue - 10) / 2);
+                // Обновляем скрытое поле
+                hiddenInput.value = newValue;
+
+                // Рассчитываем итоговое значение с модификатором силы
+                const strengthValue = parseInt(document.getElementById('strength').value) || 10;
+                const modifier = Math.floor((strengthValue - 10) / 2);
                 const finalValue = modifier + newValue;
 
-                // Обновляем отображение
-                span.textContent = finalValue;
+                // Обновляем отображаемое значение
+                displaySpan.textContent = finalValue;
 
-                // Визуальное переключение радио-кнопки
-                const customRadio = element.nextElementSibling;
+                // Обновляем визуальное состояние радио-кнопки
+                customRadio.classList.remove('half-checked', 'fully-checked');
                 if (newValue === 2) {
                     customRadio.classList.add('half-checked');
-                    customRadio.classList.remove('fully-checked');
                 } else if (newValue === 4) {
                     customRadio.classList.add('fully-checked');
-                    customRadio.classList.remove('half-checked');
-                } else {
-                    customRadio.classList.remove('half-checked', 'fully-checked');
                 }
 
                 // Предотвращаем стандартное поведение checkbox
                 element.checked = false;
             }
+
+            // Инициализация состояния при загрузке
+            document.addEventListener("DOMContentLoaded", function() {
+                const athleticsValue = parseInt(document.getElementById('athletics').value) || 0;
+                const radioCustom = document.querySelector('#athletics-radio + .double-radio-custom');
+
+                radioCustom.classList.remove('half-checked', 'fully-checked');
+                if (athleticsValue === 2) {
+                    radioCustom.classList.add('half-checked');
+                } else if (athleticsValue === 4) {
+                    radioCustom.classList.add('fully-checked');
+                }
+            });
             document.querySelectorAll('.skill-toggle').forEach(item => {
                 item.addEventListener('click', function () {
                     let targetId = this.getAttribute('data-target');

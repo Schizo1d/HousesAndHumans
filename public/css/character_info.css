@@ -715,14 +715,18 @@ form label {
 /*Радио кнопка*/
 .double-radio-container {
     position: relative;
+    display: inline-block;
+    vertical-align: middle;
     cursor: pointer;
-    margin: 0 10px;
+    margin: 0 5px;
 }
 
 .double-radio-input {
     position: absolute;
     opacity: 0;
     cursor: pointer;
+    width: 0;
+    height: 0;
 }
 
 .double-radio-custom {
@@ -730,9 +734,14 @@ form label {
     display: inline-block;
     width: 20px;
     height: 20px;
-    border: 2px solid #ccc;
+    border: 2px solid #6b7280;
     border-radius: 50%;
     background-color: #fff;
+    transition: all 0.2s ease;
+}
+
+.double-radio-custom:hover {
+    border-color: #4b5563;
 }
 
 .radio-dot {
@@ -741,7 +750,7 @@ form label {
     height: 8px;
     border-radius: 50%;
     background-color: transparent;
-    transition: all 0.3s;
+    transition: all 0.2s ease;
 }
 
 .dot-1 {
@@ -754,14 +763,14 @@ form label {
     right: 2px;
 }
 
-/* Состояние для +2 (половина) */
-.double-radio-container .half-checked .dot-1 {
-    background-color: #4CAF50;
+/* Состояние для +2 (одна точка) */
+.double-radio-custom.half-checked .dot-1 {
+    background-color: #10b981; /* Зеленый цвет */
 }
 
-/* Состояние для +4 (полностью) */
-.double-radio-container .fully-checked .dot-1,
-.double-radio-container .fully-checked .dot-2 {
-    background-color: #4CAF50;
+/* Состояние для +4 (две точки) */
+.double-radio-custom.fully-checked .dot-1,
+.double-radio-custom.fully-checked .dot-2 {
+    background-color: #10b981; /* Зеленый цвет */
 }
 
