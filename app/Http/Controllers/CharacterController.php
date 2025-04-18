@@ -81,4 +81,34 @@ class CharacterController extends Controller
 
         return response()->json(['error' => 'Unauthorized'], 403);
     }
+
+    public function updateSettings(Request $request)
+    {
+        // Проверяем, что пользователь авторизован
+        $user = Auth::user();
+        if (!$user) {
+            return response()->json(['success' => false, 'error' => 'Пользователь не авторизован'], 401);
+        }
+
+        // Проверяем, что передан корректный идентификатор персонажа
+        $character = $user->characters()->find($request->character_id);
+        if (!$character) {
+            return response()->json(['success' => false, 'error' => 'Персонаж не найден для данного пользователя'], 404);
+        }
+
+        // Обновляем данные персонажа
+        $character->name = $request->name;
+        $character->race = $request->race;
+        $character->class = $request->class;
+        $character->subclass = $request->subclass;
+        $character->save();
+
+        return response()->json([
+            'success' => true,
+            'newName' => $character->name,
+            'newRace' => $character->race,
+            'newClass' => $character->class,
+            'newSubclass' => $character->subclass
+        ]);
+    }
 }
