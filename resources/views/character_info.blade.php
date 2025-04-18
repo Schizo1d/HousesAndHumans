@@ -104,16 +104,18 @@
                             Атлетика
                         </a>
                         <label class="double-radio-container">
-                            <input type="checkbox" class="double-radio-input" data-skill="athletics">
+                            <input type="checkbox" class="double-radio-input" data-skill="athletics"
+                                   data-attribute="strength" id="athletics-radio">
                             <span class="double-radio-custom">
             <span class="radio-dot dot-1"></span>
             <span class="radio-dot dot-2"></span>
         </span>
                         </label>
                         <button type="button" class="dice-roll-button" onclick="rollSkill('athletics', 'strength')">
-                            <span id="athletics-value">0</span>
+                            <span id="athletics-value">{{ $character->skills->athletics ?? 0 }}</span>
                         </button>
-                        <input type="hidden" name="athletics" id="athletics" value="0">
+                        <input type="hidden" name="athletics" id="athletics"
+                               value="{{ $character->skills->athletics ?? 0 }}">
                     </div>
 
 
@@ -578,13 +580,43 @@
             }
 
 
+            // Сохраняем состояние в localStorage
+            function saveSkillState(skill, state) {
+                localStorage.setItem(`skill_${skill}`, state);
+            }
+
+            // Загружаем состояние из localStorage
+            function loadSkillState(skill) {
+                return parseInt(localStorage.getItem(`skill_${skill}`)) || 0;
+            }
+
             // Инициализация всех радио-кнопок навыков
             document.addEventListener("DOMContentLoaded", function() {
                 // Обработчик для всех двойных радио-кнопок
                 document.querySelectorAll('.double-radio-input').forEach(radio => {
+                    const skill = radio.getAttribute('data-skill');
+                    const attribute = radio.getAttribute('data-attribute');
+
+                    // Загружаем сохраненное состояние
+                    const savedState = loadSkillState(skill);
+                    if (savedState > 0) {
+                        const container = radio.closest('.double-radio-container');
+                        const customRadio = container.querySelector('.double-radio-custom');
+                        customRadio.setAttribute('data-state', savedState);
+                        customRadio.classList.add(`state-${savedState}`);
+
+                        // Устанавливаем значение в скрытое поле
+                        const bonus = savedState * 2;
+                        document.getElementById(skill).value = bonus;
+
+                        // Обновляем отображаемое значение
+                        const attributeValue = parseInt(document.getElementById(attribute).value) || 10;
+                        const modifier = Math.floor((attributeValue - 10) / 2);
+                        document.getElementById(`${skill}-value`).textContent = modifier + bonus;
+                    }
+
                     radio.addEventListener('click', function(e) {
                         e.preventDefault();
-                        const skill = this.getAttribute('data-skill');
                         const container = this.closest('.double-radio-container');
                         const customRadio = container.querySelector('.double-radio-custom');
                         let currentState = parseInt(customRadio.getAttribute('data-state')) || 0;
@@ -603,34 +635,23 @@
                         const bonus = currentState * 2;
                         document.getElementById(skill).value = bonus;
 
-                        // Находим связанный атрибут
-                        const attributeMap = {
-                            'athletics': 'strength',
-                            'acrobatics': 'dexterity',
-                            'sleight_of_hand': 'dexterity',
-                            'stealth': 'dexterity',
-                            'investigation': 'intelligence',
-                            // Добавьте остальные навыки
-                        };
+                        // Сохраняем состояние
+                        saveSkillState(skill, currentState);
 
-                        const attribute = attributeMap[skill];
-                        if (attribute) {
-                            const attributeValue = parseInt(document.getElementById(attribute).value) || 10;
-                            const modifier = Math.floor((attributeValue - 10) / 2);
-                            const finalValue = modifier + bonus;
-                            document.getElementById(`${skill}-value`).textContent = finalValue;
-                        }
+                        // Обновляем отображаемое значение
+                        const attributeValue = parseInt(document.getElementById(attribute).value) || 10;
+                        const modifier = Math.floor((attributeValue - 10) / 2);
+                        document.getElementById(`${skill}-value`).textContent = modifier + bonus;
                     });
                 });
 
-                // Инициализация начальных значений
+                // Инициализация начальных значений атрибутов
                 Object.keys(attributeNames).forEach(attr => {
                     updateModifier(attr);
-                    updateSkills(attr);
                 });
             });
 
-            // Обновленная функция для пересчета всех навыков
+            /*// Обновленная функция для пересчета всех навыков
             function updateSkills(attribute) {
                 let attrValue = parseInt(document.getElementById(attribute).value);
                 let modifier = getModifier(attrValue);
@@ -653,7 +674,7 @@
                         }
                     });
                 }
-            }
+            }*/
 
 
             function toggleSkill(element) {
