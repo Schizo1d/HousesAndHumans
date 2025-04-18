@@ -119,87 +119,30 @@
                         <input type="hidden" name="athletics" id="athletics"
                                value="{{ $character->attributes->athletics ?? 0 }}">
                     </div>
-                    <style>
-                        .double-radio-container {
-                            display: inline-block;
-                            position: relative;
-                            cursor: pointer;
-                            margin-right: 8px;
-                            vertical-align: middle;
-                        }
 
-                        .double-radio-input {
-                            position: absolute;
-                            opacity: 0;
-                            cursor: pointer;
-                            height: 0;
-                            width: 0;
-                        }
 
-                        .double-radio-custom {
-                            display: inline-block;
-                            width: 20px;
-                            height: 20px;
-                            background-color: #f0f0f0;
-                            border-radius: 50%;
-                            border: 1px solid #999;
-                            position: relative;
-                        }
-
-                        .radio-dot {
-                            position: absolute;
-                            width: 8px;
-                            height: 8px;
-                            border-radius: 50%;
-                            background-color: #333;
-                            transition: opacity 0.2s;
-                            opacity: 0;
-                        }
-
-                        .dot-1 {
-                            top: 50%;
-                            left: 50%;
-                            transform: translate(-50%, -50%);
-                        }
-
-                        .dot-2 {
-                            top: 25%;
-                            left: 25%;
-                        }
-
-                        /* Состояния */
-                        .double-radio-input:checked ~ .double-radio-custom .dot-1 {
-                            opacity: 1;
-                        }
-
-                        .double-radio-input:checked:checked ~ .double-radio-custom .dot-2 {
-                            opacity: 1;
-                        }
-
-                        .double-radio-input:checked:checked:checked ~ .double-radio-custom {
-                            background-color: #f0f0f0;
-                        }
-
-                        .double-radio-input:checked:checked:checked ~ .double-radio-custom .radio-dot {
-                            opacity: 0;
-                        }
-                    </style>
                     <script>
-                        let clickCount = 0;
+                        document.getElementById('athletics-radio').addEventListener('click', function(e) {
+                            const container = this.closest('.double-radio-container');
+                            const customRadio = container.querySelector('.double-radio-custom');
+                            let currentState = parseInt(customRadio.getAttribute('data-state')) || 0;
 
-                        function handleTripleRadio(element) {
-                            clickCount++;
+                            currentState = (currentState + 1) % 3; // Цикл 0 → 1 → 2 → 0
 
-                            if (clickCount > 2) {
-                                element.checked = false;
-                                clickCount = 0;
+                            // Обновляем состояние
+                            customRadio.setAttribute('data-state', currentState);
+                            customRadio.className = 'double-radio-custom'; // Сбрасываем классы
+                            if (currentState > 0) {
+                                customRadio.classList.add(`state-${currentState}`);
                             }
 
                             // Обновляем значение
-                            const valueField = document.getElementById('athletics');
-                            valueField.value = clickCount;
-                            document.getElementById('athletics-value').textContent = clickCount;
-                        }
+                            document.getElementById('athletics').value = currentState;
+                            document.getElementById('athletics-value').textContent = currentState;
+
+                            // Отменяем стандартное поведение чекбокса
+                            e.preventDefault();
+                        });
                     </script>
                 </div>
                 <!-- Ловкость -->
