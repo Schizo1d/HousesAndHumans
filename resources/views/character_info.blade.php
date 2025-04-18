@@ -184,6 +184,23 @@
                             opacity: 0;
                         }
                     </style>
+                    <script>
+                        let clickCount = 0;
+
+                        function handleTripleRadio(element) {
+                            clickCount++;
+
+                            if (clickCount > 2) {
+                                element.checked = false;
+                                clickCount = 0;
+                            }
+
+                            // Обновляем значение
+                            const valueField = document.getElementById('athletics');
+                            valueField.value = clickCount;
+                            document.getElementById('athletics-value').textContent = clickCount;
+                        }
+                    </script>
                 </div>
                 <!-- Ловкость -->
                 <div class="attribute-item">
