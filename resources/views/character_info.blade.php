@@ -106,10 +106,10 @@
                             </a>
                             <label class="double-radio-container">
                                 <input type="checkbox" class="double-radio-input" id="athletics-radio"
-                                       name="athletics-radio" onclick="handleDoubleRadio(this)">
+                                       name="athletics-radio" onclick="handleTripleRadio(this)">
                                 <span class="double-radio-custom">
-                <span class="radio-dot"></span>
-                <span class="radio-dot"></span>
+                <span class="radio-dot dot-1"></span>
+                <span class="radio-dot dot-2"></span>
             </span>
                             </label>
                             <button type="button" class="dice-roll-button" onclick="rollSkill('athletics', 'strength')">
@@ -119,101 +119,72 @@
                         <input type="hidden" name="athletics" id="athletics"
                                value="{{ $character->attributes->athletics ?? 0 }}">
                     </div>
+                    <style>
+                        .double-radio-container {
+                            display: inline-block;
+                            position: relative;
+                            cursor: pointer;
+                            margin-right: 8px;
+                            vertical-align: middle;
+                        }
+
+                        .double-radio-input {
+                            position: absolute;
+                            opacity: 0;
+                            cursor: pointer;
+                            height: 0;
+                            width: 0;
+                        }
+
+                        .double-radio-custom {
+                            display: inline-block;
+                            width: 20px;
+                            height: 20px;
+                            background-color: #f0f0f0;
+                            border-radius: 50%;
+                            border: 1px solid #999;
+                            position: relative;
+                        }
+
+                        .radio-dot {
+                            position: absolute;
+                            width: 8px;
+                            height: 8px;
+                            border-radius: 50%;
+                            background-color: #333;
+                            transition: opacity 0.2s;
+                            opacity: 0;
+                        }
+
+                        .dot-1 {
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                        }
+
+                        .dot-2 {
+                            top: 25%;
+                            left: 25%;
+                        }
+
+                        /* Состояния */
+                        .double-radio-input:checked ~ .double-radio-custom .dot-1 {
+                            opacity: 1;
+                        }
+
+                        .double-radio-input:checked:checked ~ .double-radio-custom .dot-2 {
+                            opacity: 1;
+                        }
+
+                        .double-radio-input:checked:checked:checked ~ .double-radio-custom {
+                            background-color: #f0f0f0;
+                        }
+
+                        .double-radio-input:checked:checked:checked ~ .double-radio-custom .radio-dot {
+                            opacity: 0;
+                        }
+                    </style>
                 </div>
-
-                <style>
-                    .double-radio-container {
-                        display: inline-block;
-                        position: relative;
-                        cursor: pointer;
-                        margin-right: 8px;
-                        vertical-align: middle;
-                    }
-
-                    .double-radio-input {
-                        position: absolute;
-                        opacity: 0;
-                        cursor: pointer;
-                        height: 0;
-                        width: 0;
-                    }
-
-                    .double-radio-custom {
-                        display: inline-block;
-                        width: 20px;
-                        height: 20px;
-                        background-color: #eee;
-                        border-radius: 50%;
-                        border: 2px solid #ccc;
-                        position: relative;
-                    }
-
-                    .double-radio-input:checked ~ .double-radio-custom {
-                        background-color: #f0f0f0;
-                    }
-
-                    .radio-dot {
-                        position: absolute;
-                        width: 8px;
-                        height: 8px;
-                        border-radius: 50%;
-                        background-color: #333;
-                        opacity: 0;
-                        transition: opacity 0.2s;
-                    }
-
-                    .radio-dot:first-child {
-                        top: 4px;
-                        left: 4px;
-                    }
-
-                    .radio-dot:last-child {
-                        bottom: 4px;
-                        right: 4px;
-                    }
-
-                    .double-radio-input:checked ~ .double-radio-custom .radio-dot:first-child,
-                    .double-radio-input:checked ~ .double-radio-custom .radio-dot:last-child {
-                        opacity: 1;
-                    }
-
-                    .double-radio-input:checked ~ .double-radio-custom .radio-dot:first-child {
-                        opacity: 1;
-                    }
-
-                    .double-radio-input:checked:checked ~ .double-radio-custom .radio-dot:last-child {
-                        opacity: 1;
-                    }
-                </style>
-
-                <script>
-                    let clickCount = 0;
-
-                    function handleDoubleRadio(element) {
-                        clickCount++;
-
-                        if (clickCount === 2) {
-                            // Сбрасываем после второго нажатия
-                            setTimeout(() => {
-                                element.checked = false;
-                                clickCount = 0;
-                            }, 100);
-                        }
-
-                        // Обновляем скрытое поле с значением
-                        const valueField = document.getElementById('athletics');
-                        valueField.value = clickCount;
-                        document.getElementById('athletics-value').textContent = clickCount;
-
-                        // Если сбросили, обнуляем значение
-                        if (!element.checked) {
-                            clickCount = 0;
-                            valueField.value = 0;
-                            document.getElementById('athletics-value').textContent = 0;
-                        }
-                    }
-                </script>
-
                 <!-- Ловкость -->
                 <div class="attribute-item">
                     <div class="attribute-main-stat">
