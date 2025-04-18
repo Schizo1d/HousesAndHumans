@@ -102,7 +102,7 @@
                     <!--Атлетика-->
 
                     <div class="attribute-skill">
-                        <span class="attribute-skill-name">Выступление</span>
+                        <span class="attribute-skill-name">Атлетика</span>
                         <label class="double-radio-container">
                             <input type="checkbox" class="double-radio-input" id="athletics-radio"
                                    name="athletics-radio" onclick="handleSkillRadio(this, 'athletics', 'strength')">
