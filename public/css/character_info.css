@@ -299,7 +299,7 @@ form label {
     align-items: center;
     font-size: 14px;
     background-color: #915f32;
-    border-radius: 10px 0px 0px 10px;
+    border-radius: 15px 0px 0px 15px;
     height: 30px;
     color: white;
     cursor: pointer;
@@ -754,8 +754,8 @@ form label {
 }
 
 .dot-1 {
-    top: 2px;
-    left: 2px;
+    top: 6px;
+    left: 6px;
 }
 
 .dot-2 {
