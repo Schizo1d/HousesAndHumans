@@ -102,7 +102,6 @@
                     <!--Атлетика-->
 
                     <div class="attribute-skill">
-                        <span class="attribute-skill-name">Атлетика</span>
                         <label class="double-radio-container">
                             <input type="checkbox" class="double-radio-input" id="athletics-radio"
                                    name="athletics-radio" onclick="handleSkillRadio(this, 'athletics', 'strength')">
@@ -111,6 +110,7 @@
                     <span class="radio-dot dot-2"></span>
                 </span>
                         </label>
+                        <span class="attribute-skill-name">Атлетика</span>
                         <button type="button" class="dice-roll-button" onclick="rollSkill('athletics', 'strength')">
                             <span id="athletics-value">{{ $character->attributes->athletics ?? 0 }}</span>
                         </button>
