@@ -765,6 +765,44 @@
                         sidebarModal.classList.remove("show");
                     }
                 });
+                document.getElementById('save-character-settings').addEventListener('click', function() {
+                    const characterId = {{ $character->id }};
+                    const name = document.getElementById('character-name-input').value;
+                    const race = document.getElementById('character-race-input').value;
+                    const characterClass = document.getElementById('character-class-input').value;
+                    const subclass = document.getElementById('character-subclass-input').value;
+
+                    fetch('/characters/update-settings', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        },
+                        body: JSON.stringify({
+                            character_id: characterId,
+                            name: name,
+                            race: race,
+                            class: characterClass,
+                            subclass: subclass
+                        })
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                const saveMessage = document.getElementById('save-message');
+                                saveMessage.style.display = 'block';
+                                saveMessage.textContent = 'Настройки сохранены!';
+
+                                // Скрываем сообщение через 3 секунды
+                                setTimeout(() => {
+                                    saveMessage.style.display = 'none';
+                                }, 3000);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                });
             });
             document.addEventListener("DOMContentLoaded", function () {
                 const nameInput = document.getElementById("character-name-input");
