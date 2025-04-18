@@ -722,6 +722,9 @@
 
             // Инициализация состояний при загрузке страницы
             document.addEventListener("DOMContentLoaded", function() {
+                // Навыки силы
+                initSkillRadio('athletics');
+
                 // Навыки ловкости
                 initSkillRadio('acrobatics');
                 initSkillRadio('sleight_of_hand');
