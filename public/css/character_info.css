@@ -714,6 +714,7 @@ form label {
 
 /*Радио кнопка*/
 
+
 .double-radio-container {
     display: inline-block;
     position: relative;
@@ -761,7 +762,6 @@ form label {
     left: 25%;
 }
 
-/* Классы для управления видимостью точек */
 .double-radio-custom.state-1 .dot-1 {
     opacity: 1;
 }
@@ -770,3 +770,4 @@ form label {
 .double-radio-custom.state-2 .dot-2 {
     opacity: 1;
 }
+

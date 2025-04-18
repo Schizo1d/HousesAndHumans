@@ -556,7 +556,43 @@
                 return Math.floor((attributeValue - 10) / 2);
             }
 
+            function handleTripleRadio(element, skillId) {
+                const input = document.getElementById(skillId);
+                const span = document.getElementById(skillId + "-value");
 
+                // Циклическое изменение значения: 0 → 2 → 4 → 0
+                let currentValue = parseInt(input.value);
+                let newValue = currentValue === 4 ? 0 : currentValue + 2;
+                input.value = newValue;
+
+                // Находим связанный атрибут
+                const attribute = Object.keys(attributeNames).find(attr =>
+                    element.closest('.attribute-item').contains(document.getElementById(attr))
+                );
+
+                // Рассчитываем итоговое значение
+                const attributeValue = parseInt(document.getElementById(attribute).value);
+                const modifier = Math.floor((attributeValue - 10) / 2);
+                const finalValue = modifier + newValue;
+
+                // Обновляем отображение
+                span.textContent = finalValue;
+
+                // Визуальное переключение радио-кнопки
+                const customRadio = element.nextElementSibling;
+                if (newValue === 2) {
+                    customRadio.classList.add('half-checked');
+                    customRadio.classList.remove('fully-checked');
+                } else if (newValue === 4) {
+                    customRadio.classList.add('fully-checked');
+                    customRadio.classList.remove('half-checked');
+                } else {
+                    customRadio.classList.remove('half-checked', 'fully-checked');
+                }
+
+                // Предотвращаем стандартное поведение checkbox
+                element.checked = false;
+            }
             document.querySelectorAll('.skill-toggle').forEach(item => {
                 item.addEventListener('click', function () {
                     let targetId = this.getAttribute('data-target');
