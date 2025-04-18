@@ -289,6 +289,7 @@
                         </div>
                     </div>
                     <div class="sub-attributes">
+                        <!--Анализ-->
                         <div class="attribute-skill">
                             <span class="attribute-skill-name">Анализ</span>
                             <label class="double-radio-container">
@@ -305,7 +306,7 @@
                         </div>
                         <input type="hidden" name="investigation" id="investigation"
                                value="{{ $character->attributes->investigation ?? 0 }}">
-
+                        <!--История-->
                         <div class="attribute-skill">
                             <span class="attribute-skill-name">История</span>
                             <label class="double-radio-container">
@@ -323,13 +324,17 @@
                         <input type="hidden" name="history" id="history"
                                value="{{ $character->attributes->history ?? 0 }}">
 
-
-
-
+                        <!--Магия-->
                         <div class="attribute-skill">
-                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="arcana" onclick="toggleSkill(this)">
-                                Магия
-                            </a>
+                            <span class="attribute-skill-name">Магия</span>
+                            <label class="double-radio-container">
+                                <input type="checkbox" class="double-radio-input" id="arcana-radio"
+                                       name="arcana-radio" onclick="handleSkillRadio(this, 'arcana', 'intelligence')">
+                                <span class="double-radio-custom">
+                    <span class="radio-dot dot-1"></span>
+                    <span class="radio-dot dot-2"></span>
+                </span>
+                            </label>
                             <button type="button" class="dice-roll-button" onclick="rollSkill('arcana', 'intelligence')">
                                 <span id="arcana-value">{{ $character->attributes->arcana ?? 0 }}</span>
                             </button>
@@ -337,6 +342,7 @@
                         <input type="hidden" name="arcana" id="arcana"
                                value="{{ $character->attributes->arcana ?? 0 }}">
 
+                        <!--Природа-->
                         <div class="attribute-skill">
                             <a href="javascript:void(0);" class="attribute-skill-name" data-target="nature" onclick="toggleSkill(this)">
                                 Природа
