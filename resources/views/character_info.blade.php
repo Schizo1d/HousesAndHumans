@@ -99,49 +99,26 @@
                             </button>
                         </div>
                     </div>
-                    <div class="attribute-skill">
-                        <a href="javascript:void(0);" class="attribute-skill-name" data-target="athletics">
-                            Атлетика
-                        </a>
-                        <label class="double-radio-container">
-                            <input type="checkbox" class="double-radio-input" data-skill="athletics"
-                                   data-attribute="strength" id="athletics-radio">
-                            <span class="double-radio-custom">
-            <span class="radio-dot dot-1"></span>
-            <span class="radio-dot dot-2"></span>
-        </span>
-                        </label>
-                        <button type="button" class="dice-roll-button" onclick="rollSkill('athletics', 'strength')">
-                            <span id="athletics-value">{{ $character->skills->athletics ?? 0 }}</span>
-                        </button>
+                    <div class="sub-attributes">
+                        <div class="attribute-skill">
+                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="athletics" onclick="toggleSkill(this)">
+                                Атлетика
+                            </a>
+                            <label class="double-radio-container">
+                                <input type="checkbox" class="double-radio-input" id="athletics-radio"
+                                       name="athletics-radio" onclick="handleTripleRadio(this)">
+                                <span class="double-radio-custom">
+                <span class="radio-dot dot-1"></span>
+                <span class="radio-dot dot-2"></span>
+            </span>
+                            </label>
+                            <button type="button" class="dice-roll-button" onclick="rollSkill('athletics', 'strength')">
+                                <span id="athletics-value">{{ $character->attributes->athletics ?? 0 }}</span>
+                            </button>
+                        </div>
                         <input type="hidden" name="athletics" id="athletics"
-                               value="{{ $character->skills->athletics ?? 0 }}">
+                               value="{{ $character->attributes->athletics ?? 0 }}">
                     </div>
-
-
-                    <script>
-                        document.getElementById('athletics-radio').addEventListener('click', function(e) {
-                            const container = this.closest('.double-radio-container');
-                            const customRadio = container.querySelector('.double-radio-custom');
-                            let currentState = parseInt(customRadio.getAttribute('data-state')) || 0;
-
-                            currentState = (currentState + 1) % 3; // Цикл 0 → 1 → 2 → 0
-
-                            // Обновляем состояние
-                            customRadio.setAttribute('data-state', currentState);
-                            customRadio.className = 'double-radio-custom'; // Сбрасываем классы
-                            if (currentState > 0) {
-                                customRadio.classList.add(`state-${currentState}`);
-                            }
-
-                            // Обновляем значение
-                            document.getElementById('athletics').value = currentState;
-                            document.getElementById('athletics-value').textContent = currentState;
-
-                            // Отменяем стандартное поведение чекбокса
-                            e.preventDefault();
-                        });
-                    </script>
                 </div>
                 <!-- Ловкость -->
                 <div class="attribute-item">
@@ -580,83 +557,42 @@
             }
 
 
-            // Сохраняем состояние в localStorage
-            function saveSkillState(skill, state) {
-                localStorage.setItem(`skill_${skill}`, state);
-            }
+            document.querySelectorAll('.skill-toggle').forEach(item => {
+                item.addEventListener('click', function () {
+                    let targetId = this.getAttribute('data-target');
+                    let span = document.getElementById(targetId + "-value");
+                    let input = document.getElementById(targetId);
 
-            // Загружаем состояние из localStorage
-            function loadSkillState(skill) {
-                return parseInt(localStorage.getItem(`skill_${skill}`)) || 0;
-            }
+                    // Циклически меняем бонус владения: 0 -> 2 -> 4 -> 0
+                    let currentValue = parseInt(input.value);
+                    let newValue = currentValue === 4 ? 0 : currentValue + 2;
+                    input.value = newValue;
 
-            // Инициализация всех радио-кнопок навыков
-            document.addEventListener("DOMContentLoaded", function() {
-                // Обработчик для всех двойных радио-кнопок
-                document.querySelectorAll('.double-radio-input').forEach(radio => {
-                    const skill = radio.getAttribute('data-skill');
-                    const attribute = radio.getAttribute('data-attribute');
+                    // Найти родительский атрибут
+                    let attribute = Object.keys(attributeNames).find(attr =>
+                        document.getElementById(attr) && this.closest('.attribute-item').contains(document.getElementById(attr))
+                    );
 
-                    // Загружаем сохраненное состояние
-                    const savedState = loadSkillState(skill);
-                    if (savedState > 0) {
-                        const container = radio.closest('.double-radio-container');
-                        const customRadio = container.querySelector('.double-radio-custom');
-                        customRadio.setAttribute('data-state', savedState);
-                        customRadio.classList.add(`state-${savedState}`);
+                    let attributeValue = parseInt(document.getElementById(attribute).value);
+                    let modifier = getModifier(attributeValue);
+                    let finalValue = modifier + newValue;
 
-                        // Устанавливаем значение в скрытое поле
-                        const bonus = savedState * 2;
-                        document.getElementById(skill).value = bonus;
-
-                        // Обновляем отображаемое значение
-                        const attributeValue = parseInt(document.getElementById(attribute).value) || 10;
-                        const modifier = Math.floor((attributeValue - 10) / 2);
-                        document.getElementById(`${skill}-value`).textContent = modifier + bonus;
-                    }
-
-                    radio.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        const container = this.closest('.double-radio-container');
-                        const customRadio = container.querySelector('.double-radio-custom');
-                        let currentState = parseInt(customRadio.getAttribute('data-state')) || 0;
-
-                        // Цикл состояний: 0 → 1 → 2 → 0
-                        currentState = (currentState + 1) % 3;
-                        customRadio.setAttribute('data-state', currentState);
-
-                        // Обновляем визуальное состояние
-                        customRadio.className = 'double-radio-custom';
-                        if (currentState > 0) {
-                            customRadio.classList.add(`state-${currentState}`);
-                        }
-
-                        // Устанавливаем бонус (0, 2 или 4)
-                        const bonus = currentState * 2;
-                        document.getElementById(skill).value = bonus;
-
-                        // Сохраняем состояние
-                        saveSkillState(skill, currentState);
-
-                        // Обновляем отображаемое значение
-                        const attributeValue = parseInt(document.getElementById(attribute).value) || 10;
-                        const modifier = Math.floor((attributeValue - 10) / 2);
-                        document.getElementById(`${skill}-value`).textContent = modifier + bonus;
-                    });
+                    // Отображаем итоговое значение (модификатор + бонус)
+                    span.innerText = finalValue;
                 });
-
-                // Инициализация начальных значений атрибутов
+            });
+            document.addEventListener("DOMContentLoaded", function () {
                 Object.keys(attributeNames).forEach(attr => {
                     updateModifier(attr);
+                    updateSkills(attr);
                 });
             });
 
-            /*// Обновленная функция для пересчета всех навыков
             function updateSkills(attribute) {
                 let attrValue = parseInt(document.getElementById(attribute).value);
                 let modifier = getModifier(attrValue);
 
-                const skillsMap = {
+                let skills = {
                     strength: ["athletics"],
                     dexterity: ["acrobatics", "sleight_of_hand", "stealth"],
                     intelligence: ["investigation", "history", "arcana", "nature", "religion"],
@@ -664,18 +600,14 @@
                     charisma: ["performance", "intimidation", "deception", "persuasion"]
                 };
 
-                if (skillsMap[attribute]) {
-                    skillsMap[attribute].forEach(skill => {
-                        const skillElement = document.getElementById(skill);
-                        if (skillElement) {
-                            const skillBonus = parseInt(skillElement.value) || 0;
-                            const finalValue = modifier + skillBonus;
-                            document.getElementById(`${skill}-value`).textContent = finalValue;
-                        }
+                if (skills[attribute]) {
+                    skills[attribute].forEach(skill => {
+                        let skillBonus = parseInt(document.getElementById(skill).value);
+                        let finalValue = modifier + skillBonus;
+                        document.getElementById(skill + "-value").innerText = finalValue;
                     });
                 }
-            }*/
-
+            }
 
             function toggleSkill(element) {
                 const targetId = element.getAttribute('data-target');
