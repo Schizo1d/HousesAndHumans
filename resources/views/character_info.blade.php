@@ -99,22 +99,24 @@
                             </button>
                         </div>
                     </div>
-                    <div class="sub-attributes">
-                        <div class="attribute-skill">
-                            <a href="javascript:void(0);" class="attribute-skill-name">Атлетика</a>
-                            <label class="double-radio-container">
-                                <input type="checkbox" class="double-radio-input" id="athletics-radio"
-                                       name="athletics-radio" onclick="handleAthleticsRadio(this)">
-                                <span class="double-radio-custom">
-                <span class="radio-dot dot-1"></span>
-                <span class="radio-dot dot-2"></span>
-            </span>
-                            </label>
-                            <button type="button" class="dice-roll-button" onclick="rollSkill('athletics', 'strength')">
-                                <span id="athletics-value">{{ $character->attributes->athletics ?? 0 }}</span>
-                            </button>
-                        </div>
-                        <input type="hidden" name="athletics" id="athletics" value="{{ $character->attributes->athletics ?? 0 }}">
+                    <!--Атлетика-->
+
+                    <div class="attribute-skill">
+                        <span class="attribute-skill-name">Выступление</span>
+                        <label class="double-radio-container">
+                            <input type="checkbox" class="double-radio-input" id="athletics-radio"
+                                   name="athletics-radio" onclick="handleSkillRadio(this, 'athletics', 'strength')">
+                            <span class="double-radio-custom">
+                    <span class="radio-dot dot-1"></span>
+                    <span class="radio-dot dot-2"></span>
+                </span>
+                        </label>
+                        <button type="button" class="dice-roll-button" onclick="rollSkill('athletics', 'strength')">
+                            <span id="athletics-value">{{ $character->attributes->athletics ?? 0 }}</span>
+                        </button>
+                    </div>
+                    <input type="hidden" name="athletics" id="athletics"
+                           value="{{ $character->attributes->athletics ?? 0 }}">
                     </div>
                 </div>
                 <!-- Ловкость -->
@@ -343,10 +345,17 @@
                                value="{{ $character->attributes->arcana ?? 0 }}">
 
                         <!--Природа-->
+
                         <div class="attribute-skill">
-                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="nature" onclick="toggleSkill(this)">
-                                Природа
-                            </a>
+                            <span class="attribute-skill-name">Природа</span>
+                            <label class="double-radio-container">
+                                <input type="checkbox" class="double-radio-input" id="nature-radio"
+                                       name="nature-radio" onclick="handleSkillRadio(this, 'nature', 'intelligence')">
+                                <span class="double-radio-custom">
+                    <span class="radio-dot dot-1"></span>
+                    <span class="radio-dot dot-2"></span>
+                </span>
+                            </label>
                             <button type="button" class="dice-roll-button" onclick="rollSkill('nature', 'intelligence')">
                                 <span id="nature-value">{{ $character->attributes->nature ?? 0 }}</span>
                             </button>
@@ -354,10 +363,18 @@
                         <input type="hidden" name="nature" id="nature"
                                value="{{ $character->attributes->nature ?? 0 }}">
 
+                        <!--Религия-->
+
                         <div class="attribute-skill">
-                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="religion" onclick="toggleSkill(this)">
-                                Религия
-                            </a>
+                            <span class="attribute-skill-name">Религия</span>
+                            <label class="double-radio-container">
+                                <input type="checkbox" class="double-radio-input" id="religion-radio"
+                                       name="religion-radio" onclick="handleSkillRadio(this, 'religion', 'intelligence')">
+                                <span class="double-radio-custom">
+                    <span class="radio-dot dot-1"></span>
+                    <span class="radio-dot dot-2"></span>
+                </span>
+                            </label>
                             <button type="button" class="dice-roll-button" onclick="rollSkill('religion', 'intelligence')">
                                 <span id="religion-value">{{ $character->attributes->religion ?? 0 }}</span>
                             </button>
@@ -406,10 +423,17 @@
                         </div>
                     </div>
                     <div class="sub-attributes">
+                        <!-- Восприятие -->
                         <div class="attribute-skill">
-                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="perception" onclick="toggleSkill(this)">
-                                Восприятие
-                            </a>
+                            <span class="attribute-skill-name">Восприятие</span>
+                            <label class="double-radio-container">
+                                <input type="checkbox" class="double-radio-input" id="perception-radio"
+                                       name="perception-radio" onclick="handleSkillRadio(this, 'perception', 'wisdom')">
+                                <span class="double-radio-custom">
+                    <span class="radio-dot dot-1"></span>
+                    <span class="radio-dot dot-2"></span>
+                </span>
+                            </label>
                             <button type="button" class="dice-roll-button" onclick="rollSkill('perception', 'wisdom')">
                                 <span id="perception-value">{{ $character->attributes->perception ?? 0 }}</span>
                             </button>
@@ -417,10 +441,18 @@
                         <input type="hidden" name="perception" id="perception"
                                value="{{ $character->attributes->perception ?? 0 }}">
 
+                        <!--Выживание-->
+
                         <div class="attribute-skill">
-                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="survival" onclick="toggleSkill(this)">
-                                Выживание
-                            </a>
+                            <span class="attribute-skill-name">Выживание</span>
+                            <label class="double-radio-container">
+                                <input type="checkbox" class="double-radio-input" id="survival-radio"
+                                       name="survival-radio" onclick="handleSkillRadio(this, 'survival', 'wisdom')">
+                                <span class="double-radio-custom">
+                    <span class="radio-dot dot-1"></span>
+                    <span class="radio-dot dot-2"></span>
+                </span>
+                            </label>
                             <button type="button" class="dice-roll-button" onclick="rollSkill('survival', 'wisdom')">
                                 <span id="survival-value">{{ $character->attributes->survival ?? 0 }}</span>
                             </button>
@@ -428,10 +460,18 @@
                         <input type="hidden" name="survival" id="survival"
                                value="{{ $character->attributes->survival ?? 0 }}">
 
+                        <!--Медицина-->
+
                         <div class="attribute-skill">
-                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="medicine" onclick="toggleSkill(this)">
-                                Медицина
-                            </a>
+                            <span class="attribute-skill-name">Медицина</span>
+                            <label class="double-radio-container">
+                                <input type="checkbox" class="double-radio-input" id="medicine-radio"
+                                       name="medicine-radio" onclick="handleSkillRadio(this, 'medicine', 'wisdom')">
+                                <span class="double-radio-custom">
+                    <span class="radio-dot dot-1"></span>
+                    <span class="radio-dot dot-2"></span>
+                </span>
+                            </label>
                             <button type="button" class="dice-roll-button" onclick="rollSkill('medicine', 'wisdom')">
                                 <span id="medicine-value">{{ $character->attributes->medicine ?? 0 }}</span>
                             </button>
@@ -439,10 +479,18 @@
                         <input type="hidden" name="medicine" id="medicine"
                                value="{{ $character->attributes->medicine ?? 0 }}">
 
+                        <!--Проницательность-->
+
                         <div class="attribute-skill">
-                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="insight" onclick="toggleSkill(this)">
-                                Проницательность
-                            </a>
+                            <span class="attribute-skill-name">Проницательность</span>
+                            <label class="double-radio-container">
+                                <input type="checkbox" class="double-radio-input" id="insight-radio"
+                                       name="insight-radio" onclick="handleSkillRadio(this, 'insight', 'wisdom')">
+                                <span class="double-radio-custom">
+                    <span class="radio-dot dot-1"></span>
+                    <span class="radio-dot dot-2"></span>
+                </span>
+                            </label>
                             <button type="button" class="dice-roll-button" onclick="rollSkill('insight', 'wisdom')">
                                 <span id="insight-value">{{ $character->attributes->insight ?? 0 }}</span>
                             </button>
@@ -450,10 +498,18 @@
                         <input type="hidden" name="insight" id="insight"
                                value="{{ $character->attributes->insight ?? 0 }}">
 
+                        {{--Уход за животными--}}
+
                         <div class="attribute-skill">
-                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="animal_handling" onclick="toggleSkill(this)">
-                                Уход за животными
-                            </a>
+                            <span class="attribute-skill-name">Уход за животными</span>
+                            <label class="double-radio-container">
+                                <input type="checkbox" class="double-radio-input" id="animal_handling-radio"
+                                       name="animal_handling-radio" onclick="handleSkillRadio(this, 'animal_handling', 'wisdom')">
+                                <span class="double-radio-custom">
+                    <span class="radio-dot dot-1"></span>
+                    <span class="radio-dot dot-2"></span>
+                </span>
+                            </label>
                             <button type="button" class="dice-roll-button" onclick="rollSkill('animal_handling', 'wisdom')">
                                 <span id="animal_handling-value">{{ $character->attributes->animal_handling ?? 0 }}</span>
                             </button>
@@ -502,10 +558,19 @@
                         </div>
                     </div>
                     <div class="sub-attributes">
+
+                        <!--Выступление-->
+
                         <div class="attribute-skill">
-                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="performance" onclick="toggleSkill(this)">
-                                Выступление
-                            </a>
+                            <span class="attribute-skill-name">Выступление</span>
+                            <label class="double-radio-container">
+                                <input type="checkbox" class="double-radio-input" id="performance-radio"
+                                       name="performance-radio" onclick="handleSkillRadio(this, 'performance', 'charisma')">
+                                <span class="double-radio-custom">
+                    <span class="radio-dot dot-1"></span>
+                    <span class="radio-dot dot-2"></span>
+                </span>
+                            </label>
                             <button type="button" class="dice-roll-button" onclick="rollSkill('performance', 'charisma')">
                                 <span id="performance-value">{{ $character->attributes->performance ?? 0 }}</span>
                             </button>
@@ -513,10 +578,18 @@
                         <input type="hidden" name="performance" id="performance"
                                value="{{ $character->attributes->performance ?? 0 }}">
 
+                        <!--Запугивание-->
+
                         <div class="attribute-skill">
-                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="intimidation" onclick="toggleSkill(this)">
-                                Запугивание
-                            </a>
+                            <span class="attribute-skill-name">Запугивание</span>
+                            <label class="double-radio-container">
+                                <input type="checkbox" class="double-radio-input" id="intimidation-radio"
+                                       name="intimidation-radio" onclick="handleSkillRadio(this, 'intimidation', 'charisma')">
+                                <span class="double-radio-custom">
+                    <span class="radio-dot dot-1"></span>
+                    <span class="radio-dot dot-2"></span>
+                </span>
+                            </label>
                             <button type="button" class="dice-roll-button" onclick="rollSkill('intimidation', 'charisma')">
                                 <span id="intimidation-value">{{ $character->attributes->intimidation ?? 0 }}</span>
                             </button>
@@ -524,10 +597,18 @@
                         <input type="hidden" name="intimidation" id="intimidation"
                                value="{{ $character->attributes->intimidation ?? 0 }}">
 
+                        <!--Обман-->
+
                         <div class="attribute-skill">
-                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="deception" onclick="toggleSkill(this)">
-                                Обман
-                            </a>
+                            <span class="attribute-skill-name">Обман</span>
+                            <label class="double-radio-container">
+                                <input type="checkbox" class="double-radio-input" id="deception-radio"
+                                       name="deception-radio" onclick="handleSkillRadio(this, 'deception', 'charisma')">
+                                <span class="double-radio-custom">
+                    <span class="radio-dot dot-1"></span>
+                    <span class="radio-dot dot-2"></span>
+                </span>
+                            </label>
                             <button type="button" class="dice-roll-button" onclick="rollSkill('deception', 'charisma')">
                                 <span id="deception-value">{{ $character->attributes->deception ?? 0 }}</span>
                             </button>
@@ -535,16 +616,25 @@
                         <input type="hidden" name="deception" id="deception"
                                value="{{ $character->attributes->deception ?? 0 }}">
 
+                        <!--Убеждение-->
+
                         <div class="attribute-skill">
-                            <a href="javascript:void(0);" class="attribute-skill-name" data-target="persuasion" onclick="toggleSkill(this)">
-                                Убеждение
-                            </a>
+                            <span class="attribute-skill-name">Убеждение</span>
+                            <label class="double-radio-container">
+                                <input type="checkbox" class="double-radio-input" id="persuasion-radio"
+                                       name="persuasion-radio" onclick="handleSkillRadio(this, 'persuasion', 'charisma')">
+                                <span class="double-radio-custom">
+                    <span class="radio-dot dot-1"></span>
+                    <span class="radio-dot dot-2"></span>
+                </span>
+                            </label>
                             <button type="button" class="dice-roll-button" onclick="rollSkill('persuasion', 'charisma')">
                                 <span id="persuasion-value">{{ $character->attributes->persuasion ?? 0 }}</span>
                             </button>
                         </div>
                         <input type="hidden" name="persuasion" id="persuasion"
                                value="{{ $character->attributes->persuasion ?? 0 }}">
+
                     </div>
                 </div>
 
