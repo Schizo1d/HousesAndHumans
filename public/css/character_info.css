@@ -401,7 +401,7 @@ form label {
 }
 .settings-title{
     display: flex;
-
+    justify-content: center;
 }
 .close-sidebar {
     position: absolute;
