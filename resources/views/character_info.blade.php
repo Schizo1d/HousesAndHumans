@@ -43,12 +43,12 @@
                 </div>
                 <div class="character-header-info">
                     <p class="character-header-name">
-                        <span>{{ $character->name }}</span>
+                        <span class="font-style">{{ $character->name }}</span>
                     </p>
                     <p class="character-header-subinfo">
-                        <span>{{ $character->race}}</span>
+                        <span class="font-style">{{ $character->race}}</span>
                         <span> — </span>
-                        <span>{{ $character->class}}</span>
+                        <span class="font-style">{{ $character->class}}</span>
                     </p>
                 </div>
             </div>

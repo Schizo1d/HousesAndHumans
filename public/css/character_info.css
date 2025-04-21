@@ -67,14 +67,17 @@ header {
     flex-direction: column;
 
 }
-.character-header-name{
+.font-style{
     font-family: TildaSans, sans-serif;
+}
+.character-header-name{
+
     font-size: 20px;
     line-height: 24px;
     margin: 0;
 }
 .character-header-subinfo{
-    font-family: TildaSans, sans-serif;
+
     font-size: 16px;
     justify-content: flex-start;
     line-height: 18px;
