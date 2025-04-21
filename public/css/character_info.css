@@ -62,7 +62,9 @@ header {
 .container-info label img {
     width: 40px;
 }
-
+.character-header-info{
+    display: flex;
+}
 /*.container-info label {
     display: flex;
     align-items: center;
