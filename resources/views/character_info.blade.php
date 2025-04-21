@@ -1228,23 +1228,29 @@
                         </div>
                     </div>
                     <div class="modal-col">
+                        <div class="modal-wrapper">
                         <input class="modal-input" type="text" id="character-race-input"
                                value="{{ $character->race ?? '' }}">
                         <label for="character-race-input">раса</label>
+                        </div>
                     </div>
                 </div>
 
                 <div class="modal-row">
                     <div class="modal-col">
+                        <div class="modal-wrapper">
                         <input class="modal-input" type="text" id="character-class-input"
                                value="{{ $character->class ?? '' }}">
                         <label for="character-class-input">класс</label>
+                        </div>
                     </div>
 
                     <div class="modal-col">
+                        <div class="modal-wrapper">
                         <input class="modal-input" type="text" id="character-subclass-input"
                                value="{{ $character->subclass ?? '' }}">
                         <label for="character-subclass-input">подкласс</label>
+                        </div>
                     </div>
                 </div>
 
