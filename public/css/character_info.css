@@ -36,6 +36,7 @@ header {
 .nav {
     display: flex;
     justify-content: space-between;
+    height: 60px;
 }
 
 .nav a {
