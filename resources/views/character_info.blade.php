@@ -1217,7 +1217,7 @@
         <div class="sidebar-modal" id="settings-modal">
             <div class="sidebar-content">
                 <button class="close-sidebar" id="close-sidebar">&times;</button>
-                <h2>Настройки</h2>
+                <h2 class="settings-title">Настройки</h2>
 
                 <label for="character-name-input">Имя персонажа:</label>
                 <input type="text" id="character-name-input" value="{{ $character->name }}">

@@ -399,10 +399,13 @@ form label {
     position: relative;
     color: white;
 }
+.settings-title{
+    display: flex;
 
+}
 .close-sidebar {
     position: absolute;
-    top: 10px;
+    top: -10px;
     right: 15px;
     font-size: 26px;
     cursor: pointer;
