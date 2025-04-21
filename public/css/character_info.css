@@ -75,12 +75,6 @@ form {
     flex-direction: column;
 }
 
-/* Метки (названия атрибутов) */
-label {
-    font-size: 16px;
-    margin-bottom: 5px;
-}
-
 /* Поля ввода */
 input {
     border: none;
