@@ -1219,18 +1219,26 @@
                 <button class="close-sidebar" id="close-sidebar">&times;</button>
                 <h2 class="settings-title">Настройки</h2>
 
-                <input type="text" id="character-name-input" value="{{ $character->name }}">
-                <label for="character-name-input">Имя персонажа:</label>
+                <div>
+                    <div>
+                        <input type="text" id="character-name-input" value="{{ $character->name }}">
+                        <label for="character-name-input">имя</label>
+                    </div>
+                    <div>
+                        <input type="text" id="character-race-input" value="{{ $character->race ?? '' }}">
+                        <label for="character-race-input">раса</label>
+                    </div>
+                </div>
 
-                <input type="text" id="character-race-input" value="{{ $character->race ?? '' }}">
-                <label for="character-race-input">Раса:</label>
+                <div>
+                    <input type="text" id="character-class-input" value="{{ $character->class ?? '' }}">
+                    <label for="character-class-input">Класс:</label>
+                </div>
 
-
-                <input type="text" id="character-class-input" value="{{ $character->class ?? '' }}">
-                <label for="character-class-input">Класс:</label>
-
-                <input type="text" id="character-subclass-input" value="{{ $character->subclass ?? '' }}">
-                <label for="character-subclass-input">Подкласс:</label>
+                <div>
+                    <input type="text" id="character-subclass-input" value="{{ $character->subclass ?? '' }}">
+                    <label for="character-subclass-input">Подкласс:</label>
+                </div>
 
                 <button id="save-character-settings">Сохранить</button>
                 <p id="save-message" style="display: none; color: #28a745;">Настройки сохранены!</p>
