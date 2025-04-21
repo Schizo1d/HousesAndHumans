@@ -83,7 +83,6 @@ label {
 
 /* Поля ввода */
 input {
-    margin-bottom: 15px;
     border: none;
     border-bottom: 1px solid #444; /* Одна полоска снизу */
     background: transparent;
