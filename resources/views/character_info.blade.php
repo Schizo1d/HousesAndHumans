@@ -42,7 +42,10 @@
                     </div>
                 </div>
                 <div class="character-name">
-                    <h2>{{ $character->name }}</h2>
+                    <div>
+                    <p>{{ $character->name }}</p>
+                    <p>                      </p>
+                    </div>
                 </div>
             </div>
         </nav>
