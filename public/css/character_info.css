@@ -64,7 +64,19 @@ header {
 }
 .character-header-info{
     display: flex;
+    flex-direction: column;
 }
+.character-header-name{
+    font-size: 20px;
+    line-height: 24px;
+}
+.character-header-subinfo{
+    font-size: 16px;
+    justify-content: flex-start;
+    line-height: 18px;
+    padding: 0;
+}
+
 /*.container-info label {
     display: flex;
     align-items: center;

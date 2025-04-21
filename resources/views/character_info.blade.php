@@ -42,12 +42,14 @@
                     </div>
                 </div>
                 <div class="character-header-info">
+                    <p class="character-header-name">
                         <span>{{ $character->name }}</span>
-                    <div>
+                    </p>
+                    <p class="character-header-subinfo">
                         <span>{{ $character->race}}</span>
                         <span> - </span>
                         <span>{{ $character->class}}</span>
-                    </div>
+                    </p>
                 </div>
             </div>
         </nav>
