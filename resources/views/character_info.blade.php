@@ -1220,11 +1220,11 @@
                 <h2 class="settings-title">Настройки</h2>
 
                 <div class="modal-row">
-                    <div>
+                    <div class="modal-col">
                         <input type="text" id="character-name-input" value="{{ $character->name }}">
                         <label for="character-name-input">имя</label>
                     </div>
-                    <div>
+                    <div class="modal-col">
                         <input type="text" id="character-race-input" value="{{ $character->race ?? '' }}">
                         <label for="character-race-input">раса</label>
                     </div>
