@@ -399,12 +399,16 @@ form label {
     padding: 4px 0;
     width: 100%;
 }
-
+.modal-wrapper{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+}
 .modal-row{
     align-items: center;
     display: flex;
     margin-bottom: 12px;
-    width: 100%;
 }
 .modal-col{
     display: flex;

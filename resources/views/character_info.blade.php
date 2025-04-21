@@ -1221,8 +1221,11 @@
 
                 <div class="modal-row">
                     <div class="modal-col">
-                        <input class="modal-input" type="text" id="character-name-input" value="{{ $character->name }}">
-                        <label for="character-name-input">имя</label>
+                        <div class="modal-wrapper">
+                            <input class="modal-input" type="text" id="character-name-input"
+                                   value="{{ $character->name }}">
+                            <label for="character-name-input">имя</label>
+                        </div>
                     </div>
                     <div class="modal-col">
                         <input class="modal-input" type="text" id="character-race-input"
