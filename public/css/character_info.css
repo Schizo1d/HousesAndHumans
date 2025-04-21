@@ -385,6 +385,7 @@ form label {
 .settings-title{
     display: flex;
     justify-content: center;
+    margin-bottom: 22px;
 }
 /* Поля ввода */
 .modal-input {
