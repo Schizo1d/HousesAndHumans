@@ -83,11 +83,11 @@ label {
 
 /* Поля ввода */
 input {
-    padding: 10px;
     margin-bottom: 15px;
     border: none;
     border-bottom: 1px solid #444; /* Одна полоска снизу */
     background: transparent;
+    font-weight: 700;
     font-size: 16px;
     outline: none;
 }
