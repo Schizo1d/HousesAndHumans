@@ -75,16 +75,6 @@ form {
     flex-direction: column;
 }
 
-/* Поля ввода */
-input {
-    border: none;
-    border-bottom: 1px solid #444; /* Одна полоска снизу */
-    background: transparent;
-    font-weight: 700;
-    font-size: 16px;
-    outline: none;
-}
-
 /* Стилизация числовых полей */
 input[type="number"] {
     background: #edca99;
@@ -395,6 +385,15 @@ form label {
 .settings-title{
     display: flex;
     justify-content: center;
+}
+/* Поля ввода */
+.modal-input {
+    border: none;
+    border-bottom: 1px solid #444; /* Одна полоска снизу */
+    background: transparent;
+    font-weight: 700;
+    font-size: 16px;
+    outline: none;
 }
 .modal-row{
     align-items: center;
