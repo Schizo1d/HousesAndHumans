@@ -1235,13 +1235,13 @@
                     <div class="modal-col">
                         <input class="modal-input" type="text" id="character-class-input"
                                value="{{ $character->class ?? '' }}">
-                        <label for="character-class-input">Класс:</label>
+                        <label for="character-class-input">класс</label>
                     </div>
 
                     <div class="modal-col">
                         <input class="modal-input" type="text" id="character-subclass-input"
                                value="{{ $character->subclass ?? '' }}">
-                        <label for="character-subclass-input">Подкласс:</label>
+                        <label for="character-subclass-input">подкласс</label>
                     </div>
                 </div>
 
