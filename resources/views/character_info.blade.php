@@ -43,9 +43,11 @@
                 </div>
                 <div class="character-header-info">
                         <span>{{ $character->name }}</span>
+                    <div>
                         <span>{{ $character->race}}</span>
                         <span> - </span>
                         <span>{{ $character->class}}</span>
+                    </div>
                 </div>
             </div>
         </nav>
