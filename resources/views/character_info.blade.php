@@ -44,7 +44,9 @@
                 <div class="character-name">
                     <div>
                     <p>{{ $character->name }}</p>
-                    <p>{{$character->class}}</p>
+                    <p>{{$character->race}}</p>
+                        "-"
+                        <p>{{$character->class}}</p>
                     </div>
                 </div>
             </div>
