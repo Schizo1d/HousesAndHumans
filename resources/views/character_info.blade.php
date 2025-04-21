@@ -47,7 +47,7 @@
                     </p>
                     <p class="character-header-subinfo">
                         <span>{{ $character->race}}</span>
-                        <span> - </span>
+                        <span> — </span>
                         <span>{{ $character->class}}</span>
                     </p>
                 </div>
