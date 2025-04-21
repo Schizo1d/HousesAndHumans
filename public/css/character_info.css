@@ -404,6 +404,7 @@ form label {
     align-items: center;
     display: flex;
     margin-bottom: 12px;
+    width: 100%;
 }
 .modal-col{
     display: flex;
