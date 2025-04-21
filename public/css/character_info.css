@@ -395,6 +395,7 @@ form label {
     font-size: 16px;
     outline: none;
 }
+
 .modal-row{
     align-items: center;
     display: flex;
@@ -403,6 +404,9 @@ form label {
 .modal-col{
     display: flex;
     flex-direction: column;
+}
+.modal-col:not(:last-of-type) {
+    margin-right: 18px;
 }
 .close-sidebar {
     position: absolute;
