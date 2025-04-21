@@ -403,6 +403,11 @@ form label {
     display: flex;
     justify-content: center;
 }
+.modal-row{
+    align-items: center;
+    display: flex;
+    margin-bottom: 12px;
+}
 .close-sidebar {
     position: absolute;
     top: -10px;

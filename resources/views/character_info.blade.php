@@ -1219,7 +1219,7 @@
                 <button class="close-sidebar" id="close-sidebar">&times;</button>
                 <h2 class="settings-title">Настройки</h2>
 
-                <div>
+                <div class="modal-row">
                     <div>
                         <input type="text" id="character-name-input" value="{{ $character->name }}">
                         <label for="character-name-input">имя</label>
