@@ -811,7 +811,25 @@ form label {
     background-color: transparent;
 }
 
-/* Стили для калькулятора уровня */
+/* Стили для модального окна калькулятора уровня */
+#level-up-modal {
+    position: fixed;
+    left: -36%; /* Прячем за левый край */
+    top: 0;
+    width: 33%; /* 1/3 экрана */
+    height: 100%;
+    background: #db934e;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    transition: left 0.3s ease-in-out;
+    z-index: 1050;
+}
+
+#level-up-modal.show {
+    left: 0;
+}
+
+/* Остальные стили для калькулятора уровня... */
 .level-calculator {
     display: flex;
     flex-direction: column;

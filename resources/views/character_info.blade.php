@@ -1247,6 +1247,7 @@
 
             // Инициализация калькулятора уровня
             document.addEventListener("DOMContentLoaded", function() {
+                // Получаем элементы для калькулятора уровня
                 const levelUpBtn = document.getElementById("level-up-btn");
                 const levelUpModal = document.getElementById("level-up-modal");
                 const closeLevelUp = document.getElementById("close-level-up");
@@ -1255,15 +1256,31 @@
                 let currentLevel = 1;
                 let currentExp = 0;
 
-                // Открытие модального окна
-                levelUpBtn.addEventListener("click", function() {
-                    levelUpModal.classList.add("show");
-                    updateLevelCalculator(currentLevel, currentExp);
-                });
+                // Открытие модального окна калькулятора уровня
+                if (levelUpBtn) {
+                    levelUpBtn.addEventListener("click", function(e) {
+                        e.stopPropagation(); // Предотвращаем всплытие события
+                        levelUpModal.classList.add("show");
 
-                // Закрытие модального окна
-                closeLevelUp.addEventListener("click", function() {
-                    levelUpModal.classList.remove("show");
+                        // Инициализация калькулятора с текущими значениями
+                        const currentLevel = 1; // Замените на реальное значение уровня персонажа
+                        const currentExp = 0;  // Замените на реальное значение опыта персонажа
+                        updateLevelCalculator(currentLevel, currentExp);
+                    });
+                }
+
+                // Закрытие модального окна калькулятора уровня
+                if (closeLevelUp) {
+                    closeLevelUp.addEventListener("click", function() {
+                        levelUpModal.classList.remove("show");
+                    });
+                }
+
+                // Закрытие при клике вне модального окна
+                document.addEventListener("click", function(event) {
+                    if (!levelUpModal.contains(event.target) {
+                        levelUpModal.classList.remove("show");
+                    }
                 });
 
                 // Обработка нажатий на цифровую клавиатуру
