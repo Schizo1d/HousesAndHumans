@@ -39,7 +39,7 @@
                          class="character-photo-img">
                     <div class="dropdown-menu" id="character-dropdown">
                         <button class="dropdown-item" id="settings-btn">Настройки</button>
-
+                        <button class="dropdown-item" id="level-up-btn">Поднять уровень</button>
                     </div>
                 </div>
                 <div class="character-header-info">
@@ -52,7 +52,7 @@
                         <span class="font-style">{{ $character->class}}</span>
                     </p>
                 </div>
-                <button class="dropdown-item" id="level-up-btn">Поднять уровень</button>
+
             </div>
         </nav>
     </div>
@@ -1276,12 +1276,6 @@
                     });
                 }
 
-                // Закрытие при клике вне модального окна
-                document.addEventListener("click", function(event) {
-                    if (!levelUpModal.contains(event.target) {
-                        levelUpModal.classList.remove("show");
-                    }
-                });
 
                 // Обработка нажатий на цифровую клавиатуру
                 document.querySelectorAll(".calc-btn").forEach(btn => {
