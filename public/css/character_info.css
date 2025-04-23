@@ -811,3 +811,118 @@ form label {
     background-color: transparent;
 }
 
+/* Стили для калькулятора уровня */
+.level-calculator {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 15px;
+    background-color: #915f32;
+    border-radius: 10px;
+    color: white;
+}
+
+.level-progress {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.level-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.progress-bar {
+    flex-grow: 1;
+    height: 20px;
+    background-color: #db934e;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background-color: #ffd700;
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+.exp-info {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    font-size: 16px;
+}
+
+.exp-input-container {
+    display: flex;
+    justify-content: center;
+}
+
+.exp-input-container input {
+    width: 100%;
+    padding: 10px;
+    font-size: 18px;
+    text-align: center;
+    background-color: #edca99;
+    border: none;
+    border-radius: 5px;
+    color: white;
+}
+
+.calculator-keypad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.calc-btn {
+    padding: 15px;
+    font-size: 18px;
+    background-color: #edca99;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.calc-btn:hover {
+    background-color: #db934e;
+}
+
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.action-btn {
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    background-color: #db934e;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.action-btn:hover {
+    background-color: #ffd700;
+    color: #333;
+}
+
+#level-up-button {
+    background-color: #28a745;
+}
+
+#level-up-button:hover {
+    background-color: #218838;
+}
