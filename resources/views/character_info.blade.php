@@ -51,6 +51,7 @@
                         <span class="font-style">{{ $character->class}}</span>
                     </p>
                 </div>
+                <button class="dropdown-item" id="level-up-btn">Поднять уровень</button>
             </div>
         </nav>
     </div>
