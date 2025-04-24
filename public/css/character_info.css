@@ -944,3 +944,12 @@ form label {
 #level-up-button:hover {
     background-color: #218838;
 }
+
+.character-level {
+    font-size: 14px;
+    margin-left: 10px;
+    background: #edca99;
+    padding: 2px 8px;
+    border-radius: 10px;
+    color: #fff;
+}

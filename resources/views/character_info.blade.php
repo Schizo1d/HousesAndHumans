@@ -45,6 +45,7 @@
                 <div class="character-header-info">
                     <p class="character-header-name">
                         <span class="font-style">{{ $character->name }}</span>
+                        <span class="character-level">Уровень {{ $character->level }}</span>
                     </p>
                     <p class="character-header-subinfo">
                         <span class="font-style">{{ $character->race}}</span>
@@ -1245,6 +1246,15 @@
                 355000  // Уровень 20
             ];
 
+            document.addEventListener("DOMContentLoaded", function() {
+                // Получаем текущий уровень и опыт персонажа
+                let currentLevel = {{ $character->level ?? 1 }};
+                let currentExp = {{ $character->experience ?? 0 }};
+
+                // Инициализация калькулятора
+                updateLevelCalculator(currentLevel, currentExp);
+            });
+
             // Инициализация калькулятора уровня
             document.addEventListener("DOMContentLoaded", function() {
                 // Получаем элементы для калькулятора уровня
@@ -1296,39 +1306,36 @@
                     });
                 });
 
-                // Кнопка ПРИБАВИТЬ опыт
+                // Обновляем обработчики кнопок
                 document.getElementById("add-exp-button").addEventListener("click", function() {
                     const expInput = document.getElementById("exp-input");
                     const expToAdd = parseInt(expInput.value) || 0;
+                    const characterId = document.querySelector('meta[name="character-id"]').getAttribute("content");
 
-                    currentExp += expToAdd;
+                    updateCharacterExperience(characterId, currentExp + expToAdd);
                     expInput.value = "0";
-
-                    // Проверяем, не достигли ли мы нового уровня
-                    checkLevelUp();
-                    updateLevelCalculator(currentLevel, currentExp);
                 });
 
                 // Кнопка ОТНЯТЬ опыт
                 document.getElementById("subtract-exp-button").addEventListener("click", function() {
                     const expInput = document.getElementById("exp-input");
                     const expToSubtract = parseInt(expInput.value) || 0;
+                    const characterId = document.querySelector('meta[name="character-id"]').getAttribute("content");
 
-                    currentExp = Math.max(0, currentExp - expToSubtract);
+                    updateCharacterExperience(characterId, Math.max(0, currentExp - expToSubtract));
                     expInput.value = "0";
-
-                    // Проверяем, не понизился ли уровень
-                    checkLevelDown();
-                    updateLevelCalculator(currentLevel, currentExp);
                 });
 
                 // Кнопка ПОВЫСИТЬ уровень
                 document.getElementById("level-up-button").addEventListener("click", function() {
-                    if (currentLevel < 20 && currentExp >= XP_FOR_LEVEL[currentLevel]) {
-                        currentLevel++;
-                        updateLevelCalculator(currentLevel, currentExp);
+                    const characterId = document.querySelector('meta[name="character-id"]').getAttribute("content");
+                    const nextLevelExp = XP_FOR_LEVEL[currentLevel];
+
+                    if (currentLevel < 20 && currentExp >= nextLevelExp) {
+                        updateCharacterExperience(characterId, currentExp);
                     }
                 });
+
 
                 // Функция обновления интерфейса калькулятора
                 function updateLevelCalculator(level, exp) {
@@ -1378,6 +1385,30 @@
                 // Здесь нужно заменить на реальные данные вашего персонажа
                 updateLevelCalculator(currentLevel, currentExp);
             });
+
+
+
+            // Обновляем функцию для работы с API
+            function updateCharacterExperience(characterId, newExp) {
+                fetch('/character/update-experience', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify({
+                        character_id: characterId,
+                        experience: newExp
+                    })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            updateLevelCalculator(data.level, data.experience);
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
 
         </script>
         <div class="sidebar-modal" id="settings-modal">
