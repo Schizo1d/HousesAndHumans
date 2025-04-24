@@ -1223,7 +1223,7 @@
             }
 
 
-            // Таблица опыта для уровней (по стандартам D&D 5e)
+            // Перенесите этот код в самое начало вашего script-блока (перед всеми функциями)
             const XP_TABLE = {
                 1: 0,
                 2: 300,
@@ -1249,34 +1249,65 @@
 
             // Функции для работы с модальным окном повышения уровня
             function openLevelUpModal() {
-                const modal = document.getElementById('level-up-modal');
-                const currentLevel = parseInt(document.querySelector('.character-level').textContent.replace('Уровень ', ''));
-                const currentXp = parseInt(document.getElementById('current-xp').textContent) || 0;
+                try {
+                    const modal = document.getElementById('level-up-modal');
+                    if (!modal) {
+                        console.error('Modal element not found');
+                        return;
+                    }
 
-                // Рассчитываем необходимый опыт для следующего уровня
-                const nextLevel = currentLevel + 1;
-                const xpRequired = XP_TABLE[nextLevel] ? XP_TABLE[nextLevel] - currentXp : 0;
+                    const levelElement = document.querySelector('.character-level');
+                    if (!levelElement) {
+                        console.error('Level element not found');
+                        return;
+                    }
 
-                document.getElementById('xp-required').textContent = xpRequired;
-                document.getElementById('xp-input').value = 0;
+                    const currentXpElement = document.getElementById('current-xp');
+                    if (!currentXpElement) {
+                        console.error('Current XP element not found');
+                        return;
+                    }
 
-                // Проверяем, можно ли повысить уровень
-                const levelUpBtn = document.getElementById('level-up-btn');
-                if (nextLevel <= 20 && currentXp >= XP_TABLE[nextLevel]) {
-                    levelUpBtn.disabled = false;
-                } else {
-                    levelUpBtn.disabled = true;
+                    const currentLevel = parseInt(levelElement.textContent.replace('Уровень ', '')) || 1;
+                    const currentXp = parseInt(currentXpElement.textContent) || 0;
+
+                    // Рассчитываем необходимый опыт для следующего уровня
+                    const nextLevel = currentLevel + 1;
+                    const xpRequired = XP_TABLE[nextLevel] ? XP_TABLE[nextLevel] - currentXp : 0;
+
+                    const xpRequiredElement = document.getElementById('xp-required');
+                    if (xpRequiredElement) {
+                        xpRequiredElement.textContent = xpRequired;
+                    }
+
+                    const xpInput = document.getElementById('xp-input');
+                    if (xpInput) {
+                        xpInput.value = 0;
+                    }
+
+                    // Проверяем, можно ли повысить уровень
+                    const levelUpBtn = document.getElementById('level-up-btn');
+                    if (levelUpBtn) {
+                        levelUpBtn.disabled = !(nextLevel <= 20 && currentXp >= (XP_TABLE[nextLevel] || Infinity));
+                    }
+
+                    modal.style.display = 'flex';
+                } catch (error) {
+                    console.error('Error in openLevelUpModal:', error);
                 }
-
-                modal.style.display = 'flex';
             }
 
             function closeLevelUpModal() {
-                document.getElementById('level-up-modal').style.display = 'none';
+                const modal = document.getElementById('level-up-modal');
+                if (modal) {
+                    modal.style.display = 'none';
+                }
             }
 
             function changeXp(amount) {
                 const input = document.getElementById('xp-input');
+                if (!input) return;
+
                 let value = parseInt(input.value) || 0;
                 value += amount;
                 if (value < 0) value = 0;
@@ -1284,63 +1315,93 @@
             }
 
             function levelUpCharacter() {
-                const currentLevel = parseInt(document.querySelector('.character-level').textContent.replace('Уровень ', ''));
-                const nextLevel = currentLevel + 1;
+                try {
+                    const levelElement = document.querySelector('.character-level');
+                    if (!levelElement) {
+                        console.error('Level element not found');
+                        return;
+                    }
 
-                if (nextLevel > 20) {
-                    alert('Максимальный уровень достигнут!');
-                    return;
-                }
+                    const currentLevel = parseInt(levelElement.textContent.replace('Уровень ', '')) || 1;
+                    const nextLevel = currentLevel + 1;
 
-                // Получаем текущий опыт
-                const currentXpElement = document.getElementById('current-xp');
-                let currentXp = parseInt(currentXpElement.textContent) || 0;
+                    if (nextLevel > 20) {
+                        alert('Максимальный уровень достигнут!');
+                        return;
+                    }
 
-                // Проверяем, достаточно ли опыта для следующего уровня
-                const xpRequired = XP_TABLE[nextLevel];
+                    // Получаем текущий опыт
+                    const currentXpElement = document.getElementById('current-xp');
+                    let currentXp = parseInt(currentXpElement?.textContent) || 0;
 
-                if (currentXp >= xpRequired) {
-                    // Обновляем уровень на странице
-                    document.querySelector('.character-level').textContent = `Уровень ${nextLevel}`;
+                    // Проверяем, достаточно ли опыта для следующего уровня
+                    const xpRequired = XP_TABLE[nextLevel] || Infinity;
 
-                    // Здесь можно добавить AJAX запрос для сохранения нового уровня на сервере
-                    updateCharacterLevel(nextLevel);
+                    if (currentXp >= xpRequired) {
+                        // Обновляем уровень на странице
+                        levelElement.textContent = `Уровень ${nextLevel}`;
 
-                    // Закрываем модальное окно
-                    closeLevelUpModal();
-                } else {
-                    alert(`Недостаточно опыта для повышения до уровня ${nextLevel}! Требуется: ${xpRequired}, у вас: ${currentXp}`);
+                        // Здесь можно добавить AJAX запрос для сохранения нового уровня на сервере
+                        updateCharacterLevel(nextLevel);
+
+                        // Закрываем модальное окно
+                        closeLevelUpModal();
+                    } else {
+                        alert(`Недостаточно опыта для повышения до уровня ${nextLevel}! Требуется: ${xpRequired}, у вас: ${currentXp}`);
+                    }
+                } catch (error) {
+                    console.error('Error in levelUpCharacter:', error);
                 }
             }
 
             // Функция для обновления уровня персонажа на сервере
             function updateCharacterLevel(newLevel) {
-                const characterId = document.querySelector('meta[name="character-id"]').getAttribute('content');
-                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                try {
+                    const characterId = document.querySelector('meta[name="character-id"]')?.getAttribute('content');
+                    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
 
-                fetch('/character/update-level', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': csrfToken
-                    },
-                    body: JSON.stringify({
-                        character_id: characterId,
-                        level: newLevel
+                    if (!characterId || !csrfToken) {
+                        console.error('Missing required meta tags');
+                        return;
+                    }
+
+                    fetch('/character/update-level', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': csrfToken
+                        },
+                        body: JSON.stringify({
+                            character_id: characterId,
+                            level: newLevel
+                        })
                     })
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (!data.success) {
-                            console.error('Ошибка при обновлении уровня:', data.error);
-                            // Можно откатить изменение на клиенте, если сервер не сохранил
-                            document.querySelector('.character-level').textContent = `Уровень ${newLevel - 1}`;
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Ошибка:', error);
-                        document.querySelector('.character-level').textContent = `Уровень ${newLevel - 1}`;
-                    });
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            if (!data.success) {
+                                console.error('Ошибка при обновлении уровня:', data.error);
+                                // Откатываем изменение на клиенте
+                                const levelElement = document.querySelector('.character-level');
+                                if (levelElement) {
+                                    levelElement.textContent = `Уровень ${newLevel - 1}`;
+                                }
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Ошибка:', error);
+                            const levelElement = document.querySelector('.character-level');
+                            if (levelElement) {
+                                levelElement.textContent = `Уровень ${newLevel - 1}`;
+                            }
+                        });
+                } catch (error) {
+                    console.error('Error in updateCharacterLevel:', error);
+                }
             }
         </script>
         <div class="sidebar-modal" id="settings-modal">
