@@ -829,11 +829,11 @@ form label {
     left: 0;
 }
 
-/* Стили для модального окна калькулятора уровня */
-#level-up-modal {
+/* Стили для модального окна калькулятора */
+.sidebar-modal {
     position: fixed;
     top: 0;
-    right: -33%; /* Начальное положение за пределами экрана */
+    right: -33%;
     width: 33%;
     height: 100%;
     background: #db934e;
@@ -843,13 +843,29 @@ form label {
     overflow-y: auto;
 }
 
-#level-up-modal.show {
-    right: 0; /* Показываем модальное окно */
+.sidebar-modal.show {
+    right: 0;
+}
+
+.sidebar-content {
+    padding: 20px;
+    position: relative;
+}
+
+.close-sidebar {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: white;
 }
 
 .level-calculator {
-    padding: 20px;
     color: white;
+    margin-top: 20px;
 }
 
 .level-progress {
@@ -882,6 +898,19 @@ form label {
     justify-content: center;
     align-items: center;
     gap: 5px;
+    font-size: 18px;
+}
+
+.exp-input-container input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    background: #edca99;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 18px;
+    text-align: center;
 }
 
 .calculator-keypad {
@@ -899,6 +928,11 @@ form label {
     cursor: pointer;
     font-size: 18px;
     color: white;
+    transition: background 0.2s;
+}
+
+.calc-btn:hover {
+    background: #db934e;
 }
 
 .action-buttons {
@@ -915,20 +949,22 @@ form label {
     color: white;
     cursor: pointer;
     font-weight: bold;
+    transition: background 0.2s;
+}
+
+.action-btn:hover {
+    background: #7a4f29;
 }
 
 #level-up-button {
     background: #28a745;
 }
 
-#exp-input {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    background: #edca99;
-    border: none;
-    border-radius: 5px;
-    color: white;
-    font-size: 18px;
-    text-align: center;
+#level-up-button:hover {
+    background: #218838;
+}
+
+#level-up-button:disabled {
+    background: #6c757d;
+    cursor: not-allowed;
 }

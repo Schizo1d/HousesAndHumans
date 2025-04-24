@@ -120,51 +120,30 @@ class CharacterController extends Controller
 
         $character = Auth::user()->characters()->findOrFail($request->character_id);
 
-        // Обновляем опыт
         $character->experience = $request->experience;
 
-        // Проверяем уровень
-        $newLevel = $this->calculateLevel($character->experience);
-        if ($newLevel != $character->level) {
-            $character->level = $newLevel;
-        }
-
-        $character->save();
-
-        return response()->json([
-            'success' => true,
-            'level' => $character->level,
-            'experience' => $character->experience,
-            'next_level_exp' => $this->getNextLevelExp($character->level)
-        ]);
-    }
-
-    private function calculateLevel($experience)
-    {
+        // Рассчитываем новый уровень
+        $newLevel = 1;
         $levels = [
             0, 300, 900, 2700, 6500, 14000, 23000, 34000, 48000, 64000,
             85000, 100000, 120000, 140000, 165000, 195000, 225000, 265000, 305000, 355000
         ];
 
-        $level = 1;
         foreach ($levels as $i => $exp) {
-            if ($experience >= $exp) {
-                $level = $i + 1;
+            if ($request->experience >= $exp) {
+                $newLevel = $i + 1;
             } else {
                 break;
             }
         }
 
-        return min($level, 20); // Максимальный уровень - 20
-    }
+        $character->level = min($newLevel, 20);
+        $character->save();
 
-    private function getNextLevelExp($currentLevel)
-    {
-        $levels = [
-            0, 300, 900, 2700, 6500, 14000, 23000, 34000, 48000, 64000,
-            85000, 100000, 120000, 140000, 165000, 195000, 225000, 265000, 305000, 355000
-        ];
-
-        return $currentLevel < 20 ? $levels[$currentLevel] : null;
+        return response()->json([
+            'success' => true,
+            'level' => $character->level,
+            'experience' => $character->experience
+        ]);
     }
 }
