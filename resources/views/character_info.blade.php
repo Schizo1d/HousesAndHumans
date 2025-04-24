@@ -45,6 +45,7 @@
                     <p class="character-header-name">
                         <span class="font-style">{{ $character->name }}</span>
                         <span class="character-level">Уровень {{ $character->level }}</span>
+                        <button class="level-up-btn" onclick="openLevelUpModal()">Поднять уровень</button>
                     </p>
                     <p class="character-header-subinfo">
                         <span class="font-style">{{ $character->race}}</span>
@@ -1222,7 +1223,125 @@
             }
 
 
+            // Таблица опыта для уровней (по стандартам D&D 5e)
+            const XP_TABLE = {
+                1: 0,
+                2: 300,
+                3: 900,
+                4: 2700,
+                5: 6500,
+                6: 14000,
+                7: 23000,
+                8: 34000,
+                9: 48000,
+                10: 64000,
+                11: 85000,
+                12: 100000,
+                13: 120000,
+                14: 140000,
+                15: 165000,
+                16: 195000,
+                17: 225000,
+                18: 265000,
+                19: 305000,
+                20: 355000
+            };
 
+            // Функции для работы с модальным окном повышения уровня
+            function openLevelUpModal() {
+                const modal = document.getElementById('level-up-modal');
+                const currentLevel = parseInt(document.querySelector('.character-level').textContent.replace('Уровень ', ''));
+                const currentXp = parseInt(document.getElementById('current-xp').textContent) || 0;
+
+                // Рассчитываем необходимый опыт для следующего уровня
+                const nextLevel = currentLevel + 1;
+                const xpRequired = XP_TABLE[nextLevel] ? XP_TABLE[nextLevel] - currentXp : 0;
+
+                document.getElementById('xp-required').textContent = xpRequired;
+                document.getElementById('xp-input').value = 0;
+
+                // Проверяем, можно ли повысить уровень
+                const levelUpBtn = document.getElementById('level-up-btn');
+                if (nextLevel <= 20 && currentXp >= XP_TABLE[nextLevel]) {
+                    levelUpBtn.disabled = false;
+                } else {
+                    levelUpBtn.disabled = true;
+                }
+
+                modal.style.display = 'flex';
+            }
+
+            function closeLevelUpModal() {
+                document.getElementById('level-up-modal').style.display = 'none';
+            }
+
+            function changeXp(amount) {
+                const input = document.getElementById('xp-input');
+                let value = parseInt(input.value) || 0;
+                value += amount;
+                if (value < 0) value = 0;
+                input.value = value;
+            }
+
+            function levelUpCharacter() {
+                const currentLevel = parseInt(document.querySelector('.character-level').textContent.replace('Уровень ', ''));
+                const nextLevel = currentLevel + 1;
+
+                if (nextLevel > 20) {
+                    alert('Максимальный уровень достигнут!');
+                    return;
+                }
+
+                // Получаем текущий опыт
+                const currentXpElement = document.getElementById('current-xp');
+                let currentXp = parseInt(currentXpElement.textContent) || 0;
+
+                // Проверяем, достаточно ли опыта для следующего уровня
+                const xpRequired = XP_TABLE[nextLevel];
+
+                if (currentXp >= xpRequired) {
+                    // Обновляем уровень на странице
+                    document.querySelector('.character-level').textContent = `Уровень ${nextLevel}`;
+
+                    // Здесь можно добавить AJAX запрос для сохранения нового уровня на сервере
+                    updateCharacterLevel(nextLevel);
+
+                    // Закрываем модальное окно
+                    closeLevelUpModal();
+                } else {
+                    alert(`Недостаточно опыта для повышения до уровня ${nextLevel}! Требуется: ${xpRequired}, у вас: ${currentXp}`);
+                }
+            }
+
+            // Функция для обновления уровня персонажа на сервере
+            function updateCharacterLevel(newLevel) {
+                const characterId = document.querySelector('meta[name="character-id"]').getAttribute('content');
+                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+                fetch('/character/update-level', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken
+                    },
+                    body: JSON.stringify({
+                        character_id: characterId,
+                        level: newLevel
+                    })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (!data.success) {
+                            console.error('Ошибка при обновлении уровня:', data.error);
+                            // Можно откатить изменение на клиенте, если сервер не сохранил
+                            document.querySelector('.character-level').textContent = `Уровень ${newLevel - 1}`;
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Ошибка:', error);
+                        document.querySelector('.character-level').textContent = `Уровень ${newLevel - 1}`;
+                    });
+            }
         </script>
         <div class="sidebar-modal" id="settings-modal">
             <div class="sidebar-content">
@@ -1271,6 +1390,35 @@
         <div class="notifications-wrapper">
             <div class="notifications-container" id="notificationsContainer"></div>
             <button class="close-all-btn" onclick="hideCloseButtonInstantly(); clearAllNotifications()">×</button>
+        </div>
+        <!-- Модальное окно повышения уровня -->
+        <div id="level-up-modal" class="modal" style="display: none;">
+            <div class="level-up-content">
+                <button class="modal-close-btn" onclick="closeLevelUpModal()">✖</button>
+                <h3>Калькулятор повышения уровня</h3>
+
+                <div class="level-up-calculator">
+                    <div class="xp-display">
+                        <span>Текущий опыт: </span>
+                        <span id="current-xp">{{ $character->experience ?? 0 }}</span>
+                    </div>
+
+                    <div class="xp-controls">
+                        <button class="xp-btn minus" onclick="changeXp(-100)">-100</button>
+                        <button class="xp-btn minus" onclick="changeXp(-10)">-10</button>
+                        <input type="number" id="xp-input" value="0" min="0">
+                        <button class="xp-btn plus" onclick="changeXp(10)">+10</button>
+                        <button class="xp-btn plus" onclick="changeXp(100)">+100</button>
+                    </div>
+
+                    <div class="xp-required">
+                        <span>Опыт до следующего уровня: </span>
+                        <span id="xp-required">0</span>
+                    </div>
+
+                    <button id="level-up-btn" class="level-up-confirm" onclick="levelUpCharacter()" disabled>Повысить уровень</button>
+                </div>
+            </div>
         </div>
 </body>
 </html>

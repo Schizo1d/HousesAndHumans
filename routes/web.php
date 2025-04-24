@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('main');
 });
-Route::post('/character/update-experience', [CharacterController::class, 'updateExperience'])->name('character.update_experience');
+Route::post('/character/update-level', [CharacterController::class, 'updateLevel'])->name('character.update-level');
 Route::post('/characters/update-settings', [CharacterController::class, 'updateSettings'])->name('characters.update-settings');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/login', [AuthController::class, 'login'])->name('login');

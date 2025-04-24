@@ -112,5 +112,24 @@ class CharacterController extends Controller
         ]);
     }
 
+    public function updateLevel(Request $request)
+    {
+        // Проверяем, что пользователь авторизован
+        $user = Auth::user();
+        if (!$user) {
+            return response()->json(['success' => false, 'error' => 'Пользователь не авторизован'], 401);
+        }
 
+        // Проверяем, что передан корректный идентификатор персонажа
+        $character = $user->characters()->find($request->character_id);
+        if (!$character) {
+            return response()->json(['success' => false, 'error' => 'Персонаж не найден для данного пользователя'], 404);
+        }
+
+        // Обновляем уровень персонажа
+        $character->level = $request->level;
+        $character->save();
+
+        return response()->json(['success' => true]);
+    }
 }

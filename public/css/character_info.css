@@ -811,22 +811,114 @@ form label {
     background-color: transparent;
 }
 
-/* Стили для модального окна калькулятора уровня */
-#level-up-modal {
-    position: fixed;
-    left: -36%; /* Прячем за левый край */
-    top: 0;
-    width: 33%; /* 1/3 экрана */
-    height: 100%;
-    background: #db934e;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
-    padding: 20px;
-    transition: left 0.3s ease-in-out;
-    z-index: 1050;
+/* Стили для модального окна повышения уровня */
+.level-up-content {
+    background: #915f32;
+    padding: 25px;
+    border-radius: 15px;
+    width: 350px;
+    max-width: 90%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    color: white;
 }
 
-#level-up-modal.show {
-    left: 0;
+.level-up-calculator {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 15px;
+}
+
+.xp-display, .xp-required {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    padding: 8px 0;
+    border-bottom: 1px solid #db934e;
+}
+
+.xp-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 15px 0;
+}
+
+.xp-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.xp-btn.plus {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.xp-btn.minus {
+    background-color: #f44336;
+    color: white;
+}
+
+.xp-btn:hover {
+    transform: scale(1.1);
+}
+
+#xp-input {
+    width: 80px;
+    height: 40px;
+    text-align: center;
+    font-size: 18px;
+    border: 2px solid #db934e;
+    border-radius: 8px;
+    background: #edca99;
+    color: #333;
+}
+
+.level-up-confirm {
+    background-color: #db934e;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+.level-up-confirm:hover {
+    background-color: #915f32;
+}
+
+.level-up-confirm:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+.level-up-btn {
+    background-color: #db934e;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: background-color 0.3s;
+}
+
+.level-up-btn:hover {
+    background-color: #915f32;
 }
 
 
