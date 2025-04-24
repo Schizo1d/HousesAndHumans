@@ -111,39 +111,6 @@ class CharacterController extends Controller
             'newSubclass' => $character->subclass
         ]);
     }
-    public function updateExperience(Request $request)
-    {
-        $request->validate([
-            'character_id' => 'required|exists:characters,id',
-            'experience' => 'required|integer|min:0'
-        ]);
 
-        $character = Auth::user()->characters()->findOrFail($request->character_id);
 
-        $character->experience = $request->experience;
-
-        // Рассчитываем новый уровень
-        $newLevel = 1;
-        $levels = [
-            0, 300, 900, 2700, 6500, 14000, 23000, 34000, 48000, 64000,
-            85000, 100000, 120000, 140000, 165000, 195000, 225000, 265000, 305000, 355000
-        ];
-
-        foreach ($levels as $i => $exp) {
-            if ($request->experience >= $exp) {
-                $newLevel = $i + 1;
-            } else {
-                break;
-            }
-        }
-
-        $character->level = min($newLevel, 20);
-        $character->save();
-
-        return response()->json([
-            'success' => true,
-            'level' => $character->level,
-            'experience' => $character->experience
-        ]);
-    }
 }
