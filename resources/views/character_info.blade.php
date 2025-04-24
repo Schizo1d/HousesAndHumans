@@ -1246,15 +1246,6 @@
                 355000  // Уровень 20
             ];
 
-            document.addEventListener("DOMContentLoaded", function() {
-                // Получаем текущий уровень и опыт персонажа
-                let currentLevel = {{ $character->level ?? 1 }};
-                let currentExp = {{ $character->experience ?? 0 }};
-
-                // Инициализация калькулятора
-                updateLevelCalculator(currentLevel, currentExp);
-            });
-
             // Инициализация калькулятора уровня
             document.addEventListener("DOMContentLoaded", function() {
                 // Получаем элементы для калькулятора уровня
@@ -1262,19 +1253,16 @@
                 const levelUpModal = document.getElementById("level-up-modal");
                 const closeLevelUp = document.getElementById("close-level-up");
 
-                // Получаем текущий уровень и опыт персонажа (здесь нужно заменить на ваши реальные данные)
-                let currentLevel = 1;
-                let currentExp = 0;
+                // Получаем текущий уровень и опыт персонажа из данных Laravel
+                let currentLevel = {{ $character->level ?? 1 }};
+                let currentExp = {{ $character->experience ?? 0 }};
 
                 // Открытие модального окна калькулятора уровня
                 if (levelUpBtn) {
                     levelUpBtn.addEventListener("click", function(e) {
-                        e.stopPropagation(); // Предотвращаем всплытие события
+                        e.preventDefault();
+                        e.stopPropagation();
                         levelUpModal.classList.add("show");
-
-                        // Инициализация калькулятора с текущими значениями
-                        const currentLevel = 1; // Замените на реальное значение уровня персонажа
-                        const currentExp = 0;  // Замените на реальное значение опыта персонажа
                         updateLevelCalculator(currentLevel, currentExp);
                     });
                 }
@@ -1285,7 +1273,6 @@
                         levelUpModal.classList.remove("show");
                     });
                 }
-
 
                 // Обработка нажатий на цифровую клавиатуру
                 document.querySelectorAll(".calc-btn").forEach(btn => {
@@ -1306,14 +1293,15 @@
                     });
                 });
 
-                // Обновляем обработчики кнопок
+                // Кнопка ПРИБАВИТЬ опыт
                 document.getElementById("add-exp-button").addEventListener("click", function() {
                     const expInput = document.getElementById("exp-input");
                     const expToAdd = parseInt(expInput.value) || 0;
                     const characterId = document.querySelector('meta[name="character-id"]').getAttribute("content");
 
-                    updateCharacterExperience(characterId, currentExp + expToAdd);
+                    currentExp += expToAdd;
                     expInput.value = "0";
+                    updateCharacterExperience(characterId, currentExp);
                 });
 
                 // Кнопка ОТНЯТЬ опыт
@@ -1322,8 +1310,9 @@
                     const expToSubtract = parseInt(expInput.value) || 0;
                     const characterId = document.querySelector('meta[name="character-id"]').getAttribute("content");
 
-                    updateCharacterExperience(characterId, Math.max(0, currentExp - expToSubtract));
+                    currentExp = Math.max(0, currentExp - expToSubtract);
                     expInput.value = "0";
+                    updateCharacterExperience(characterId, currentExp);
                 });
 
                 // Кнопка ПОВЫСИТЬ уровень
@@ -1332,63 +1321,46 @@
                     const nextLevelExp = XP_FOR_LEVEL[currentLevel];
 
                     if (currentLevel < 20 && currentExp >= nextLevelExp) {
+                        currentLevel++;
                         updateCharacterExperience(characterId, currentExp);
                     }
                 });
 
-
-                // Функция обновления интерфейса калькулятора
-                function updateLevelCalculator(level, exp) {
-                    document.getElementById("current-level").textContent = level;
-                    document.getElementById("current-exp").textContent = exp;
-
-                    if (level < 20) {
-                        const nextLevelExp = XP_FOR_LEVEL[level];
-                        document.getElementById("next-level").textContent = level + 1;
-                        document.getElementById("next-level-exp").textContent = nextLevelExp;
-
-                        // Обновляем прогресс-бар
-                        const expForCurrentLevel = XP_FOR_LEVEL[level - 1];
-                        const expNeeded = nextLevelExp - expForCurrentLevel;
-                        const expProgress = exp - expForCurrentLevel;
-                        const progressPercent = (expProgress / expNeeded) * 100;
-
-                        document.getElementById("exp-progress").style.width = `${progressPercent}%`;
-
-                        // Активируем/деактивируем кнопку повышения уровня
-                        const levelUpButton = document.getElementById("level-up-button");
-                        levelUpButton.disabled = exp < nextLevelExp;
-                    } else {
-                        // Максимальный уровень достигнут
-                        document.getElementById("next-level").textContent = "MAX";
-                        document.getElementById("next-level-exp").textContent = "MAX";
-                        document.getElementById("exp-progress").style.width = "100%";
-                        document.getElementById("level-up-button").disabled = true;
-                    }
-                }
-
-                // Проверка на повышение уровня
-                function checkLevelUp() {
-                    while (currentLevel < 20 && currentExp >= XP_FOR_LEVEL[currentLevel]) {
-                        currentLevel++;
-                    }
-                }
-
-                // Проверка на понижение уровня
-                function checkLevelDown() {
-                    while (currentLevel > 1 && currentExp < XP_FOR_LEVEL[currentLevel - 1]) {
-                        currentLevel--;
-                    }
-                }
-
                 // Инициализация с текущими значениями уровня и опыта
-                // Здесь нужно заменить на реальные данные вашего персонажа
                 updateLevelCalculator(currentLevel, currentExp);
             });
 
+            // Функция обновления интерфейса калькулятора
+            function updateLevelCalculator(level, exp) {
+                document.getElementById("current-level").textContent = level;
+                document.getElementById("current-exp").textContent = exp;
 
+                if (level < 20) {
+                    const nextLevelExp = XP_FOR_LEVEL[level];
+                    document.getElementById("next-level").textContent = level + 1;
+                    document.getElementById("next-level-exp").textContent = nextLevelExp;
 
-            // Обновляем функцию для работы с API
+                    // Обновляем прогресс-бар
+                    const expForCurrentLevel = XP_FOR_LEVEL[level - 1];
+                    const expNeeded = nextLevelExp - expForCurrentLevel;
+                    const expProgress = exp - expForCurrentLevel;
+                    const progressPercent = (expProgress / expNeeded) * 100;
+
+                    document.getElementById("exp-progress").style.width = `${progressPercent}%`;
+
+                    // Активируем/деактивируем кнопку повышения уровня
+                    const levelUpButton = document.getElementById("level-up-button");
+                    levelUpButton.disabled = exp < nextLevelExp;
+                } else {
+                    // Максимальный уровень достигнут
+                    document.getElementById("next-level").textContent = "MAX";
+                    document.getElementById("next-level-exp").textContent = "MAX";
+                    document.getElementById("exp-progress").style.width = "100%";
+                    document.getElementById("level-up-button").disabled = true;
+                }
+            }
+
+            // Функция для обновления опыта через API
             function updateCharacterExperience(characterId, newExp) {
                 fetch('/character/update-experience', {
                     method: 'POST',
@@ -1404,6 +1376,8 @@
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
+                            currentLevel = data.level;
+                            currentExp = data.experience;
                             updateLevelCalculator(data.level, data.experience);
                         }
                     })
