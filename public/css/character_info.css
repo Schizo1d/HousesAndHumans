@@ -829,127 +829,106 @@ form label {
     left: 0;
 }
 
-/* Остальные стили для калькулятора уровня... */
+/* Стили для модального окна калькулятора уровня */
+#level-up-modal {
+    position: fixed;
+    top: 0;
+    right: -33%; /* Начальное положение за пределами экрана */
+    width: 33%;
+    height: 100%;
+    background: #db934e;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.3);
+    transition: right 0.3s ease-in-out;
+    z-index: 1050;
+    overflow-y: auto;
+}
+
+#level-up-modal.show {
+    right: 0; /* Показываем модальное окно */
+}
+
 .level-calculator {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    padding: 15px;
-    background-color: #915f32;
-    border-radius: 10px;
+    padding: 20px;
     color: white;
 }
 
 .level-progress {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    margin-bottom: 20px;
 }
 
 .level-info {
     display: flex;
     align-items: center;
-    gap: 10px;
-    font-size: 18px;
-    font-weight: bold;
+    justify-content: space-between;
+    margin-bottom: 10px;
 }
 
 .progress-bar {
-    flex-grow: 1;
     height: 20px;
-    background-color: #db934e;
+    background: #915f32;
     border-radius: 10px;
     overflow: hidden;
+    margin: 10px 0;
 }
 
 .progress-fill {
     height: 100%;
-    background-color: #ffd700;
-    width: 0%;
-    transition: width 0.3s ease;
+    background: #ffd700;
+    transition: width 0.3s;
 }
 
 .exp-info {
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: 5px;
-    font-size: 16px;
-}
-
-.exp-input-container {
-    display: flex;
-    justify-content: center;
-}
-
-.exp-input-container input {
-    width: 100%;
-    padding: 10px;
-    font-size: 18px;
-    text-align: center;
-    background-color: #edca99;
-    border: none;
-    border-radius: 5px;
-    color: white;
 }
 
 .calculator-keypad {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
+    margin: 15px 0;
 }
 
 .calc-btn {
     padding: 15px;
-    font-size: 18px;
-    background-color: #edca99;
+    background: #edca99;
     border: none;
     border-radius: 5px;
-    color: white;
     cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-.calc-btn:hover {
-    background-color: #db934e;
+    font-size: 18px;
+    color: white;
 }
 
 .action-buttons {
     display: flex;
-    flex-direction: column;
     gap: 10px;
 }
 
 .action-btn {
-    padding: 12px;
-    font-size: 16px;
-    font-weight: bold;
-    text-transform: uppercase;
-    background-color: #db934e;
+    flex: 1;
+    padding: 10px;
+    background: #915f32;
     border: none;
     border-radius: 5px;
     color: white;
     cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-.action-btn:hover {
-    background-color: #ffd700;
-    color: #333;
+    font-weight: bold;
 }
 
 #level-up-button {
-    background-color: #28a745;
+    background: #28a745;
 }
 
-#level-up-button:hover {
-    background-color: #218838;
-}
-
-.character-level {
-    font-size: 14px;
-    margin-left: 10px;
+#exp-input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
     background: #edca99;
-    padding: 2px 8px;
-    border-radius: 10px;
-    color: #fff;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 18px;
+    text-align: center;
 }
