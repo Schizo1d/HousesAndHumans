@@ -39,7 +39,6 @@
                          class="character-photo-img">
                     <div class="dropdown-menu" id="character-dropdown">
                         <button class="dropdown-item" id="settings-btn">Настройки</button>
-                        <button class="dropdown-item" id="level-up-btn">Поднять уровень</button>
                     </div>
                 </div>
                 <div class="character-header-info">
@@ -1222,144 +1221,7 @@
                 }, 10);
             }
 
-            // Опыт для каждого уровня
-            const XP_FOR_LEVEL = [
-                0, 300, 900, 2700, 6500, 14000, 23000, 34000, 48000, 64000,
-                85000, 100000, 120000, 140000, 165000, 195000, 225000, 265000, 305000, 355000
-            ];
 
-            // Текущие значения уровня и опыта
-            let currentLevel = {{ $character->level ?? 1 }};
-            let currentExp = {{ $character->experience ?? 0 }};
-
-            // Инициализация калькулятора при загрузке
-            document.addEventListener("DOMContentLoaded", function() {
-                initLevelCalculator();
-            });
-
-            function initLevelCalculator() {
-                const levelUpBtn = document.getElementById("level-up-btn");
-                const levelUpModal = document.getElementById("level-up-modal");
-                const closeLevelUp = document.getElementById("close-level-up");
-
-                // Инициализация текущих значений
-                updateLevelCalculator();
-
-                // Открытие модального окна
-                if (levelUpBtn) {
-                    levelUpBtn.addEventListener("click", function(e) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        levelUpModal.classList.add("show");
-                    });
-                }
-
-                // Закрытие модального окна
-                if (closeLevelUp) {
-                    closeLevelUp.addEventListener("click", function() {
-                        levelUpModal.classList.remove("show");
-                    });
-                }
-
-                // Обработка цифровой клавиатуры
-                document.querySelectorAll(".calc-btn").forEach(btn => {
-                    btn.addEventListener("click", function() {
-                        const value = this.getAttribute("data-value");
-                        const expInput = document.getElementById("exp-input");
-
-                        if (value === "+" || value === "-") return;
-
-                        if (expInput.value === "0") {
-                            expInput.value = value;
-                        } else {
-                            expInput.value += value;
-                        }
-                    });
-                });
-
-                // Кнопка ПРИБАВИТЬ опыт
-                document.getElementById("add-exp-button").addEventListener("click", function() {
-                    const expInput = document.getElementById("exp-input");
-                    const expToAdd = parseInt(expInput.value) || 0;
-                    currentExp += expToAdd;
-                    expInput.value = "0";
-                    updateCharacterExperience(currentExp);
-                });
-
-                // Кнопка ОТНЯТЬ опыт
-                document.getElementById("subtract-exp-button").addEventListener("click", function() {
-                    const expInput = document.getElementById("exp-input");
-                    const expToSubtract = parseInt(expInput.value) || 0;
-                    currentExp = Math.max(0, currentExp - expToSubtract);
-                    expInput.value = "0";
-                    updateCharacterExperience(currentExp);
-                });
-
-                // Кнопка ПОВЫСИТЬ уровень
-                document.getElementById("level-up-button").addEventListener("click", function() {
-                    if (currentLevel < 20 && currentExp >= XP_FOR_LEVEL[currentLevel]) {
-                        currentLevel++;
-                        updateCharacterExperience(currentExp);
-                    }
-                });
-            }
-
-            // Обновление интерфейса калькулятора
-            function updateLevelCalculator() {
-                document.getElementById("current-level").textContent = currentLevel;
-                document.getElementById("current-exp").textContent = currentExp;
-
-                // Обновляем уровень в шапке
-                document.querySelector('.character-level').textContent = `Уровень ${currentLevel}`;
-
-                if (currentLevel < 20) {
-                    const nextLevelExp = XP_FOR_LEVEL[currentLevel];
-                    document.getElementById("next-level").textContent = currentLevel + 1;
-                    document.getElementById("next-level-exp").textContent = nextLevelExp;
-
-                    // Прогресс-бар
-                    const expForCurrentLevel = XP_FOR_LEVEL[currentLevel - 1];
-                    const expNeeded = nextLevelExp - expForCurrentLevel;
-                    const expProgress = currentExp - expForCurrentLevel;
-                    const progressPercent = (expProgress / expNeeded) * 100;
-
-                    document.getElementById("exp-progress").style.width = `${progressPercent}%`;
-
-                    // Активация кнопки повышения уровня
-                    document.getElementById("level-up-button").disabled = currentExp < nextLevelExp;
-                } else {
-                    document.getElementById("next-level").textContent = "MAX";
-                    document.getElementById("next-level-exp").textContent = "MAX";
-                    document.getElementById("exp-progress").style.width = "100%";
-                    document.getElementById("level-up-button").disabled = true;
-                }
-            }
-
-            // Отправка данных на сервер
-            function updateCharacterExperience(newExp) {
-                const characterId = document.querySelector('meta[name="character-id"]').getAttribute("content");
-
-                fetch('/character/update-experience', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    },
-                    body: JSON.stringify({
-                        character_id: characterId,
-                        experience: newExp
-                    })
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            currentLevel = data.level;
-                            currentExp = data.experience;
-                            updateLevelCalculator();
-                        }
-                    })
-                    .catch(error => console.error('Error:', error));
-            }
 
         </script>
         <div class="sidebar-modal" id="settings-modal">
@@ -1409,62 +1271,6 @@
         <div class="notifications-wrapper">
             <div class="notifications-container" id="notificationsContainer"></div>
             <button class="close-all-btn" onclick="hideCloseButtonInstantly(); clearAllNotifications()">×</button>
-        </div>
-
-        <div class="sidebar-modal" id="level-up-modal">
-            <div class="sidebar-content">
-                <button class="close-sidebar" id="close-level-up">&times;</button>
-                <h2 class="settings-title">Калькулятор уровня</h2>
-
-                <div class="level-calculator">
-                    <div class="level-progress">
-                        <div class="level-info">
-                            <span id="current-level">{{ $character->level ?? 1 }}</span>
-                            <div class="progress-bar">
-                                <div class="progress-fill" id="exp-progress"></div>
-                            </div>
-                            <span id="next-level">{{ ($character->level ?? 1) + 1 }}</span>
-                        </div>
-                        <div class="exp-info">
-                            <span id="current-exp">{{ $character->experience ?? 0 }}</span>
-                            <span>/</span>
-                            <span id="next-level-exp">
-                        @php
-                            $levels = [0, 300, 900, 2700, 6500, 14000, 23000, 34000, 48000, 64000, 85000, 100000, 120000, 140000, 165000, 195000, 225000, 265000, 305000, 355000];
-                            $currentLevel = $character->level ?? 1;
-                            echo $currentLevel < 20 ? $levels[$currentLevel] : 'MAX';
-                        @endphp
-                    </span>
-                            <span>XP</span>
-                        </div>
-                    </div>
-
-                    <div class="exp-input-container">
-                        <input type="number" id="exp-input" min="0" placeholder="0" value="0">
-                    </div>
-
-                    <div class="calculator-keypad">
-                        <button class="calc-btn" data-value="7">7</button>
-                        <button class="calc-btn" data-value="8">8</button>
-                        <button class="calc-btn" data-value="9">9</button>
-                        <button class="calc-btn" data-value="4">4</button>
-                        <button class="calc-btn" data-value="5">5</button>
-                        <button class="calc-btn" data-value="6">6</button>
-                        <button class="calc-btn" data-value="1">1</button>
-                        <button class="calc-btn" data-value="2">2</button>
-                        <button class="calc-btn" data-value="3">3</button>
-                        <button class="calc-btn" data-value="0">0</button>
-                        <button class="calc-btn" data-value="+">+</button>
-                        <button class="calc-btn" data-value="-">-</button>
-                    </div>
-
-                    <div class="action-buttons">
-                        <button class="action-btn" id="level-up-button">ПОВЫСИТЬ</button>
-                        <button class="action-btn" id="add-exp-button">ПРИБАВИТЬ</button>
-                        <button class="action-btn" id="subtract-exp-button">ОТНЯТЬ</button>
-                    </div>
-                </div>
-            </div>
         </div>
 </body>
 </html>
