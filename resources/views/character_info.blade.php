@@ -712,6 +712,9 @@
         </div>
 
         <script>
+            // Глобальные переменные
+            let currentXp = {{ $character->experience ?? 0 }};
+
             const XP_TABLE = {
                 1: 0,
                 2: 300,
@@ -1248,54 +1251,15 @@
             // Перенесите этот код в самое начало вашего script-блока (перед всеми функциями)
 
 
-            // Функции для работы с модальным окном повышения уровня
+            // Инициализация при открытии модального окна
             function openLevelUpModal() {
-                try {
-                    const modal = document.getElementById('level-up-modal');
-                    if (!modal) {
-                        console.error('Modal element not found');
-                        return;
-                    }
+                const currentLevel = parseInt(document.querySelector('.character-level')?.textContent.replace('Уровень ', '')) || 1;
+                const nextLevel = currentLevel + 1;
+                const xpRequired = XP_TABLE[nextLevel] || Infinity;
 
-                    const levelElement = document.querySelector('.character-level');
-                    if (!levelElement) {
-                        console.error('Level element not found');
-                        return;
-                    }
-
-                    const currentXpElement = document.getElementById('current-xp');
-                    if (!currentXpElement) {
-                        console.error('Current XP element not found');
-                        return;
-                    }
-
-                    const currentLevel = parseInt(levelElement.textContent.replace('Уровень ', '')) || 1;
-                    const currentXp = parseInt(currentXpElement.textContent) || 0;
-
-                    // Рассчитываем необходимый опыт для следующего уровня
-                    const nextLevel = currentLevel + 1;
-                    const xpRequired = XP_TABLE[nextLevel] ? XP_TABLE[nextLevel] - currentXp : 0;
-
-                    const xpRequiredElement = document.getElementById('xp-required');
-                    if (xpRequiredElement) {
-                        xpRequiredElement.textContent = xpRequired;
-                    }
-
-                    const xpInput = document.getElementById('xp-input');
-                    if (xpInput) {
-                        xpInput.value = 0;
-                    }
-
-                    // Проверяем, можно ли повысить уровень
-                    const levelUpBtn = document.getElementById('level-up-btn');
-                    if (levelUpBtn) {
-                        levelUpBtn.disabled = !(nextLevel <= 20 && currentXp >= (XP_TABLE[nextLevel] || Infinity));
-                    }
-
-                    modal.style.display = 'flex';
-                } catch (error) {
-                    console.error('Error in openLevelUpModal:', error);
-                }
+                document.getElementById('xp-required').textContent = Math.max(0, xpRequired - currentXp);
+                document.getElementById('xp-input').value = "0";
+                document.getElementById('level-up-modal').style.display = 'flex';
             }
 
             function closeLevelUpModal() {
@@ -1305,54 +1269,14 @@
                 }
             }
 
+            // Функция для изменения значения опыта
             function changeXp(amount) {
                 const input = document.getElementById('xp-input');
                 if (!input) return;
 
                 let value = parseInt(input.value) || 0;
-                value += amount;
-                if (value < 0) value = 0;
+                value = Math.max(0, value + amount);
                 input.value = value;
-            }
-
-            function levelUpCharacter() {
-                try {
-                    const levelElement = document.querySelector('.character-level');
-                    if (!levelElement) {
-                        console.error('Level element not found');
-                        return;
-                    }
-
-                    const currentLevel = parseInt(levelElement.textContent.replace('Уровень ', '')) || 1;
-                    const nextLevel = currentLevel + 1;
-
-                    if (nextLevel > 20) {
-                        alert('Максимальный уровень достигнут!');
-                        return;
-                    }
-
-                    // Получаем текущий опыт
-                    const currentXpElement = document.getElementById('current-xp');
-                    let currentXp = parseInt(currentXpElement?.textContent) || 0;
-
-                    // Проверяем, достаточно ли опыта для следующего уровня
-                    const xpRequired = XP_TABLE[nextLevel] || Infinity;
-
-                    if (currentXp >= xpRequired) {
-                        // Обновляем уровень на странице
-                        levelElement.textContent = `Уровень ${nextLevel}`;
-
-                        // Здесь можно добавить AJAX запрос для сохранения нового уровня на сервере
-                        updateCharacterLevel(nextLevel);
-
-                        // Закрываем модальное окно
-                        closeLevelUpModal();
-                    } else {
-                        alert(`Недостаточно опыта для повышения до уровня ${nextLevel}! Требуется: ${xpRequired}, у вас: ${currentXp}`);
-                    }
-                } catch (error) {
-                    console.error('Error in levelUpCharacter:', error);
-                }
             }
 
             // Функция для обновления уровня персонажа на сервере
@@ -1404,72 +1328,84 @@
                     console.error('Error in updateCharacterLevel:', error);
                 }
             }
-            // Добавьте эти новые функции в ваш скрипт
+            // Функция для добавления цифр в поле ввода
             function appendNumber(num) {
                 const input = document.getElementById('xp-input');
                 if (!input) return;
 
                 // Если текущее значение "0", заменяем его, иначе добавляем цифру
-                if (input.value === "0") {
-                    input.value = num.toString();
-                } else {
-                    input.value += num.toString();
-                }
+                input.value = input.value === "0" ? num.toString() : input.value + num.toString();
             }
 
+
+            // Функция для прибавления опыта
             function addXp() {
                 const input = document.getElementById('xp-input');
                 if (!input) return;
 
                 const amount = parseInt(input.value) || 0;
-                if (amount > 0) {
-                    // Здесь можно добавить логику для прибавления опыта
-                    console.log("Добавлено опыта:", amount);
-                    // Обновляем текущий опыт на странице
-                    const currentXpElement = document.getElementById('current-xp');
-                    if (currentXpElement) {
-                        const currentXp = parseInt(currentXpElement.textContent) || 0;
-                        currentXpElement.textContent = currentXp + amount;
+                if (amount <= 0) return;
 
-                        // Проверяем, можно ли теперь повысить уровень
-                        checkLevelUp();
-                    }
-                }
+                currentXp += amount;
+                updateXpDisplay();
+                checkLevelUp();
+                input.value = "0"; // Сбрасываем поле ввода
             }
 
+            // Функция для вычитания опыта
             function subtractXp() {
                 const input = document.getElementById('xp-input');
                 if (!input) return;
 
                 const amount = parseInt(input.value) || 0;
-                if (amount > 0) {
-                    // Здесь можно добавить логику для вычитания опыта
-                    console.log("Вычтено опыта:", amount);
-                    // Обновляем текущий опыт на странице
-                    const currentXpElement = document.getElementById('current-xp');
-                    if (currentXpElement) {
-                        let currentXp = parseInt(currentXpElement.textContent) || 0;
-                        currentXp = Math.max(0, currentXp - amount); // Не даем уйти в минус
-                        currentXpElement.textContent = currentXp;
+                if (amount <= 0) return;
 
-                        // Проверяем, можно ли теперь повысить уровень
-                        checkLevelUp();
-                    }
+                currentXp = Math.max(0, currentXp - amount);
+                updateXpDisplay();
+                checkLevelUp();
+                input.value = "0"; // Сбрасываем поле ввода
+            }
+
+            // Обновление отображения текущего опыта
+            function updateXpDisplay() {
+                const currentXpElement = document.getElementById('current-xp');
+                if (currentXpElement) {
+                    currentXpElement.textContent = currentXp;
                 }
             }
 
+            // Проверка возможности повышения уровня
             function checkLevelUp() {
-                const levelElement = document.querySelector('.character-level');
-                const currentXpElement = document.getElementById('current-xp');
-                const levelUpBtn = document.getElementById('level-up-btn');
+                const currentLevel = parseInt(document.querySelector('.character-level')?.textContent.replace('Уровень ', '')) || 1;
+                const nextLevel = currentLevel + 1;
+                const xpRequired = XP_TABLE[nextLevel] || Infinity;
 
-                if (!levelElement || !currentXpElement || !levelUpBtn) return;
-
-                const currentLevel = parseInt(levelElement.textContent.replace('Уровень ', '')) || 1;
-                const currentXp = parseInt(currentXpElement.textContent) || 0;
+                document.getElementById('xp-required').textContent = Math.max(0, xpRequired - currentXp);
+            }
+            // Функция повышения уровня
+            function levelUpCharacter() {
+                const currentLevel = parseInt(document.querySelector('.character-level')?.textContent.replace('Уровень ', '')) || 1;
                 const nextLevel = currentLevel + 1;
 
-                levelUpBtn.disabled = !(nextLevel <= 20 && currentXp >= (XP_TABLE[nextLevel] || Infinity));
+                if (nextLevel > 20) {
+                    alert('Максимальный уровень достигнут!');
+                    return;
+                }
+
+                const xpRequired = XP_TABLE[nextLevel] || Infinity;
+
+                if (currentXp >= xpRequired) {
+                    // Обновляем уровень на странице
+                    document.querySelector('.character-level').textContent = `Уровень ${nextLevel}`;
+
+                    // Здесь можно добавить AJAX запрос для сохранения на сервере
+                    updateCharacterLevel(nextLevel);
+
+                    // Обновляем отображение
+                    checkLevelUp();
+                } else {
+                    alert(`Недостаточно опыта для повышения до уровня ${nextLevel}!`);
+                }
             }
         </script>
         <div class="sidebar-modal" id="settings-modal">
@@ -1533,24 +1469,30 @@
 
                 <div class="xp-calculator-grid">
                     <!-- Первый ряд кнопок -->
-                    <button class="xp-btn num-btn" onclick="appendNumber(1)">1</button>
-                    <button class="xp-btn num-btn" onclick="appendNumber(2)">2</button>
-                    <button class="xp-btn num-btn" onclick="appendNumber(3)">3</button>
+                    <button type="button" class="xp-btn num-btn" onclick="appendNumber(1)">1</button>
+                    <button type="button" class="xp-btn num-btn" onclick="appendNumber(2)">2</button>
+                    <button type="button" class="xp-btn num-btn" onclick="appendNumber(3)">3</button>
 
                     <!-- Второй ряд кнопок -->
-                    <button class="xp-btn num-btn" onclick="appendNumber(4)">4</button>
-                    <button class="xp-btn num-btn" onclick="appendNumber(5)">5</button>
-                    <button class="xp-btn num-btn" onclick="appendNumber(6)">6</button>
+                    <button type="button" class="xp-btn num-btn" onclick="appendNumber(4)">4</button>
+                    <button type="button" class="xp-btn num-btn" onclick="appendNumber(5)">5</button>
+                    <button type="button" class="xp-btn num-btn" onclick="appendNumber(6)">6</button>
 
                     <!-- Третий ряд кнопок -->
-                    <button class="xp-btn num-btn" onclick="appendNumber(7)">7</button>
-                    <button class="xp-btn num-btn" onclick="appendNumber(8)">8</button>
-                    <button class="xp-btn num-btn" onclick="appendNumber(9)">9</button>
+                    <button type="button" class="xp-btn num-btn" onclick="appendNumber(7)">7</button>
+                    <button type="button" class="xp-btn num-btn" onclick="appendNumber(8)">8</button>
+                    <button type="button" class="xp-btn num-btn" onclick="appendNumber(9)">9</button>
 
                     <!-- Четвертый ряд кнопок -->
-                    <button class="xp-btn num-btn" onclick="appendNumber(0)">0</button>
-                    <button class="xp-btn plus-btn" onclick="changeXp(1)">+</button>
-                    <button class="xp-btn minus-btn" onclick="changeXp(-1)">-</button>
+                    <button type="button" class="xp-btn num-btn" onclick="appendNumber(0)">0</button>
+                    <button type="button" class="xp-btn plus-btn" onclick="changeXp(1)">+</button>
+                    <button type="button" class="xp-btn minus-btn" onclick="changeXp(-1)">-</button>
+                </div>
+
+                <div class="xp-action-buttons">
+                    <button type="button" class="xp-action-btn" onclick="levelUpCharacter()">ПОВЫСИТЬ</button>
+                    <button type="button" class="xp-action-btn" onclick="addXp()">ПРИБАВИТЬ</button>
+                    <button type="button" class="xp-action-btn" onclick="subtractXp()">ОТНЯТЬ</button>
                 </div>
 
                 <div class="xp-input-container">
