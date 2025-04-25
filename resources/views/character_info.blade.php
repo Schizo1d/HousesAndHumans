@@ -1592,11 +1592,7 @@
                 <!-- Поле ввода с кнопками + и - -->
                 <div class="xp-input-container">
                     <input type="text" id="xp-input" value="0" placeholder="Введите число">
-                    <div class="xp-buttons-row">
-                        <button type="button" class="xp-btn plus-btn" onclick="appendOperator('+')">+</button>
-                        <button type="button" class="xp-btn minus-btn" onclick="appendOperator('-')">-</button>
-                        <button type="button" class="xp-btn clear-btn" onclick="clearInput()">C</button>
-                    </div>
+                    <button type="button" class="delete-btn" onclick="deleteLastChar()">⌫</button>
                 </div>
 
                 <!-- Цифровая клавиатура -->
@@ -1614,8 +1610,8 @@
                     <button type="button" class="xp-btn num-btn" onclick="appendNumber(3)">3</button>
 
                     <button type="button" class="xp-btn num-btn" onclick="appendNumber(0)">0</button>
-                    <button type="button" class="xp-btn num-btn" onclick="appendNumber('00')">00</button>
-                    <button type="button" class="xp-btn num-btn" onclick="appendNumber('000')">000</button>
+                    <button type="button" class="xp-btn plus-btn" onclick="appendOperator('+')">+</button>
+                    <button type="button" class="xp-btn minus-btn" onclick="appendOperator('-')">-</button>
                 </div>
 
                 <div class="xp-required">
