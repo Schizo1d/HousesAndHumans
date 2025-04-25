@@ -9,6 +9,15 @@ class Character extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'race',
+        'class',
+        'subclass',
+        'level',
+        'experience',
+        'user_id'
+    ];
     public function attributes()
     {
         return $this->hasOne(CharacterAttribute::class);

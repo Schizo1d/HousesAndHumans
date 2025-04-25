@@ -714,6 +714,8 @@
         <script>
             // Глобальные переменные
             let currentXp = {{ $character->experience ?? 0 }};
+            const characterId = document.querySelector('meta[name="character-id"]').getAttribute('content');
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
             const XP_TABLE = {
                 1: 0,
@@ -1339,31 +1341,46 @@
 
 
             // Функция для прибавления опыта
-            function addXp() {
+            async function addXp() {
                 const input = document.getElementById('xp-input');
                 if (!input) return;
 
                 const amount = parseInt(input.value) || 0;
                 if (amount <= 0) return;
 
-                currentXp += amount;
-                updateXpDisplay();
-                checkLevelUp();
-                input.value = "0"; // Сбрасываем поле ввода
+                try {
+                    currentXp += amount;
+                    await saveExperience(currentXp);
+                    updateXpDisplay();
+                    checkLevelUp();
+                    input.value = "0";
+                } catch (error) {
+                    // Откатываем изменения при ошибке
+                    currentXp -= amount;
+                    updateXpDisplay();
+                    alert('Ошибка при сохранении опыта');
+                }
             }
-
             // Функция для вычитания опыта
-            function subtractXp() {
+            async function subtractXp() {
                 const input = document.getElementById('xp-input');
                 if (!input) return;
 
                 const amount = parseInt(input.value) || 0;
                 if (amount <= 0) return;
 
-                currentXp = Math.max(0, currentXp - amount);
-                updateXpDisplay();
-                checkLevelUp();
-                input.value = "0"; // Сбрасываем поле ввода
+                try {
+                    currentXp = Math.max(0, currentXp - amount);
+                    await saveExperience(currentXp);
+                    updateXpDisplay();
+                    checkLevelUp();
+                    input.value = "0";
+                } catch (error) {
+                    // Откатываем изменения при ошибке
+                    currentXp += amount;
+                    updateXpDisplay();
+                    alert('Ошибка при сохранении опыта');
+                }
             }
 
             // Обновление отображения текущего опыта
@@ -1383,7 +1400,7 @@
                 document.getElementById('xp-required').textContent = Math.max(0, xpRequired - currentXp);
             }
             // Функция повышения уровня
-            function levelUpCharacter() {
+            async function levelUpCharacter() {
                 const currentLevel = parseInt(document.querySelector('.character-level')?.textContent.replace('Уровень ', '')) || 1;
                 const nextLevel = currentLevel + 1;
 
@@ -1395,16 +1412,52 @@
                 const xpRequired = XP_TABLE[nextLevel] || Infinity;
 
                 if (currentXp >= xpRequired) {
-                    // Обновляем уровень на странице
-                    document.querySelector('.character-level').textContent = `Уровень ${nextLevel}`;
+                    try {
+                        // Сохраняем новый уровень и опыт
+                        const response = await saveExperience(currentXp, nextLevel);
 
-                    // Здесь можно добавить AJAX запрос для сохранения на сервере
-                    updateCharacterLevel(nextLevel);
+                        // Обновляем уровень на странице
+                        document.querySelector('.character-level').textContent = `Уровень ${nextLevel}`;
 
-                    // Обновляем отображение
-                    checkLevelUp();
+                        // Обновляем отображение
+                        checkLevelUp();
+                    } catch (error) {
+                        alert('Ошибка при повышении уровня');
+                    }
                 } else {
                     alert(`Недостаточно опыта для повышения до уровня ${nextLevel}!`);
+                }
+            }
+
+            // Функция для сохранения опыта на сервере
+            async function saveExperience(newExperience, newLevel = null) {
+                try {
+                    const data = {
+                        character_id: characterId,
+                        experience: newExperience
+                    };
+
+                    if (newLevel !== null) {
+                        data.level = newLevel;
+                    }
+
+                    const response = await fetch('/character/update-experience', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': csrfToken
+                        },
+                        body: JSON.stringify(data)
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+
+                    return await response.json();
+                } catch (error) {
+                    console.error('Error saving experience:', error);
+                    throw error;
                 }
             }
         </script>
