@@ -1253,7 +1253,6 @@
 
             // Инициализация при открытии модального окна
             function openLevelUpModal() {
-                updateAllProgress();
                 updateProgressBar();
                 document.getElementById('xp-input').value = '0';
                 currentExpression = '0';
@@ -1486,23 +1485,21 @@
 
                 if (currentXp >= nextLevelXp) {
                     try {
+                        // Сохраняем на сервере
                         const response = await saveExperience(currentXp, nextLevel);
 
-                        if (response.success) {
-                            currentLevel = nextLevel;
-                            document.querySelector('.character-level').textContent = `Уровень ${currentLevel}`;
-                            animateLevelUp();
-                            updateAllProgress(); // Обновляем интерфейс
-                            showCustomAlert('Уровень повышен!');
-                        } else {
-                            alert('Ошибка при повышении уровня: ' + (response.error || ''));
-                        }
+                        // Обновляем локальные значения
+                        currentLevel = nextLevel;
+
+                        // Обновляем отображение
+                        updateProgressBar();
+                        document.querySelector('.character-level').textContent = `Уровень ${currentLevel}`;
+
+                        // Показываем анимацию
+                        animateLevelUp();
                     } catch (error) {
-                        console.error('Level up error:', error);
                         alert('Ошибка при повышении уровня');
                     }
-                } else {
-                    showCustomAlert('Недостаточно опыта для повышения уровня');
                 }
             }
             // Анимация повышения уровня
@@ -1592,20 +1589,9 @@
                 input.value = currentExpression;
             }
             function updateAllProgress() {
-                updateXpDisplay();
-                updateProgressBar();
-                checkLevelUp();
-
-                // Обновляем состояние кнопки "Повысить уровень"
-                const nextLevel = currentLevel + 1;
-                const nextLevelXp = XP_TABLE[nextLevel] || XP_TABLE[20];
-                const levelUpBtn = document.getElementById('level-up-btn');
-
-                if (currentXp >= nextLevelXp) {
-                    levelUpBtn.disabled = false;
-                } else {
-                    levelUpBtn.disabled = true;
-                }
+                updateXpDisplay(); // Обновляем цифры текущего опыта
+                updateProgressBar(); // Обновляем прогресс-бар
+                checkLevelUp(); // Проверяем возможность повышения уровня
             }
 
             document.addEventListener("DOMContentLoaded", function() {
