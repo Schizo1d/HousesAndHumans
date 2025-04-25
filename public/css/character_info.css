@@ -950,4 +950,68 @@ form label {
     font-weight: bold;
 }
 
+/* Стили для прогресс-бара уровня */
+.level-progress-container {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
 
+.level-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.current-level, .next-level {
+    font-weight: bold;
+}
+
+.current-level {
+    color: #db934e;
+}
+
+.next-level {
+    color: #4CAF50;
+}
+
+.progress-bar-container {
+    height: 30px;
+    background: #edca99;
+    border-radius: 15px;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 5px;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #db934e, #915f32);
+    border-radius: 15px;
+    width: 0%;
+    transition: width 0.5s ease;
+}
+
+.progress-text {
+    text-align: right;
+    font-size: 14px;
+    color: #666;
+}
+
+/* Адаптивные стили для калькулятора */
+@media (max-width: 600px) {
+    .level-up-content {
+        width: 95%;
+        padding: 15px;
+    }
+
+    .xp-calculator-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .xp-action-buttons {
+        grid-template-columns: 1fr;
+    }
+}
