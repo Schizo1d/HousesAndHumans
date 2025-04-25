@@ -1504,11 +1504,6 @@
                     <span id="xp-required">0</span>
                 </div>
 
-                <div class="xp-action-buttons">
-                    <button class="xp-action-btn" onclick="levelUpCharacter()">ПОВЫСИТЬ</button>
-                    <button class="xp-action-btn" onclick="addXp()">ПРИБАВИТЬ</button>
-                    <button class="xp-action-btn" onclick="subtractXp()">ОТНЯТЬ</button>
-                </div>
             </div>
         </div>
 </body>
