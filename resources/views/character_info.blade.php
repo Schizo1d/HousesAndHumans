@@ -714,6 +714,7 @@
         <script>
             // Глобальные переменные
             let currentXp = {{ $character->experience ?? 0 }};
+            let currentExpression = '0';
             const characterId = document.querySelector('meta[name="character-id"]').getAttribute('content');
             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
@@ -1330,15 +1331,83 @@
                     console.error('Error in updateCharacterLevel:', error);
                 }
             }
-            // Функция для добавления цифр в поле ввода
+            // Функции для работы с калькулятором
             function appendNumber(num) {
                 const input = document.getElementById('xp-input');
                 if (!input) return;
 
-                // Если текущее значение "0", заменяем его, иначе добавляем цифру
-                input.value = input.value === "0" ? num.toString() : input.value + num.toString();
+                if (currentExpression === '0') {
+                    currentExpression = num.toString();
+                } else {
+                    currentExpression += num.toString();
+                }
+
+                input.value = currentExpression;
             }
 
+            function appendOperator(operator) {
+                const input = document.getElementById('xp-input');
+                if (!input) return;
+
+                // Проверяем, не является ли последний символ оператором
+                const lastChar = currentExpression.slice(-1);
+                if (['+', '-'].includes(lastChar)) {
+                    // Заменяем последний оператор
+                    currentExpression = currentExpression.slice(0, -1) + operator;
+                } else {
+                    currentExpression += operator;
+                }
+
+                input.value = currentExpression;
+            }
+
+            function calculateExpression() {
+                try {
+                    // Безопасное вычисление выражения
+                    return eval(currentExpression.replace(/[^-+0-9]/g, '')) || 0;
+                } catch (e) {
+                    console.error('Error calculating expression:', e);
+                    return 0;
+                }
+            }
+
+            async function calculateAndAdd() {
+                const amount = calculateExpression();
+                if (amount <= 0) return;
+
+                try {
+                    currentXp += amount;
+                    await saveExperience(currentXp);
+                    updateXpDisplay();
+                    checkLevelUp();
+                    clearInput();
+                } catch (error) {
+                    currentXp -= amount;
+                    updateXpDisplay();
+                    alert('Ошибка при добавлении опыта');
+                }
+            }
+
+            async function calculateAndSubtract() {
+                const amount = calculateExpression();
+                if (amount <= 0) return;
+
+                try {
+                    currentXp = Math.max(0, currentXp - amount);
+                    await saveExperience(currentXp);
+                    updateXpDisplay();
+                    checkLevelUp();
+                    clearInput();
+                } catch (error) {
+                    currentXp += amount;
+                    updateXpDisplay();
+                    alert('Ошибка при вычитании опыта');
+                }
+            }
+            function clearInput() {
+                currentExpression = '0';
+                document.getElementById('xp-input').value = currentExpression;
+            }
 
             // Функция для прибавления опыта
             async function addXp() {
@@ -1513,50 +1582,54 @@
         <div id="level-up-modal" class="modal" style="display: none;">
             <div class="level-up-content">
                 <button class="modal-close-btn" onclick="closeLevelUpModal()">✖</button>
-                <h3>Калькулятор повышения уровня</h3>
+                <h3>Калькулятор опыта</h3>
 
                 <div class="xp-display">
                     <span>Текущий опыт: </span>
                     <span id="current-xp">{{ $character->experience ?? 0 }}</span>
                 </div>
 
+                <!-- Поле ввода с кнопками + и - -->
+                <div class="xp-input-container">
+                    <input type="text" id="xp-input" value="0" placeholder="Введите число">
+                    <div class="xp-buttons-row">
+                        <button type="button" class="xp-btn plus-btn" onclick="appendOperator('+')">+</button>
+                        <button type="button" class="xp-btn minus-btn" onclick="appendOperator('-')">-</button>
+                        <button type="button" class="xp-btn clear-btn" onclick="clearInput()">C</button>
+                    </div>
+                </div>
+
+                <!-- Цифровая клавиатура -->
                 <div class="xp-calculator-grid">
-                    <!-- Первый ряд кнопок -->
-                    <button type="button" class="xp-btn num-btn" onclick="appendNumber(1)">1</button>
-                    <button type="button" class="xp-btn num-btn" onclick="appendNumber(2)">2</button>
-                    <button type="button" class="xp-btn num-btn" onclick="appendNumber(3)">3</button>
-
-                    <!-- Второй ряд кнопок -->
-                    <button type="button" class="xp-btn num-btn" onclick="appendNumber(4)">4</button>
-                    <button type="button" class="xp-btn num-btn" onclick="appendNumber(5)">5</button>
-                    <button type="button" class="xp-btn num-btn" onclick="appendNumber(6)">6</button>
-
-                    <!-- Третий ряд кнопок -->
                     <button type="button" class="xp-btn num-btn" onclick="appendNumber(7)">7</button>
                     <button type="button" class="xp-btn num-btn" onclick="appendNumber(8)">8</button>
                     <button type="button" class="xp-btn num-btn" onclick="appendNumber(9)">9</button>
 
-                    <!-- Четвертый ряд кнопок -->
+                    <button type="button" class="xp-btn num-btn" onclick="appendNumber(4)">4</button>
+                    <button type="button" class="xp-btn num-btn" onclick="appendNumber(5)">5</button>
+                    <button type="button" class="xp-btn num-btn" onclick="appendNumber(6)">6</button>
+
+                    <button type="button" class="xp-btn num-btn" onclick="appendNumber(1)">1</button>
+                    <button type="button" class="xp-btn num-btn" onclick="appendNumber(2)">2</button>
+                    <button type="button" class="xp-btn num-btn" onclick="appendNumber(3)">3</button>
+
                     <button type="button" class="xp-btn num-btn" onclick="appendNumber(0)">0</button>
-                    <button type="button" class="xp-btn plus-btn" onclick="changeXp(1)">+</button>
-                    <button type="button" class="xp-btn minus-btn" onclick="changeXp(-1)">-</button>
-                </div>
-
-                <div class="xp-action-buttons">
-                    <button type="button" class="xp-action-btn" onclick="levelUpCharacter()">ПОВЫСИТЬ</button>
-                    <button type="button" class="xp-action-btn" onclick="addXp()">ПРИБАВИТЬ</button>
-                    <button type="button" class="xp-action-btn" onclick="subtractXp()">ОТНЯТЬ</button>
-                </div>
-
-                <div class="xp-input-container">
-                    <input type="number" id="xp-input" value="0" min="0">
+                    <button type="button" class="xp-btn num-btn" onclick="appendNumber('00')">00</button>
+                    <button type="button" class="xp-btn num-btn" onclick="appendNumber('000')">000</button>
                 </div>
 
                 <div class="xp-required">
-                    <span>Опыт до следующего уровня: </span>
+                    <span>До следующего уровня: </span>
                     <span id="xp-required">0</span>
+                    <span> опыта</span>
                 </div>
 
+                <!-- Кнопки действий -->
+                <div class="xp-action-buttons">
+                    <button type="button" class="xp-action-btn add-btn" onclick="calculateAndAdd()">ПРИБАВИТЬ</button>
+                    <button type="button" class="xp-action-btn subtract-btn" onclick="calculateAndSubtract()">ОТНЯТЬ</button>
+                    <button type="button" class="xp-action-btn level-up-btn" onclick="levelUpCharacter()">ПОВЫСИТЬ УРОВЕНЬ</button>
+                </div>
             </div>
         </div>
 </body>
