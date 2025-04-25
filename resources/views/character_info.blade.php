@@ -1370,26 +1370,23 @@
                 try {
                     const amount = calculateExpression();
                     if (amount <= 0) {
-                        alert('Введите корректное количество опыта');
+                        alert('Введите положительное число');
                         return;
                     }
 
                     currentXp += amount;
-                    const result = await saveExperience(currentXp);
+                    await saveExperience(currentXp);
 
-                    if (result.success) {
-                        updateXpDisplay();
-                        checkLevelUp();
-                        clearInput();
+                    // Сразу обновляем интерфейс без ожидания ответа сервера
+                    updateAllProgress();
+                    clearInput();
 
-                        // Показываем уведомление об успехе
-                        addNotification('ОПЫТ', 'Добавление', `+${amount}`, currentXp);
-                    }
                 } catch (error) {
                     console.error('Add XP error:', error);
-                    currentXp -= amount;
-                    updateXpDisplay();
+                    currentXp -= amount; // Откатываем изменения
                     alert('Ошибка: ' + (error.message || 'Не удалось добавить опыт'));
+                } finally {
+                    updateAllProgress(); // Все равно обновляем на случай частичных изменений
                 }
             }
 
@@ -1397,28 +1394,26 @@
                 try {
                     const amount = calculateExpression();
                     if (amount <= 0) {
-                        alert('Введите корректное количество опыта');
+                        alert('Введите положительное число');
                         return;
                     }
 
                     currentXp = Math.max(0, currentXp - amount);
-                    const result = await saveExperience(currentXp);
+                    await saveExperience(currentXp);
 
-                    if (result.success) {
-                        updateXpDisplay();
-                        checkLevelUp();
-                        clearInput();
+                    // Сразу обновляем интерфейс
+                    updateAllProgress();
+                    clearInput();
 
-                        // Показываем уведомление об успехе
-                        addNotification('ОПЫТ', 'Вычитание', `-${amount}`, currentXp);
-                    }
                 } catch (error) {
                     console.error('Subtract XP error:', error);
-                    currentXp += amount;
-                    updateXpDisplay();
+                    currentXp += amount; // Откатываем изменения
                     alert('Ошибка: ' + (error.message || 'Не удалось вычесть опыт'));
+                } finally {
+                    updateAllProgress();
                 }
             }
+
             function clearInput() {
                 currentExpression = '0';
                 document.getElementById('xp-input').value = currentExpression;
@@ -1528,19 +1523,17 @@
                 const xpNeeded = nextLevelXp - currentLevelXp;
                 const progressPercent = (xpInLevel / xpNeeded) * 100;
 
-                // Обновляем прогресс-бар
-                document.getElementById('xp-progress-bar').style.width = `${Math.min(100, progressPercent)}%`;
+                // Обновляем прогресс-бар с анимацией
+                const progressBar = document.getElementById('xp-progress-bar');
+                progressBar.style.transition = 'width 0.3s ease';
+                progressBar.style.width = `${Math.min(100, progressPercent)}%`;
+
+                // Обновляем текст
                 document.getElementById('xp-progress-text').textContent =
                     `${xpInLevel}/${xpNeeded} XP (${Math.round(progressPercent)}%)`;
-
-                // Обновляем текстовую информацию
-                document.getElementById('current-level-value').textContent = currentLevel;
-                document.getElementById('next-level-value').textContent = nextLevel;
-                document.getElementById('xp-remaining').textContent = xpNeeded - xpInLevel;
-
-                // Активируем/деактивируем кнопку повышения уровня
-                document.getElementById('level-up-btn').disabled = currentXp < nextLevelXp;
+                document.getElementById('xp-remaining').textContent = Math.max(0, xpNeeded - xpInLevel);
             }
+
 
             // Функция для сохранения опыта на сервере
             async function saveExperience(newExperience, newLevel = null) {
@@ -1595,6 +1588,23 @@
 
                 input.value = currentExpression;
             }
+            function updateAllProgress() {
+                updateXpDisplay(); // Обновляем цифры текущего опыта
+                updateProgressBar(); // Обновляем прогресс-бар
+                checkLevelUp(); // Проверяем возможность повышения уровня
+            }
+
+            document.addEventListener("DOMContentLoaded", function() {
+                // Инициализируем значения
+                currentLevel = {{ $character->level ?? 1 }};
+                currentXp = {{ $character->experience ?? 0 }};
+
+                // Первоначальное обновление интерфейса
+                updateAllProgress();
+
+                // Обработчики для кнопок
+                document.getElementById('level-up-btn').addEventListener('click', levelUpCharacter);
+            });
         </script>
         <div class="sidebar-modal" id="settings-modal">
             <div class="sidebar-content">
@@ -1655,7 +1665,7 @@
                     <div class="level-info">
                         <span class="current-level">Уровень <span id="current-level-value">{{ $character->level ?? 1 }}</span></span>
                         <span class="next-level">До <span id="next-level-value">{{ ($character->level ?? 1) + 1 }}</span>:
-                    <span id="xp-remaining">0</span> XP</span>
+            <span id="xp-remaining">0</span> XP</span>
                     </div>
 
                     <div class="progress-bar-container">

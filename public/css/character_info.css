@@ -1015,3 +1015,45 @@ form label {
         grid-template-columns: 1fr;
     }
 }
+.progress-bar-container {
+    height: 30px;
+    background: #edca99;
+    border-radius: 15px;
+    position: relative;
+    overflow: hidden;
+    margin: 10px 0;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #db934e, #915f32);
+    border-radius: 15px;
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+.progress-text {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #333;
+    font-weight: bold;
+    text-shadow: 0 0 2px rgba(255,255,255,0.7);
+}
+
+.level-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+
+.current-level {
+    font-weight: bold;
+    color: #915f32;
+}
+
+.next-level {
+    color: #666;
+}
