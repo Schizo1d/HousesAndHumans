@@ -1529,6 +1529,18 @@
                     throw error;
                 }
             }
+            function deleteLastChar() {
+                const input = document.getElementById('xp-input');
+                if (!input) return;
+
+                if (currentExpression.length > 1) {
+                    currentExpression = currentExpression.slice(0, -1);
+                } else {
+                    currentExpression = '0';
+                }
+
+                input.value = currentExpression;
+            }
         </script>
         <div class="sidebar-modal" id="settings-modal">
             <div class="sidebar-content">
