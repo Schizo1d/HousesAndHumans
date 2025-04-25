@@ -1714,7 +1714,7 @@
                     <div class="xp-action-buttons">
                         <button type="button" class="xp-action-btn add-btn" onclick="calculateAndAdd()">ПРИБАВИТЬ</button>
                         <button type="button" class="xp-action-btn subtract-btn" onclick="calculateAndSubtract()">ОТНЯТЬ</button>
-                        <button type="button" class="xp-action-btn level-up-btn" id="level-up-btn" disabled onclick="levelUpCharacter()">ПОВЫСИТЬ</button>
+                        <button type="button" class="xp-action-btn level-up-btn" id="level-up-btn" onclick="levelUpCharacter()">ПОВЫСИТЬ</button>
                     </div>
                 </div>
             </div>
