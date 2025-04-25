@@ -1367,36 +1367,56 @@
             }
 
             async function calculateAndAdd() {
-                const amount = calculateExpression();
-                if (amount <= 0) return;
-
                 try {
+                    const amount = calculateExpression();
+                    if (amount <= 0) {
+                        alert('Введите корректное количество опыта');
+                        return;
+                    }
+
                     currentXp += amount;
-                    await saveExperience(currentXp);
-                    updateXpDisplay();
-                    checkLevelUp();
-                    clearInput();
+                    const result = await saveExperience(currentXp);
+
+                    if (result.success) {
+                        updateXpDisplay();
+                        checkLevelUp();
+                        clearInput();
+
+                        // Показываем уведомление об успехе
+                        addNotification('ОПЫТ', 'Добавление', `+${amount}`, currentXp);
+                    }
                 } catch (error) {
+                    console.error('Add XP error:', error);
                     currentXp -= amount;
                     updateXpDisplay();
-                    alert('Ошибка при добавлении опыта');
+                    alert('Ошибка: ' + (error.message || 'Не удалось добавить опыт'));
                 }
             }
 
             async function calculateAndSubtract() {
-                const amount = calculateExpression();
-                if (amount <= 0) return;
-
                 try {
+                    const amount = calculateExpression();
+                    if (amount <= 0) {
+                        alert('Введите корректное количество опыта');
+                        return;
+                    }
+
                     currentXp = Math.max(0, currentXp - amount);
-                    await saveExperience(currentXp);
-                    updateXpDisplay();
-                    checkLevelUp();
-                    clearInput();
+                    const result = await saveExperience(currentXp);
+
+                    if (result.success) {
+                        updateXpDisplay();
+                        checkLevelUp();
+                        clearInput();
+
+                        // Показываем уведомление об успехе
+                        addNotification('ОПЫТ', 'Вычитание', `-${amount}`, currentXp);
+                    }
                 } catch (error) {
+                    console.error('Subtract XP error:', error);
                     currentXp += amount;
                     updateXpDisplay();
-                    alert('Ошибка при вычитании опыта');
+                    alert('Ошибка: ' + (error.message || 'Не удалось вычесть опыт'));
                 }
             }
             function clearInput() {
@@ -1525,12 +1545,20 @@
             // Функция для сохранения опыта на сервере
             async function saveExperience(newExperience, newLevel = null) {
                 try {
+                    // Проверка ввода
+                    if (isNaN(newExperience) || newExperience < 0) {
+                        throw new Error('Некорректное значение опыта');
+                    }
+
                     const data = {
                         character_id: characterId,
                         experience: newExperience
                     };
 
                     if (newLevel !== null) {
+                        if (newLevel < 1 || newLevel > 20) {
+                            throw new Error('Некорректный уровень');
+                        }
                         data.level = newLevel;
                     }
 
@@ -1543,11 +1571,13 @@
                         body: JSON.stringify(data)
                     });
 
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
+                    const result = await response.json();
+
+                    if (!response.ok || !result.success) {
+                        throw new Error(result.error || 'Ошибка сервера');
                     }
 
-                    return await response.json();
+                    return result;
                 } catch (error) {
                     console.error('Error saving experience:', error);
                     throw error;

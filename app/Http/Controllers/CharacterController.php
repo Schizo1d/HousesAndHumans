@@ -134,29 +134,43 @@ class CharacterController extends Controller
     }
     public function updateExperience(Request $request)
     {
-        // Проверяем, что пользователь авторизован
+        // Проверяем авторизацию
         $user = Auth::user();
         if (!$user) {
-            return response()->json(['success' => false, 'error' => 'Пользователь не авторизован'], 401);
+            return response()->json(['success' => false, 'error' => 'Не авторизован'], 401);
         }
 
-        // Проверяем, что передан корректный идентификатор персонажа
+        // Проверяем данные
+        $request->validate([
+            'character_id' => 'required|integer',
+            'experience' => 'required|integer|min:0',
+            'level' => 'nullable|integer|min:1|max:20'
+        ]);
+
+        // Находим персонажа
         $character = $user->characters()->find($request->character_id);
         if (!$character) {
-            return response()->json(['success' => false, 'error' => 'Персонаж не найден для данного пользователя'], 404);
+            return response()->json(['success' => false, 'error' => 'Персонаж не найден'], 404);
         }
 
-        // Обновляем опыт и уровень персонажа
+        // Обновляем данные
         $character->experience = $request->experience;
-        if (isset($request->level)) {
+        if ($request->has('level')) {
             $character->level = $request->level;
         }
-        $character->save();
 
-        return response()->json([
-            'success' => true,
-            'newExperience' => $character->experience,
-            'newLevel' => $character->level
-        ]);
+        try {
+            $character->save();
+            return response()->json([
+                'success' => true,
+                'newExperience' => $character->experience,
+                'newLevel' => $character->level
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'error' => 'Ошибка сохранения: ' . $e->getMessage()
+            ], 500);
+        }
     }
 }

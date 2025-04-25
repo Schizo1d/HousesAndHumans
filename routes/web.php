@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('main');
 });
+
 Route::post('/character/update-experience', [CharacterController::class, 'updateExperience'])->name('character.update-experience');
 Route::post('/character/update-level', [CharacterController::class, 'updateLevel'])->name('character.update-level');
 Route::post('/characters/update-settings', [CharacterController::class, 'updateSettings'])->name('characters.update-settings');
