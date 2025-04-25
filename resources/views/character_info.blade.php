@@ -1589,9 +1589,21 @@
                 input.value = currentExpression;
             }
             function updateAllProgress() {
-                updateXpDisplay(); // Обновляем цифры текущего опыта
-                updateProgressBar(); // Обновляем прогресс-бар
-                checkLevelUp(); // Проверяем возможность повышения уровня
+                updateXpDisplay();
+                updateProgressBar();
+                checkLevelUp();
+
+                // Разблокируем кнопку, если опыта хватает
+                const nextLevel = currentLevel + 1;
+                const nextLevelXp = XP_TABLE[nextLevel] || XP_TABLE[20];
+                const levelUpBtn = document.getElementById('level-up-btn');
+
+                if (currentXp >= nextLevelXp) {
+                    levelUpBtn.disabled = false;
+                    levelUpBtn.classList.remove('disabled'); // На всякий случай убираем CSS-класс
+                } else {
+                    levelUpBtn.disabled = true;
+                }
             }
 
             document.addEventListener("DOMContentLoaded", function() {
