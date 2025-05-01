@@ -1286,7 +1286,25 @@
                     isLevelUpModalOpen = false;
                 }, 400); // Должно совпадать с длительностью анимации (0.4s)
             }
-            
+
+
+            document.addEventListener('click', function(event) {
+                // Проверяем, открыто ли модальное окно
+                if (!isLevelUpModalOpen) return;
+
+                const modal = document.getElementById('level-up-modal');
+
+                // Проверяем, существует ли modal и является ли он DOM-элементом
+                if (!modal || !(modal instanceof HTMLElement)) return;
+
+                // Проверяем, был ли клик вне модального окна
+                const isClickInside = modal.contains(event.target);
+                const isLevelUpButton = event.target.closest('.level-up-btn');
+
+                if (!isClickInside && !isLevelUpButton) {
+                    closeLevelUpModal();
+                }
+            });
 
             // Функция для изменения значения опыта
             function changeXp(amount) {
