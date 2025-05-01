@@ -713,6 +713,7 @@
 
         <script>
             // Глобальные переменные
+            let isLevelUpModalOpen = false;
             let currentLevel = {{ $character->level ?? 1 }};
             let currentXp = {{ $character->experience ?? 0 }};
             let currentExpression = '0';
@@ -1253,16 +1254,45 @@
 
             // Инициализация при открытии модального окна
             function openLevelUpModal() {
+                if (isLevelUpModalOpen) return;
+
                 updateProgressBar();
                 document.getElementById('xp-input').value = '0';
                 currentExpression = '0';
-                document.getElementById('level-up-modal').classList.add('show');
+
+                const modal = document.getElementById('level-up-modal');
+                modal.style.display = 'block'; // Сначала показываем модальное окно
+
+                // Запускаем анимацию после отображения
+                setTimeout(() => {
+                    modal.classList.add('show');
+                    document.body.style.overflow = 'hidden'; // Блокируем прокрутку страницы
+                    isLevelUpModalOpen = true;
+                }, 10);
             }
+
 
 
             function closeLevelUpModal() {
-                document.getElementById('level-up-modal').classList.remove('show');
+                if (!isLevelUpModalOpen) return;
+
+                const modal = document.getElementById('level-up-modal');
+                modal.classList.remove('show');
+
+                // После завершения анимации скрываем модальное окно
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = ''; // Восстанавливаем прокрутку
+                    isLevelUpModalOpen = false;
+                }, 400); // Должно совпадать с длительностью анимации (0.4s)
             }
+            // Обработчик клика по затемненной области
+            document.addEventListener('click', function(event) {
+                const modal = document.getElementById('level-up-modal');
+                if (isLevelUpModalOpen && !modal.contains(event.target) {
+                    closeLevelUpModal();
+                }
+            });
 
             // Функция для изменения значения опыта
             function changeXp(amount) {
