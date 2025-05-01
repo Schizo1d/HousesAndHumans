@@ -1062,17 +1062,37 @@
                 const sidebarModal = document.getElementById("settings-modal");
                 const closeSidebar = document.getElementById("close-sidebar");
 
+                // В обработчике открытия модального окна настроек
                 settingsBtn.addEventListener("click", function () {
-                    sidebarModal.classList.add("show");
+                    const backdrop = document.getElementById('settings-backdrop');
+                    backdrop.style.display = 'block';
+                    setTimeout(() => {
+                        sidebarModal.classList.add("show");
+                        backdrop.classList.add('active');
+                    }, 10);
                 });
 
+                // В обработчике закрытия
                 closeSidebar.addEventListener("click", function () {
+                    const backdrop = document.getElementById('settings-backdrop');
                     sidebarModal.classList.remove("show");
+                    backdrop.classList.remove('active');
+                    setTimeout(() => {
+                        backdrop.style.display = 'none';
+                    }, 300);
                 });
 
+                // Обновите обработчик клика вне модального окна
                 document.addEventListener("click", function (event) {
-                    if (!sidebarModal.contains(event.target) && !settingsBtn.contains(event.target)) {
+                    const backdrop = document.getElementById('settings-backdrop');
+                    if (!sidebarModal.contains(event.target) &&
+                        !settingsBtn.contains(event.target) &&
+                        backdrop.classList.contains('active')) {
                         sidebarModal.classList.remove("show");
+                        backdrop.classList.remove('active');
+                        setTimeout(() => {
+                            backdrop.style.display = 'none';
+                        }, 300);
                     }
                 });
                 document.getElementById('save-character-settings').addEventListener('click', function () {
@@ -1678,39 +1698,6 @@
                 document.getElementById('level-up-btn').addEventListener('click', levelUpCharacter);
             });
 
-            // В обработчике открытия модального окна настроек
-            settingsBtn.addEventListener("click", function () {
-                const backdrop = document.getElementById('settings-backdrop');
-                backdrop.style.display = 'block';
-                setTimeout(() => {
-                    sidebarModal.classList.add("show");
-                    backdrop.classList.add('active');
-                }, 10);
-            });
-
-            // В обработчике закрытия
-            closeSidebar.addEventListener("click", function () {
-                const backdrop = document.getElementById('settings-backdrop');
-                sidebarModal.classList.remove("show");
-                backdrop.classList.remove('active');
-                setTimeout(() => {
-                    backdrop.style.display = 'none';
-                }, 300);
-            });
-
-            // Обновите обработчик клика вне модального окна
-            document.addEventListener("click", function (event) {
-                const backdrop = document.getElementById('settings-backdrop');
-                if (!sidebarModal.contains(event.target) &&
-                    !settingsBtn.contains(event.target) &&
-                    backdrop.classList.contains('active')) {
-                    sidebarModal.classList.remove("show");
-                    backdrop.classList.remove('active');
-                    setTimeout(() => {
-                        backdrop.style.display = 'none';
-                    }, 300);
-                }
-            });
             document.getElementById('settings-backdrop').addEventListener('click', function() {
                 const sidebarModal = document.getElementById('settings-modal');
                 const backdrop = document.getElementById('settings-backdrop');
