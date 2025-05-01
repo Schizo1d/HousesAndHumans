@@ -1319,7 +1319,12 @@
             }
 
             // Обработчик для клика по backdrop
-            document.getElementById('modal-backdrop').addEventListener('click', closeLevelUpModal);
+            document.getElementById('modal-backdrop').addEventListener('click', function(e) {
+                // Проверяем, что клик был именно по backdrop, а не по его детям
+                if (e.target === this) {
+                    closeLevelUpModal();
+                }
+            });
 
             // Обработчик для кнопки открытия
             document.querySelector('.level-up-btn').addEventListener('click', function(e) {
@@ -1335,11 +1340,11 @@
 
             document.addEventListener('click', function(event) {
                 const modal = document.getElementById('level-up-modal');
+                const backdrop = document.getElementById('modal-backdrop');
                 const levelUpBtn = document.querySelector('.level-up-btn');
 
-                // Проверяем все условия для закрытия
+                // Если модальное окно открыто и клик был вне его и не по кнопке открытия
                 if (isLevelUpModalOpen &&
-                    modal &&
                     !modal.contains(event.target) &&
                     event.target !== levelUpBtn &&
                     !levelUpBtn.contains(event.target)) {
@@ -1707,6 +1712,7 @@
                     backdrop.style.display = 'none';
                 }, 300);
             });
+
         </script>
         <div class="sidebar-modal" id="settings-modal">
             <div class="sidebar-content">
