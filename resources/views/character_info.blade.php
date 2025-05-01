@@ -1698,7 +1698,13 @@
                                 <input class="modal-input" type="text" id="xp-input" value="0" placeholder="Введите XP">
                                 <button type="button" class="delete-btn" onclick="deleteLastChar()">⌫</button>
                             </div>
+                        </div>
+                    </div>
+                </div>
 
+                <div class="modal-row">
+                    <div class="modal-col full-width">
+                        <div class="modal-wrapper">
                             <div class="xp-calculator-grid">
                                 <button type="button" class="xp-btn num-btn" onclick="appendNumber(7)">7</button>
                                 <button type="button" class="xp-btn num-btn" onclick="appendNumber(8)">8</button>
