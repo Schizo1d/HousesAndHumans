@@ -1337,21 +1337,6 @@
                 e.stopPropagation();
             });
 
-
-            document.addEventListener('click', function(event) {
-                const modal = document.getElementById('level-up-modal');
-                const backdrop = document.getElementById('modal-backdrop');
-                const levelUpBtn = document.querySelector('.level-up-btn');
-
-                // Если модальное окно открыто и клик был вне его и не по кнопке открытия
-                if (isLevelUpModalOpen &&
-                    !modal.contains(event.target) &&
-                    event.target !== levelUpBtn &&
-                    !levelUpBtn.contains(event.target)) {
-                    closeLevelUpModal();
-                }
-            });
-
             // Функция для изменения значения опыта
             function changeXp(amount) {
                 const input = document.getElementById('xp-input');
