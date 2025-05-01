@@ -1256,15 +1256,12 @@
                 updateProgressBar();
                 document.getElementById('xp-input').value = '0';
                 currentExpression = '0';
-                document.getElementById('level-up-modal').style.display = 'flex';
+                document.getElementById('level-up-modal').classList.add('show');
             }
 
 
             function closeLevelUpModal() {
-                const modal = document.getElementById('level-up-modal');
-                if (modal) {
-                    modal.style.display = 'none';
-                }
+                document.getElementById('level-up-modal').classList.remove('show');
             }
 
             // Функция для изменения значения опыта
