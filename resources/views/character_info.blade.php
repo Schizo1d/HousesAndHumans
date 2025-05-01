@@ -45,7 +45,7 @@
                     <p class="character-header-name">
                         <span class="font-style">{{ $character->name }}</span>
                         <span class="character-level">Уровень {{ $character->level }}</span>
-                        <button class="level-up-btn" id="settings-btn">Поднять уровень</button>
+                        <button class="level-up-btn" onclick="openLevelUpModal()">Поднять уровень</button>
                     </p>
                     <p class="character-header-subinfo">
                         <span class="font-style">{{ $character->race}}</span>
