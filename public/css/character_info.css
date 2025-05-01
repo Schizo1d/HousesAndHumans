@@ -463,11 +463,6 @@ form label {
     color: black;
 }
 
-/* Когда открыто */
-.sidebar-modal.show {
-    left: 0;
-}
-
 #save-character-name {
     background: #007bff;
     color: white;
