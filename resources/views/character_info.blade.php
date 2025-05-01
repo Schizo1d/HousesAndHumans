@@ -1286,13 +1286,7 @@
                     isLevelUpModalOpen = false;
                 }, 400); // Должно совпадать с длительностью анимации (0.4s)
             }
-            // Обработчик клика по затемненной области
-            document.addEventListener('click', function(event) {
-                const modal = document.getElementById('level-up-modal');
-                if (isLevelUpModalOpen && !modal.contains(event.target) {
-                    closeLevelUpModal();
-                }
-            });
+            
 
             // Функция для изменения значения опыта
             function changeXp(amount) {
