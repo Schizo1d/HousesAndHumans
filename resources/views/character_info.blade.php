@@ -713,6 +713,8 @@
 
         <script>
             // Глобальные переменные
+            const levelUpModal = document.getElementById('level-up-modal');
+            const levelUpBtn = document.querySelector('.level-up-btn');
             let isLevelUpModalOpen = false;
             let currentLevel = {{ $character->level ?? 1 }};
             let currentXp = {{ $character->experience ?? 0 }};
@@ -1296,18 +1298,18 @@
                 }, 300);
             }
 
-            // Обработчик для клика по backdrop
-            document.getElementById('modal-backdrop').addEventListener('click', closeLevelUpModal);
+            // Обработчик для клика по документу
+            document.addEventListener('click', function(event) {
+                // Проверяем, что модальное окно открыто
+                if (!levelUpModal.classList.contains('show')) return;
 
-            // Обработчик для кнопки открытия
-            document.querySelector('.level-up-btn').addEventListener('click', function(e) {
-                e.stopPropagation();
-                openLevelUpModal();
-            });
+                // Проверяем, был ли клик вне модального окна и не по кнопке
+                const isClickInsideModal = levelUpModal.contains(event.target);
+                const isClickOnButton = event.target === levelUpBtn || levelUpBtn.contains(event.target);
 
-            // Защита от закрытия при клике внутри модального окна
-            document.getElementById('level-up-modal').addEventListener('click', function(e) {
-                e.stopPropagation();
+                if (!isClickInsideModal && !isClickOnButton) {
+                    closeLevelUpModal();
+                }
             });
 
 
