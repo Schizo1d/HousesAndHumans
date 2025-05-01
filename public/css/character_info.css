@@ -811,20 +811,23 @@ form label {
     background-color: transparent;
 }
 
-/* Модальное окно поднятия уровня (выезжающее слева) */
-#level-up-modal {
+/* Стили для модального окна */
+.level-modal {
     position: fixed;
     left: -100%;
     top: 0;
     width: 33%;
-    min-width: 350px; /* Минимальная ширина */
+    min-width: 350px;
     height: 100%;
     background: #db934e;
     box-shadow: 2px 0 15px rgba(0, 0, 0, 0.3);
-    z-index: 1100;
+    z-index: 1001;
     transition: left 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     overflow-y: auto;
-    will-change: left; /* Оптимизация анимации */
+}
+
+.level-modal.show {
+    left: 0;
 }
 /* Затемнение фона */
 .modal-backdrop {
@@ -833,13 +836,18 @@ form label {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 1099;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: none;
     opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s;
+    transition: opacity 0.3s ease;
 }
 
+
+.modal-backdrop.active {
+    display: block;
+    opacity: 1;
+}
 #level-up-modal.show ~ .modal-backdrop {
     opacity: 1;
     pointer-events: auto;

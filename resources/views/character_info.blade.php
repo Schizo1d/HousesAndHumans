@@ -1257,16 +1257,16 @@
                 if (isLevelUpModalOpen) return;
 
                 const modal = document.getElementById('level-up-modal');
-                const backdrop = document.querySelector('.modal-backdrop');
+                const backdrop = document.getElementById('modal-backdrop');
 
-                // Подготовка модального окна
-                modal.style.display = 'block';
+                // Показываем элементы
                 backdrop.style.display = 'block';
+                modal.style.display = 'block';
 
-                // Запуск анимации
+                // Запускаем анимацию
                 setTimeout(() => {
+                    backdrop.classList.add('active');
                     modal.classList.add('show');
-                    backdrop.style.opacity = '1';
                     isLevelUpModalOpen = true;
                 }, 10);
 
@@ -1282,13 +1282,13 @@
                 if (!isLevelUpModalOpen) return;
 
                 const modal = document.getElementById('level-up-modal');
-                const backdrop = document.querySelector('.modal-backdrop');
+                const backdrop = document.getElementById('modal-backdrop');
 
-                // Запуск анимации закрытия
+                // Запускаем анимацию закрытия
                 modal.classList.remove('show');
-                backdrop.style.opacity = '0';
+                backdrop.classList.remove('active');
 
-                // Полное скрытие после анимации
+                // Полностью скрываем после анимации
                 setTimeout(() => {
                     modal.style.display = 'none';
                     backdrop.style.display = 'none';
@@ -1296,8 +1296,19 @@
                 }, 300);
             }
 
-            // Обработчик для backdrop
-            document.querySelector('.modal-backdrop').addEventListener('click', closeLevelUpModal);
+            // Обработчик для клика по backdrop
+            document.getElementById('modal-backdrop').addEventListener('click', closeLevelUpModal);
+
+            // Обработчик для кнопки открытия
+            document.querySelector('.level-up-btn').addEventListener('click', function(e) {
+                e.stopPropagation();
+                openLevelUpModal();
+            });
+
+            // Защита от закрытия при клике внутри модального окна
+            document.getElementById('level-up-modal').addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
 
 
             document.addEventListener('click', function(event) {
@@ -1714,7 +1725,7 @@
             <button class="close-all-btn" onclick="hideCloseButtonInstantly(); clearAllNotifications()">×</button>
         </div>
         <!-- Модальное окно повышения уровня -->
-        <div id="level-up-modal" class="modal" style="display: none;">
+        <div id="level-up-modal" class="level-modal">
             <div class="level-up-content">
                 <button class="modal-close-btn" onclick="closeLevelUpModal()">✖</button>
                 <h3>Прогресс уровня</h3>
@@ -1766,6 +1777,6 @@
                 </div>
             </div>
         </div>
-        <div class="modal-backdrop"></div>
+        <div id="modal-backdrop" class="modal-backdrop"></div>
 </body>
 </html>
