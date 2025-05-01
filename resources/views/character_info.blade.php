@@ -1281,18 +1281,15 @@
                 const modal = document.getElementById('level-up-modal');
                 const backdrop = document.getElementById('modal-backdrop');
 
-                // Показываем элементы
                 backdrop.style.display = 'block';
                 modal.style.display = 'block';
 
-                // Запускаем анимацию
                 setTimeout(() => {
                     backdrop.classList.add('active');
                     modal.classList.add('show');
                     isLevelUpModalOpen = true;
                 }, 10);
 
-                // Обновляем данные
                 updateProgressBar();
                 document.getElementById('xp-input').value = '0';
                 currentExpression = '0';
@@ -1306,11 +1303,9 @@
                 const modal = document.getElementById('level-up-modal');
                 const backdrop = document.getElementById('modal-backdrop');
 
-                // Запускаем анимацию закрытия
                 modal.classList.remove('show');
                 backdrop.classList.remove('active');
 
-                // Полностью скрываем после анимации
                 setTimeout(() => {
                     modal.style.display = 'none';
                     backdrop.style.display = 'none';
@@ -1318,18 +1313,23 @@
                 }, 300);
             }
 
-            // Обработчик для клика по backdrop
-            document.getElementById('modal-backdrop').addEventListener('click', function(e) {
-                // Проверяем, что клик был именно по backdrop, а не по его детям
-                if (e.target === this) {
-                    closeLevelUpModal();
-                }
-            });
-
-            // Обработчик для кнопки открытия
+            // Обработчик открытия по кнопке
             document.querySelector('.level-up-btn').addEventListener('click', function(e) {
                 e.stopPropagation();
                 openLevelUpModal();
+            });
+
+            // Обработчик закрытия по крестику
+            document.querySelector('#level-up-modal .modal-close-btn').addEventListener('click', function(e) {
+                e.stopPropagation();
+                closeLevelUpModal();
+            });
+
+            // Закрытие при клике на backdrop
+            document.getElementById('modal-backdrop').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeLevelUpModal();
+                }
             });
 
             // Защита от закрытия при клике внутри модального окна
