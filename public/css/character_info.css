@@ -403,11 +403,6 @@ form label {
 .sidebar-modal.show {
     left: 0;
 }
-
-.sidebar-modal.show ~ #settings-backdrop {
-    display: block;
-    opacity: 1;
-}
 .sidebar-content {
     position: relative;
     color: white;
@@ -461,6 +456,11 @@ form label {
 
 .close-sidebar:hover {
     color: black;
+}
+
+/* Когда открыто */
+.sidebar-modal.show {
+    left: 0;
 }
 
 #save-character-name {
@@ -840,8 +840,6 @@ form label {
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 1000;
     display: none;
-    opacity: 0;
-    transition: opacity 0.3s ease;
 }
 
 
