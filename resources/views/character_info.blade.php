@@ -1298,18 +1298,18 @@
                 }, 300);
             }
 
-            // Обработчик для клика по документу
-            document.addEventListener('click', function(event) {
-                // Проверяем, что модальное окно открыто
-                if (!levelUpModal.classList.contains('show')) return;
+            // Обработчик для клика по backdrop
+            document.getElementById('modal-backdrop').addEventListener('click', closeLevelUpModal);
 
-                // Проверяем, был ли клик вне модального окна и не по кнопке
-                const isClickInsideModal = levelUpModal.contains(event.target);
-                const isClickOnButton = event.target === levelUpBtn || levelUpBtn.contains(event.target);
+            // Обработчик для кнопки открытия
+            document.querySelector('.level-up-btn').addEventListener('click', function(e) {
+                e.stopPropagation();
+                openLevelUpModal();
+            });
 
-                if (!isClickInsideModal && !isClickOnButton) {
-                    closeLevelUpModal();
-                }
+            // Защита от закрытия при клике внутри модального окна
+            document.getElementById('level-up-modal').addEventListener('click', function(e) {
+                e.stopPropagation();
             });
 
 
@@ -1779,5 +1779,6 @@
                 </div>
             </div>
         </div>
+        <div id="modal-backdrop" class="modal-backdrop"></div>
 </body>
 </html>
