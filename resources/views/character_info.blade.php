@@ -1256,19 +1256,24 @@
             function openLevelUpModal() {
                 if (isLevelUpModalOpen) return;
 
+                const modal = document.getElementById('level-up-modal');
+                const backdrop = document.querySelector('.modal-backdrop');
+
+                // Подготовка модального окна
+                modal.style.display = 'block';
+                backdrop.style.display = 'block';
+
+                // Запуск анимации
+                setTimeout(() => {
+                    modal.classList.add('show');
+                    backdrop.style.opacity = '1';
+                    isLevelUpModalOpen = true;
+                }, 10);
+
+                // Обновляем данные
                 updateProgressBar();
                 document.getElementById('xp-input').value = '0';
                 currentExpression = '0';
-
-                const modal = document.getElementById('level-up-modal');
-                modal.style.display = 'block'; // Сначала показываем модальное окно
-
-                // Запускаем анимацию после отображения
-                setTimeout(() => {
-                    modal.classList.add('show');
-                    document.body.style.overflow = 'hidden'; // Блокируем прокрутку страницы
-                    isLevelUpModalOpen = true;
-                }, 10);
             }
 
 
@@ -1277,20 +1282,34 @@
                 if (!isLevelUpModalOpen) return;
 
                 const modal = document.getElementById('level-up-modal');
-                modal.classList.remove('show');
+                const backdrop = document.querySelector('.modal-backdrop');
 
-                // После завершения анимации скрываем модальное окно
+                // Запуск анимации закрытия
+                modal.classList.remove('show');
+                backdrop.style.opacity = '0';
+
+                // Полное скрытие после анимации
                 setTimeout(() => {
                     modal.style.display = 'none';
-                    document.body.style.overflow = ''; // Восстанавливаем прокрутку
+                    backdrop.style.display = 'none';
                     isLevelUpModalOpen = false;
-                }, 400); // Должно совпадать с длительностью анимации (0.4s)
+                }, 300);
             }
+
+            // Обработчик для backdrop
+            document.querySelector('.modal-backdrop').addEventListener('click', closeLevelUpModal);
 
 
             document.addEventListener('click', function(event) {
                 const modal = document.getElementById('level-up-modal');
-                if (isLevelUpModalOpen && !modal.contains(event.target)) { // Была пропущена закрывающая скобка
+                const levelUpBtn = document.querySelector('.level-up-btn');
+
+                // Проверяем все условия для закрытия
+                if (isLevelUpModalOpen &&
+                    modal &&
+                    !modal.contains(event.target) &&
+                    event.target !== levelUpBtn &&
+                    !levelUpBtn.contains(event.target)) {
                     closeLevelUpModal();
                 }
             });
@@ -1747,5 +1766,6 @@
                 </div>
             </div>
         </div>
+        <div class="modal-backdrop"></div>
 </body>
 </html>
