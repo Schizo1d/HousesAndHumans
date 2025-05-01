@@ -811,151 +811,46 @@ form label {
     background-color: transparent;
 }
 
-/* Общие стили для калькулятора */
-.xp-calculator-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    margin: 15px 0;
-}
-
-.xp-btn {
+/* Модальное окно поднятия уровня */
+#level-up-modal {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
     width: 100%;
-    height: 50px;
-    border: none;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    display: flex;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
     align-items: center;
     justify-content: center;
-    transition: all 0.2s;
-    border-radius: 8px;
+    z-index: 1100;
 }
 
-.num-btn {
-    background-color: #edca99;
-    color: #333;
-}
-
-.num-btn:hover {
-    background-color: #db934e;
-    color: white;
-    transform: scale(1.05);
-}
-
-.plus-btn {
-    background-color: #4CAF50;
-    color: white;
-}
-
-.minus-btn {
-    background-color: #f44336;
-    color: white;
-}
-
-/* Стили для поля ввода и кнопки удаления */
-.xp-input-container {
-    display: flex;
-    align-items: center;
-    margin: 15px 0;
+.level-up-content {
+    background: #db934e;
+    width: 90%;
+    max-width: 450px;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.4);
     position: relative;
 }
 
-#xp-input {
-    width: calc(100% - 50px); /* Учитываем кнопку удаления */
-    height: 60px;
-    text-align: right;
-    font-size: 24px;
-    border: 2px solid #db934e;
-    border-radius: 8px 0 0 8px; /* Закругление только слева */
-    background: #f8f1d8;
-    color: #333;
-    padding: 0 15px;
-    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
-}
-
-.delete-btn {
-    width: 50px;
-    height: 60px;
-    background-color: #ff9800;
+.level-up-content h3 {
     color: white;
-    border: none;
-    border-radius: 0 8px 8px 0; /* Закругление только справа */
-    font-size: 20px;
-    cursor: pointer;
-    transition: all 0.2s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.delete-btn:hover {
-    background-color: #e68a00;
-}
-
-/* Стили для кнопок действий */
-.xp-action-buttons {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    margin-top: 20px;
-}
-
-.xp-action-btn {
-    padding: 15px 12px;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s;
-    text-transform: uppercase;
     text-align: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    margin: 0 0 20px 0;
+    font-size: 22px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
-/* Цвета кнопок действий */
-.xp-action-btn.add-btn {
-    background-color: #4CAF50;
-    color: white;
-}
-
-.xp-action-btn.subtract-btn {
-    background-color: #f44336;
-    color: white;
-}
-
-.xp-action-btn.level-up-btn {
-    background-color: #db934e;
-    color: white;
-}
-
-.xp-action-btn:hover {
-    opacity: 0.9;
-    transform: translateY(-3px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-}
-
-/* Стили для отображения опыта */
-.xp-display, .xp-required {
-    padding: 10px;
-    background-color: rgba(255,255,255,0.1);
-    border-radius: 6px;
-    margin: 5px 0;
-    font-size: 16px;
-}
-
-.xp-display span, .xp-required span {
-    font-weight: bold;
-}
-
-/* Стили для прогресс-бара уровня */
+/* Блок прогресса уровня */
 .level-progress-container {
     background: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
     padding: 15px;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .level-info {
@@ -963,97 +858,205 @@ form label {
     justify-content: space-between;
     margin-bottom: 10px;
     font-size: 16px;
-}
-
-.current-level, .next-level {
-    font-weight: bold;
+    color: white;
 }
 
 .current-level {
-    color: #db934e;
+    font-weight: bold;
+    color: #ffd700;
 }
 
 .next-level {
-    color: #4CAF50;
+    font-weight: bold;
+}
+
+#xp-remaining {
+    color: #ffd700;
+    font-weight: bold;
 }
 
 .progress-bar-container {
-    height: 30px;
-    background: #edca99;
-    border-radius: 15px;
+    height: 20px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
     position: relative;
     overflow: hidden;
-    margin-bottom: 5px;
+    margin-top: 15px;
 }
 
-.progress-bar {
+#xp-progress-bar {
     height: 100%;
-    background: linear-gradient(90deg, #db934e, #915f32);
-    border-radius: 15px;
+    background: linear-gradient(90deg, #ffd700, #ffaa00);
     width: 0%;
     transition: width 0.5s ease;
 }
 
-.progress-text {
-    text-align: right;
-    font-size: 14px;
-    color: #666;
+#xp-progress-text {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 12px;
+    color: #333;
+    font-weight: bold;
+    text-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
 }
 
-/* Адаптивные стили для калькулятора */
-@media (max-width: 600px) {
-    .level-up-content {
-        width: 95%;
-        padding: 15px;
-    }
+/* Калькулятор опыта */
+.xp-calculator {
+    margin-top: 10px;
+}
 
-    .xp-calculator-grid {
-        grid-template-columns: repeat(3, 1fr);
+.xp-input-container {
+    display: flex;
+    margin-bottom: 15px;
+    height: 50px;
+}
+
+#xp-input {
+    flex: 1;
+    height: 100%;
+    padding: 0 15px;
+    font-size: 20px;
+    background: #f8f1d8;
+    border: 2px solid #edca99;
+    border-radius: 8px 0 0 8px;
+    color: #333;
+    font-weight: bold;
+}
+
+.delete-btn {
+    width: 50px;
+    height: 100%;
+    background: #915f32;
+    color: white;
+    border: none;
+    border-radius: 0 8px 8px 0;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.delete-btn:hover {
+    background: #7a4e28;
+}
+
+/* Кнопки калькулятора */
+.xp-calculator-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.xp-btn {
+    height: 50px;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.num-btn {
+    background: #edca99;
+    color: #333;
+}
+
+.num-btn:hover {
+    background: #e0c08a;
+    transform: translateY(-2px);
+}
+
+.plus-btn {
+    background: #4CAF50;
+    color: white;
+}
+
+.minus-btn {
+    background: #f44336;
+    color: white;
+}
+
+.plus-btn:hover, .minus-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+
+/* Кнопки действий */
+.xp-action-buttons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.xp-action-btn {
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-align: center;
+    color: white;
+}
+
+.add-btn {
+    background: #4CAF50;
+}
+
+.subtract-btn {
+    background: #f44336;
+}
+
+.level-up-btn {
+    background: #915f32;
+}
+
+.level-up-btn:disabled {
+    background: #666;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.xp-action-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Анимации */
+@keyframes levelUpPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.level-up-animation {
+    animation: levelUpPulse 0.5s ease-in-out;
+}
+
+/* Адаптивность */
+@media (max-width: 500px) {
+    .level-up-content {
+        padding: 20px 15px;
     }
 
     .xp-action-buttons {
         grid-template-columns: 1fr;
     }
-}
-.progress-bar-container {
-    height: 30px;
-    background: #edca99;
-    border-radius: 15px;
-    position: relative;
-    overflow: hidden;
-    margin: 10px 0;
-}
 
-.progress-bar {
-    height: 100%;
-    background: linear-gradient(90deg, #db934e, #915f32);
-    border-radius: 15px;
-    width: 0%;
-    transition: width 0.3s ease;
-}
+    .xp-calculator-grid {
+        gap: 8px;
+    }
 
-.progress-text {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #333;
-    font-weight: bold;
-    text-shadow: 0 0 2px rgba(255,255,255,0.7);
-}
-
-.level-info {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 5px;
-    font-size: 16px;
-}
-
-.current-level {
-    font-weight: bold;
-    color: #915f32;
-}
-
-.next-level {
-    color: #666;
+    .xp-btn, .xp-action-btn {
+        height: 45px;
+        font-size: 16px;
+    }
 }
