@@ -1779,6 +1779,5 @@
                 </div>
             </div>
         </div>
-        <div id="modal-backdrop" class="modal-backdrop"></div>
 </body>
 </html>
