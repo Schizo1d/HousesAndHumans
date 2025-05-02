@@ -10,14 +10,30 @@ class CharacterController extends Controller
 {
     public function show($id)
     {
-        // Находим персонажа с его атрибутами
         $character = Character::with('attributes')->find($id);
 
         if (!$character) {
             return redirect()->route('main')->with('error', 'Персонаж не найден.');
         }
 
-        return view('character_info', compact('character'));
+        // Рассчитываем прогресс для отображения
+        $xpTable = [
+            1 => 0, 2 => 300, 3 => 900, 4 => 2700, 5 => 6500,
+            6 => 14000, 7 => 23000, 8 => 34000, 9 => 48000,
+            10 => 64000, 11 => 85000, 12 => 100000, 13 => 120000,
+            14 => 140000, 15 => 165000, 16 => 195000, 17 => 225000,
+            18 => 265000, 19 => 305000, 20 => 355000
+        ];
+
+        $currentLevel = $character->level;
+        $nextLevel = min($currentLevel + 1, 20);
+        $currentLevelXp = $xpTable[$currentLevel] ?? 0;
+        $nextLevelXp = $xpTable[$nextLevel] ?? 0;
+        $xpInLevel = max(0, $character->experience - $currentLevelXp);
+        $xpNeeded = $nextLevelXp - $currentLevelXp;
+        $progressPercent = $xpNeeded > 0 ? min(100, ($xpInLevel / $xpNeeded) * 100) : 0;
+
+        return view('character_info', compact('character', 'xpInLevel', 'xpNeeded', 'progressPercent'));
     }
     public function index()
     {

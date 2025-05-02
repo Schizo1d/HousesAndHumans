@@ -55,8 +55,10 @@
                         <div class="mini-progress-container" onclick="openLevelUpModal()"
                              data-current-xp="{{ $character->experience }}"
                              data-current-level="{{ $character->level }}">
-                            <div class="mini-progress-bar" id="mini-xp-progress-bar"></div>
-                            <div class="mini-progress-text" id="mini-xp-progress-text"></div>
+                            <div class="mini-progress-bar" id="mini-xp-progress-bar" style="width: {{ $progressPercent }}%"></div>
+                            <div class="mini-progress-text" id="mini-xp-progress-text">
+                                {{ $xpInLevel }}/{{ $xpNeeded }}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1610,33 +1612,30 @@
 
 
             // Функция для сохранения опыта на сервере
-            async function saveExperience(newXp, newLevel = currentLevel) {  // Установим currentLevel как значение по умолчанию
+            async function saveExperience(newXp, newLevel = currentLevel) {
                 try {
-                    const data = {
-                        character_id: {{ $character->id }},
-                        experience: newXp,
-                        level: newLevel  // Всегда передаем текущий уровень
-                    };
-
                     const response = await fetch('/character/update-experience', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
                         },
-                        body: JSON.stringify(data)
+                        body: JSON.stringify({
+                            character_id: {{ $character->id }},
+                            experience: newXp,
+                            level: newLevel
+                        })
                     });
 
                     const result = await response.json();
 
-                    if (!response.ok || !result.success) {
-                        throw new Error(result.error || 'Ошибка сервера');
+                    if (result.success) {
+                        currentXp = newXp;
+                        currentLevel = newLevel;
+                        updateMiniProgressBar();
+                        return result;
                     }
-
-                    currentXp = newXp;
-                    currentLevel = newLevel; // Обновляем текущий уровень
-                    updateMiniProgressBar(currentLevel, currentXp);
-                    return result;
+                    throw new Error(result.error || 'Ошибка сервера');
                 } catch (error) {
                     console.error('Ошибка сохранения опыта:', error);
                     throw error;
@@ -1711,11 +1710,11 @@
             });
 
             // Функция обновления мини-прогресс бара
-            function updateMiniProgressBar(level, xp) {
-                const nextLevel = level + 1;
-                const currentLevelXp = XP_TABLE[level] || 0;
+            function updateMiniProgressBar() {
+                const nextLevel = currentLevel + 1;
+                const currentLevelXp = XP_TABLE[currentLevel] || 0;
                 const nextLevelXp = XP_TABLE[nextLevel] || XP_TABLE[20];
-                const xpInLevel = Math.max(0, xp - currentLevelXp);
+                const xpInLevel = Math.max(0, currentXp - currentLevelXp);
                 const xpNeeded = nextLevelXp - currentLevelXp;
                 const progressPercent = xpNeeded > 0 ? Math.min(100, (xpInLevel / xpNeeded) * 100) : 0;
 
@@ -1726,6 +1725,7 @@
                 if (miniText) miniText.textContent = `${xpInLevel}/${xpNeeded}`;
             }
 
+
             // Инициализация при загрузке
             document.addEventListener("DOMContentLoaded", function() {
                 initProgressBars();
@@ -1735,6 +1735,9 @@
                 updateMiniProgressBar(currentLevel, currentXp);
             }
 
+            document.addEventListener("DOMContentLoaded", function() {
+                updateMiniProgressBar();
+            });
         </script>
         <div class="sidebar-modal" id="settings-modal">
             <div class="sidebar-content">
