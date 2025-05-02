@@ -144,7 +144,7 @@ class CharacterController extends Controller
         $request->validate([
             'character_id' => 'required|integer',
             'experience' => 'required|integer|min:0',
-            'level' => 'nullable|integer|min:1|max:20'
+            'level' => 'required|integer|min:1|max:20' // Изменили на required
         ]);
 
         // Находим персонажа
@@ -155,9 +155,7 @@ class CharacterController extends Controller
 
         // Обновляем данные
         $character->experience = $request->experience;
-        if ($request->has('level')) {
-            $character->level = $request->level;
-        }
+        $character->level = $request->level; // Теперь level обязателен
 
         try {
             $character->save();

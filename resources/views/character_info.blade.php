@@ -1455,19 +1455,14 @@
                         return;
                     }
 
-                    currentXp += amount;
-                    await saveExperience(currentXp);
+                    const newXp = currentXp + amount;
+                    await saveExperience(newXp);
 
-                    // Сразу обновляем интерфейс без ожидания ответа сервера
                     updateAllProgress();
                     clearInput();
-
                 } catch (error) {
                     console.error('Add XP error:', error);
-                    currentXp -= amount; // Откатываем изменения
                     alert('Ошибка: ' + (error.message || 'Не удалось добавить опыт'));
-                } finally {
-                    updateAllProgress(); // Все равно обновляем на случай частичных изменений
                 }
             }
 
@@ -1479,19 +1474,14 @@
                         return;
                     }
 
-                    currentXp = Math.max(0, currentXp - amount);
-                    await saveExperience(currentXp);
+                    const newXp = Math.max(0, currentXp - amount);
+                    await saveExperience(newXp);
 
-                    // Сразу обновляем интерфейс
                     updateAllProgress();
                     clearInput();
-
                 } catch (error) {
                     console.error('Subtract XP error:', error);
-                    currentXp += amount; // Откатываем изменения
                     alert('Ошибка: ' + (error.message || 'Не удалось вычесть опыт'));
-                } finally {
-                    updateAllProgress();
                 }
             }
 
@@ -1567,20 +1557,23 @@
                 if (currentXp >= nextLevelXp) {
                     try {
                         // Сохраняем на сервере
-                        const response = await saveExperience(currentXp, nextLevel);
+                        await saveExperience(currentXp, nextLevel); // Теперь передаем новый уровень
 
                         // Обновляем локальные значения
                         currentLevel = nextLevel;
 
                         // Обновляем отображение
-                        updateProgressBar();
+                        updateMiniProgressBar(currentLevel, currentXp);
                         document.querySelector('.character-level').textContent = `Уровень ${currentLevel}`;
 
                         // Показываем анимацию
                         animateLevelUp();
                     } catch (error) {
-                        alert('Ошибка при повышении уровня');
+                        console.error('Ошибка при повышении уровня:', error);
+                        alert('Ошибка при повышении уровня: ' + error.message);
                     }
+                } else {
+                    alert('Недостаточно опыта для повышения уровня!');
                 }
             }
             // Анимация повышения уровня
@@ -1617,30 +1610,33 @@
 
 
             // Функция для сохранения опыта на сервере
-            async function saveExperience(newXp, newLevel = null) {
+            async function saveExperience(newXp, newLevel = currentLevel) {  // Установим currentLevel как значение по умолчанию
                 try {
+                    const data = {
+                        character_id: {{ $character->id }},
+                        experience: newXp,
+                        level: newLevel  // Всегда передаем текущий уровень
+                    };
+
                     const response = await fetch('/character/update-experience', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
                         },
-                        body: JSON.stringify({
-                            character_id: {{ $character->id }},
-                            experience: newXp,
-                            level: newLevel
-                        })
+                        body: JSON.stringify(data)
                     });
 
                     const result = await response.json();
 
-                    if (result.success) {
-                        currentXp = newXp;
-                        if (newLevel) currentLevel = newLevel;
-                        updateMiniProgressBar(currentLevel, currentXp);
-                        return result;
+                    if (!response.ok || !result.success) {
+                        throw new Error(result.error || 'Ошибка сервера');
                     }
-                    throw new Error(result.error || 'Ошибка сервера');
+
+                    currentXp = newXp;
+                    currentLevel = newLevel; // Обновляем текущий уровень
+                    updateMiniProgressBar(currentLevel, currentXp);
+                    return result;
                 } catch (error) {
                     console.error('Ошибка сохранения опыта:', error);
                     throw error;
