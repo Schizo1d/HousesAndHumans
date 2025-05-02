@@ -1128,6 +1128,8 @@ form label {
     background: linear-gradient(90deg, #ffd700, #ffaa00);
     width: 0%;
     transition: width 0.3s ease;
+    position: relative;
+    z-index: 1;
 }
 
 .mini-progress-text {
@@ -1136,9 +1138,11 @@ form label {
     top: 50%;
     transform: translateY(-50%);
     font-size: 10px;
-    color: #333;
+    color: #333; /* Убедитесь, что цвет контрастный */
     font-weight: bold;
     white-space: nowrap;
+    text-shadow: 0 0 2px white; /* Добавим тень для лучшей читаемости */
+    z-index: 2; /* Чтобы текст был поверх прогресс-бара */
 }
 
 .character-level {
