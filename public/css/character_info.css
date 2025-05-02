@@ -1103,15 +1103,13 @@ form label {
 }
 
 .mini-progress-container {
-    flex-grow: 1;
+    position: relative;
     height: 18px;
     background: rgba(0, 0, 0, 0.2);
     border-radius: 10px;
-    position: relative;
     overflow: hidden;
     min-width: 100px;
-    cursor: pointer; /* Делаем очевидным, что элемент кликабелен */
-    transition: transform 0.2s;
+    cursor: pointer;
 }
 
 .mini-progress-container:hover {
@@ -1124,12 +1122,13 @@ form label {
 }
 
 .mini-progress-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
     height: 100%;
     background: linear-gradient(90deg, #ffd700, #ffaa00);
     width: 0%;
-    transition: width 0.3s ease;
-    position: relative;
-    z-index: 1;
+    transition: width 0.5s ease;
 }
 
 .mini-progress-text {
@@ -1138,11 +1137,10 @@ form label {
     top: 50%;
     transform: translateY(-50%);
     font-size: 10px;
-    color: #333; /* Убедитесь, что цвет контрастный */
     font-weight: bold;
-    white-space: nowrap;
-    text-shadow: 0 0 2px white; /* Добавим тень для лучшей читаемости */
-    z-index: 2; /* Чтобы текст был поверх прогресс-бара */
+    color: #333;
+    text-shadow: 0 0 2px white;
+    z-index: 2;
 }
 
 .character-level {
