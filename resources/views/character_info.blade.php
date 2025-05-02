@@ -1668,6 +1668,7 @@
             function updateAllProgress() {
                 updateXpDisplay();
                 updateProgressBar();
+                updateMiniProgressBar(); // Добавляем вызов обновления мини-прогресс бара
                 checkLevelUp();
 
                 // Разблокируем кнопку, если опыта хватает
@@ -1721,14 +1722,6 @@
                 // Обновляем текст
                 document.getElementById('mini-xp-progress-text').textContent =
                     `${xpInLevel}/${xpNeeded}`;
-            }
-
-            // Обновляем функцию updateAllProgress
-            function updateAllProgress() {
-                updateXpDisplay();
-                updateProgressBar();
-                updateMiniProgressBar(); // Добавляем вызов обновления мини-прогресс бара
-                checkLevelUp();
             }
 
             // Вызываем при загрузке страницы
