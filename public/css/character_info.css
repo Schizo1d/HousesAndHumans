@@ -62,35 +62,32 @@ header {
 .container-info label img {
     width: 40px;
 }
-.character-header-info{
-    display: flex;
-    flex-direction: column;
 
-}
-.font-style{
+.font-style {
     font-family: Arial, sans-serif;
 }
-.character-header-name{
 
+.character-header-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.character-header-name {
     font-size: 20px;
     line-height: 24px;
     margin: 0;
 }
-.character-header-subinfo{
 
+.character-header-subinfo {
     font-size: 16px;
     justify-content: flex-start;
     line-height: 18px;
     padding: 0;
     margin: 0;
 }
+.character-header-exp{
 
-/*.container-info label {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 24px;
-}*/
+}
 
 /* Форма */
 form {
@@ -400,19 +397,23 @@ form label {
     z-index: 1050;
     transition: left 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
+
 .sidebar-modal.show {
     left: 0;
 }
+
 .sidebar-content {
     position: relative;
     color: white;
 }
-.settings-title{
+
+.settings-title {
     display: flex;
     justify-content: center;
     margin: 0 auto;
     margin-bottom: 22px;
 }
+
 /* Поля ввода */
 .modal-input {
     border: none;
@@ -425,24 +426,29 @@ form label {
     width: 100%;
     color: white;
 }
-.modal-wrapper{
+
+.modal-wrapper {
     display: flex;
     flex-direction: column;
     position: relative;
     width: 100%;
 }
-.modal-row{
+
+.modal-row {
     align-items: center;
     display: flex;
     margin-bottom: 12px;
 }
-.modal-col{
+
+.modal-col {
     display: flex;
     flex-direction: column;
 }
+
 .modal-col:not(:last-of-type) {
     margin-right: 18px;
 }
+
 .close-sidebar {
     position: absolute;
     top: -10px;
@@ -807,6 +813,7 @@ form label {
 .double-radio-custom.fully-checked .dot-1 {
     background-color: #915f32;
 }
+
 .double-radio-custom.fully-checked .dot-2 {
     border-color: #db934e;
     background-color: transparent;
@@ -830,6 +837,7 @@ form label {
 .level-modal.show {
     left: 0;
 }
+
 /* Затемнение фона */
 .modal-backdrop {
     position: fixed;
@@ -847,19 +855,23 @@ form label {
     display: block;
     opacity: 1;
 }
+
 #level-up-modal.show ~ .modal-backdrop {
     opacity: 1;
     pointer-events: auto;
 }
+
 /* Класс для открытия модального окна */
 #level-up-modal.show {
     left: 0;
 }
+
 #level-up-modal.show::before {
     left: 33%;
     opacity: 1;
     transition: opacity 0.3s;
 }
+
 .level-up-content {
     padding: 25px;
     height: 100%;
@@ -1049,8 +1061,14 @@ form label {
 
 /* Анимации */
 @keyframes slideIn {
-    from { transform: translateX(-10px); opacity: 0; }
-    to { transform: translateX(0); opacity: 1; }
+    from {
+        transform: translateX(-10px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
 }
 
 /* Адаптивность */
