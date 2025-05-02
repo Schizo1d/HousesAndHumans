@@ -53,7 +53,9 @@
                     <div class="character-header-exp">
                         <div class="mini-level-container">
                             <span class="character-level">Уровень {{ $character->level }}</span>
-                            <div class="mini-progress-container" onclick="openLevelUpModal()">
+                            <div class="mini-progress-container" onclick="openLevelUpModal()"
+                                 data-current-level="{{ $character->level }}"
+                                 data-current-xp="{{ $character->experience }}">
                                 <div class="mini-progress-bar" id="mini-xp-progress-bar"></div>
                                 <div class="mini-progress-text" id="mini-xp-progress-text"></div>
                             </div>
@@ -1316,6 +1318,9 @@
                     modal.style.display = 'none';
                     backdrop.style.display = 'none';
                     isLevelUpModalOpen = false;
+
+                    // Принудительное обновление после закрытия модалки
+                    updateAllProgress();
                 }, 300);
             }
 
@@ -1668,36 +1673,40 @@
                 const nextLevel = currentLevel + 1;
                 const currentLevelXp = XP_TABLE[currentLevel] || 0;
                 const nextLevelXp = XP_TABLE[nextLevel] || XP_TABLE[20];
-                const xpInLevel = currentXp - currentLevelXp;
+                const xpInLevel = Math.max(0, currentXp - currentLevelXp);
                 const xpNeeded = nextLevelXp - currentLevelXp;
-                const progressPercent = (xpInLevel / xpNeeded) * 100;
-
-                // Обновляем основной прогресс-бар
-                const progressBar = document.getElementById('xp-progress-bar');
-                progressBar.style.width = `${Math.min(100, progressPercent)}%`;
-                document.getElementById('xp-progress-text').textContent =
-                    `${xpInLevel}/${xpNeeded} XP (${Math.round(progressPercent)}%)`;
+                const progressPercent = xpNeeded > 0 ? Math.min(100, (xpInLevel / xpNeeded) * 100) : 0;
 
                 // Обновляем мини-прогресс бар
                 const miniProgressBar = document.getElementById('mini-xp-progress-bar');
-                miniProgressBar.style.width = `${Math.min(100, progressPercent)}%`;
-                document.getElementById('mini-xp-progress-text').textContent =
-                    `${xpInLevel}/${xpNeeded}`;
+                const miniProgressText = document.getElementById('mini-xp-progress-text');
 
-                // Обновляем оставшийся XP
-                document.getElementById('xp-remaining').textContent = Math.max(0, xpNeeded - xpInLevel);
-                document.querySelector('.character-level').textContent = `Уровень ${currentLevel}`;
+                if (miniProgressBar && miniProgressText) {
+                    miniProgressBar.style.width = `${progressPercent}%`;
+                    miniProgressText.textContent = `${xpInLevel}/${xpNeeded}`;
+                }
 
-                // Разблокируем кнопку, если опыта хватает
-                const levelUpBtn = document.getElementById('level-up-btn');
-                levelUpBtn.disabled = !(currentXp >= nextLevelXp);
+                // Обновляем основной прогресс-бар (если есть)
+                const mainProgressBar = document.getElementById('xp-progress-bar');
+                const mainProgressText = document.getElementById('xp-progress-text');
+
+                if (mainProgressBar && mainProgressText) {
+                    mainProgressBar.style.width = `${progressPercent}%`;
+                    mainProgressText.textContent = `${xpInLevel}/${xpNeeded} XP (${Math.round(progressPercent)}%)`;
+                }
+
+                // Обновляем уровень
+                const levelElement = document.querySelector('.character-level');
+                if (levelElement) {
+                    levelElement.textContent = `Уровень ${currentLevel}`;
+                }
             }
 
             document.addEventListener("DOMContentLoaded", function() {
-                // Инициализируем значения
-                currentLevel = {{ $character->level ?? 1 }};
-                currentXp = {{ $character->experience ?? 0 }};
-
+                // Получаем данные из data-атрибутов
+                const miniProgress = document.querySelector('.mini-progress-container');
+                currentLevel = parseInt(miniProgress.dataset.currentLevel) || 1;
+                currentXp = parseInt(miniProgress.dataset.currentXp) || 0;
                 // Первоначальное обновление интерфейса
                 updateAllProgress();
 
@@ -1733,12 +1742,7 @@
                     `${xpInLevel}/${xpNeeded}`;
             }
 
-            // Вызываем при загрузке страницы
-            document.addEventListener("DOMContentLoaded", function() {
-                currentLevel = {{ $character->level ?? 1 }};
-                currentXp = {{ $character->experience ?? 0 }};
-                updateAllProgress();
-            });
+
         </script>
         <div class="sidebar-modal" id="settings-modal">
             <div class="sidebar-content">
