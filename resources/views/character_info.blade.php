@@ -1665,22 +1665,32 @@
                 input.value = currentExpression;
             }
             function updateAllProgress() {
-                updateXpDisplay();
-                updateProgressBar();
-                updateMiniProgressBar(); // Добавляем вызов обновления мини-прогресс бара
-                checkLevelUp();
+                const nextLevel = currentLevel + 1;
+                const currentLevelXp = XP_TABLE[currentLevel] || 0;
+                const nextLevelXp = XP_TABLE[nextLevel] || XP_TABLE[20];
+                const xpInLevel = currentXp - currentLevelXp;
+                const xpNeeded = nextLevelXp - currentLevelXp;
+                const progressPercent = (xpInLevel / xpNeeded) * 100;
+
+                // Обновляем основной прогресс-бар
+                const progressBar = document.getElementById('xp-progress-bar');
+                progressBar.style.width = `${Math.min(100, progressPercent)}%`;
+                document.getElementById('xp-progress-text').textContent =
+                    `${xpInLevel}/${xpNeeded} XP (${Math.round(progressPercent)}%)`;
+
+                // Обновляем мини-прогресс бар
+                const miniProgressBar = document.getElementById('mini-xp-progress-bar');
+                miniProgressBar.style.width = `${Math.min(100, progressPercent)}%`;
+                document.getElementById('mini-xp-progress-text').textContent =
+                    `${xpInLevel}/${xpNeeded}`;
+
+                // Обновляем оставшийся XP
+                document.getElementById('xp-remaining').textContent = Math.max(0, xpNeeded - xpInLevel);
+                document.querySelector('.character-level').textContent = `Уровень ${currentLevel}`;
 
                 // Разблокируем кнопку, если опыта хватает
-                const nextLevel = currentLevel + 1;
-                const nextLevelXp = XP_TABLE[nextLevel] || XP_TABLE[20];
                 const levelUpBtn = document.getElementById('level-up-btn');
-
-                if (currentXp >= nextLevelXp) {
-                    levelUpBtn.disabled = false;
-                    levelUpBtn.classList.remove('disabled'); // На всякий случай убираем CSS-класс
-                } else {
-                    levelUpBtn.disabled = true;
-                }
+                levelUpBtn.disabled = !(currentXp >= nextLevelXp);
             }
 
             document.addEventListener("DOMContentLoaded", function() {
