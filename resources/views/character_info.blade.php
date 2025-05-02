@@ -1696,8 +1696,9 @@
                 const miniProgress = document.querySelector('.mini-progress-container');
                 currentLevel = parseInt(miniProgress.dataset.currentLevel) || 1;
                 currentXp = parseInt(miniProgress.dataset.currentXp) || 0;
-                // Первоначальное обновление интерфейса
-                updateAllProgress();
+
+                // Инициализируем прогресс-бары
+                updateMiniProgressBar(currentLevel, currentXp);
 
                 // Обработчики для кнопок
                 document.getElementById('level-up-btn').addEventListener('click', levelUpCharacter);
@@ -1727,8 +1728,6 @@
 
                 if (miniBar) miniBar.style.width = `${progressPercent}%`;
                 if (miniText) miniText.textContent = `${xpInLevel}/${xpNeeded}`;
-
-                document.querySelector('.character-level').textContent = `Уровень ${level}`;
             }
 
             // Инициализация при загрузке
@@ -1844,6 +1843,5 @@
         </div>
         <div id="modal-backdrop" class="modal-backdrop"></div>
         <div id="settings-backdrop" class="modal-backdrop"></div>
-        <script src="{{ asset('js/MiniProgressBar.js') }}"></script>
 </body>
 </html>

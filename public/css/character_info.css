@@ -1104,15 +1104,12 @@ form label {
 
 .mini-progress-container {
     position: relative;
-    height: 20px;
-    background: rgba(0, 0, 0, 0.15);
+    height: 18px;
+    background: rgba(0, 0, 0, 0.2);
     border-radius: 10px;
     overflow: hidden;
-    flex-grow: 1;
     min-width: 100px;
     cursor: pointer;
-    transition: all 0.2s;
-    border: 1px solid rgba(255, 215, 0, 0.3);
 }
 
 .mini-progress-container:hover {
@@ -1128,8 +1125,8 @@ form label {
     top: 0;
     left: 0;
     height: 100%;
-    width: 0;
     background: linear-gradient(90deg, #ffd700, #ffaa00);
+    width: 0%;
     transition: width 0.5s ease;
 }
 
@@ -1143,7 +1140,6 @@ form label {
     color: #333;
     text-shadow: 0 0 2px white;
     z-index: 2;
-    pointer-events: none;
 }
 
 .character-level {
