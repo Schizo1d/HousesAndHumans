@@ -53,11 +53,10 @@
                     <div class="character-header-exp">
                         <div class="mini-level-container">
                             <span class="character-level">Уровень {{ $character->level }}</span>
-                            <div class="mini-progress-container">
+                            <div class="mini-progress-container" onclick="openLevelUpModal()">
                                 <div class="mini-progress-bar" id="mini-xp-progress-bar"></div>
                                 <div class="mini-progress-text" id="mini-xp-progress-text"></div>
                             </div>
-                            <button class="level-up-btn" onclick="openLevelUpModal()">Поднять уровень</button>
                         </div>
                     </div>
                 </div>

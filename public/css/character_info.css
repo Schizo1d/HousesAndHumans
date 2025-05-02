@@ -1110,6 +1110,17 @@ form label {
     position: relative;
     overflow: hidden;
     min-width: 100px;
+    cursor: pointer; /* Делаем очевидным, что элемент кликабелен */
+    transition: transform 0.2s;
+}
+
+.mini-progress-container:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 5px rgba(255, 215, 0, 0.3);
+}
+
+.mini-progress-container:active {
+    transform: scale(0.98);
 }
 
 .mini-progress-bar {
