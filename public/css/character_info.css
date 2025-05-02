@@ -86,7 +86,8 @@ header {
     margin: 0;
 }
 .character-header-exp{
-
+    padding: 0;
+    margin: 0;
 }
 
 /* Форма */
