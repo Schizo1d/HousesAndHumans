@@ -718,6 +718,18 @@
         </div>
 
         <script>
+            if (!document.getElementById('mini-xp-progress-bar')) {
+                console.error('Мини-прогресс бар не найден в DOM');
+            } else {
+                // Проверяем начальные значения
+                if (isNaN(currentLevel) currentLevel = 1;
+                if (isNaN(currentXp)) currentXp = 0;
+
+                // Принудительно устанавливаем начальное состояние
+                setTimeout(() => {
+                    updateMiniProgressBar(currentLevel, currentXp);
+                }, 100);
+            }
             // Глобальные переменные
             const levelUpModal = document.getElementById('level-up-modal');
             const levelUpBtn = document.querySelector('.level-up-btn');
