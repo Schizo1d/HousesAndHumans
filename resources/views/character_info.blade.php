@@ -51,14 +51,12 @@
                         <span class="font-style">{{ $character->class}}</span>
                     </p>
                     <div class="character-header-exp">
-                        <div class="mini-level-container">
-                            <span class="character-level">Уровень {{ $character->level }}</span>
-                            <div class="mini-progress-container" onclick="openLevelUpModal()"
-                                 data-current-level="{{ $character->level }}"
-                                 data-current-xp="{{ $character->experience }}">
-                                <div class="mini-progress-bar" id="mini-xp-progress-bar"></div>
-                                <div class="mini-progress-text" id="mini-xp-progress-text"></div>
-                            </div>
+                        <span class="character-level">Уровень {{ $character->level }}</span>
+                        <div class="mini-progress-container" onclick="openLevelUpModal()"
+                             data-current-xp="{{ $character->experience }}"
+                             data-current-level="{{ $character->level }}">
+                            <div class="mini-progress-bar" id="mini-xp-progress-bar"></div>
+                            <div class="mini-progress-text" id="mini-xp-progress-text"></div>
                         </div>
                     </div>
                 </div>
@@ -1322,6 +1320,7 @@
                     // Принудительное обновление после закрытия модалки
                     updateAllProgress();
                 }, 300);
+                updateMiniProgressBar(currentLevel, currentXp);
             }
 
             // Обработчик открытия по кнопке
@@ -1617,43 +1616,32 @@
 
 
             // Функция для сохранения опыта на сервере
-            async function saveExperience(newExperience, newLevel = null) {
+            async function saveExperience(newXp, newLevel = null) {
                 try {
-                    // Проверка ввода
-                    if (isNaN(newExperience) || newExperience < 0) {
-                        throw new Error('Некорректное значение опыта');
-                    }
-
-                    const data = {
-                        character_id: characterId,
-                        experience: newExperience
-                    };
-
-                    if (newLevel !== null) {
-                        if (newLevel < 1 || newLevel > 20) {
-                            throw new Error('Некорректный уровень');
-                        }
-                        data.level = newLevel;
-                    }
-
                     const response = await fetch('/character/update-experience', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': csrfToken
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
                         },
-                        body: JSON.stringify(data)
+                        body: JSON.stringify({
+                            character_id: {{ $character->id }},
+                            experience: newXp,
+                            level: newLevel
+                        })
                     });
 
                     const result = await response.json();
 
-                    if (!response.ok || !result.success) {
-                        throw new Error(result.error || 'Ошибка сервера');
+                    if (result.success) {
+                        currentXp = newXp;
+                        if (newLevel) currentLevel = newLevel;
+                        updateMiniProgressBar(currentLevel, currentXp);
+                        return result;
                     }
-
-                    return result;
+                    throw new Error(result.error || 'Ошибка сервера');
                 } catch (error) {
-                    console.error('Error saving experience:', error);
+                    console.error('Ошибка сохранения опыта:', error);
                     throw error;
                 }
             }
@@ -1725,23 +1713,31 @@
             });
 
             // Функция обновления мини-прогресс бара
-            function updateMiniProgressBar() {
-                const nextLevel = currentLevel + 1;
-                const currentLevelXp = XP_TABLE[currentLevel] || 0;
+            function updateMiniProgressBar(level, xp) {
+                const nextLevel = level + 1;
+                const currentLevelXp = XP_TABLE[level] || 0;
                 const nextLevelXp = XP_TABLE[nextLevel] || XP_TABLE[20];
-                const xpInLevel = currentXp - currentLevelXp;
+                const xpInLevel = Math.max(0, xp - currentLevelXp);
                 const xpNeeded = nextLevelXp - currentLevelXp;
-                const progressPercent = (xpInLevel / xpNeeded) * 100;
+                const progressPercent = xpNeeded > 0 ? Math.min(100, (xpInLevel / xpNeeded) * 100) : 0;
 
-                // Обновляем мини-прогресс бар
-                const miniProgressBar = document.getElementById('mini-xp-progress-bar');
-                miniProgressBar.style.width = `${Math.min(100, progressPercent)}%`;
+                const miniBar = document.getElementById('mini-xp-progress-bar');
+                const miniText = document.getElementById('mini-xp-progress-text');
 
-                // Обновляем текст
-                document.getElementById('mini-xp-progress-text').textContent =
-                    `${xpInLevel}/${xpNeeded}`;
+                if (miniBar) miniBar.style.width = `${progressPercent}%`;
+                if (miniText) miniText.textContent = `${xpInLevel}/${xpNeeded}`;
+
+                document.querySelector('.character-level').textContent = `Уровень ${level}`;
             }
 
+            // Инициализация при загрузке
+            document.addEventListener("DOMContentLoaded", function() {
+                initProgressBars();
+            });
+
+            function initProgressBars() {
+                updateMiniProgressBar(currentLevel, currentXp);
+            }
 
         </script>
         <div class="sidebar-modal" id="settings-modal">
