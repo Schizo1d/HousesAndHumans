@@ -1048,12 +1048,6 @@ form label {
     background: #f44336;
 }
 
-.level-up-btn {
-    background: #ffaa00;
-    color: #333;
-    font-weight: bold;
-}
-
 .level-up-btn:disabled {
     background: #666;
     color: #ccc;
@@ -1155,14 +1149,6 @@ form label {
 
 .level-up-btn {
     background: #ffaa00;
-    color: #333;
-    border: none;
-    border-radius: 4px;
-    padding: 4px 8px;
-    font-size: 12px;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: background 0.2s;
 }
 
 .level-up-btn:hover {
