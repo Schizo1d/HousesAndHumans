@@ -32,7 +32,7 @@
 </header>
 <div class="header-two">
     <div class="container">
-        <nav class="nav">
+        <nav class="digital-nav">
             <div class="character-nav">
                 <div class="character-photo" id="character-avatar">
                     <img src="{{ $character->photo ?? asset('img/avatar2.png') }}" alt="Персонаж"

@@ -45,7 +45,11 @@ header {
     text-decoration: none;
     color: black;
 }
-
+.digital-nav{
+    display: flex;
+    justify-content: space-between;
+    height: 80px;
+}
 .container-info {
     max-width: 950px;
     margin: 0 auto;
