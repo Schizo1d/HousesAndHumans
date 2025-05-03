@@ -1135,11 +1135,10 @@ form label {
     top: 50%;
     transform: translateY(-50%);
     font-size: 10px;
-    font-weight: bold;
-    color: #333;
-    text-shadow: 0 0 2px white;
+    color: #ffffff;
     z-index: 2;
     padding: 5px;
+    font-weight: 700;
 }
 
 .character-level {
