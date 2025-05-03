@@ -35,7 +35,7 @@
         <nav class="nav">
             <div class="character-nav">
                 <div class="character-photo" id="character-avatar">
-                    <img src="{{ $character->photo ?? asset('img/avatar.png') }}" alt="Персонаж"
+                    <img src="{{ $character->photo ?? asset('img/avatar2.png') }}" alt="Персонаж"
                          class="character-photo-img">
                     <div class="dropdown-menu" id="character-dropdown">
                         <button class="dropdown-item" id="settings-btn">Настройки</button>
