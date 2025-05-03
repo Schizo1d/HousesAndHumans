@@ -982,6 +982,7 @@ form label {
     border-radius: 6px 0 0 6px;
     color: #333;
     font-weight: bold;
+    text-align: right;
 }
 
 .delete-btn {
