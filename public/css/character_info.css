@@ -1110,10 +1110,9 @@ form label {
     height: 18px;
     background: rgba(0, 0, 0, 0.2);
     border-radius: 10px;
-    overflow: hidden;
     min-width: 100px;
     cursor: pointer;
-    margin-left: 10px;
+    margin-left: 3px;
 }
 
 .mini-progress-container:hover {
@@ -1129,7 +1128,7 @@ form label {
     top: 0;
     left: 0;
     height: 100%;
-    background: linear-gradient(90deg, #ffd700, #ffaa00);
+    background: #edca99;
     transition: width 0.5s ease;
 }
 
@@ -1147,9 +1146,15 @@ form label {
 }
 
 .character-level {
-    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
     color: white;
-    min-width: 80px;
+    min-width: 65px;
+    background: #edca99;
+    border-radius: 10px 0 0 10px;
+    text-transform: uppercase;
 }
 
 .level-up-btn {
