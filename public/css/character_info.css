@@ -405,6 +405,7 @@ form label {
 
 .sidebar-modal.show {
     left: 0;
+    padding: 10px;
 }
 
 .sidebar-content {
@@ -467,11 +468,6 @@ form label {
 
 .close-sidebar:hover {
     color: black;
-}
-
-/* Когда открыто */
-.sidebar-modal.show {
-    left: 0;
 }
 
 #save-character-name {
