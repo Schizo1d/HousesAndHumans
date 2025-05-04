@@ -724,7 +724,6 @@
         <script>
 
             // Глобальные переменные
-            let nextLevelXp = XP_TABLE[currentLevel + 1] || XP_TABLE[20];
             const levelUpModal = document.getElementById('level-up-modal');
             const levelUpBtn = document.querySelector('.level-up-btn');
             let isLevelUpModalOpen = false;
@@ -733,6 +732,7 @@
             let currentExpression = '0';
             const characterId = document.querySelector('meta[name="character-id"]').getAttribute('content');
             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            let nextLevelXp = XP_TABLE[currentLevel + 1] || XP_TABLE[20];
 
             const XP_TABLE = {
                 1: 0,
