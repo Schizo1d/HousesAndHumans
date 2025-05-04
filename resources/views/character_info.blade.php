@@ -1593,28 +1593,34 @@
 
             // Функция обновления прогресс-бара
             function updateProgressBar() {
+                const currentLevel = parseInt(document.getElementById('current-level-value').textContent);
                 const nextLevel = currentLevel + 1;
+
+                // Получаем опыт для текущего и следующего уровня
                 const currentLevelXp = XP_TABLE[currentLevel] || 0;
                 const nextLevelXp = XP_TABLE[nextLevel] || XP_TABLE[20];
+
+                // Рассчитываем прогресс
                 const xpInLevel = currentXp - currentLevelXp;
                 const xpNeeded = nextLevelXp - currentLevelXp;
                 const progressPercent = (xpInLevel / xpNeeded) * 100;
 
-                // Обновляем прогресс-бар с анимацией
+                // Обновляем маркеры уровней
+                document.getElementById('current-level-xp').textContent = currentLevelXp + ' XP';
+                document.getElementById('next-level-xp').textContent = nextLevelXp + ' XP';
+
+                // Обновляем прогресс-бар
                 const progressBar = document.getElementById('xp-progress-bar');
-                progressBar.style.transition = 'width 0.3s ease';
                 progressBar.style.width = `${Math.min(100, progressPercent)}%`;
 
-                // Обновляем текст
-                document.getElementById('xp-progress-text').textContent =
-                    `${xpInLevel}/${xpNeeded} XP (${Math.round(progressPercent)}%)`;
+                // Обновляем текст на полоске (текущий опыт)
+                document.getElementById('xp-progress-text').textContent = currentXp + ' XP';
 
-                // Обновляем общий опыт и требуемый для следующего уровня
+                // Обновляем общий опыт и оставшийся
                 document.getElementById('total-xp-value').textContent = currentXp;
-                document.getElementById('next-level-xp').textContent = nextLevelXp;
-                document.getElementById('xp-remaining').textContent = Math.max(0, xpNeeded - xpInLevel);
+                document.getElementById('xp-remaining').textContent = Math.max(0, nextLevelXp - currentXp);
 
-                // Обновляем уровень
+                // Обновляем номера уровней
                 document.getElementById('current-level-value').textContent = currentLevel;
                 document.getElementById('next-level-value').textContent = nextLevel;
             }
@@ -1811,19 +1817,25 @@
 
                 <!-- Блок с уровнем и прогресс-баром -->
                 <div class="level-progress-container">
-                    <div class="level-info">
-                        <span class="current-level">Уровень <span id="current-level-value">{{ $character->level ?? 1 }}</span></span>
-                        <span class="total-xp">Всего XP: <span id="total-xp-value">0</span></span>
-                    </div>
-
-                    <div class="level-info">
-        <span class="next-level">До <span id="next-level-value">{{ ($character->level ?? 1) + 1 }}</span>:
-            <span id="xp-remaining">0</span> / <span id="next-level-xp">0</span> XP</span>
+                    <div class="level-markers">
+                        <div class="level-marker">
+                            <span class="level-number" id="current-level-value">{{ $character->level ?? 1 }}</span>
+                            <span class="level-xp" id="current-level-xp">0 XP</span>
+                        </div>
+                        <div class="level-marker next-level-marker">
+                            <span class="level-number" id="next-level-value">{{ ($character->level ?? 1) + 1 }}</span>
+                            <span class="level-xp" id="next-level-xp">0 XP</span>
+                        </div>
                     </div>
 
                     <div class="progress-bar-container">
                         <div class="progress-bar" id="xp-progress-bar"></div>
-                        <div class="progress-text" id="xp-progress-text">0/0 XP</div>
+                        <div class="progress-text" id="xp-progress-text">0 XP</div>
+                    </div>
+
+                    <div class="xp-summary">
+                        <span>Всего опыта: <span id="total-xp-value">0</span></span>
+                        <span>Осталось: <span id="xp-remaining">0</span> XP</span>
                     </div>
                 </div>
 

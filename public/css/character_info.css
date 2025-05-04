@@ -937,18 +937,69 @@ form label {
 
 /* Прогресс-бар */
 .progress-bar-container {
-    height: 18px;
+    position: relative;
+    height: 20px;
     background: rgba(0, 0, 0, 0.2);
     border-radius: 10px;
-    position: relative;
-    overflow: hidden;
-    margin-top: 15px;
+    margin-bottom: 8px;
+}
+.progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 12px;
+    font-weight: bold;
+    color: #333;
+    text-shadow: 0 0 2px white;
+}
+.xp-summary {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: white;
 }
 
+.xp-summary span {
+    display: flex;
+    align-items: center;
+}
+#total-xp-value, #xp-remaining {
+    color: #ffd700;
+    font-weight: bold;
+    margin-left: 5px;
+}
+.level-markers {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.level-marker {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.next-level-marker {
+    align-items: flex-end;
+}
+
+.level-number {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffd700;
+}
+
+.level-xp {
+    font-size: 14px;
+    color: white;
+}
 #xp-progress-bar {
     height: 100%;
     background: linear-gradient(90deg, #ffd700, #ffaa00);
     width: 0%;
+    border-radius: 10px;
     transition: width 0.5s ease;
 }
 
