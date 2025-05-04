@@ -1537,21 +1537,19 @@
                     const progressBar = document.getElementById('xp-progress-bar');
 
                     if (shouldLevelDown) {
-                        // Мгновенный сброс в 0 (без анимации)
-                        progressBar.style.transition = 'none';
-                        progressBar.style.width = '0%';
-
-                        // Микро-задержка для браузера
-                        await new Promise(resolve => setTimeout(resolve, 10));
-
-                        // Обновляем уровень
+                        // Мгновенно обновляем уровень и текстовые значения
                         currentLevel = newLevel;
-
-                        // Обновляем текстовые значения
                         document.getElementById('current-level-value').textContent = currentLevel;
                         document.getElementById('next-level-value').textContent = currentLevel + 1;
                         document.getElementById('current-level-xp').textContent = newLevelXp + ' XP';
                         document.getElementById('next-level-xp').textContent = nextLevelXp + ' XP';
+
+                        // Мгновенный сброс в 0% (без анимации)
+                        progressBar.style.transition = 'none';
+                        progressBar.style.width = '0%';
+
+                        // Микро-задержка для корректного отображения
+                        await new Promise(resolve => setTimeout(resolve, 10));
                     }
 
                     // Плавное заполнение до нового значения
