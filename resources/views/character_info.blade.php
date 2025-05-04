@@ -724,6 +724,7 @@
         <script>
 
             // Глобальные переменные
+            let nextLevelXp = XP_TABLE[currentLevel + 1] || XP_TABLE[20];
             const levelUpModal = document.getElementById('level-up-modal');
             const levelUpBtn = document.querySelector('.level-up-btn');
             let isLevelUpModalOpen = false;
@@ -1688,16 +1689,23 @@
                 currentXp = parseInt(miniProgress.dataset.currentXp) || 0;
                 nextLevelXp = parseInt(miniProgress.dataset.nextLevelXp) || XP_TABLE[currentLevel + 1];
 
-                // Инициализация прогресс-баров
                 updateMiniProgressBar();
+                updateProgressBar();
             });
             // Функция обновления мини-прогресс бара
             function updateMiniProgressBar() {
+                const nextLevel = currentLevel + 1;
+                nextLevelXp = XP_TABLE[nextLevel] || XP_TABLE[20]; // Обновляем значение
+                const currentLevelXp = XP_TABLE[currentLevel] || 0;
+
                 const miniBar = document.getElementById('mini-xp-progress-bar');
                 const miniText = document.getElementById('mini-xp-progress-text');
 
                 if (miniBar && miniText) {
-                    const progressPercent = ((currentXp - XP_TABLE[currentLevel]) / (nextLevelXp - XP_TABLE[currentLevel])) * 100;
+                    const xpInLevel = currentXp - currentLevelXp;
+                    const xpNeeded = nextLevelXp - currentLevelXp;
+                    const progressPercent = xpNeeded > 0 ? (xpInLevel / xpNeeded) * 100 : 0;
+
                     miniBar.style.width = `${progressPercent}%`;
                     miniText.textContent = `${currentXp}/${nextLevelXp}`;
                 }
