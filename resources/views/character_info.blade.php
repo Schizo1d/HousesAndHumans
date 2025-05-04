@@ -1701,7 +1701,7 @@
                 const miniText = document.getElementById('mini-xp-progress-text');
 
                 if (miniBar) miniBar.style.width = `${progressPercent}%`;
-                if (miniText) miniText.textContent = `${xpInLevel}/${xpNeeded}`;
+                if (miniText) miniText.textContent = `${currentXp}/${nextLevelXp}`;
 
                 // Обновляем уровень в шапке
                 document.querySelector('.character-level').textContent = `Уровень ${currentLevel}`;
