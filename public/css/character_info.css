@@ -1006,6 +1006,7 @@ form label {
     border-radius: 4px;
     position: relative;
     margin-top: 15px;
+    overflow: hidden
 }
 .progress-bar {
     height: 100%;
@@ -1197,6 +1198,7 @@ form label {
     min-width: 150px;
     cursor: pointer;
     margin-left: 3px;
+    overflow: hidden;
 }
 
 .mini-progress-container:hover {
