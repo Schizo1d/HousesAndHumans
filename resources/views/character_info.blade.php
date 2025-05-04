@@ -1412,37 +1412,26 @@
             }
             // Функции для работы с калькулятором
             function appendNumber(num) {
-                const input = document.getElementById('xp-input');
-                if (!input) return;
-
                 if (currentExpression === '0') {
                     currentExpression = num.toString();
                 } else {
                     currentExpression += num.toString();
                 }
-
-                input.value = currentExpression;
+                document.getElementById('xp-input').value = currentExpression;
             }
 
             function appendOperator(operator) {
-                const input = document.getElementById('xp-input');
-                if (!input) return;
-
-                // Проверяем, не является ли последний символ оператором
                 const lastChar = currentExpression.slice(-1);
                 if (['+', '-'].includes(lastChar)) {
-                    // Заменяем последний оператор
                     currentExpression = currentExpression.slice(0, -1) + operator;
                 } else {
                     currentExpression += operator;
                 }
-
-                input.value = currentExpression;
+                document.getElementById('xp-input').value = currentExpression;
             }
 
             function calculateExpression() {
                 try {
-                    // Безопасное вычисление выражения
                     return eval(currentExpression.replace(/[^-+0-9]/g, '')) || 0;
                 } catch (e) {
                     console.error('Error calculating expression:', e);
@@ -1463,7 +1452,7 @@
 
                     // Мгновенное обновление UI
                     currentXp = newXp;
-                    updateAllProgress();
+                    updateProgressBar();
                     clearInput();
                 } catch (error) {
                     console.error('Add XP error:', error);
@@ -1484,7 +1473,7 @@
 
                     // Мгновенное обновление UI
                     currentXp = newXp;
-                    updateAllProgress();
+                    updateProgressBar();
                     clearInput();
                 } catch (error) {
                     console.error('Subtract XP error:', error);
@@ -1496,6 +1485,7 @@
                 currentExpression = '0';
                 document.getElementById('xp-input').value = currentExpression;
             }
+
 
             // Функция для прибавления опыта
             async function addXp() {
@@ -1554,7 +1544,6 @@
                 const nextLevelXp = XP_TABLE[nextLevel] || XP_TABLE[20];
 
                 if (currentXp >= nextLevelXp && nextLevel <= 20) {
-                    // Показываем кнопку повышения уровня
                     document.getElementById('level-up-btn').style.display = 'block';
                 } else {
                     document.getElementById('level-up-btn').style.display = 'none';
@@ -1569,22 +1558,15 @@
                     try {
                         // Мгновенное обновление UI
                         currentLevel = nextLevel;
-                        document.querySelector('.character-level').textContent = `Уровень ${currentLevel}`;
+                        updateProgressBar();
 
                         // Анимация
                         animateLevelUp();
 
                         // Сохраняем на сервере
                         await saveExperience(currentXp, nextLevel);
-
-                        // Обновляем прогресс-бары
-                        updateAllProgress();
-
                     } catch (error) {
                         console.error('Ошибка при повышении уровня:', error);
-                        // Откатываем изменения при ошибке
-                        currentLevel = nextLevel - 1;
-                        updateAllProgress();
                         alert('Ошибка при повышении уровня: ' + error.message);
                     }
                 } else {
@@ -1601,24 +1583,12 @@
                     progressBar.style.transition = 'width 0.5s ease';
                     updateProgressBar();
                 }, 10);
-
-                // Анимация для мини-прогресс бара
-                const miniBar = document.getElementById('mini-xp-progress-bar');
-                miniBar.style.transition = 'none';
-                miniBar.style.width = '0%';
-
-                setTimeout(() => {
-                    miniBar.style.transition = 'width 0.5s ease';
-                    updateMiniProgressBar();
-                }, 10);
             }
+
 
             // Функция обновления прогресс-бара
             function updateProgressBar() {
-                const currentLevel = parseInt(document.getElementById('current-level-value').textContent);
                 const nextLevel = currentLevel + 1;
-
-                // Получаем опыт для текущего и следующего уровня
                 const currentLevelXp = XP_TABLE[currentLevel] || 0;
                 const nextLevelXp = XP_TABLE[nextLevel] || XP_TABLE[20];
 
@@ -1627,21 +1597,26 @@
                 const xpNeeded = nextLevelXp - currentLevelXp;
                 const progressPercent = (xpInLevel / xpNeeded) * 100;
 
-                // Обновляем маркеры уровней
-                document.getElementById('current-level-xp').textContent = currentLevelXp + ' XP';
-                document.getElementById('next-level-xp').textContent = nextLevelXp + ' XP';
-
-                // Обновляем прогресс-бар
+                // Обновляем полоску прогресса
                 const progressBar = document.getElementById('xp-progress-bar');
                 progressBar.style.width = `${Math.min(100, progressPercent)}%`;
 
-                // Обновляем текущий опыт на индикаторе
+                // Обновляем индикатор текущего опыта
                 document.getElementById('current-xp-display').textContent = currentXp;
 
-                // Обновляем номера уровней
+                // Обновляем значения уровней и опыта
                 document.getElementById('current-level-value').textContent = currentLevel;
                 document.getElementById('next-level-value').textContent = nextLevel;
+                document.getElementById('current-level-xp').textContent = currentLevelXp + ' XP';
+                document.getElementById('next-level-xp').textContent = nextLevelXp + ' XP';
+
+                // Обновляем мини-прогресс бар в шапке
+                updateMiniProgressBar();
+
+                // Проверяем возможность повышения уровня
+                checkLevelUp();
             }
+
 
             // Функция для сохранения опыта на сервере
             async function saveExperience(newXp, newLevel = currentLevel) {
@@ -1659,19 +1634,9 @@
                         })
                     });
 
-                    const result = await response.json();
-
-                    if (result.success) {
-                        // Обновляем UI перед ответом сервера для мгновенной реакции
-                        currentXp = newXp;
-                        currentLevel = newLevel;
-                        updateAllProgress();
-                        return result;
-                    }
-                    throw new Error(result.error || 'Ошибка сервера');
+                    return await response.json();
                 } catch (error) {
                     console.error('Ошибка сохранения опыта:', error);
-                    // В случае ошибки можно показать сообщение, но UI уже обновился
                     throw error;
                 }
             }
@@ -1728,15 +1693,18 @@
                 const nextLevel = currentLevel + 1;
                 const currentLevelXp = XP_TABLE[currentLevel] || 0;
                 const nextLevelXp = XP_TABLE[nextLevel] || XP_TABLE[20];
-                const xpInLevel = Math.max(0, currentXp - currentLevelXp);
+                const xpInLevel = currentXp - currentLevelXp;
                 const xpNeeded = nextLevelXp - currentLevelXp;
-                const progressPercent = xpNeeded > 0 ? Math.min(100, (xpInLevel / xpNeeded) * 100) : 0;
+                const progressPercent = (xpInLevel / xpNeeded) * 100;
 
                 const miniBar = document.getElementById('mini-xp-progress-bar');
                 const miniText = document.getElementById('mini-xp-progress-text');
 
                 if (miniBar) miniBar.style.width = `${progressPercent}%`;
                 if (miniText) miniText.textContent = `${xpInLevel}/${xpNeeded}`;
+
+                // Обновляем уровень в шапке
+                document.querySelector('.character-level').textContent = `Уровень ${currentLevel}`;
             }
 
 
