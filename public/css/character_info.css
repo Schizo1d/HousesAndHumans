@@ -1290,3 +1290,16 @@ form label {
     color: #ffd700;
     font-weight: bold;
 }
+.level-down-btn {
+    background: #9c27b0;
+    color: white;
+}
+
+.level-down-btn:hover {
+    background: #7b1fa2;
+}
+
+/* Скрываем кнопки по умолчанию */
+#level-up-btn, #level-down-btn {
+    display: none;
+}

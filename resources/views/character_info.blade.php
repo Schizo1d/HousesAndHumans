@@ -1642,17 +1642,15 @@
 
                     if (data.success) {
                         currentXp = newXp;
-                        if (newLevel) currentLevel = newLevel;
+                        currentLevel = newLevel;
                         nextLevelXp = XP_TABLE[currentLevel + 1] || XP_TABLE[20];
 
-                        // Обновляем data-атрибуты
-                        const miniProgress = document.querySelector('.mini-progress-container');
-                        miniProgress.dataset.currentXp = currentXp;
-                        miniProgress.dataset.currentLevel = currentLevel;
-                        miniProgress.dataset.nextLevelXp = nextLevelXp;
-
-                        updateMiniProgressBar();
                         updateProgressBar();
+                        updateMiniProgressBar();
+
+                        // Проверяем обе кнопки после изменения
+                        checkLevelUp();
+                        checkLevelDown();
                     }
 
                     return data;
@@ -1662,6 +1660,37 @@
                 }
             }
 
+            // Функция понижения уровня
+            async function levelDownCharacter() {
+                const prevLevel = currentLevel - 1;
+                const prevLevelXp = XP_TABLE[prevLevel] || 0;
+
+                try {
+                    // Мгновенное обновление UI
+                    currentLevel = prevLevel;
+                    updateProgressBar();
+
+                    // Сохраняем на сервере
+                    await saveExperience(currentXp, prevLevel);
+
+                    // Скрываем кнопку понижения, если теперь опыт соответствует уровню
+                    checkLevelDown();
+                } catch (error) {
+                    console.error('Ошибка при понижении уровня:', error);
+                    alert('Ошибка при понижении уровня: ' + error.message);
+                }
+            }
+
+            // Проверка возможности понижения уровня
+            function checkLevelDown() {
+                const currentLevelXp = XP_TABLE[currentLevel] || 0;
+                const shouldShowLevelDown = currentXp < currentLevelXp && currentLevel > 1;
+
+                const levelDownBtn = document.getElementById('level-down-btn');
+                if (levelDownBtn) {
+                    levelDownBtn.style.display = shouldShowLevelDown ? 'block' : 'none';
+                }
+            }
             function deleteLastChar() {
                 if (currentExpression.length > 1) {
                     currentExpression = currentExpression.slice(0, -1);
@@ -1729,14 +1758,16 @@
             });
 
             function initProgressBars() {
-                // Получаем начальные значения из data-атрибутов
                 const miniProgress = document.querySelector('.mini-progress-container');
                 currentLevel = parseInt(miniProgress.dataset.currentLevel) || 1;
                 currentXp = parseInt(miniProgress.dataset.currentXp) || 0;
 
-                // Обновляем все прогресс-бары
                 updateProgressBar();
                 updateMiniProgressBar();
+
+                // Проверяем обе кнопки при загрузке
+                checkLevelUp();
+                checkLevelDown();
             }
 
             document.addEventListener("DOMContentLoaded", function() {
@@ -1856,6 +1887,7 @@
                         <button type="button" class="xp-action-btn add-btn" onclick="calculateAndAdd()">ПРИБАВИТЬ</button>
                         <button type="button" class="xp-action-btn subtract-btn" onclick="calculateAndSubtract()">ОТНЯТЬ</button>
                         <button type="button" class="xp-action-btn level-up-btn" id="level-up-btn" onclick="levelUpCharacter()">ПОВЫСИТЬ</button>
+                        <button type="button" class="xp-action-btn level-down-btn" id="level-down-btn" onclick="levelDownCharacter()">ПОНИЗИТЬ</button>
                     </div>
                 </div>
             </div>
