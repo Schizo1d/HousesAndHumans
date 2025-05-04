@@ -1793,7 +1793,6 @@
 
                 <!-- Блок с уровнем и прогресс-баром -->
                 <div class="level-progress-container">
-                    <div class="progress-bar-сontainer">
                     <div class="level-marker current-level">
                         <span class="level-number" id="current-level-value">1</span>
                         <span class="level-xp" id="current-level-xp">0 XP</span>
@@ -1810,7 +1809,6 @@
                     <div class="level-marker next-level">
                         <span class="level-number" id="next-level-value">2</span>
                         <span class="level-xp" id="next-level-xp">300 XP</span>
-                    </div>
                     </div>
                 </div>
 
