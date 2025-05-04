@@ -1755,6 +1755,15 @@
             document.addEventListener("DOMContentLoaded", function() {
                 updateMiniProgressBar();
             });
+            document.addEventListener("DOMContentLoaded", function() {
+                // Получаем начальные значения
+                const miniProgress = document.querySelector('.mini-progress-container');
+                currentLevel = parseInt(miniProgress.dataset.currentLevel) || 1;
+                currentXp = parseInt(miniProgress.dataset.currentXp) || 0;
+
+                // Инициализируем прогресс-бары
+                updateProgressBar();
+            });
         </script>
         <div class="sidebar-modal" id="settings-modal">
             <div class="sidebar-content">
