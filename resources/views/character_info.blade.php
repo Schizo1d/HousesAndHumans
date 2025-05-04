@@ -1523,47 +1523,19 @@
                 const prevLevelXp = XP_TABLE[currentLevel - 1] || 0;
 
                 try {
-                    // 1. Проверяем, нужно ли понизить уровень
+                    // Проверяем, нужно ли понизить уровень
                     const shouldLevelDown = newXp < currentLevelXp && currentLevel > 1;
 
-                    // 2. Получаем новые границы XP
-                    let newLevel = shouldLevelDown ? currentLevel - 1 : currentLevel;
-                    const newLevelXp = XP_TABLE[newLevel] || 0;
-                    const nextLevelXp = XP_TABLE[newLevel + 1] || XP_TABLE[20];
-
-                    // 3. Рассчитываем новый прогресс
-                    const progressPercent = ((newXp - newLevelXp) / (nextLevelXp - newLevelXp)) * 100;
-
-                    // 4. Анимируем изменение
-                    const progressBar = document.getElementById('xp-progress-bar');
-
                     if (shouldLevelDown) {
-                        // Мгновенно сбрасываем прогресс в 0 (без анимации)
-                        progressBar.style.transition = 'none';
-                        progressBar.style.width = '0%';
-
-                        // Обновляем уровень и текстовые значения
-                        currentLevel = newLevel;
-                        document.getElementById('current-level-value').textContent = currentLevel;
-                        document.getElementById('next-level-value').textContent = currentLevel + 1;
-                        document.getElementById('current-level-xp').textContent = newLevelXp + ' XP';
-                        document.getElementById('next-level-xp').textContent = nextLevelXp + ' XP';
-
-                        // Ждем небольшой промежуток времени перед анимацией заполнения
-                        await new Promise(resolve => setTimeout(resolve, 10));
+                        // Если нужно понизить уровень, вызываем levelDownCharacter
+                        await levelDownCharacter();
+                        return;
                     }
 
-                    // Включаем анимацию и плавно заполняем до нового значения
-                    progressBar.style.transition = 'width 0.5s ease';
-                    progressBar.style.width = `${progressPercent}%`;
-
-                    // 5. Обновляем остальные значения
+                    // Если уровень не меняется, просто обновляем XP
                     currentXp = newXp;
-                    document.getElementById('current-xp-display').textContent = currentXp;
-                    updateMiniProgressBar();
-
-                    // 6. Сохраняем изменения
-                    await saveExperience(currentXp, currentLevel);
+                    await saveExperience(currentXp);
+                    updateProgressBar();
 
                 } catch (error) {
                     console.error('Ошибка:', error);
@@ -1573,6 +1545,7 @@
 
                 input.value = "0";
             }
+
 
             // Обновление отображения текущего опыта
             function updateXpDisplay() {
@@ -1631,24 +1604,14 @@
 
 
             // Функция обновления прогресс-бара
-            function updateProgressBar(disableAnimation = false) {
+            function updateProgressBar() {
                 const currentLevelXp = XP_TABLE[currentLevel] || 0;
                 const nextLevelXp = XP_TABLE[currentLevel + 1] || XP_TABLE[20];
-
-                // Всегда считаем прогресс от текущего уровня к следующему
                 const progressPercent = ((currentXp - currentLevelXp) / (nextLevelXp - currentLevelXp)) * 100;
 
                 const progressBar = document.getElementById('xp-progress-bar');
+                progressBar.style.width = `${progressPercent}%`;
 
-                if (disableAnimation) {
-                    progressBar.style.transition = 'none';
-                    progressBar.style.width = `${Math.min(100, progressPercent)}%`;
-                    setTimeout(() => progressBar.style.transition = 'width 0.5s ease', 10);
-                } else {
-                    progressBar.style.width = `${Math.min(100, progressPercent)}%`;
-                }
-
-                // Обновляем текстовые значения
                 document.getElementById('current-level-value').textContent = currentLevel;
                 document.getElementById('next-level-value').textContent = currentLevel + 1;
                 document.getElementById('current-level-xp').textContent = currentLevelXp + ' XP';
@@ -1747,12 +1710,8 @@
                     // Ждем завершения анимации сброса
                     await new Promise(resolve => setTimeout(resolve, 300));
 
-                    // 2. Обновляем данные уровня (без анимации)
+                    // 2. Обновляем данные уровня
                     currentLevel = newLevel;
-                    document.getElementById('current-level-value').textContent = currentLevel;
-                    document.getElementById('next-level-value').textContent = currentLevel + 1;
-                    document.getElementById('current-level-xp').textContent = newLevelXp + ' XP';
-                    document.getElementById('next-level-xp').textContent = nextLevelXp + ' XP';
 
                     // 3. Рассчитываем новый прогресс
                     const progressPercent = ((currentXp - newLevelXp) / (nextLevelXp - newLevelXp)) * 100;
@@ -1767,10 +1726,17 @@
                         progressBar.style.width = `${progressPercent}%`;
                     }, 10);
 
-                    // 6. Обновляем мини-прогресс бар
+                    // 6. Обновляем текстовые значения
+                    document.getElementById('current-level-value').textContent = currentLevel;
+                    document.getElementById('next-level-value').textContent = currentLevel + 1;
+                    document.getElementById('current-level-xp').textContent = newLevelXp + ' XP';
+                    document.getElementById('next-level-xp').textContent = nextLevelXp + ' XP';
+                    document.getElementById('current-xp-display').textContent = currentXp;
+
+                    // 7. Обновляем мини-прогресс бар
                     updateMiniProgressBar();
 
-                    // 7. Сохраняем изменения на сервере
+                    // 8. Сохраняем изменения на сервере
                     await saveExperience(currentXp, newLevel);
 
                 } catch (error) {
