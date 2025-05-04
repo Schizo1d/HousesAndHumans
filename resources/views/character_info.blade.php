@@ -1662,6 +1662,14 @@
                 }
             }
 
+            function deleteLastChar() {
+                if (currentExpression.length > 1) {
+                    currentExpression = currentExpression.slice(0, -1);
+                } else {
+                    currentExpression = '0';
+                }
+                document.getElementById('xp-input').value = currentExpression;
+            }
             document.addEventListener("DOMContentLoaded", function() {
                 // Получаем данные из data-атрибутов
                 const miniProgress = document.querySelector('.mini-progress-container');
