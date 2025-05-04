@@ -1655,6 +1655,13 @@
             // Функция для сохранения опыта на сервере
             async function saveExperience(newXp, newLevel = currentLevel) {
                 try {
+                    // Временно отключаем анимацию при сохранении
+                    const progressBar = document.getElementById('xp-progress-bar');
+                    const hadTransition = progressBar.style.transition !== 'none';
+                    if (hadTransition) {
+                        progressBar.style.transition = 'none';
+                    }
+
                     const response = await fetch('/character/update-experience', {
                         method: 'POST',
                         headers: {
@@ -1675,12 +1682,15 @@
                         currentLevel = newLevel;
                         nextLevelXp = XP_TABLE[currentLevel + 1] || XP_TABLE[20];
 
-                        updateProgressBar();
-                        updateMiniProgressBar();
+                        // Обновляем с учетом необходимости анимации
+                        updateProgressBar(!hadTransition);
+                    }
 
-                        // Проверяем обе кнопки после изменения
-                        checkLevelUp();
-                        checkLevelDown();
+                    // Восстанавливаем анимацию, если была
+                    if (hadTransition) {
+                        setTimeout(() => {
+                            progressBar.style.transition = 'width 0.5s ease';
+                        }, 10);
                     }
 
                     return data;
