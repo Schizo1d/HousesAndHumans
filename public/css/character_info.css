@@ -1199,7 +1199,7 @@ form label {
     position: relative;
     height: 18px;
     background: rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
+    border-radius: 0px 10px 10px 0px;
     min-width: 150px;
     cursor: pointer;
     margin-left: 3px;
