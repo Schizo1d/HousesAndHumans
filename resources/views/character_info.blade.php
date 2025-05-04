@@ -1633,18 +1633,39 @@
             function updateProgressBar(disableAnimation = false) {
                 const currentLevelXp = XP_TABLE[currentLevel] || 0;
                 const nextLevelXp = XP_TABLE[currentLevel + 1] || XP_TABLE[20];
+                const prevLevelXp = XP_TABLE[currentLevel - 1] || 0;
 
-                // Всегда считаем прогресс от текущего уровня к следующему
-                const progressPercent = ((currentXp - currentLevelXp) / (nextLevelXp - currentLevelXp)) * 100;
+                // Определяем границы для прогресса
+                let startXp, endXp;
+                if (currentXp < currentLevelXp) {
+                    // Если XP меньше текущего уровня, показываем прогресс от предыдущего уровня
+                    startXp = prevLevelXp;
+                    endXp = currentLevelXp;
+                } else {
+                    // Иначе показываем прогресс к следующему уровню
+                    startXp = currentLevelXp;
+                    endXp = nextLevelXp;
+                }
+
+                // Рассчитываем процент прогресса
+                let progressPercent = 0;
+                if (endXp > startXp) {
+                    progressPercent = ((currentXp - startXp) / (endXp - startXp)) * 100;
+                }
 
                 const progressBar = document.getElementById('xp-progress-bar');
 
+                // Если XP меньше текущего уровня - принудительно 0%
+                if (currentXp < currentLevelXp) {
+                    progressPercent = 0;
+                }
+
                 if (disableAnimation) {
                     progressBar.style.transition = 'none';
-                    progressBar.style.width = `${Math.min(100, progressPercent)}%`;
+                    progressBar.style.width = `${progressPercent}%`;
                     setTimeout(() => progressBar.style.transition = 'width 0.5s ease', 10);
                 } else {
-                    progressBar.style.width = `${Math.min(100, progressPercent)}%`;
+                    progressBar.style.width = `${progressPercent}%`;
                 }
 
                 // Обновляем текстовые значения
@@ -1657,6 +1678,7 @@
                 updateMiniProgressBar();
                 checkLevelButtons();
             }
+
 
             function checkLevelButtons() {
                 const currentLevelXp = XP_TABLE[currentLevel] || 0;
