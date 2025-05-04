@@ -1297,13 +1297,14 @@
                     backdrop.classList.add('active');
                     modal.classList.add('show');
                     isLevelUpModalOpen = true;
+
+                    // Обновляем данные при открытии модального окна
+                    updateProgressBar();
                 }, 10);
 
-                updateProgressBar();
                 document.getElementById('xp-input').value = '0';
                 currentExpression = '0';
             }
-
 
 
             function closeLevelUpModal() {
@@ -1607,7 +1608,15 @@
                 // Обновляем текст
                 document.getElementById('xp-progress-text').textContent =
                     `${xpInLevel}/${xpNeeded} XP (${Math.round(progressPercent)}%)`;
+
+                // Обновляем общий опыт и требуемый для следующего уровня
+                document.getElementById('total-xp-value').textContent = currentXp;
+                document.getElementById('next-level-xp').textContent = nextLevelXp;
                 document.getElementById('xp-remaining').textContent = Math.max(0, xpNeeded - xpInLevel);
+
+                // Обновляем уровень
+                document.getElementById('current-level-value').textContent = currentLevel;
+                document.getElementById('next-level-value').textContent = nextLevel;
             }
 
 
@@ -1732,7 +1741,14 @@
             });
 
             function initProgressBars() {
-                updateMiniProgressBar(currentLevel, currentXp);
+                // Получаем начальные значения из data-атрибутов
+                const miniProgress = document.querySelector('.mini-progress-container');
+                currentLevel = parseInt(miniProgress.dataset.currentLevel) || 1;
+                currentXp = parseInt(miniProgress.dataset.currentXp) || 0;
+
+                // Обновляем все прогресс-бары
+                updateProgressBar();
+                updateMiniProgressBar();
             }
 
             document.addEventListener("DOMContentLoaded", function() {
@@ -1797,8 +1813,12 @@
                 <div class="level-progress-container">
                     <div class="level-info">
                         <span class="current-level">Уровень <span id="current-level-value">{{ $character->level ?? 1 }}</span></span>
-                        <span class="next-level">До <span id="next-level-value">{{ ($character->level ?? 1) + 1 }}</span>:
-            <span id="xp-remaining">0</span> XP</span>
+                        <span class="total-xp">Всего XP: <span id="total-xp-value">0</span></span>
+                    </div>
+
+                    <div class="level-info">
+        <span class="next-level">До <span id="next-level-value">{{ ($character->level ?? 1) + 1 }}</span>:
+            <span id="xp-remaining">0</span> / <span id="next-level-xp">0</span> XP</span>
                     </div>
 
                     <div class="progress-bar-container">

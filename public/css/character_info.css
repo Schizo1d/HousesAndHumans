@@ -1176,3 +1176,17 @@ form label {
         order: 2;
     }
 }
+.total-xp {
+    color: white;
+    font-size: 14px;
+}
+
+.total-xp #total-xp-value {
+    color: #ffd700;
+    font-weight: bold;
+}
+
+.next-level-xp {
+    color: #ffd700;
+    font-weight: bold;
+}
