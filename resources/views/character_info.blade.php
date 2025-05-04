@@ -1848,13 +1848,20 @@
                 updateMiniProgressBar();
             });
             document.addEventListener("DOMContentLoaded", function() {
-                // Получаем начальные значения
                 const miniProgress = document.querySelector('.mini-progress-container');
                 currentLevel = parseInt(miniProgress.dataset.currentLevel) || 1;
                 currentXp = parseInt(miniProgress.dataset.currentXp) || 0;
+                nextLevelXp = XP_TABLE[currentLevel + 1] || XP_TABLE[20];
 
-                // Инициализируем прогресс-бары
+                // Инициализация с отключенной анимацией
+                const progressBar = document.getElementById('xp-progress-bar');
+                progressBar.style.transition = 'none';
                 updateProgressBar();
+
+                // Включаем анимацию после небольшой задержки
+                setTimeout(() => {
+                    progressBar.style.transition = 'width 0.5s ease';
+                }, 100);
             });
 
         </script>
