@@ -1203,6 +1203,7 @@ form label {
     flex-grow: 1;
     cursor: pointer;
     overflow: hidden;
+    margin-left: 5px;
 }
 
 .mini-progress-container:hover {
@@ -1220,7 +1221,6 @@ form label {
     height: 100%;
     background: #edca99;
     transition: width 0.5s ease;
-    margin-left: 5px;
 }
 
 
