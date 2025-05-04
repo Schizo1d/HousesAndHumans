@@ -1293,6 +1293,7 @@ form label {
 .level-down-btn {
     background: #9c27b0;
     color: white;
+    display: none; /* Скрыта по умолчанию */
 }
 
 .level-down-btn:hover {
