@@ -53,11 +53,13 @@
                     <div class="character-header-exp">
                         <span class="character-level">Уровень {{ $character->level }}</span>
                         <div class="mini-progress-container" onclick="openLevelUpModal()"
-                             data-current-xp="{{ $character->experience }}"
-                             data-current-level="{{ $character->level }}">
-                            <div class="mini-progress-bar" id="mini-xp-progress-bar" style="width: {{ $progressPercent }}%"></div>
+                             data-current-xp="{{ $totalXp }}"
+                             data-current-level="{{ $character->level }}"
+                             data-next-level-xp="{{ $nextLevelXp }}">
+                            <div class="mini-progress-bar" id="mini-xp-progress-bar"
+                                 style="width: {{ $progressPercent }}%"></div>
                             <div class="mini-progress-text" id="mini-xp-progress-text">
-                                {{ $xpInLevel }}/{{ $xpNeeded }}
+                                {{ $totalXp }}/{{ $nextLevelXp }}
                             </div>
                         </div>
                     </div>
@@ -1634,35 +1636,28 @@
                         })
                     });
 
-                    return await response.json();
+                    const data = await response.json();
+
+                    if (data.success) {
+                        currentXp = newXp;
+                        if (newLevel) currentLevel = newLevel;
+                        nextLevelXp = XP_TABLE[currentLevel + 1] || XP_TABLE[20];
+
+                        // Обновляем data-атрибуты
+                        const miniProgress = document.querySelector('.mini-progress-container');
+                        miniProgress.dataset.currentXp = currentXp;
+                        miniProgress.dataset.currentLevel = currentLevel;
+                        miniProgress.dataset.nextLevelXp = nextLevelXp;
+
+                        updateMiniProgressBar();
+                        updateProgressBar();
+                    }
+
+                    return data;
                 } catch (error) {
                     console.error('Ошибка сохранения опыта:', error);
                     throw error;
                 }
-            }
-            function deleteLastChar() {
-                const input = document.getElementById('xp-input');
-                if (!input) return;
-
-                if (currentExpression.length > 1) {
-                    currentExpression = currentExpression.slice(0, -1);
-                } else {
-                    currentExpression = '0';
-                }
-
-                input.value = currentExpression;
-            }
-            function updateAllProgress() {
-                // Обновляем модальное окно, если оно открыто
-                if (isLevelUpModalOpen) {
-                    updateProgressBar();
-                }
-
-                // Обновляем мини-прогресс бар в шапке
-                updateMiniProgressBar();
-
-                // Проверяем, нужно ли повысить уровень
-                checkLevelUp();
             }
 
             document.addEventListener("DOMContentLoaded", function() {
@@ -1687,23 +1682,26 @@
                     backdrop.style.display = 'none';
                 }, 300);
             });
+            document.addEventListener("DOMContentLoaded", function() {
+                const miniProgress = document.querySelector('.mini-progress-container');
+                currentLevel = parseInt(miniProgress.dataset.currentLevel) || 1;
+                currentXp = parseInt(miniProgress.dataset.currentXp) || 0;
+                nextLevelXp = parseInt(miniProgress.dataset.nextLevelXp) || XP_TABLE[currentLevel + 1];
 
+                // Инициализация прогресс-баров
+                updateMiniProgressBar();
+            });
             // Функция обновления мини-прогресс бара
             function updateMiniProgressBar() {
-                const nextLevel = currentLevel + 1;
-                const currentLevelXp = XP_TABLE[currentLevel] || 0;
-                const nextLevelXp = XP_TABLE[nextLevel] || XP_TABLE[20];
-                const xpInLevel = currentXp - currentLevelXp;
-                const xpNeeded = nextLevelXp - currentLevelXp;
-                const progressPercent = (xpInLevel / xpNeeded) * 100;
-
                 const miniBar = document.getElementById('mini-xp-progress-bar');
                 const miniText = document.getElementById('mini-xp-progress-text');
 
-                if (miniBar) miniBar.style.width = `${progressPercent}%`;
-                if (miniText) miniText.textContent = `${currentXp}/${nextLevelXp}`;
+                if (miniBar && miniText) {
+                    const progressPercent = ((currentXp - XP_TABLE[currentLevel]) / (nextLevelXp - XP_TABLE[currentLevel])) * 100;
+                    miniBar.style.width = `${progressPercent}%`;
+                    miniText.textContent = `${currentXp}/${nextLevelXp}`;
+                }
 
-                // Обновляем уровень в шапке
                 document.querySelector('.character-level').textContent = `Уровень ${currentLevel}`;
             }
 

@@ -16,7 +16,7 @@ class CharacterController extends Controller
             return redirect()->route('main')->with('error', 'Персонаж не найден.');
         }
 
-        // Рассчитываем прогресс для отображения
+        // Таблица опыта для уровней
         $xpTable = [
             1 => 0, 2 => 300, 3 => 900, 4 => 2700, 5 => 6500,
             6 => 14000, 7 => 23000, 8 => 34000, 9 => 48000,
@@ -27,13 +27,31 @@ class CharacterController extends Controller
 
         $currentLevel = $character->level;
         $nextLevel = min($currentLevel + 1, 20);
+
+        // Опыт для текущего уровня
         $currentLevelXp = $xpTable[$currentLevel] ?? 0;
+        // Опыт для следующего уровня
         $nextLevelXp = $xpTable[$nextLevel] ?? 0;
-        $xpInLevel = max(0, $character->experience - $currentLevelXp);
+
+        // Общий опыт персонажа
+        $totalXp = $character->experience;
+
+        // Опыт в текущем уровне (для прогресс-бара)
+        $xpInLevel = max(0, $totalXp - $currentLevelXp);
+        // Опыт, нужный для следующего уровня
         $xpNeeded = $nextLevelXp - $currentLevelXp;
+
+        // Процент заполнения прогресс-бара
         $progressPercent = $xpNeeded > 0 ? min(100, ($xpInLevel / $xpNeeded) * 100) : 0;
 
-        return view('character_info', compact('character', 'xpInLevel', 'xpNeeded', 'progressPercent'));
+        return view('character_info', [
+            'character' => $character,
+            'totalXp' => $totalXp,
+            'nextLevelXp' => $nextLevelXp,
+            'xpInLevel' => $xpInLevel,
+            'xpNeeded' => $xpNeeded,
+            'progressPercent' => $progressPercent
+        ]);
     }
     public function index()
     {
@@ -150,41 +168,53 @@ class CharacterController extends Controller
     }
     public function updateExperience(Request $request)
     {
-        // Проверяем авторизацию
         $user = Auth::user();
         if (!$user) {
             return response()->json(['success' => false, 'error' => 'Не авторизован'], 401);
         }
 
-        // Проверяем данные
         $request->validate([
             'character_id' => 'required|integer',
             'experience' => 'required|integer|min:0',
-            'level' => 'required|integer|min:1|max:20' // Изменили на required
+            'level' => 'required|integer|min:1|max:20'
         ]);
 
-        // Находим персонажа
         $character = $user->characters()->find($request->character_id);
         if (!$character) {
             return response()->json(['success' => false, 'error' => 'Персонаж не найден'], 404);
         }
 
-        // Обновляем данные
-        $character->experience = $request->experience;
-        $character->level = $request->level; // Теперь level обязателен
+        $xpTable = [
+            1 => 0, 2 => 300, 3 => 900, 4 => 2700, 5 => 6500,
+            6 => 14000, 7 => 23000, 8 => 34000, 9 => 48000,
+            10 => 64000, 11 => 85000, 12 => 100000, 13 => 120000,
+            14 => 140000, 15 => 165000, 16 => 195000, 17 => 225000,
+            18 => 265000, 19 => 305000, 20 => 355000
+        ];
 
-        try {
-            $character->save();
-            return response()->json([
-                'success' => true,
-                'newExperience' => $character->experience,
-                'newLevel' => $character->level
-            ]);
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'error' => 'Ошибка сохранения: ' . $e->getMessage()
-            ], 500);
-        }
+        $character->experience = $request->experience;
+        $character->level = $request->level;
+        $character->save();
+
+        $nextLevelXp = $xpTable[min($character->level + 1, 20)] ?? $xpTable[20];
+
+        return response()->json([
+            'success' => true,
+            'newExperience' => $character->experience,
+            'newLevel' => $character->level,
+            'nextLevelXp' => $nextLevelXp,
+            'totalXp' => $character->experience,
+            'progressPercent' => $this->calculateProgressPercent($character->experience, $character->level, $xpTable)
+        ]);
+    }
+    private function calculateProgressPercent($experience, $level, $xpTable)
+    {
+        $currentLevelXp = $xpTable[$level] ?? 0;
+        $nextLevel = min($level + 1, 20);
+        $nextLevelXp = $xpTable[$nextLevel] ?? 0;
+        $xpInLevel = max(0, $experience - $currentLevelXp);
+        $xpNeeded = $nextLevelXp - $currentLevelXp;
+
+        return $xpNeeded > 0 ? min(100, ($xpInLevel / $xpNeeded) * 100) : 0;
     }
 }
