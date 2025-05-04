@@ -732,7 +732,7 @@
             let currentExpression = '0';
             const characterId = document.querySelector('meta[name="character-id"]').getAttribute('content');
             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-            let nextLevelXp = XP_TABLE[currentLevel + 1] || XP_TABLE[20];
+
 
             const XP_TABLE = {
                 1: 0,
@@ -756,6 +756,7 @@
                 19: 305000,
                 20: 355000
             };
+            let nextLevelXp = XP_TABLE[currentLevel + 1] || XP_TABLE[20];
             let currentAttr = null;
 
             const attributeNames = {
