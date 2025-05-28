@@ -1307,6 +1307,44 @@ form label {
 }
 
 /*Пассивные чувства*/
+.passive-skills {
+    margin-top: 30px;
+    padding: 15px;
+    background: rgba(145, 95, 50, 0.2);
+    border-radius: 8px;
+}
+
+.passive-skills h3 {
+    color: white;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 18px;
+    text-align: center;
+}
+
+.passive-skill-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 8px 12px;
+    background: rgba(145, 95, 50, 0.3);
+    border-radius: 6px;
+}
+
+.passive-skill-name {
+    flex: 1;
+    color: white;
+    font-size: 16px;
+}
+
+.passive-skill-value {
+    font-weight: bold;
+    min-width: 30px;
+    text-align: center;
+    color: #ffd700;
+}
+
+/* Стили для пассивных чувств в модальном окне */
 #passive-skills-section {
     background: rgba(0, 0, 0, 0.1);
     padding: 15px;

@@ -709,6 +709,37 @@
                 </div>
 
 
+                <div class="passive-skills">
+                    <h3>Пассивные чувства</h3>
+
+                    <div class="passive-skill-item">
+                        <span class="passive-skill-name">Восприятие (Мудрость):</span>
+                        <span class="passive-skill-value" id="passive-perception-button">
+            {{ $character->attributes->passive_perception ?? 10 }}
+        </span>
+                        <input type="hidden" id="passive_perception" name="passive_perception"
+                               value="{{ $character->attributes->passive_perception ?? 10 }}">
+                    </div>
+
+                    <div class="passive-skill-item">
+                        <span class="passive-skill-name">Проницательность (Мудрость):</span>
+                        <span class="passive-skill-value" id="passive-insight-button">
+            {{ $character->attributes->passive_insight ?? 10 }}
+        </span>
+                        <input type="hidden" id="passive_insight" name="passive_insight"
+                               value="{{ $character->attributes->passive_insight ?? 10 }}">
+                    </div>
+
+                    <div class="passive-skill-item">
+                        <span class="passive-skill-name">Анализ (Интеллект):</span>
+                        <span class="passive-skill-value" id="passive-investigation-button">
+            {{ $character->attributes->passive_investigation ?? 10 }}
+        </span>
+                        <input type="hidden" id="passive_investigation" name="passive_investigation"
+                               value="{{ $character->attributes->passive_investigation ?? 10 }}">
+                    </div>
+                </div>
+
 
                 <input type="hidden" id="passive_perception" name="passive_perception"
                        value="{{ $character->attributes->passive_perception ?? 10 }}">
@@ -726,7 +757,7 @@
                 <h3 id="modal-title"></h3>
                 <input type="number" id="modal-input" min="1" max="30">
 
-                <!-- Добавляем секцию для пассивных чувств -->
+                <!-- Секция для пассивных чувств -->
                 <div id="passive-skills-section" style="margin-top: 20px; display: none;">
                     <h4>Пассивные чувства</h4>
                     <div class="passive-skill" data-skill="perception">
@@ -805,7 +836,7 @@
                 document.getElementById("modal-title").innerText = attributeNames[attr];
                 document.getElementById("modal-input").value = value;
 
-                // Показываем соответствующие пассивные чувства
+                // Показываем соответствующие пассивные чувства в модальном окне
                 const passiveSection = document.getElementById("passive-skills-section");
                 passiveSection.style.display = "block";
 
@@ -814,24 +845,25 @@
                     el.style.display = "none";
                 });
 
-                // Показываем только нужные для текущего атрибута
+                // Для Мудрости показываем Восприятие и Проницательность
                 if (attr === 'wisdom') {
-                    document.querySelector('.passive-skill[data-skill="perception"]').style.display = "block";
-                    document.querySelector('.passive-skill[data-skill="insight"]').style.display = "block";
-
-                    // Устанавливаем текущие значения
                     document.getElementById("modal-passive-perception").value =
                         document.getElementById("passive_perception").value;
                     document.getElementById("modal-passive-insight").value =
                         document.getElementById("passive_insight").value;
-                }
-                else if (attr === 'intelligence') {
-                    document.querySelector('.passive-skill[data-skill="investigation"]').style.display = "block";
 
-                    // Устанавливаем текущее значение
+                    document.querySelector('.passive-skill[data-skill="perception"]').style.display = "block";
+                    document.querySelector('.passive-skill[data-skill="insight"]').style.display = "block";
+                }
+                // Для Интеллекта показываем Анализ
+                else if (attr === 'intelligence') {
                     document.getElementById("modal-passive-investigation").value =
                         document.getElementById("passive_investigation").value;
-                } else {
+
+                    document.querySelector('.passive-skill[data-skill="investigation"]').style.display = "block";
+                }
+                // Для других атрибутов скрываем секцию
+                else {
                     passiveSection.style.display = "none";
                 }
 
