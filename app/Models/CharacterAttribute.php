@@ -32,6 +32,9 @@ class CharacterAttribute extends Model
         'intimidation',      // Запугивание
         'deception',         // Обман
         'persuasion',        // Убеждение
+        'passive_perception',
+        'passive_insight',
+        'passive_investigation'
     ];
 
     public function character()
