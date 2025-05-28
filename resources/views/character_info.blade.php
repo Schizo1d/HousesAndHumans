@@ -1126,45 +1126,42 @@
             }
 
             function saveAttribute() {
-                const attrValue = parseInt(document.getElementById("modal-input").value);
-                if (!currentAttr) return;
+                try {
+                    // 1. Сохраняем основной атрибут
+                    const attrValue = parseInt(document.getElementById("modal-input").value) || 10;
+                    document.getElementById(currentAttr).value = attrValue;
+                    document.getElementById(`${currentAttr}-button`).textContent = attrValue;
 
-                // 1. Сохраняем основной атрибут
-                document.getElementById(currentAttr).value = attrValue;
-                document.getElementById(`${currentAttr}-button`).textContent = attrValue;
-                updateModifier(currentAttr);
-                updateSkills(currentAttr);
+                    // 2. Обновляем модификаторы
+                    updateModifier(currentAttr);
+                    updateSkills(currentAttr);
 
-                // 2. Сохраняем пассивные чувства из модального окна
-                const passiveSection = document.getElementById("passive-skills-section");
-                if (passiveSection.style.display !== "none") {
-                    // Для Мудрости сохраняем Восприятие и Проницательность
+                    // 3. Сохраняем пассивные чувства
                     if (currentAttr === 'wisdom') {
                         const perceptionValue = parseInt(document.getElementById("modal-passive-perception").value) || 10;
                         const insightValue = parseInt(document.getElementById("modal-passive-insight").value) || 10;
 
-                        // Обновляем скрытые поля формы
                         document.getElementById("passive_perception").value = perceptionValue;
-                        document.getElementById("passive_insight").value = insightValue;
-
-                        // Обновляем отображаемые значения
                         document.getElementById("passive-perception-button").textContent = perceptionValue;
+
+                        document.getElementById("passive_insight").value = insightValue;
                         document.getElementById("passive-insight-button").textContent = insightValue;
                     }
-                    // Для Интеллекта сохраняем Анализ
                     else if (currentAttr === 'intelligence') {
                         const investigationValue = parseInt(document.getElementById("modal-passive-investigation").value) || 10;
-
                         document.getElementById("passive_investigation").value = investigationValue;
                         document.getElementById("passive-investigation-button").textContent = investigationValue;
                     }
+
+                    // 4. Закрываем модальное окно только после успешного сохранения
+                    setTimeout(() => {
+                        document.getElementById("attributeModal").style.display = "none";
+                    }, 100);
+
+                } catch (error) {
+                    console.error("Ошибка при сохранении:", error);
+                    // Можно добавить alert или другое уведомление об ошибке
                 }
-
-                // 3. Закрываем модальное окно
-                closeModal();
-
-                // 4. Принудительно отправляем форму (для тестирования)
-                // document.getElementById("attributesForm").submit();
             }
 
             document.addEventListener("DOMContentLoaded", function () {
