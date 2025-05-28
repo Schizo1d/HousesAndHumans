@@ -708,50 +708,14 @@
                     </div>
                 </div>
 
-                <div class="passive-skills">
-                    <h3>Пассивные чувства</h3>
-
-                    <!-- Восприятие (Мудрость) -->
-                    <div class="passive-skill-item">
-                        <a href="javascript:void(0);" class="passive-skill-link" onclick="openModal('wisdom', 'passive_perception')">
-                            <span class="passive-skill-name">Восприятие (Мудрость)</span>
-                            <div class="line"></div>
-                            <span class="passive-skill-value" id="passive-perception-button">
-                {{ $character->attributes->passive_perception ?? 10 }}
-            </span>
-                        </a>
-                        <input type="hidden" id="passive_perception" name="passive_perception"
-                               value="{{ $character->attributes->passive_perception ?? 10 }}">
-                    </div>
-
-                    <!-- Проницательность (Мудрость) -->
-                    <div class="passive-skill-item">
-                        <a href="javascript:void(0);" class="passive-skill-link" onclick="openModal('wisdom', 'passive_insight')">
-                            <span class="passive-skill-name">Проницательность (Мудрость)</span>
-                            <div class="line"></div>
-                            <span class="passive-skill-value" id="passive-insight-button">
-                {{ $character->attributes->passive_insight ?? 10 }}
-            </span>
-                        </a>
-                        <input type="hidden" id="passive_insight" name="passive_insight"
-                               value="{{ $character->attributes->passive_insight ?? 10 }}">
-                    </div>
-
-                    <!-- Анализ (Интеллект) -->
-                    <div class="passive-skill-item">
-                        <a href="javascript:void(0);" class="passive-skill-link" onclick="openModal('intelligence', 'passive_investigation')">
-                            <span class="passive-skill-name">Анализ (Интеллект)</span>
-                            <div class="line"></div>
-                            <span class="passive-skill-value" id="passive-investigation-button">
-                {{ $character->attributes->passive_investigation ?? 10 }}
-            </span>
-                        </a>
-                        <input type="hidden" id="passive_investigation" name="passive_investigation"
-                               value="{{ $character->attributes->passive_investigation ?? 10 }}">
-                    </div>
-                </div>
 
 
+                <input type="hidden" id="passive_perception" name="passive_perception"
+                       value="{{ $character->attributes->passive_perception ?? 10 }}">
+                <input type="hidden" id="passive_insight" name="passive_insight"
+                       value="{{ $character->attributes->passive_insight ?? 10 }}">
+                <input type="hidden" id="passive_investigation" name="passive_investigation"
+                       value="{{ $character->attributes->passive_investigation ?? 10 }}">
                 <button type="submit">Сохранить атрибуты</button>
         </form>
 
@@ -761,6 +725,24 @@
                 <button class="modal-close-btn" onclick="closeModal()">✖</button>
                 <h3 id="modal-title"></h3>
                 <input type="number" id="modal-input" min="1" max="30">
+
+                <!-- Добавляем секцию для пассивных чувств -->
+                <div id="passive-skills-section" style="margin-top: 20px; display: none;">
+                    <h4>Пассивные чувства</h4>
+                    <div class="passive-skill" data-skill="perception">
+                        <label>Восприятие:</label>
+                        <input type="number" id="modal-passive-perception" min="1" max="30">
+                    </div>
+                    <div class="passive-skill" data-skill="insight">
+                        <label>Проницательность:</label>
+                        <input type="number" id="modal-passive-insight" min="1" max="30">
+                    </div>
+                    <div class="passive-skill" data-skill="investigation" style="display: none;">
+                        <label>Анализ:</label>
+                        <input type="number" id="modal-passive-investigation" min="1" max="30">
+                    </div>
+                </div>
+
                 <button class="modal-save-btn" onclick="saveAttribute()">Сохранить</button>
             </div>
         </div>
@@ -817,19 +799,42 @@
             };
 
             // Открыть модальное окно для изменения значения атрибута
-            function openModal(attr, passiveSkill = null) {
-                if (passiveSkill) {
-                    currentAttr = passiveSkill; // Используем полное имя поля с префиксом
-                    const value = document.getElementById(passiveSkill).value;
-                    const skillName = passiveSkill.replace('passive_', '');
-                    document.getElementById("modal-title").innerText = `${attributeNames[attr]} (${passiveSkillNames[skillName]})`;
-                    document.getElementById("modal-input").value = value;
-                } else {
-                    currentAttr = attr;
-                    const value = document.getElementById(attr).value;
-                    document.getElementById("modal-title").innerText = attributeNames[attr];
-                    document.getElementById("modal-input").value = value;
+            function openModal(attr) {
+                currentAttr = attr;
+                let value = document.getElementById(attr).value;
+                document.getElementById("modal-title").innerText = attributeNames[attr];
+                document.getElementById("modal-input").value = value;
+
+                // Показываем соответствующие пассивные чувства
+                const passiveSection = document.getElementById("passive-skills-section");
+                passiveSection.style.display = "block";
+
+                // Скрываем все пассивные навыки сначала
+                document.querySelectorAll('.passive-skill').forEach(el => {
+                    el.style.display = "none";
+                });
+
+                // Показываем только нужные для текущего атрибута
+                if (attr === 'wisdom') {
+                    document.querySelector('.passive-skill[data-skill="perception"]').style.display = "block";
+                    document.querySelector('.passive-skill[data-skill="insight"]').style.display = "block";
+
+                    // Устанавливаем текущие значения
+                    document.getElementById("modal-passive-perception").value =
+                        document.getElementById("passive_perception").value;
+                    document.getElementById("modal-passive-insight").value =
+                        document.getElementById("passive_insight").value;
                 }
+                else if (attr === 'intelligence') {
+                    document.querySelector('.passive-skill[data-skill="investigation"]').style.display = "block";
+
+                    // Устанавливаем текущее значение
+                    document.getElementById("modal-passive-investigation").value =
+                        document.getElementById("passive_investigation").value;
+                } else {
+                    passiveSection.style.display = "none";
+                }
+
                 document.getElementById("attributeModal").style.display = "flex";
             }
 
@@ -1089,20 +1094,34 @@
             }
 
             function saveAttribute() {
-                let value = parseInt(document.getElementById("modal-input").value);
+                const attrValue = parseInt(document.getElementById("modal-input").value);
                 if (!currentAttr) return;
 
-                // Для пассивных навыков
-                if (currentAttr.startsWith('passive_')) {
-                    document.getElementById(currentAttr).value = value;
-                    document.getElementById(`${currentAttr}-button`).textContent = value;
-                }
-                // Для основных атрибутов
-                else {
-                    document.getElementById(currentAttr).value = value;
-                    document.getElementById(`${currentAttr}-button`).textContent = value;
-                    updateModifier(currentAttr);
-                    updateSkills(currentAttr);
+                // Сохраняем основной атрибут
+                document.getElementById(currentAttr).value = attrValue;
+                document.getElementById(`${currentAttr}-button`).textContent = attrValue;
+                updateModifier(currentAttr);
+                updateSkills(currentAttr);
+
+                // Сохраняем пассивные чувства, если они отображались
+                const passiveSection = document.getElementById("passive-skills-section");
+                if (passiveSection.style.display !== "none") {
+                    if (currentAttr === 'wisdom') {
+                        const perceptionValue = parseInt(document.getElementById("modal-passive-perception").value);
+                        const insightValue = parseInt(document.getElementById("modal-passive-insight").value);
+
+                        document.getElementById("passive_perception").value = perceptionValue;
+                        document.getElementById("passive-perception-button").textContent = perceptionValue;
+
+                        document.getElementById("passive_insight").value = insightValue;
+                        document.getElementById("passive-insight-button").textContent = insightValue;
+                    }
+                    else if (currentAttr === 'intelligence') {
+                        const investigationValue = parseInt(document.getElementById("modal-passive-investigation").value);
+
+                        document.getElementById("passive_investigation").value = investigationValue;
+                        document.getElementById("passive-investigation-button").textContent = investigationValue;
+                    }
                 }
 
                 closeModal();
