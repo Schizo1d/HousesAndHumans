@@ -713,41 +713,41 @@
 
                     <!-- Восприятие (Мудрость) -->
                     <div class="passive-skill-item">
-                        <a href="javascript:void(0);" class="passive-skill-link" onclick="openModal('wisdom', 'perception')">
+                        <a href="javascript:void(0);" class="passive-skill-link" onclick="openModal('wisdom', 'passive_perception')">
                             <span class="passive-skill-name">Восприятие (Мудрость)</span>
                             <div class="line"></div>
                             <span class="passive-skill-value" id="passive-perception-button">
-                {{ $character->attributes->perception ?? 10 }}
+                {{ $character->attributes->passive_perception ?? 10 }}
             </span>
                         </a>
-                        <input type="hidden" id="passive-perception" name="passive_perception"
-                               value="{{ $character->attributes->perception ?? 10 }}">
+                        <input type="hidden" id="passive_perception" name="passive_perception"
+                               value="{{ $character->attributes->passive_perception ?? 10 }}">
                     </div>
 
                     <!-- Проницательность (Мудрость) -->
                     <div class="passive-skill-item">
-                        <a href="javascript:void(0);" class="passive-skill-link" onclick="openModal('wisdom', 'insight')">
+                        <a href="javascript:void(0);" class="passive-skill-link" onclick="openModal('wisdom', 'passive_insight')">
                             <span class="passive-skill-name">Проницательность (Мудрость)</span>
                             <div class="line"></div>
                             <span class="passive-skill-value" id="passive-insight-button">
-                {{ $character->attributes->insight ?? 10 }}
+                {{ $character->attributes->passive_insight ?? 10 }}
             </span>
                         </a>
-                        <input type="hidden" id="passive-insight" name="passive_insight"
-                               value="{{ $character->attributes->insight ?? 10 }}">
+                        <input type="hidden" id="passive_insight" name="passive_insight"
+                               value="{{ $character->attributes->passive_insight ?? 10 }}">
                     </div>
 
                     <!-- Анализ (Интеллект) -->
                     <div class="passive-skill-item">
-                        <a href="javascript:void(0);" class="passive-skill-link" onclick="openModal('intelligence', 'investigation')">
+                        <a href="javascript:void(0);" class="passive-skill-link" onclick="openModal('intelligence', 'passive_investigation')">
                             <span class="passive-skill-name">Анализ (Интеллект)</span>
                             <div class="line"></div>
                             <span class="passive-skill-value" id="passive-investigation-button">
-                {{ $character->attributes->investigation ?? 10 }}
+                {{ $character->attributes->passive_investigation ?? 10 }}
             </span>
                         </a>
-                        <input type="hidden" id="passive-investigation" name="passive_investigation"
-                               value="{{ $character->attributes->investigation ?? 10 }}">
+                        <input type="hidden" id="passive_investigation" name="passive_investigation"
+                               value="{{ $character->attributes->passive_investigation ?? 10 }}">
                     </div>
                 </div>
 
@@ -818,19 +818,18 @@
 
             // Открыть модальное окно для изменения значения атрибута
             function openModal(attr, passiveSkill = null) {
-                currentAttr = passiveSkill ? `passive-${passiveSkill}` : attr;
-
-                let value, title;
                 if (passiveSkill) {
-                    value = document.getElementById(`passive-${passiveSkill}`).value;
-                    title = `${attributeNames[attr]} (${passiveSkillNames[passiveSkill]})`;
+                    currentAttr = passiveSkill; // Используем полное имя поля с префиксом
+                    const value = document.getElementById(passiveSkill).value;
+                    const skillName = passiveSkill.replace('passive_', '');
+                    document.getElementById("modal-title").innerText = `${attributeNames[attr]} (${passiveSkillNames[skillName]})`;
+                    document.getElementById("modal-input").value = value;
                 } else {
-                    value = document.getElementById(attr).value;
-                    title = attributeNames[attr];
+                    currentAttr = attr;
+                    const value = document.getElementById(attr).value;
+                    document.getElementById("modal-title").innerText = attributeNames[attr];
+                    document.getElementById("modal-input").value = value;
                 }
-
-                document.getElementById("modal-title").innerText = title;
-                document.getElementById("modal-input").value = value;
                 document.getElementById("attributeModal").style.display = "flex";
             }
 
@@ -1093,18 +1092,15 @@
                 let value = parseInt(document.getElementById("modal-input").value);
                 if (!currentAttr) return;
 
-                // Обработка как обычных атрибутов, так и пассивных навыков
-                if (currentAttr.startsWith('passive-')) {
-                    const skill = currentAttr.replace('passive-', '');
-                    document.getElementById(`${currentAttr}-button`).textContent = value;
+                // Для пассивных навыков
+                if (currentAttr.startsWith('passive_')) {
                     document.getElementById(currentAttr).value = value;
-
-                    // Обновляем связанный навык
-                    document.getElementById(`${skill}-value`).textContent = value;
-                    document.getElementById(skill).value = value;
-                } else {
                     document.getElementById(`${currentAttr}-button`).textContent = value;
+                }
+                // Для основных атрибутов
+                else {
                     document.getElementById(currentAttr).value = value;
+                    document.getElementById(`${currentAttr}-button`).textContent = value;
                     updateModifier(currentAttr);
                     updateSkills(currentAttr);
                 }

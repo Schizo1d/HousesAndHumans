@@ -37,6 +37,9 @@ class CharacterAttributeController extends Controller
             'intimidation' => 'nullable|integer|min:-9|max:100',
             'deception' => 'nullable|integer|min:-9|max:100',
             'persuasion' => 'nullable|integer|min:-9|max:100',
+            'passive_perception' => 'required|integer|min:1|max:30',
+            'passive_insight' => 'required|integer|min:1|max:30',
+            'passive_investigation' => 'required|integer|min:1|max:30',
         ]);
 
         // Сохраняем атрибуты и навыки
@@ -47,7 +50,8 @@ class CharacterAttributeController extends Controller
                 'athletics', 'acrobatics', 'sleight_of_hand', 'stealth',
                 'investigation', 'history', 'arcana', 'nature', 'religion',
                 'perception', 'survival', 'medicine', 'insight', 'animal_handling',
-                'performance', 'intimidation', 'deception', 'persuasion'
+                'performance', 'intimidation', 'deception', 'persuasion',
+                'passive_perception', 'passive_insight', 'passive_investigation'
             ])
         );
 

@@ -43,9 +43,9 @@ return new class extends Migration
             $table->integer('deception')->default(0); // Обман
             $table->integer('persuasion')->default(0); // Убеждение
 
-            $table->integer('passive_perception')->default(10); // Пассивное восприятие
-            $table->integer('passive_insight')->default(10);    // Пассивная проницательность
-            $table->integer('passive_investigation')->default(10); // Пассивный анализ
+            $table->integer('passive_perception')->default(10);
+            $table->integer('passive_insight')->default(10);
+            $table->integer('passive_investigation')->default(10);
 
             $table->timestamps();
 
