@@ -836,7 +836,7 @@
                 document.getElementById("modal-title").innerText = attributeNames[attr];
                 document.getElementById("modal-input").value = value;
 
-                // Показываем соответствующие пассивные чувства в модальном окне
+                // Показываем соответствующие пассивные чувства
                 const passiveSection = document.getElementById("passive-skills-section");
                 passiveSection.style.display = "block";
 
@@ -1153,14 +1153,10 @@
                         document.getElementById("passive-investigation-button").textContent = investigationValue;
                     }
 
-                    // 4. Закрываем модальное окно только после успешного сохранения
-                    setTimeout(() => {
-                        document.getElementById("attributeModal").style.display = "none";
-                    }, 100);
-
+                    // 4. Закрываем модальное окно
+                    document.getElementById("attributeModal").style.display = "none";
                 } catch (error) {
                     console.error("Ошибка при сохранении:", error);
-                    // Можно добавить alert или другое уведомление об ошибке
                 }
             }
 
