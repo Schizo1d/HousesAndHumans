@@ -740,13 +740,6 @@
                     </div>
                 </div>
 
-
-                <input type="hidden" id="passive_perception" name="passive_perception"
-                       value="{{ $character->attributes->passive_perception ?? 10 }}">
-                <input type="hidden" id="passive_insight" name="passive_insight"
-                       value="{{ $character->attributes->passive_insight ?? 10 }}">
-                <input type="hidden" id="passive_investigation" name="passive_investigation"
-                       value="{{ $character->attributes->passive_investigation ?? 10 }}">
                 <button type="submit">Сохранить атрибуты</button>
         </form>
 
