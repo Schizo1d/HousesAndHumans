@@ -706,39 +706,41 @@
                                value="{{ $character->attributes->persuasion ?? 0 }}">
 
                     </div>
-                </div>
 
+                    <div class="passive-skills">
+                        <h3>Пассивные чувства</h3>
 
-                <div class="passive-skills">
-                    <h3>Пассивные чувства</h3>
-
-                    <div class="passive-skill-item">
-                        <span class="passive-skill-name">Восприятие (Мудрость):</span>
-                        <span class="passive-skill-value" id="passive-perception-button">
+                        <div class="passive-skill-item">
+                            <span class="passive-skill-name">Восприятие (Мудрость):</span>
+                            <span class="passive-skill-value" id="passive-perception-button">
             {{ $character->attributes->passive_perception ?? 10 }}
         </span>
-                        <input type="hidden" id="passive_perception" name="passive_perception"
-                               value="{{ $character->attributes->passive_perception ?? 10 }}">
-                    </div>
+                            <input type="hidden" id="passive_perception" name="passive_perception"
+                                   value="{{ $character->attributes->passive_perception ?? 10 }}">
+                        </div>
 
-                    <div class="passive-skill-item">
-                        <span class="passive-skill-name">Проницательность (Мудрость):</span>
-                        <span class="passive-skill-value" id="passive-insight-button">
+                        <div class="passive-skill-item">
+                            <span class="passive-skill-name">Проницательность (Мудрость):</span>
+                            <span class="passive-skill-value" id="passive-insight-button">
             {{ $character->attributes->passive_insight ?? 10 }}
         </span>
-                        <input type="hidden" id="passive_insight" name="passive_insight"
-                               value="{{ $character->attributes->passive_insight ?? 10 }}">
-                    </div>
+                            <input type="hidden" id="passive_insight" name="passive_insight"
+                                   value="{{ $character->attributes->passive_insight ?? 10 }}">
+                        </div>
 
-                    <div class="passive-skill-item">
-                        <span class="passive-skill-name">Анализ (Интеллект):</span>
-                        <span class="passive-skill-value" id="passive-investigation-button">
+                        <div class="passive-skill-item">
+                            <span class="passive-skill-name">Анализ (Интеллект):</span>
+                            <span class="passive-skill-value" id="passive-investigation-button">
             {{ $character->attributes->passive_investigation ?? 10 }}
         </span>
-                        <input type="hidden" id="passive_investigation" name="passive_investigation"
-                               value="{{ $character->attributes->passive_investigation ?? 10 }}">
+                            <input type="hidden" id="passive_investigation" name="passive_investigation"
+                                   value="{{ $character->attributes->passive_investigation ?? 10 }}">
+                        </div>
                     </div>
                 </div>
+
+
+
 
                 <button type="submit">Сохранить атрибуты</button>
         </form>
