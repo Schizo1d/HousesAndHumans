@@ -1308,10 +1308,7 @@ form label {
 
 /*Пассивные чувства*/
 .passive-skills {
-    margin-top: 30px;
-    padding: 15px;
-    background: rgba(145, 95, 50, 0.2);
-    border-radius: 8px;
+
 }
 
 .passive-skills h3 {
