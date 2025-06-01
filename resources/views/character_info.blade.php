@@ -722,18 +722,18 @@
                     </div>
 
                     <div class="passive-skill-item">
-                        <span class="passive-skill-value" id="passive-insight-button">
+                        <button class="passive-skill-value" id="passive-insight-button">
             {{ $character->attributes->passive_insight ?? 10 }}
-        </span>
+        </button>
                         <span class="passive-skill-name">Проницательность (Мудрость):</span>
                         <input type="hidden" id="passive_insight" name="passive_insight"
                                value="{{ $character->attributes->passive_insight ?? 10 }}">
                     </div>
 
                     <div class="passive-skill-item">
-                        <span class="passive-skill-value" id="passive-investigation-button">
+                        <button class="passive-skill-value" id="passive-investigation-button">
             {{ $character->attributes->passive_investigation ?? 10 }}
-        </span>
+        </button>
                         <span class="passive-skill-name">Анализ (Интеллект):</span>
                         <input type="hidden" id="passive_investigation" name="passive_investigation"
                                value="{{ $character->attributes->passive_investigation ?? 10 }}">
