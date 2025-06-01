@@ -1308,7 +1308,12 @@ form label {
 
 /*Пассивные чувства*/
 .passive-skills {
-
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    font-size: 20px;
+    text-transform: uppercase;
+    width: 300px;
 }
 
 .passive-skills h3 {
