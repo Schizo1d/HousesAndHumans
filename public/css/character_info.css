@@ -1317,11 +1317,11 @@ form label {
 }
 
 .passive-skills h3 {
+    display: flex;
     color: white;
-    margin-top: 0;
-    margin-bottom: 15px;
-    font-size: 18px;
     text-align: center;
+    margin: 0;
+    font-size: 14px;
 }
 
 .passive-skill-item {
