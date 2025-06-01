@@ -1353,6 +1353,7 @@ form label {
     font-size: inherit;
     height: 35px;
     justify-content: center;
+    pointer-events: none;
 }
 
 /* Стили для пассивных чувств в модальном окне */
