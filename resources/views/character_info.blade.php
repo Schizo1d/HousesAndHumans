@@ -727,7 +727,9 @@
                         <button class="passive-skill-value" id="passive-insight-button">
             {{ $character->attributes->passive_insight ?? 10 }}
         </button>
+                        <a href="javascript:void(0);" onclick="openModal('wisdom')" class="passive-link">
                         <span class="passive-skill-name">Проницательность (Мудрость):</span>
+                        </a>
                         <input type="hidden" id="passive_insight" name="passive_insight"
                                value="{{ $character->attributes->passive_insight ?? 10 }}">
                     </div>
@@ -736,7 +738,9 @@
                         <button class="passive-skill-value" id="passive-investigation-button">
             {{ $character->attributes->passive_investigation ?? 10 }}
         </button>
+                        <a href="javascript:void(0);" onclick="openModal('intelligence')" class="passive-link">
                         <span class="passive-skill-name">Анализ (Интеллект):</span>
+                        </a>
                         <input type="hidden" id="passive_investigation" name="passive_investigation"
                                value="{{ $character->attributes->passive_investigation ?? 10 }}">
                     </div>
