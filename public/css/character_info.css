@@ -1343,14 +1343,16 @@ form label {
     align-items: center;
     gap: 4px;
     padding: 6px 12px;
-    background-color: #edca99;
+    background-color: #db934e;
     border-radius: 4px;
+    border: 2px solid #edca99;
     color: white;
     text-decoration: none;
     cursor: pointer;
     font-family: inherit;
     font-size: inherit;
-    min-width: 45px;
+    min-width: 50px;
+    height: 35px;
 }
 
 /* Стили для пассивных чувств в модальном окне */
