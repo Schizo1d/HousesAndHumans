@@ -1340,10 +1340,17 @@ form label {
 }
 
 .passive-skill-value {
-    font-weight: bold;
-    min-width: 30px;
-    text-align: center;
-    color: #ffffff;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 12px;
+    background-color: #edca99;
+    border-radius: 4px;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: inherit;
+    min-width: 45px;
 }
 
 /* Стили для пассивных чувств в модальном окне */
