@@ -716,7 +716,7 @@
                         <button class="passive-skill-value" id="passive-perception-button">
             {{ $character->attributes->passive_perception ?? 10 }}
         </button>
-                        <a href="javascript:void(0);" onclick="openModal('wisdom')">
+                        <a href="javascript:void(0);" onclick="openModal('wisdom')" class="passive-link">
                         <span class="passive-skill-name">Восприятие (Мудрость):</span>
                         </a>
                         <input type="hidden" id="passive_perception" name="passive_perception"

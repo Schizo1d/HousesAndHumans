@@ -1393,3 +1393,8 @@ form label {
     font-weight: bold;
     text-align: center;
 }
+.passive-link{
+    color: white;
+    text-decoration: none;
+    display: contents;
+}
