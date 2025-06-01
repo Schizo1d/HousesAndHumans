@@ -713,9 +713,9 @@
                     <h3>Пассивные чувства</h3>
 
                     <div class="passive-skill-item">
-                        <span class="passive-skill-value" id="passive-perception-button">
+                        <button class="passive-skill-value" id="passive-perception-button">
             {{ $character->attributes->passive_perception ?? 10 }}
-        </span>
+        </button>
                         <span class="passive-skill-name">Восприятие (Мудрость):</span>
                         <input type="hidden" id="passive_perception" name="passive_perception"
                                value="{{ $character->attributes->passive_perception ?? 10 }}">
