@@ -1205,6 +1205,7 @@ form label {
     cursor: pointer;
     overflow: hidden;
     margin-left: 5px;
+    width: 100px;
 }
 
 .mini-progress-container:hover {
