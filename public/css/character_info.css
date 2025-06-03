@@ -1354,6 +1354,7 @@ form label {
     height: 35px;
     justify-content: center;
     pointer-events: none;
+    min-width: 45px;
 }
 
 /* Стили для пассивных чувств в модальном окне */
