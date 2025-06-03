@@ -1356,6 +1356,10 @@ form label {
     pointer-events: none;
     min-width: 45px;
 }
+.passive-skill-value.manual-value {
+    border: 2px solid #ff4d4d !important;
+    box-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+}
 
 /* Стили для пассивных чувств в модальном окне */
 #passive-skills-section {
