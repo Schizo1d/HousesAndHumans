@@ -838,36 +838,40 @@
                 document.getElementById("modal-title").innerText = attributeNames[attr];
                 document.getElementById("modal-input").value = value;
 
+                // Показываем соответствующие пассивные чувства
                 const passiveSection = document.getElementById("passive-skills-section");
                 passiveSection.style.display = "block";
 
+                // Скрываем все пассивные навыки сначала
                 document.querySelectorAll('.passive-skill').forEach(el => {
                     el.style.display = "none";
                 });
 
-                // Всегда показываем сохраненные значения (не рассчитываем автоматически)
+                // Для Мудрости показываем Восприятие и Проницательность
                 if (attr === 'wisdom') {
                     document.getElementById("modal-passive-perception").value =
                         document.getElementById("passive_perception").value;
-
                     document.getElementById("modal-passive-insight").value =
                         document.getElementById("passive_insight").value;
 
                     document.querySelector('.passive-skill[data-skill="perception"]').style.display = "block";
                     document.querySelector('.passive-skill[data-skill="insight"]').style.display = "block";
                 }
+                // Для Интеллекта показываем Анализ
                 else if (attr === 'intelligence') {
                     document.getElementById("modal-passive-investigation").value =
                         document.getElementById("passive_investigation").value;
 
                     document.querySelector('.passive-skill[data-skill="investigation"]').style.display = "block";
                 }
+                // Для других атрибутов скрываем секцию
                 else {
                     passiveSection.style.display = "none";
                 }
 
                 document.getElementById("attributeModal").style.display = "flex";
             }
+
 
 
             // Функция расчета модификатора атрибута (по правилам D&D)
