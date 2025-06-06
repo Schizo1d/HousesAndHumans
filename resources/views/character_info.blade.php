@@ -1179,9 +1179,6 @@
                 }
             }
 
-
-
-
             function updateModifier(attribute, forceUpdate = false) {
                 let attrValue = parseInt(document.getElementById(attribute).value);
                 let modifier = getModifier(attrValue);
