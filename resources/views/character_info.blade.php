@@ -831,45 +831,6 @@
                 charisma: "Харизма"
             };
 
-            // Открыть модальное окно для изменения значения атрибута
-            function openModal(attr) {
-                currentAttr = attr;
-                let value = document.getElementById(attr).value;
-                document.getElementById("modal-title").innerText = attributeNames[attr];
-                document.getElementById("modal-input").value = value;
-
-                const passiveSection = document.getElementById("passive-skills-section");
-                passiveSection.style.display = "block";
-
-                document.querySelectorAll('.passive-skill').forEach(el => {
-                    el.style.display = "none";
-                });
-
-                if (attr === 'wisdom') {
-                    // Показываем сохраненные значения
-                    document.getElementById("modal-passive-perception").value =
-                        document.getElementById("passive_perception").value;
-
-                    document.getElementById("modal-passive-insight").value =
-                        document.getElementById("passive_insight").value;
-
-                    document.querySelector('.passive-skill[data-skill="perception"]').style.display = "block";
-                    document.querySelector('.passive-skill[data-skill="insight"]').style.display = "block";
-                }
-                else if (attr === 'intelligence') {
-                    document.getElementById("modal-passive-investigation").value =
-                        document.getElementById("passive_investigation").value;
-
-                    document.querySelector('.passive-skill[data-skill="investigation"]').style.display = "block";
-                }
-                else {
-                    passiveSection.style.display = "none";
-                }
-
-                document.getElementById("attributeModal").style.display = "flex";
-            }
-
-
             // Функция расчета модификатора атрибута (по правилам D&D)
             function getModifier(attributeValue) {
                 return Math.floor((attributeValue - 10) / 2);
@@ -982,12 +943,7 @@
                     span.innerText = finalValue;
                 });
             });
-            document.addEventListener("DOMContentLoaded", function () {
-                Object.keys(attributeNames).forEach(attr => {
-                    updateModifier(attr);
-                    updateSkills(attr);
-                });
-            });
+
 
             function updateSkills(attribute) {
                 let attrValue = parseInt(document.getElementById(attribute).value);
@@ -1221,13 +1177,6 @@
                 }
             }
 
-            function updateBaseModifier(attribute) {
-                let attrValue = parseInt(document.getElementById(attribute).value);
-                let modifier = getModifier(attrValue);
-                document.getElementById(`${attribute}-modifier`).textContent = modifier;
-                document.getElementById(`${attribute}-save-modifier`).textContent = modifier;
-            }
-
             function resetPassiveSkill(skill) {
                 const attribute = skill === 'investigation' ? 'intelligence' : 'wisdom';
                 const attrValue = parseInt(document.getElementById(attribute).value);
@@ -1247,9 +1196,89 @@
                     document.getElementById(`modal-passive-${skill}`).value = passiveValue;
                 }
             }
+
+            // Открыть модальное окно для изменения значения атрибута
+            function openModal(attr) {
+                currentAttr = attr;
+                let value = document.getElementById(attr).value;
+                document.getElementById("modal-title").innerText = attributeNames[attr];
+                document.getElementById("modal-input").value = value;
+
+                const passiveSection = document.getElementById("passive-skills-section");
+                passiveSection.style.display = "block";
+
+                document.querySelectorAll('.passive-skill').forEach(el => {
+                    el.style.display = "none";
+                });
+
+                if (attr === 'wisdom') {
+                    // Показываем сохраненные значения
+                    document.getElementById("modal-passive-perception").value =
+                        document.getElementById("passive_perception").value;
+
+                    document.getElementById("modal-passive-insight").value =
+                        document.getElementById("passive_insight").value;
+
+                    document.querySelector('.passive-skill[data-skill="perception"]').style.display = "block";
+                    document.querySelector('.passive-skill[data-skill="insight"]').style.display = "block";
+                }
+                else if (attr === 'intelligence') {
+                    document.getElementById("modal-passive-investigation").value =
+                        document.getElementById("passive_investigation").value;
+
+                    document.querySelector('.passive-skill[data-skill="investigation"]').style.display = "block";
+                }
+                else {
+                    passiveSection.style.display = "none";
+                }
+
+                document.getElementById("attributeModal").style.display = "flex";
+            }
+
             document.addEventListener("DOMContentLoaded", function () {
-                Object.keys(attributeNames).forEach(attr => updateModifier(attr));
+                // Инициализация атрибутов
+                Object.keys(attributeNames).forEach(attr => {
+                    updateBaseModifier(attr);
+                    updateSkills(attr);
+                });
+
+                // Инициализация пассивных навыков
+                updatePassiveSkills();
             });
+
+            function updatePassiveSkills() {
+                const wisdomModifier = getModifier(parseInt(document.getElementById("wisdom").value));
+                const intelligenceModifier = getModifier(parseInt(document.getElementById("intelligence").value));
+
+                // Восприятие
+                if (!document.getElementById("passive-perception-button").classList.contains('manual-value')) {
+                    const passivePerception = 10 + wisdomModifier;
+                    document.getElementById("passive_perception").value = passivePerception;
+                    document.getElementById("passive-perception-button").textContent = passivePerception;
+                }
+
+                // Проницательность
+                if (!document.getElementById("passive-insight-button").classList.contains('manual-value')) {
+                    const passiveInsight = 10 + wisdomModifier;
+                    document.getElementById("passive_insight").value = passiveInsight;
+                    document.getElementById("passive-insight-button").textContent = passiveInsight;
+                }
+
+                // Анализ
+                if (!document.getElementById("passive-investigation-button").classList.contains('manual-value')) {
+                    const passiveInvestigation = 10 + intelligenceModifier;
+                    document.getElementById("passive_investigation").value = passiveInvestigation;
+                    document.getElementById("passive-investigation-button").textContent = passiveInvestigation;
+                }
+            }
+
+            function updateBaseModifier(attribute) {
+                let attrValue = parseInt(document.getElementById(attribute).value);
+                let modifier = getModifier(attrValue);
+                document.getElementById(`${attribute}-modifier`).textContent = modifier;
+                document.getElementById(`${attribute}-save-modifier`).textContent = modifier;
+            }
+
             document.addEventListener("DOMContentLoaded", function () {
                 const characterAvatar = document.getElementById("character-avatar");
                 const dropdown = document.getElementById("character-dropdown");
