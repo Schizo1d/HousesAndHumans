@@ -1100,11 +1100,8 @@
                         const autoPerception = 10 + modifier;
                         const autoInsight = 10 + modifier;
 
-                        if (perceptionValue !== autoPerception) {
-                            document.getElementById("passive-perception-button").classList.add('manual-value');
-                        } else {
-                            document.getElementById("passive-perception-button").classList.remove('manual-value');
-                        }
+                        perceptionButton.classList.toggle('manual-value', perceptionValue != (10 + modifier));
+                        insightButton.classList.toggle('manual-value', insightValue != (10 + modifier));
 
                         if (insightValue !== autoInsight) {
                             document.getElementById("passive-insight-button").classList.add('manual-value');
@@ -1270,6 +1267,28 @@
                     document.getElementById("passive_investigation").value = passiveInvestigation;
                     document.getElementById("passive-investigation-button").textContent = passiveInvestigation;
                 }
+
+                const insightButton = document.getElementById("passive-insight-button");
+                if (!insightButton.classList.contains('manual-value')) {
+                    const passiveInsight = 10 + wisdomModifier;
+                    document.getElementById("passive_perception").value = passiveInsight;
+                    insightButton.textContent = passiveInsight;
+                }
+
+                const investigationButton = document.getElementById("passive-perception-button");
+                if (!investigationButton.classList.contains('manual-value')) {
+                    const passiveInvestigation = 10 + wisdomModifier;
+                    document.getElementById("passive_perception").value = passiveInvestigation;
+                    investigationButton.textContent = passiveInvestigation;
+                }
+
+                const perceptionButton = document.getElementById("passive-perception-button");
+                if (!perceptionButton.classList.contains('manual-value')) {
+                    const passivePerception = 10 + wisdomModifier;
+                    document.getElementById("passive_perception").value = passivePerception;
+                    perceptionButton.textContent = passivePerception;
+                }
+
             }
 
             function updateBaseModifier(attribute) {
@@ -1278,6 +1297,27 @@
                 document.getElementById(`${attribute}-modifier`).textContent = modifier;
                 document.getElementById(`${attribute}-save-modifier`).textContent = modifier;
             }
+
+            document.addEventListener("DOMContentLoaded", function() {
+                // Проверяем ручные значения для пассивных навыков
+                const wisdomModifier = getModifier(parseInt(document.getElementById("wisdom").value));
+                const intelligenceModifier = getModifier(parseInt(document.getElementById("intelligence").value));
+
+                const insightValue = parseInt(document.getElementById("passive_insight").value);
+                if (insightValue !== 10 + intelligenceModifier) {
+                    document.getElementById("passive-insight-button").classList.add('manual-value');
+                }
+
+                const investigationValue = parseInt(document.getElementById("passive_investigation").value);
+                if (investigationValue !== 10 + wisdomModifier) {
+                    document.getElementById("passive-investigation-button").classList.add('manual-value');
+                }
+
+                const perceptionValue = parseInt(document.getElementById("passive_perception").value);
+                if (perceptionValue !== 10 + wisdomModifier) {
+                    document.getElementById("passive-perception-button").classList.add('manual-value');
+                }
+            });
 
             document.addEventListener("DOMContentLoaded", function () {
                 const characterAvatar = document.getElementById("character-avatar");
