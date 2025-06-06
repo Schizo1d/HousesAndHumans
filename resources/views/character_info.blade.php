@@ -1163,42 +1163,42 @@
                 document.getElementById(`${attribute}-save-modifier`).textContent = modifier;
             }
 
-            function updateModifier(attribute, forceUpdate = false) {
-                let attrValue = parseInt(document.getElementById(attribute).value);
-                let modifier = getModifier(attrValue);
-                document.getElementById(`${attribute}-modifier`).textContent = modifier;
-                document.getElementById(`${attribute}-save-modifier`).textContent = modifier;
-
-                // Автоматически обновляем только НЕручные пассивные чувства
-                if (attribute === 'wisdom') {
-                    const perceptionButton = document.getElementById("passive-perception-button");
-                    const insightButton = document.getElementById("passive-insight-button");
-
-                    if (!perceptionButton.classList.contains('manual-value') || forceUpdate) {
-                        const passivePerception = 10 + modifier;
-                        document.getElementById("passive_perception").value = passivePerception;
-                        perceptionButton.textContent = passivePerception;
-                        if (forceUpdate) perceptionButton.classList.remove('manual-value');
-                    }
-
-                    if (!insightButton.classList.contains('manual-value') || forceUpdate) {
-                        const passiveInsight = 10 + modifier;
-                        document.getElementById("passive_insight").value = passiveInsight;
-                        insightButton.textContent = passiveInsight;
-                        if (forceUpdate) insightButton.classList.remove('manual-value');
-                    }
-                }
-                else if (attribute === 'intelligence') {
-                    const investigationButton = document.getElementById("passive-investigation-button");
-
-                    if (!investigationButton.classList.contains('manual-value') || forceUpdate) {
-                        const passiveInvestigation = 10 + modifier;
-                        document.getElementById("passive_investigation").value = passiveInvestigation;
-                        investigationButton.textContent = passiveInvestigation;
-                        if (forceUpdate) investigationButton.classList.remove('manual-value');
-                    }
-                }
-            }
+            // function updateModifier(attribute, forceUpdate = false) {
+            //     let attrValue = parseInt(document.getElementById(attribute).value);
+            //     let modifier = getModifier(attrValue);
+            //     document.getElementById(`${attribute}-modifier`).textContent = modifier;
+            //     document.getElementById(`${attribute}-save-modifier`).textContent = modifier;
+            //
+            //     // Автоматически обновляем только НЕручные пассивные чувства
+            //     if (attribute === 'wisdom') {
+            //         const perceptionButton = document.getElementById("passive-perception-button");
+            //         const insightButton = document.getElementById("passive-insight-button");
+            //
+            //         if (!perceptionButton.classList.contains('manual-value') || forceUpdate) {
+            //             const passivePerception = 10 + modifier;
+            //             document.getElementById("passive_perception").value = passivePerception;
+            //             perceptionButton.textContent = passivePerception;
+            //             if (forceUpdate) perceptionButton.classList.remove('manual-value');
+            //         }
+            //
+            //         if (!insightButton.classList.contains('manual-value') || forceUpdate) {
+            //             const passiveInsight = 10 + modifier;
+            //             document.getElementById("passive_insight").value = passiveInsight;
+            //             insightButton.textContent = passiveInsight;
+            //             if (forceUpdate) insightButton.classList.remove('manual-value');
+            //         }
+            //     }
+            //     else if (attribute === 'intelligence') {
+            //         const investigationButton = document.getElementById("passive-investigation-button");
+            //
+            //         if (!investigationButton.classList.contains('manual-value') || forceUpdate) {
+            //             const passiveInvestigation = 10 + modifier;
+            //             document.getElementById("passive_investigation").value = passiveInvestigation;
+            //             investigationButton.textContent = passiveInvestigation;
+            //             if (forceUpdate) investigationButton.classList.remove('manual-value');
+            //         }
+            //     }
+            // }
 
 
             function resetPassiveSkill(skill) {
