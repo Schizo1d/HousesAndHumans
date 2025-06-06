@@ -1118,41 +1118,62 @@
 
             function saveAttribute() {
                 try {
+                    // 1. Сохраняем основной атрибут
                     const attrValue = parseInt(document.getElementById("modal-input").value) || 10;
+                    const oldAttrValue = parseInt(document.getElementById(currentAttr).value) || 10;
                     document.getElementById(currentAttr).value = attrValue;
                     document.getElementById(`${currentAttr}-button`).textContent = attrValue;
 
-                    updateModifier(currentAttr);
+                    // 2. Проверяем, изменился ли основной атрибут
+                    const attrChanged = attrValue !== oldAttrValue;
+
+                    // 3. Обновляем модификаторы
+                    updateModifier(currentAttr, attrChanged);
                     updateSkills(currentAttr);
 
+                    // 4. Обработка пассивных чувств
                     if (currentAttr === 'wisdom') {
                         const perceptionValue = parseInt(document.getElementById("modal-passive-perception").value) || 10;
                         const insightValue = parseInt(document.getElementById("modal-passive-insight").value) || 10;
 
-                        // Сохраняем как есть и помечаем как ручное
-                        document.getElementById("passive_perception").value = perceptionValue;
-                        document.getElementById("passive-perception-button").textContent = perceptionValue;
-                        document.getElementById("passive-perception-button").classList.add('manual-value');
+                        // Получаем автоматические значения
+                        const modifier = getModifier(attrValue);
+                        const autoPerception = 10 + modifier;
+                        const autoInsight = 10 + modifier;
 
-                        document.getElementById("passive_insight").value = insightValue;
-                        document.getElementById("passive-insight-button").textContent = insightValue;
-                        document.getElementById("passive-insight-button").classList.add('manual-value');
+                        // Если значения отличаются от автоматических или атрибут не менялся - сохраняем как ручные
+                        if (perceptionValue !== autoPerception || !attrChanged) {
+                            document.getElementById("passive_perception").value = perceptionValue;
+                            document.getElementById("passive-perception-button").textContent = perceptionValue;
+                            document.getElementById("passive-perception-button").classList.add('manual-value');
+                        }
+
+                        if (insightValue !== autoInsight || !attrChanged) {
+                            document.getElementById("passive_insight").value = insightValue;
+                            document.getElementById("passive-insight-button").textContent = insightValue;
+                            document.getElementById("passive-insight-button").classList.add('manual-value');
+                        }
                     }
                     else if (currentAttr === 'intelligence') {
                         const investigationValue = parseInt(document.getElementById("modal-passive-investigation").value) || 10;
+                        const modifier = getModifier(attrValue);
+                        const autoInvestigation = 10 + modifier;
 
-                        document.getElementById("passive_investigation").value = investigationValue;
-                        document.getElementById("passive-investigation-button").textContent = investigationValue;
-                        document.getElementById("passive-investigation-button").classList.add('manual-value');
+                        if (investigationValue !== autoInvestigation || !attrChanged) {
+                            document.getElementById("passive_investigation").value = investigationValue;
+                            document.getElementById("passive-investigation-button").textContent = investigationValue;
+                            document.getElementById("passive-investigation-button").classList.add('manual-value');
+                        }
                     }
 
+                    // 5. Закрываем модальное окно
                     document.getElementById("attributeModal").style.display = "none";
                 } catch (error) {
                     console.error("Ошибка при сохранении:", error);
                 }
             }
 
-            function updateModifier(attribute) {
+            function updateModifier(attribute, forceUpdate = false) {
                 let attrValue = parseInt(document.getElementById(attribute).value);
                 let modifier = getModifier(attrValue);
                 document.getElementById(`${attribute}-modifier`).textContent = modifier;
@@ -1163,25 +1184,28 @@
                     const perceptionButton = document.getElementById("passive-perception-button");
                     const insightButton = document.getElementById("passive-insight-button");
 
-                    if (!perceptionButton.classList.contains('manual-value')) {
+                    if (!perceptionButton.classList.contains('manual-value') || forceUpdate) {
                         const passivePerception = 10 + modifier;
                         document.getElementById("passive_perception").value = passivePerception;
                         perceptionButton.textContent = passivePerception;
+                        if (forceUpdate) perceptionButton.classList.remove('manual-value');
                     }
 
-                    if (!insightButton.classList.contains('manual-value')) {
+                    if (!insightButton.classList.contains('manual-value') || forceUpdate) {
                         const passiveInsight = 10 + modifier;
                         document.getElementById("passive_insight").value = passiveInsight;
                         insightButton.textContent = passiveInsight;
+                        if (forceUpdate) insightButton.classList.remove('manual-value');
                     }
                 }
                 else if (attribute === 'intelligence') {
                     const investigationButton = document.getElementById("passive-investigation-button");
 
-                    if (!investigationButton.classList.contains('manual-value')) {
+                    if (!investigationButton.classList.contains('manual-value') || forceUpdate) {
                         const passiveInvestigation = 10 + modifier;
                         document.getElementById("passive_investigation").value = passiveInvestigation;
                         investigationButton.textContent = passiveInvestigation;
+                        if (forceUpdate) investigationButton.classList.remove('manual-value');
                     }
                 }
             }
