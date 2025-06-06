@@ -1361,7 +1361,9 @@ form label {
     border: 2px solid #ff4d4d !important;
     box-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
 }
-
+.manual-value {
+    color: #ffcc00; /* или другой стиль для визуального отличия */
+}
 /* Стили для пассивных чувств в модальном окне */
 #passive-skills-section {
     background: rgba(0, 0, 0, 0.1);
