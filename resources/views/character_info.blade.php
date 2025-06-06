@@ -845,8 +845,8 @@
                     el.style.display = "none";
                 });
 
-                // Всегда показываем сохраненные значения (не рассчитываем автоматически)
                 if (attr === 'wisdom') {
+                    // Показываем сохраненные значения
                     document.getElementById("modal-passive-perception").value =
                         document.getElementById("passive_perception").value;
 
@@ -1120,57 +1120,47 @@
                 try {
                     // 1. Сохраняем основной атрибут
                     const attrValue = parseInt(document.getElementById("modal-input").value) || 10;
-                    const oldAttrValue = parseInt(document.getElementById(currentAttr).value) || 10;
                     document.getElementById(currentAttr).value = attrValue;
                     document.getElementById(`${currentAttr}-button`).textContent = attrValue;
 
-                    // 2. Проверяем, изменился ли основной атрибут
-                    const attrChanged = attrValue !== oldAttrValue;
-
-                    // 3. Обновляем модификаторы
-                    updateModifier(currentAttr, attrChanged);
+                    // 2. Обновляем модификаторы (без пассивных навыков)
+                    updateBaseModifier(currentAttr);
                     updateSkills(currentAttr);
 
-                    // 4. Обработка пассивных чувств
+                    // 3. Сохраняем пассивные чувства как есть (если окно было открыто)
                     if (currentAttr === 'wisdom') {
                         const perceptionValue = parseInt(document.getElementById("modal-passive-perception").value) || 10;
                         const insightValue = parseInt(document.getElementById("modal-passive-insight").value) || 10;
 
-                        // Получаем автоматические значения
-                        const modifier = getModifier(attrValue);
-                        const autoPerception = 10 + modifier;
-                        const autoInsight = 10 + modifier;
+                        // Всегда сохраняем как ручные значения
+                        document.getElementById("passive_perception").value = perceptionValue;
+                        document.getElementById("passive-perception-button").textContent = perceptionValue;
+                        document.getElementById("passive-perception-button").classList.add('manual-value');
 
-                        // Если значения отличаются от автоматических или атрибут не менялся - сохраняем как ручные
-                        if (perceptionValue !== autoPerception || !attrChanged) {
-                            document.getElementById("passive_perception").value = perceptionValue;
-                            document.getElementById("passive-perception-button").textContent = perceptionValue;
-                            document.getElementById("passive-perception-button").classList.add('manual-value');
-                        }
-
-                        if (insightValue !== autoInsight || !attrChanged) {
-                            document.getElementById("passive_insight").value = insightValue;
-                            document.getElementById("passive-insight-button").textContent = insightValue;
-                            document.getElementById("passive-insight-button").classList.add('manual-value');
-                        }
+                        document.getElementById("passive_insight").value = insightValue;
+                        document.getElementById("passive-insight-button").textContent = insightValue;
+                        document.getElementById("passive-insight-button").classList.add('manual-value');
                     }
                     else if (currentAttr === 'intelligence') {
                         const investigationValue = parseInt(document.getElementById("modal-passive-investigation").value) || 10;
-                        const modifier = getModifier(attrValue);
-                        const autoInvestigation = 10 + modifier;
 
-                        if (investigationValue !== autoInvestigation || !attrChanged) {
-                            document.getElementById("passive_investigation").value = investigationValue;
-                            document.getElementById("passive-investigation-button").textContent = investigationValue;
-                            document.getElementById("passive-investigation-button").classList.add('manual-value');
-                        }
+                        document.getElementById("passive_investigation").value = investigationValue;
+                        document.getElementById("passive-investigation-button").textContent = investigationValue;
+                        document.getElementById("passive-investigation-button").classList.add('manual-value');
                     }
 
-                    // 5. Закрываем модальное окно
+                    // 4. Закрываем модальное окно
                     document.getElementById("attributeModal").style.display = "none";
                 } catch (error) {
                     console.error("Ошибка при сохранении:", error);
                 }
+            }
+
+            function updateBaseModifier(attribute) {
+                let attrValue = parseInt(document.getElementById(attribute).value);
+                let modifier = getModifier(attrValue);
+                document.getElementById(`${attribute}-modifier`).textContent = modifier;
+                document.getElementById(`${attribute}-save-modifier`).textContent = modifier;
             }
 
             function updateModifier(attribute, forceUpdate = false) {
@@ -1217,11 +1207,14 @@
                 const modifier = Math.floor((attrValue - 10) / 2);
                 const passiveValue = 10 + modifier;
 
+                // Обновляем значение
                 document.getElementById(`passive_${skill}`).value = passiveValue;
                 document.getElementById(`passive-${skill}-button`).textContent = passiveValue;
+
+                // Удаляем метку ручного значения
                 document.getElementById(`passive-${skill}-button`).classList.remove('manual-value');
 
-                // Если модальное окно открыто - обновим и там
+                // Обновляем в модальном окне, если оно открыто
                 if (document.getElementById("attributeModal").style.display === "flex" &&
                     currentAttr === attribute) {
                     document.getElementById(`modal-passive-${skill}`).value = passiveValue;
