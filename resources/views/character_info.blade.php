@@ -1156,12 +1156,7 @@
                 }
             }
 
-            function updateBaseModifier(attribute) {
-                let attrValue = parseInt(document.getElementById(attribute).value);
-                let modifier = getModifier(attrValue);
-                document.getElementById(`${attribute}-modifier`).textContent = modifier;
-                document.getElementById(`${attribute}-save-modifier`).textContent = modifier;
-            }
+
 
             function updateModifier(attribute, forceUpdate = false) {
                 let attrValue = parseInt(document.getElementById(attribute).value);
@@ -1200,6 +1195,12 @@
                 }
             }
 
+            function updateBaseModifier(attribute) {
+                let attrValue = parseInt(document.getElementById(attribute).value);
+                let modifier = getModifier(attrValue);
+                document.getElementById(`${attribute}-modifier`).textContent = modifier;
+                document.getElementById(`${attribute}-save-modifier`).textContent = modifier;
+            }
 
             function resetPassiveSkill(skill) {
                 const attribute = skill === 'investigation' ? 'intelligence' : 'wisdom';
