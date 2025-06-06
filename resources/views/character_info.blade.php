@@ -713,7 +713,7 @@
                     <h3>Пассивные чувства</h3>
 
                     <div class="passive-skill-item">
-                        <button class="passive-skill-value" id="passive-perception-button">
+                        <button class="passive-skill-value manual-value" id="passive-perception-button">
             {{ $character->attributes->passive_perception ?? 10 }}
         </button>
                         <a href="javascript:void(0);" onclick="openModal('wisdom')" class="passive-link">
@@ -724,7 +724,7 @@
                     </div>
 
                     <div class="passive-skill-item">
-                        <button class="passive-skill-value" id="passive-insight-button">
+                        <button class="passive-skill-value manual-value" id="passive-insight-button">
             {{ $character->attributes->passive_insight ?? 10 }}
         </button>
                         <a href="javascript:void(0);" onclick="openModal('wisdom')" class="passive-link">
@@ -735,7 +735,7 @@
                     </div>
 
                     <div class="passive-skill-item">
-                        <button class="passive-skill-value" id="passive-investigation-button">
+                        <button class="passive-skill-value manual-value" id="passive-investigation-button">
             {{ $character->attributes->passive_investigation ?? 10 }}
         </button>
                         <a href="javascript:void(0);" onclick="openModal('intelligence')" class="passive-link">
@@ -1088,21 +1088,21 @@
                         const perceptionValue = parseInt(document.getElementById("modal-passive-perception").value) || 10;
                         const insightValue = parseInt(document.getElementById("modal-passive-insight").value) || 10;
 
+                        // Помечаем как ручной ввод если значения отличаются от автоматических
+                        const modifier = getModifier(attrValue);
+                        if (perceptionValue !== 10 + modifier) {
+                            document.getElementById("passive-perception-button").classList.add('manual');
+                        }
+                        if (insightValue !== 10 + modifier) {
+                            document.getElementById("passive-insight-button").classList.add('manual');
+                        }
+
                         // Сохраняем значения
                         document.getElementById("passive_perception").value = perceptionValue;
                         document.getElementById("passive-perception-button").textContent = perceptionValue;
 
                         document.getElementById("passive_insight").value = insightValue;
                         document.getElementById("passive-insight-button").textContent = insightValue;
-
-                        const modifier = getModifier(attrValue);
-
-                        // Устанавливаем класс manual-value если значение отличается от автоматического
-                        const perceptionButton = document.getElementById("passive-perception-button");
-                        perceptionButton.classList.toggle('manual-value', perceptionValue !== (10 + modifier));
-
-                        const insightButton = document.getElementById("passive-insight-button");
-                        insightButton.classList.toggle('manual-value', insightValue !== (10 + modifier));
                     }
                     else if (currentAttr === 'intelligence') {
                         const investigationValue = parseInt(document.getElementById("modal-passive-investigation").value) || 10;
@@ -1172,14 +1172,14 @@
 
                 // Обновляем значение
                 document.getElementById(`passive_${skill}`).value = passiveValue;
-                document.getElementById(`passive-${skill}-button`).textContent = passiveValue;
+                const button = document.getElementById(`passive-${skill}-button`);
+                button.textContent = passiveValue;
 
                 // Удаляем метку ручного значения
-                document.getElementById(`passive-${skill}-button`).classList.remove('manual-value');
+                button.classList.remove('manual');
 
-                // Обновляем в модальном окне, если оно открыто
-                if (document.getElementById("attributeModal").style.display === "flex" &&
-                    currentAttr === attribute) {
+                // Обновляем в модальном окне
+                if (document.getElementById("attributeModal").style.display === "flex") {
                     document.getElementById(`modal-passive-${skill}`).value = passiveValue;
                 }
             }
@@ -1290,6 +1290,28 @@
                 if (investigationValue !== 10 + intelligenceModifier) {
                     document.getElementById("passive-investigation-button").classList.add('manual-value');
                 }
+            });
+
+            document.addEventListener("DOMContentLoaded", function() {
+                // Проверяем для восприятия
+                const insightValue = parseInt(document.getElementById("passive_insight").value);
+                const autoInsight = 10 + getModifier(parseInt(document.getElementById("intelligence").value));
+                if (insightValue !== autoInsight) {
+                    document.getElementById("passive-insight-button").classList.add('manual');
+                }
+
+                const investigationValue = parseInt(document.getElementById("passive_investigation").value);
+                const autoInvestigation = 10 + getModifier(parseInt(document.getElementById("wisdom").value));
+                if (investigationValue !== autoInvestigation) {
+                    document.getElementById("passive-investigation-button").classList.add('manual');
+                }
+
+                const perceptionValue = parseInt(document.getElementById("passive_perception").value);
+                const autoPerception = 10 + getModifier(parseInt(document.getElementById("wisdom").value));
+                if (perceptionValue !== autoPerception) {
+                    document.getElementById("passive-perception-button").classList.add('manual');
+                }
+                // Аналогично для других пассивных навыков...
             });
 
             document.addEventListener("DOMContentLoaded", function () {
