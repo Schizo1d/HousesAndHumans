@@ -1082,18 +1082,19 @@
                     updateSkills(currentAttr);
 
                     if (currentAttr === 'wisdom') {
-                        const modifier = getModifier(attrValue); // Вычисляем модификатор
-
-                        // Получаем кнопки
-                        const perceptionButton = document.getElementById("passive-perception-button");
-                        const insightButton = document.getElementById("passive-insight-button");
+                        const modifier = getModifier(attrValue);
 
                         const perceptionValue = parseInt(document.getElementById("modal-passive-perception").value) || 10;
                         const insightValue = parseInt(document.getElementById("modal-passive-insight").value) || 10;
 
+                        const perceptionButton = document.getElementById("passive-perception-button");
+                        const insightButton = document.getElementById("passive-insight-button");
+
+                        // Помечаем как ручное если значение отличается от автоматического
                         perceptionButton.classList.toggle('manual', perceptionValue !== (10 + modifier));
                         insightButton.classList.toggle('manual', insightValue !== (10 + modifier));
 
+                        // Сохраняем значения
                         document.getElementById("passive_perception").value = perceptionValue;
                         perceptionButton.textContent = perceptionValue;
 
@@ -1102,13 +1103,14 @@
                     }
                     else if (currentAttr === 'intelligence') {
                         const modifier = getModifier(attrValue);
-                        const investigationButton = document.getElementById("passive-investigation-button");
                         const investigationValue = parseInt(document.getElementById("modal-passive-investigation").value) || 10;
+                        const investigationButton = document.getElementById("passive-investigation-button");
 
                         investigationButton.classList.toggle('manual', investigationValue !== (10 + modifier));
                         document.getElementById("passive_investigation").value = investigationValue;
                         investigationButton.textContent = investigationValue;
                     }
+
 
                     updatePassiveSkills(); // Обновляем отображение
                     document.getElementById("attributeModal").style.display = "none";
@@ -1165,11 +1167,15 @@
                 const modifier = Math.floor((attrValue - 10) / 2);
                 const passiveValue = 10 + modifier;
 
+                // Обновляем скрытое поле
                 document.getElementById(`passive_${skill}`).value = passiveValue;
+
+                // Обновляем кнопку
                 const button = document.getElementById(`passive-${skill}-button`);
                 button.textContent = passiveValue;
-                button.classList.remove('manual'); // Правильное удаление класса
+                button.classList.remove('manual'); // Убираем пометку ручного ввода
 
+                // Обновляем инпут в модальном окне если оно открыто
                 if (document.getElementById("attributeModal").style.display === "flex") {
                     document.getElementById(`modal-passive-${skill}`).value = passiveValue;
                 }
@@ -1228,42 +1234,29 @@
                 const wisdomModifier = getModifier(parseInt(document.getElementById("wisdom").value));
                 const intelligenceModifier = getModifier(parseInt(document.getElementById("intelligence").value));
 
-                // Восприятие
+                // Восприятие - обновляем только если не ручное
                 const perceptionButton = document.getElementById("passive-perception-button");
-                const passivePerception = 10 + wisdomModifier;
                 if (!perceptionButton.classList.contains('manual')) {
+                    const passivePerception = 10 + wisdomModifier;
                     document.getElementById("passive_perception").value = passivePerception;
                     perceptionButton.textContent = passivePerception;
                 }
 
-                // Проницательность
+                // Проницательность - обновляем только если не ручное
                 const insightButton = document.getElementById("passive-insight-button");
-                const passiveInsight = 10 + wisdomModifier;
                 if (!insightButton.classList.contains('manual')) {
+                    const passiveInsight = 10 + wisdomModifier;
                     document.getElementById("passive_insight").value = passiveInsight;
                     insightButton.textContent = passiveInsight;
                 }
 
-                // Анализ
+                // Анализ - обновляем только если не ручное
                 const investigationButton = document.getElementById("passive-investigation-button");
-                const passiveInvestigation = 10 + intelligenceModifier;
                 if (!investigationButton.classList.contains('manual')) {
+                    const passiveInvestigation = 10 + intelligenceModifier;
                     document.getElementById("passive_investigation").value = passiveInvestigation;
                     investigationButton.textContent = passiveInvestigation;
                 }
-
-                const passiveSkills = {
-                    'passive-perception-button': 10 + wisdomModifier,
-                    'passive-insight-button': 10 + wisdomModifier,
-                    'passive-investigation-button': 10 + intelligenceModifier
-                };
-
-                for (const [id, autoValue] of Object.entries(passiveSkills)) {
-                    const button = document.getElementById(id);
-                    const currentValue = parseInt(button.textContent);
-                    button.classList.toggle('manual', currentValue !== autoValue);
-                }
-
             }
 
             function updateBaseModifier(attribute) {
