@@ -1261,20 +1261,6 @@
                 document.getElementById(`${attribute}-save-modifier`).textContent = modifier;
             }
 
-            document.addEventListener("DOMContentLoaded", function() {
-                // Обработчики для инпутов пассивных навыков
-                document.getElementById("modal-passive-perception").addEventListener("change", function() {
-                    document.getElementById("passive-perception-button").classList.add('manual');
-                });
-
-                document.getElementById("modal-passive-insight").addEventListener("change", function() {
-                    document.getElementById("passive-insight-button").classList.add('manual');
-                });
-
-                document.getElementById("modal-passive-investigation").addEventListener("change", function() {
-                    document.getElementById("passive-investigation-button").classList.add('manual');
-                });
-            });
 
             document.addEventListener("DOMContentLoaded", function() {
                 const wisdomModifier = getModifier(parseInt(document.getElementById("wisdom").value));
@@ -1319,6 +1305,22 @@
                     document.getElementById("passive-perception-button").classList.add('manual');
                 }
             });
+
+            document.addEventListener("DOMContentLoaded", function() {
+                // Обработчики для инпутов пассивных навыков
+                document.getElementById("modal-passive-perception").addEventListener("change", function() {
+                    document.getElementById("passive-perception-button").classList.add('manual');
+                });
+
+                document.getElementById("modal-passive-insight").addEventListener("change", function() {
+                    document.getElementById("passive-insight-button").classList.add('manual');
+                });
+
+                document.getElementById("modal-passive-investigation").addEventListener("change", function() {
+                    document.getElementById("passive-investigation-button").classList.add('manual');
+                });
+            });
+
 
             document.addEventListener("DOMContentLoaded", function () {
                 const characterAvatar = document.getElementById("character-avatar");
