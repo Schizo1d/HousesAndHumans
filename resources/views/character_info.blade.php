@@ -1170,8 +1170,6 @@
                 const button = document.getElementById(`passive-${skill}-button`);
                 button.textContent = passiveValue;
 
-                // Удаляем метку ручного значения
-                button.classList.remove('manual');
 
                 // Обновляем в модальном окне
                 if (document.getElementById("attributeModal").style.display === "flex") {
