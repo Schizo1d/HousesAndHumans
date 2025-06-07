@@ -713,7 +713,7 @@
                     <h3>Пассивные чувства</h3>
 
                     <div class="passive-skill-item">
-                        <button class="passive-skill-value manual-value" id="passive-perception-button">
+                        <button class="passive-skill-value manual" id="passive-perception-button">
             {{ $character->attributes->passive_perception ?? 10 }}
         </button>
                         <a href="javascript:void(0);" onclick="openModal('wisdom')" class="passive-link">
@@ -724,7 +724,7 @@
                     </div>
 
                     <div class="passive-skill-item">
-                        <button class="passive-skill-value manual-value" id="passive-insight-button">
+                        <button class="passive-skill-value manual" id="passive-insight-button">
             {{ $character->attributes->passive_insight ?? 10 }}
         </button>
                         <a href="javascript:void(0);" onclick="openModal('wisdom')" class="passive-link">
@@ -735,7 +735,7 @@
                     </div>
 
                     <div class="passive-skill-item">
-                        <button class="passive-skill-value manual-value" id="passive-investigation-button">
+                        <button class="passive-skill-value manual" id="passive-investigation-button">
             {{ $character->attributes->passive_investigation ?? 10 }}
         </button>
                         <a href="javascript:void(0);" onclick="openModal('intelligence')" class="passive-link">
@@ -1114,7 +1114,7 @@
                         const investigationButton = document.getElementById("passive-investigation-button");
                         investigationButton.classList.toggle('manual-value', investigationValue !== (10 + modifier));
                     }
-
+                    updatePassiveSkills();
                     // 4. Закрываем модальное окно
                     document.getElementById("attributeModal").style.display = "none";
                 } catch (error) {
@@ -1239,7 +1239,7 @@
 
                 // Восприятие
                 const perceptionButton = document.getElementById("passive-perception-button");
-                if (!perceptionButton.classList.contains('manual-value')) {
+                if (!perceptionButton.classList.contains('manual')) { // Изменили на 'manual'
                     const passivePerception = 10 + wisdomModifier;
                     document.getElementById("passive_perception").value = passivePerception;
                     perceptionButton.textContent = passivePerception;
@@ -1247,7 +1247,7 @@
 
                 // Проницательность
                 const insightButton = document.getElementById("passive-insight-button");
-                if (!insightButton.classList.contains('manual-value')) {
+                if (!insightButton.classList.contains('manual')) { // Изменили на 'manual'
                     const passiveInsight = 10 + wisdomModifier;
                     document.getElementById("passive_insight").value = passiveInsight;
                     insightButton.textContent = passiveInsight;
@@ -1255,7 +1255,7 @@
 
                 // Анализ
                 const investigationButton = document.getElementById("passive-investigation-button");
-                if (!investigationButton.classList.contains('manual-value')) {
+                if (!investigationButton.classList.contains('manual')) { // Изменили на 'manual'
                     const passiveInvestigation = 10 + intelligenceModifier;
                     document.getElementById("passive_investigation").value = passiveInvestigation;
                     investigationButton.textContent = passiveInvestigation;
@@ -1276,19 +1276,19 @@
                 // Восприятие
                 const perceptionValue = parseInt(document.getElementById("passive_perception").value);
                 if (perceptionValue !== 10 + wisdomModifier) {
-                    document.getElementById("passive-perception-button").classList.add('manual-value');
+                    document.getElementById("passive-perception-button").classList.add('manual');
                 }
 
                 // Проницательность
                 const insightValue = parseInt(document.getElementById("passive_insight").value);
                 if (insightValue !== 10 + wisdomModifier) {
-                    document.getElementById("passive-insight-button").classList.add('manual-value');
+                    document.getElementById("passive-insight-button").classList.add('manual');
                 }
 
                 // Анализ
                 const investigationValue = parseInt(document.getElementById("passive_investigation").value);
                 if (investigationValue !== 10 + intelligenceModifier) {
-                    document.getElementById("passive-investigation-button").classList.add('manual-value');
+                    document.getElementById("passive-investigation-button").classList.add('manual');
                 }
             });
 
