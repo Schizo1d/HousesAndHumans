@@ -1086,26 +1086,20 @@
                         const perceptionValue = parseInt(document.getElementById("modal-passive-perception").value) || 10;
                         const insightValue = parseInt(document.getElementById("modal-passive-insight").value) || 10;
 
-                        const perceptionButton = document.getElementById("passive-perception-button");
-                        const insightButton = document.getElementById("passive-insight-button");
+                        // **Сохранение в LocalStorage**
+                        localStorage.setItem("passive_perception", perceptionValue);
+                        localStorage.setItem("passive_insight", insightValue);
 
-                        // Сохраняем ручные значения
                         document.getElementById("passive_perception").value = perceptionValue;
-                        perceptionButton.textContent = perceptionValue;
-                        perceptionButton.classList.toggle('manual', perceptionValue !== (10 + modifier));
-
                         document.getElementById("passive_insight").value = insightValue;
-                        insightButton.textContent = insightValue;
-                        insightButton.classList.toggle('manual', insightValue !== (10 + modifier));
                     }
                     else if (currentAttr === 'intelligence') {
                         const modifier = getModifier(attrValue);
                         const investigationValue = parseInt(document.getElementById("modal-passive-investigation").value) || 10;
-                        const investigationButton = document.getElementById("passive-investigation-button");
+
+                        localStorage.setItem("passive_investigation", investigationValue);
 
                         document.getElementById("passive_investigation").value = investigationValue;
-                        investigationButton.textContent = investigationValue;
-                        investigationButton.classList.toggle('manual', investigationValue !== (10 + modifier));
                     }
 
                     document.getElementById("attributeModal").style.display = "none";
@@ -1321,6 +1315,26 @@
                 });
             });
 
+            document.addEventListener("DOMContentLoaded", function() {
+                const savedPerception = localStorage.getItem("passive_perception");
+                const savedInsight = localStorage.getItem("passive_insight");
+                const savedInvestigation = localStorage.getItem("passive_investigation");
+
+                if (savedPerception) {
+                    document.getElementById("passive_perception").value = savedPerception;
+                    document.getElementById("passive-perception-button").textContent = savedPerception;
+                }
+
+                if (savedInsight) {
+                    document.getElementById("passive_insight").value = savedInsight;
+                    document.getElementById("passive-insight-button").textContent = savedInsight;
+                }
+
+                if (savedInvestigation) {
+                    document.getElementById("passive_investigation").value = savedInvestigation;
+                    document.getElementById("passive-investigation-button").textContent = savedInvestigation;
+                }
+            });
 
             document.addEventListener("DOMContentLoaded", function () {
                 const characterAvatar = document.getElementById("character-avatar");
