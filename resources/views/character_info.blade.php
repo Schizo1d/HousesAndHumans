@@ -1105,8 +1105,6 @@
                         document.getElementById("passive_investigation").value = investigationValue;
                         document.getElementById("passive-investigation-button").textContent = investigationValue;
 
-                        const modifier = getModifier(attrValue);
-                        const investigationButton = document.getElementById("passive-investigation-button");
                         investigationButton.classList.toggle('manual', investigationValue !== (10 + modifier));
                     }
                     updatePassiveSkills();
@@ -1170,6 +1168,8 @@
                 const button = document.getElementById(`passive-${skill}-button`);
                 button.textContent = passiveValue;
 
+                // Удаляем метку ручного значения
+                button.classList.remove('manual');
 
                 // Обновляем в модальном окне
                 if (document.getElementById("attributeModal").style.display === "flex") {
