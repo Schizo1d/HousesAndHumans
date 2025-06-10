@@ -749,6 +749,26 @@
                 <button type="submit">Сохранить атрибуты</button>
         </form>
 
+        <div>
+            <div>
+            <div class="">
+                <div></div>
+                <span></span>
+            </div>
+            <div class="">
+                <div></div>
+                <span></span>
+            </div>
+            <div class="">
+                <div></div>
+                <span></span>
+            </div>
+            </div>
+            <div>
+
+            </div>
+        </div>
+
         <!-- Модальное окно -->
         <div id="attributeModal" class="modal" style="display: none;">
             <div class="modal-content">
