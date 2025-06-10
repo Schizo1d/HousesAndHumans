@@ -747,28 +747,33 @@
                 </div>
 
                 <button type="submit">Сохранить атрибуты</button>
-                <div>
-                    <div>
-                        <div class="">
-                            <div></div>
-                            <span></span>
-                        </div>
-                        <div class="">
-                            <div></div>
-                            <span></span>
-                        </div>
-                        <div class="">
-                            <div></div>
-                            <span></span>
-                        </div>
-                    </div>
-                    <div>
 
-                    </div>
-                </div>
         </form>
 
+        <form id="attributesForm" action="{{ route('character_attributes.store', ['character' => $character->id]) }}"
+              method="POST">
+            @csrf
+            <input type="hidden" name="character_id" value="{{ $character->id }}">
+        <div>
+            <div>
+                <div class="">
+                    <div></div>
+                    <span></span>
+                </div>
+                <div class="">
+                    <div></div>
+                    <span></span>
+                </div>
+                <div class="">
+                    <div></div>
+                    <span></span>
+                </div>
+            </div>
+            <div>
 
+            </div>
+        </div>
+        </form>
 
         <!-- Модальное окно -->
         <div id="attributeModal" class="modal" style="display: none;">
