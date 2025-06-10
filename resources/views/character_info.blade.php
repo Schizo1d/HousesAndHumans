@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Персонажи</title>
     <link rel="stylesheet" href="{{ asset('css/character_info.css') }}">
+    <link rel="stylesheet" href="{{asset('css/character_content_right.css')}}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 <body>
@@ -754,19 +755,19 @@
               method="POST">
             @csrf
             <input type="hidden" name="character_id" value="{{ $character->id }}">
-        <div>
+        <div class="digital_content_right">
             <div>
                 <div class="">
                     <div></div>
-                    <span></span>
+                    <span>gdfgdgdfg</span>
                 </div>
                 <div class="">
                     <div></div>
-                    <span></span>
+                    <span>dfgdfg</span>
                 </div>
                 <div class="">
                     <div></div>
-                    <span></span>
+                    <span>gfddgdfg</span>
                 </div>
             </div>
             <div>
