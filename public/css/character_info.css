@@ -51,7 +51,8 @@ header {
     height: 80px;
 }
 .container-info {
-    max-width: 950px;
+    display: flex;
+    max-width: 1150px;
     margin: 0 auto;
     margin-top: 30px;
     background: #db934e;
@@ -242,12 +243,11 @@ form label {
     white-space: nowrap; /* Текст не переносится */
 }
 
-/* Стили для контейнера атрибутов */
+
 .attributes {
     display: flex;
-    flex-wrap: wrap; /* Размещаем атрибуты в несколько строк, если не помещаются */
+    flex-wrap: wrap;
     gap: 20px;
-    justify-content: space-between;
 }
 
 .sub-attributes {
