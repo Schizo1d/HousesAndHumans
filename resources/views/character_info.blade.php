@@ -748,7 +748,7 @@
                 </div>
 
                 <button type="submit">Сохранить атрибуты</button>
-
+            </div>
         </form>
 
         <form id="attributesForm" action="{{ route('character_attributes.store', ['character' => $character->id]) }}"
