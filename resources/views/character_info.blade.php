@@ -759,8 +759,8 @@
                 <div>
                     <div class="digital_box">
                         <div class="digital_box_button">
-                            <button class="digital_button">
-                                <p></p>
+                            <button class="digital_button" onclick="rollInitiative()">
+                                <p id="initiative-mod"></p>
                             </button>
                         </div>
                         <span>инициатива</span>
@@ -1121,7 +1121,8 @@
                     'constitution': 'ТЕЛОСЛОЖЕНИЕ',
                     'intelligence': 'ИНТЕЛЛЕКТ',
                     'wisdom': 'МУДРОСТЬ',
-                    'charisma': 'ХАРИЗМА'
+                    'charisma': 'ХАРИЗМА',
+                    'initiative': 'ИНИЦИАТИВА'
                 };
                 return names[attr] || attr;
             }
@@ -2224,7 +2225,25 @@
                 // Инициализируем прогресс-бары
                 updateProgressBar();
             });
+            //////ПРАВАЯ СТОРОНА ПЕРСОНАЖА
+            function rollInitiative() {
+                const dexterityValue = parseInt(document.getElementById("dexterity").value) || 10;
+                const dexMod = getModifier(dexterityValue);
+                const roll = Math.floor(Math.random() * 20) + 1;
+                const total = roll + dexMod;
 
+                // Выводим модификатор в <p>
+                document.getElementById("initiative-mod").textContent = dexMod >= 0 ? `+${dexMod}` : dexMod;
+
+                // Показываем уведомление
+                addNotification(
+                    "ИНИЦИАТИВА",
+                    "ЛОВКОСТЬ",
+                    roll,
+                    dexMod,
+                    total
+                );
+            }
         </script>
         <div class="sidebar-modal" id="settings-modal">
             <div class="sidebar-content">
