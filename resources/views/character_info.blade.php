@@ -2048,18 +2048,25 @@
 
                 saveButton.addEventListener("click", function () {
                     const newName = nameInput.value.trim();
-                    if (newName === "") return alert("Имя не может быть пустым!");
+                    if (newName === "") {
+                        alert("Имя не может быть пустым!");
+                        return;
+                    }
 
                     const characterId = document.querySelector('meta[name="character-id"]').getAttribute("content");
+
                     fetch("/character/update-name", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token']").getAttribute("content")
-                },
-                    body: JSON.stringify({ name: newName, character_id: characterId })
-                })
-                .then(response => response.json())
+                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+                        },
+                        body: JSON.stringify({
+                            name: newName,
+                            character_id: characterId
+                        })
+                    })
+                        .then(response => response.json())
                         .then(data => {
                             if (data.success) {
                                 characterNameElement.textContent = data.newName;
@@ -2070,9 +2077,13 @@
                                 saveMessage.style.color = "red";
                             }
                             saveMessage.style.display = "block";
-                            setTimeout(() => saveMessage.style.display = "none", 2000);
+                            setTimeout(() => {
+                                saveMessage.style.display = "none";
+                            }, 2000);
                         })
-                        .catch(error => console.error("Ошибка:", error));
+                        .catch(error => {
+                            console.error("Ошибка:", error);
+                        });
                 });
 
                 // 🔷 6. Модальное окно настроек
