@@ -757,7 +757,6 @@
             <input type="hidden" name="character_id" value="{{ $character->id }}">
             <div class="digital_content_right">
                 <div>
-                    <input id="dexterity" type="number" value="16">
                     <div class="digital_box">
                         <div class="digital_box_button">
                             <button class="digital_button" type="button" onclick="rollInitiative()">
