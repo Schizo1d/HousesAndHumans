@@ -758,7 +758,7 @@
         <div class="digital_content_right">
             <div>
                 <div class="digital_box">
-                    <div>
+                    <div class="digital_box_button">
                         <button>
                             <p></p>
                         </button>
@@ -766,13 +766,13 @@
                     <span>инициатива</span>
                 </div>
                 <div class="digital_box">
-                    <div>
+                    <div class="digital_box_button">
                         <label></label>
                     </div>
                     <span>вдохновение</span>
                 </div>
                 <div class="digital_box">
-                    <div>
+                    <div class="digital_box_button">
                         <label>
                         <select>
 
