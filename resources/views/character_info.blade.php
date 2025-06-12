@@ -760,7 +760,7 @@
                 <div class="digital_box">
                     <div class="digital_box_button">
                         <button class="digital_button">
-                            <p></p>
+                            <p>1</p>
                         </button>
                     </div>
                     <span>инициатива</span>
