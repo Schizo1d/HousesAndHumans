@@ -2001,9 +2001,10 @@
                 );
             }
             document.getElementById("dexterity").addEventListener("change", function () {
-                const dexMod = getModifier(parseInt(this.value) || 10);
-                document.getElementById("initiative-mod").textContent = dexMod >= 0 ? `+${dexMod}` : dexMod;
+                const newMod = getModifier(parseInt(this.value) || 10);
+                document.getElementById("initiative-mod").textContent = newMod >= 0 ? `+${newMod}` : newMod;
             });
+
             ///// ВСЯ ИНИЦИАЦИЯ
             document.addEventListener("DOMContentLoaded", function () {
                 // 🔷 1. Инициализация модификаторов и скиллов
