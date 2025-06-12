@@ -2244,6 +2244,20 @@
                     total
                 );
             }
+            document.addEventListener("DOMContentLoaded", function () {
+                const initEl = document.getElementById("initiative-mod");
+                const dexEl = document.getElementById("dexterity");
+
+                if (initEl && dexEl) {
+                    const dex = parseInt(dexEl.value) || 10;
+                    const mod = getModifier(dex);
+                    initEl.textContent = mod >= 0 ? `+${mod}` : mod;
+                }
+            });
+            document.getElementById("dexterity").addEventListener("change", function () {
+                const mod = getModifier(parseInt(this.value) || 10);
+                document.getElementById("initiative-mod").textContent = mod >= 0 ? `+${mod}` : mod;
+            });
         </script>
         <div class="sidebar-modal" id="settings-modal">
             <div class="sidebar-content">
