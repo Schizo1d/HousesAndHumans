@@ -773,8 +773,8 @@
                 </div>
                 <div class="digital_box">
                     <div class="digital_box_button">
-                        <label>
-                        <select>
+                        <label class="digital-exhaustion-wrap">
+                        <select class="digital-exhaustion">
 
                         </select>
                             <span>
