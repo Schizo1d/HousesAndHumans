@@ -927,37 +927,6 @@
                 element.checked = false;
             }
 
-            // Инициализация состояний при загрузке страницы
-            document.addEventListener("DOMContentLoaded", function () {
-                // Навыки силы
-                initSkillRadio('athletics');
-
-                // Навыки ловкости
-                initSkillRadio('acrobatics');
-                initSkillRadio('sleight_of_hand');
-                initSkillRadio('stealth');
-
-                // Навыки интеллекта
-                initSkillRadio('investigation');
-                initSkillRadio('history');
-                initSkillRadio('arcana');
-                initSkillRadio('nature');
-                initSkillRadio('religion');
-
-                // Навыки мудрости
-                initSkillRadio('perception');
-                initSkillRadio('survival');
-                initSkillRadio('medicine');
-                initSkillRadio('insight');
-                initSkillRadio('animal_handling');
-
-                // Навыки харизмы
-                initSkillRadio('performance');
-                initSkillRadio('intimidation');
-                initSkillRadio('deception');
-                initSkillRadio('persuasion');
-            });
-
             // Функция инициализации радио-кнопки навыка
             function initSkillRadio(skillId) {
                 const skillValue = parseInt(document.getElementById(skillId).value) || 0;
@@ -1318,174 +1287,6 @@
                 document.getElementById(`${attribute}-save-modifier`).textContent = modifier;
             }
 
-
-            document.addEventListener("DOMContentLoaded", function () {
-                // Инициализация модификаторов
-                Object.keys(attributeNames).forEach(attr => {
-                    updateBaseModifier(attr);
-                    updateSkills(attr);
-                });
-
-                // Восстановление пассивных навыков
-                ["perception", "insight", "investigation"].forEach(skill => {
-                    const manual = localStorage.getItem(`passive_${skill}_manual`);
-                    const auto = localStorage.getItem(`passive_${skill}_auto`);
-                    const button = document.getElementById(`passive-${skill}-button`);
-
-                    if (manual) {
-                        document.getElementById(`passive_${skill}`).value = manual;
-                        button.textContent = manual;
-                        button.classList.add("manual");
-                    } else if (auto) {
-                        document.getElementById(`passive_${skill}`).value = auto;
-                        button.textContent = auto;
-                        button.classList.remove("manual");
-                    } else {
-                        // Авторасчёт, если ничего не сохранено
-                        const attr = skill === "investigation" ? "intelligence" : "wisdom";
-                        const mod = getModifier(parseInt(document.getElementById(attr).value));
-                        const value = 10 + mod;
-                        document.getElementById(`passive_${skill}`).value = value;
-                        button.textContent = value;
-                        button.classList.remove("manual");
-                    }
-                });
-
-                // Обработка ручного изменения в модальном окне
-                ["perception", "insight", "investigation"].forEach(skill => {
-                    document.getElementById(`modal-passive-${skill}`).addEventListener("change", function () {
-                        const value = parseInt(this.value) || 10;
-                        document.getElementById(`passive-${skill}-button`).classList.add("manual");
-                        document.getElementById(`passive_${skill}`).value = value;
-                        document.getElementById(`passive-${skill}-button`).textContent = value;
-                        localStorage.setItem(`passive_${skill}_manual`, value);
-                        localStorage.removeItem(`passive_${skill}_auto`);
-                    });
-                });
-            });
-
-
-            document.addEventListener("DOMContentLoaded", function () {
-                const characterAvatar = document.getElementById("character-avatar");
-                const dropdown = document.getElementById("character-dropdown");
-
-                characterAvatar.addEventListener("click", function (event) {
-                    event.stopPropagation();
-                    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
-                });
-
-                document.addEventListener("click", function () {
-                    dropdown.style.display = "none";
-                });
-
-                dropdown.addEventListener("click", function (event) {
-                    event.stopPropagation();
-                });
-            });
-            document.addEventListener("DOMContentLoaded", function () {
-                const settingsBtn = document.getElementById("settings-btn");
-                const sidebarModal = document.getElementById("settings-modal");
-                const closeSidebar = document.getElementById("close-sidebar");
-
-                // В обработчике открытия модального окна настроек
-                settingsBtn.addEventListener("click", function () {
-                    const backdrop = document.getElementById('settings-backdrop');
-                    backdrop.style.display = 'block';
-                    setTimeout(() => {
-                        sidebarModal.classList.add("show");
-                        backdrop.classList.add('active');
-                    }, 10);
-                });
-
-                // В обработчике закрытия
-                closeSidebar.addEventListener("click", function () {
-                    const backdrop = document.getElementById('settings-backdrop');
-                    sidebarModal.classList.remove("show");
-                    backdrop.classList.remove('active');
-                    setTimeout(() => {
-                        backdrop.style.display = 'none';
-                    }, 300);
-                });
-
-                // Обновите обработчик клика вне модального окна
-                document.addEventListener("click", function (event) {
-                    const backdrop = document.getElementById('settings-backdrop');
-                    if (!sidebarModal.contains(event.target) &&
-                        !settingsBtn.contains(event.target) &&
-                        backdrop.classList.contains('active')) {
-                        sidebarModal.classList.remove("show");
-                        backdrop.classList.remove('active');
-                        setTimeout(() => {
-                            backdrop.style.display = 'none';
-                        }, 300);
-                    }
-                });
-                document.getElementById('save-character-settings').addEventListener('click', function () {
-                    const characterId = {{ $character->id }};
-                    const name = document.getElementById('character-name-input').value;
-                    const race = document.getElementById('character-race-input').value;
-                    const characterClass = document.getElementById('character-class-input').value;
-                    const subclass = document.getElementById('character-subclass-input').value;
-
-                    fetch('/characters/update-settings', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                        },
-                        body: JSON.stringify({
-                            character_id: characterId,
-                            name: name,
-                            race: race,
-                            class: characterClass,
-                            subclass: subclass
-                        })
-                    })
-                });
-            });
-            document.addEventListener("DOMContentLoaded", function () {
-                const nameInput = document.getElementById("character-name-input");
-                const saveButton = document.getElementById("save-character-name");
-                const saveMessage = document.getElementById("save-message");
-                const characterNameElement = document.querySelector(".character-name h2");
-
-                saveButton.addEventListener("click", function () {
-                    const newName = nameInput.value.trim();
-
-                    // Проверка, чтобы имя не было пустым
-                    if (newName === "") {
-                        alert("Имя не может быть пустым!");
-                        return;
-                    }
-
-                    // ID персонажа
-                    const characterId = document.querySelector('meta[name="character-id"]').getAttribute("content");
-
-                    // Отправляем запрос
-                    fetch("/character/update-name", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
-                        },
-                        body: JSON.stringify({name: newName, character_id: characterId})
-                    })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                characterNameElement.textContent = data.newName; // Меняем имя на странице
-                                saveMessage.textContent = "Имя сохранено!";
-                                saveMessage.style.color = "#28a745"; // Зеленый цвет успеха
-                            } else {
-                                saveMessage.textContent = "Ошибка!";
-                                saveMessage.style.color = "red";
-                            }
-                            saveMessage.style.display = "block";
-                            setTimeout(() => saveMessage.style.display = "none", 2000);
-                        })
-                        .catch(error => console.error("Ошибка:", error));
-                });
-            });
             const MAX_NOTIFICATIONS = 4;
             let currentNotifications = 0;
 
@@ -2123,18 +1924,7 @@
                 }
                 document.getElementById('xp-input').value = currentExpression;
             }
-            document.addEventListener("DOMContentLoaded", function() {
-                // Получаем данные из data-атрибутов
-                const miniProgress = document.querySelector('.mini-progress-container');
-                currentLevel = parseInt(miniProgress.dataset.currentLevel) || 1;
-                currentXp = parseInt(miniProgress.dataset.currentXp) || 0;
 
-                // Инициализируем прогресс-бары
-                updateMiniProgressBar(currentLevel, currentXp);
-
-                // Обработчики для кнопок
-                document.getElementById('level-up-btn').addEventListener('click', levelUpCharacter);
-            });
 
             document.getElementById('settings-backdrop').addEventListener('click', function() {
                 const sidebarModal = document.getElementById('settings-modal');
@@ -2145,15 +1935,7 @@
                     backdrop.style.display = 'none';
                 }, 300);
             });
-            document.addEventListener("DOMContentLoaded", function() {
-                const miniProgress = document.querySelector('.mini-progress-container');
-                currentLevel = parseInt(miniProgress.dataset.currentLevel) || 1;
-                currentXp = parseInt(miniProgress.dataset.currentXp) || 0;
-                nextLevelXp = parseInt(miniProgress.dataset.nextLevelXp) || XP_TABLE[currentLevel + 1];
 
-                updateMiniProgressBar();
-                updateProgressBar();
-            });
             // Функция обновления мини-прогресс бара
             function updateMiniProgressBar() {
                 const currentLevelXp = XP_TABLE[currentLevel] || 0;
@@ -2182,23 +1964,9 @@
                 document.querySelector('.character-level').textContent = `Уровень ${currentLevel}`;
             }
 
-            document.addEventListener("DOMContentLoaded", function() {
-                // Отключаем анимацию при первой загрузке
-                const progressBar = document.getElementById('xp-progress-bar');
-                progressBar.style.transition = 'none';
 
-                updateProgressBar();
 
-                // Включаем анимацию после небольшой задержки
-                setTimeout(() => {
-                    progressBar.style.transition = 'width 0.5s ease';
-                }, 100);
-            });
 
-            // Инициализация при загрузке
-            document.addEventListener("DOMContentLoaded", function() {
-                initProgressBars();
-            });
 
             function initProgressBars() {
                 const miniProgress = document.querySelector('.mini-progress-container');
@@ -2213,18 +1981,6 @@
                 checkLevelDown();
             }
 
-            document.addEventListener("DOMContentLoaded", function() {
-                updateMiniProgressBar();
-            });
-            document.addEventListener("DOMContentLoaded", function() {
-                // Получаем начальные значения
-                const miniProgress = document.querySelector('.mini-progress-container');
-                currentLevel = parseInt(miniProgress.dataset.currentLevel) || 1;
-                currentXp = parseInt(miniProgress.dataset.currentXp) || 0;
-
-                // Инициализируем прогресс-бары
-                updateProgressBar();
-            });
             //////ПРАВАЯ СТОРОНА ПЕРСОНАЖА
             function rollInitiative() {
                 const dexterityValue = parseInt(document.getElementById("dexterity").value) || 10;
@@ -2244,6 +2000,190 @@
                     total
                 );
             }
+            ///// ВСЯ ИНИЦИАЦИЯ
+            document.addEventListener("DOMContentLoaded", function () {
+                // 🔷 1. Инициализация модификаторов и скиллов
+                Object.keys(attributeNames).forEach(attr => {
+                    updateBaseModifier(attr);
+                    updateSkills(attr);
+                });
+
+                // 🔷 2. Инициатива
+                const dexValue = parseInt(document.getElementById("dexterity").value) || 10;
+                const dexMod = getModifier(dexValue);
+                document.getElementById("initiative-mod").textContent = dexMod >= 0 ? `+${dexMod}` : dexMod;
+
+                document.getElementById("dexterity").addEventListener("change", function () {
+                    const mod = getModifier(parseInt(this.value) || 10);
+                    document.getElementById("initiative-mod").textContent = mod >= 0 ? `+${mod}` : mod;
+                });
+
+                // 🔷 3. Прогресс-бары
+                const miniProgress = document.querySelector('.mini-progress-container');
+                currentLevel = parseInt(miniProgress.dataset.currentLevel) || 1;
+                currentXp = parseInt(miniProgress.dataset.currentXp) || 0;
+                nextLevelXp = parseInt(miniProgress.dataset.nextLevelXp) || XP_TABLE[currentLevel + 1];
+
+                updateMiniProgressBar(currentLevel, currentXp);
+                updateProgressBar();
+                initProgressBars();
+
+                const progressBar = document.getElementById('xp-progress-bar');
+                progressBar.style.transition = 'none';
+                setTimeout(() => {
+                    progressBar.style.transition = 'width 0.5s ease';
+                }, 100);
+
+                // 🔷 4. Кнопка прокачки уровня
+                const levelBtn = document.getElementById('level-up-btn');
+                if (levelBtn) {
+                    levelBtn.addEventListener('click', levelUpCharacter);
+                }
+
+                // 🔷 5. Имя персонажа
+                const nameInput = document.getElementById("character-name-input");
+                const saveButton = document.getElementById("save-character-name");
+                const saveMessage = document.getElementById("save-message");
+                const characterNameElement = document.querySelector(".character-name h2");
+
+                saveButton.addEventListener("click", function () {
+                    const newName = nameInput.value.trim();
+                    if (newName === "") return alert("Имя не может быть пустым!");
+
+                    const characterId = document.querySelector('meta[name="character-id"]').getAttribute("content");
+                    fetch("/character/update-name", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token']").getAttribute("content")
+                },
+                    body: JSON.stringify({ name: newName, character_id: characterId })
+                })
+                .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                characterNameElement.textContent = data.newName;
+                                saveMessage.textContent = "Имя сохранено!";
+                                saveMessage.style.color = "#28a745";
+                            } else {
+                                saveMessage.textContent = "Ошибка!";
+                                saveMessage.style.color = "red";
+                            }
+                            saveMessage.style.display = "block";
+                            setTimeout(() => saveMessage.style.display = "none", 2000);
+                        })
+                        .catch(error => console.error("Ошибка:", error));
+                });
+
+                // 🔷 6. Модальное окно настроек
+                const settingsBtn = document.getElementById("settings-btn");
+                const sidebarModal = document.getElementById("settings-modal");
+                const closeSidebar = document.getElementById("close-sidebar");
+
+                settingsBtn.addEventListener("click", function () {
+                    const backdrop = document.getElementById('settings-backdrop');
+                    backdrop.style.display = 'block';
+                    setTimeout(() => {
+                        sidebarModal.classList.add("show");
+                        backdrop.classList.add('active');
+                    }, 10);
+                });
+
+                closeSidebar.addEventListener("click", function () {
+                    const backdrop = document.getElementById('settings-backdrop');
+                    sidebarModal.classList.remove("show");
+                    backdrop.classList.remove('active');
+                    setTimeout(() => backdrop.style.display = 'none', 300);
+                });
+
+                document.addEventListener("click", function (event) {
+                    const backdrop = document.getElementById('settings-backdrop');
+                    if (!sidebarModal.contains(event.target) &&
+                        !settingsBtn.contains(event.target) &&
+                        backdrop.classList.contains('active')) {
+                        sidebarModal.classList.remove("show");
+                        backdrop.classList.remove('active');
+                        setTimeout(() => backdrop.style.display = 'none', 300);
+                    }
+                });
+
+                const saveSettings = document.getElementById('save-character-settings');
+                if (saveSettings) {
+                    saveSettings.addEventListener("click", function () {
+                        const characterId = document.querySelector('meta[name="character-id"]').getAttribute("content");
+                        const name = document.getElementById('character-name-input').value;
+                        const race = document.getElementById('character-race-input').value;
+                        const characterClass = document.getElementById('character-class-input').value;
+                        const subclass = document.getElementById('character-subclass-input').value;
+
+                        fetch('/characters/update-settings', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                            },
+                            body: JSON.stringify({ character_id: characterId, name, race, class: characterClass, subclass })
+                        });
+                    });
+                }
+
+                // 🔷 7. Дропдаун аватара
+                const characterAvatar = document.getElementById("character-avatar");
+                const dropdown = document.getElementById("character-dropdown");
+
+                characterAvatar.addEventListener("click", function (event) {
+                    event.stopPropagation();
+                    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+                });
+
+                document.addEventListener("click", () => dropdown.style.display = "none");
+                dropdown.addEventListener("click", event => event.stopPropagation());
+
+                // 🔷 8. Радиокнопки умений
+                [
+                    'athletics',
+                    'acrobatics', 'sleight_of_hand', 'stealth',
+                    'investigation', 'history', 'arcana', 'nature', 'religion',
+                    'perception', 'survival', 'medicine', 'insight', 'animal_handling',
+                    'performance', 'intimidation', 'deception', 'persuasion'
+                ].forEach(initSkillRadio);
+
+                // 🔷 9. Пассивные навыки из localStorage
+                ["perception", "insight", "investigation"].forEach(skill => {
+                    const manual = localStorage.getItem(`passive_${skill}_manual`);
+                    const auto = localStorage.getItem(`passive_${skill}_auto`);
+                    const button = document.getElementById(`passive-${skill}-button`);
+
+                    if (manual) {
+                        document.getElementById(`passive_${skill}`).value = manual;
+                        button.textContent = manual;
+                        button.classList.add("manual");
+                    } else if (auto) {
+                        document.getElementById(`passive_${skill}`).value = auto;
+                        button.textContent = auto;
+                        button.classList.remove("manual");
+                    } else {
+                        const attr = skill === "investigation" ? "intelligence" : "wisdom";
+                        const mod = getModifier(parseInt(document.getElementById(attr).value));
+                        const value = 10 + mod;
+                        document.getElementById(`passive_${skill}`).value = value;
+                        button.textContent = value;
+                        button.classList.remove("manual");
+                    }
+                });
+
+                ["perception", "insight", "investigation"].forEach(skill => {
+                    document.getElementById(`modal-passive-${skill}`).addEventListener("change", function () {
+                        const value = parseInt(this.value) || 10;
+                        const button = document.getElementById(`passive-${skill}-button`);
+                        document.getElementById(`passive_${skill}`).value = value;
+                        button.textContent = value;
+                        button.classList.add("manual");
+                        localStorage.setItem(`passive_${skill}_manual`, value);
+                        localStorage.removeItem(`passive_${skill}_auto`);
+                    });
+                });
+            });
         </script>
         <div class="sidebar-modal" id="settings-modal">
             <div class="sidebar-content">
