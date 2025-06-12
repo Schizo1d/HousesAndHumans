@@ -9,7 +9,7 @@
 }
 .digital_box_button{
     align-items: center;
-    background: #272e43;
+    background: #edca99;
     border: 1px solid var(--c-accent);
     border-radius: 5px;
     color: var(--c-text);
