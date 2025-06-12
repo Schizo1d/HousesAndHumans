@@ -149,8 +149,7 @@
                 {{ $character->attributes->dexterity ?? 10 }}
             </span>
                         </a>
-                        <input type="hidden" id="dexterity" name="dexterity"
-                               value="{{ $character->attributes->dexterity ?? 10 }}">
+                        <input type="hidden" id="dexterity" name="dexterity" value="{{ $character->attributes->dexterity ?? 10 }}">
                     </div>
                     <div class="attribute-checks">
                         <!-- Блок для проверки -->
@@ -2230,14 +2229,18 @@
             function rollInitiative() {
                 const dexterityValue = parseInt(document.getElementById("dexterity").value) || 10;
                 const dexMod = getModifier(dexterityValue);
+                const roll = Math.floor(Math.random() * 20) + 1;
+                const total = roll + dexMod;
+
+                // Обновляем отображение модификатора
                 document.getElementById("initiative-mod").textContent = dexMod >= 0 ? `+${dexMod}` : dexMod;
 
                 addNotification(
                     "ИНИЦИАТИВА",
                     "ЛОВКОСТЬ",
-                    Math.floor(Math.random() * 20) + 1,
+                    roll,
                     dexMod,
-                    Math.floor(Math.random() * 20) + 1 + dexMod
+                    total
                 );
             }
 
@@ -2250,6 +2253,17 @@
                     const mod = getModifier(parseInt(dexEl.value) || 10);
                     modEl.textContent = mod >= 0 ? `+${mod}` : mod;
                 }
+            });
+            document.addEventListener("DOMContentLoaded", function() {
+                // Инициализация модификатора инициативы
+                const dexValue = parseInt(document.getElementById("dexterity").value) || 10;
+                const initiativeMod = getModifier(dexValue);
+                const initiativeModElement = document.getElementById("initiative-mod");
+
+                // Форматируем вывод: добавляем "+" для положительных значений
+                initiativeModElement.textContent = initiativeMod >= 0 ? `+${initiativeMod}` : initiativeMod;
+
+                // Остальной код инициализации...
             });
         </script>
         <div class="sidebar-modal" id="settings-modal">
