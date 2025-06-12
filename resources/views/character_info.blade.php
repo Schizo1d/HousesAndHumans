@@ -2000,10 +2000,7 @@
                     total
                 );
             }
-            document.getElementById("dexterity").addEventListener("change", function () {
-                const newMod = getModifier(parseInt(this.value) || 10);
-                document.getElementById("initiative-mod").textContent = newMod >= 0 ? `+${newMod}` : newMod;
-            });
+
 
             ///// ВСЯ ИНИЦИАЦИЯ
             document.addEventListener("DOMContentLoaded", function () {
@@ -2199,6 +2196,10 @@
                         localStorage.removeItem(`passive_${skill}_auto`);
                     });
                 });
+            });
+            document.getElementById("dexterity").addEventListener("change", function () {
+                const newMod = getModifier(parseInt(this.value) || 10);
+                document.getElementById("initiative-mod").textContent = newMod >= 0 ? `+${newMod}` : newMod;
             });
         </script>
         <div class="sidebar-modal" id="settings-modal">
