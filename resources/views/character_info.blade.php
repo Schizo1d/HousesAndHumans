@@ -1312,6 +1312,12 @@
                         button.classList.remove("manual");
                     }
                 });
+            document.addEventListener("DOMContentLoaded", function () {
+                // Инициализация модификаторов
+                Object.keys(attributeNames).forEach(attr => {
+                    updateBaseModifier(attr);
+                    updateSkills(attr);
+                });
 
                 // Обработка ручного изменения в модальном окне
                 ["perception", "insight", "investigation"].forEach(skill => {
