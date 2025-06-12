@@ -759,7 +759,7 @@
             <div>
                 <div class="digital_box">
                     <div class="digital_box_button">
-                        <button>
+                        <button class="digital_button">
                             <p></p>
                         </button>
                     </div>
