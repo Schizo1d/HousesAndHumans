@@ -1207,20 +1207,27 @@
                 const mod = getModifier(attrValue);
                 const value = 10 + mod;
 
-                document.getElementById(`passive_${skill}`).value = value;
                 const button = document.getElementById(`passive-${skill}-button`);
+                const input = document.getElementById(`passive_${skill}`);
+
+                input.value = value;
                 button.textContent = value;
-                button.classList.remove("manual");
+
+                // ✅ Удаляем класс для сброса цвета
+                if (button.classList.contains("manual")) {
+                    button.classList.remove("manual");
+                }
 
                 localStorage.removeItem(`passive_${skill}_manual`);
                 localStorage.setItem(`passive_${skill}_auto`, value);
 
-                // Обновляем инпут в модальном окне, если он открыт
+                // Обновляем инпут модального окна, если оно открыто
                 const modal = document.getElementById("attributeModal");
-                if (modal.style.display === "flex") {
+                if (modal && modal.style.display === "flex") {
                     document.getElementById(`modal-passive-${skill}`).value = value;
                 }
             }
+
             // Открыть модальное окно для изменения значения атрибута
             function openModal(attr) {
                 currentAttr = attr;
