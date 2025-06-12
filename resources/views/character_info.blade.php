@@ -1287,9 +1287,7 @@
                 document.getElementById(`${attribute}-save-modifier`).textContent = modifier;
 
                 if (attribute === 'dexterity') {
-                    document.getElementById(`${attribute}-modifier`).textContent = modifier;
-                    document.getElementById(`${attribute}-save-modifier`).textContent = modifier;
-                    document.getElementById("initiative-modifier").textContent = modifier; // Обновляем инициативу
+                    document.getElementById("initiative-modifier").textContent = modifier;
                 }
             }
 
@@ -1453,14 +1451,29 @@
                 const container = document.getElementById('notificationsContainer');
                 const closeBtn = document.querySelector('.close-all-btn');
 
+                // Определяем тип уведомления
                 const isCheck = type === 'ПРОВЕРКА';
-                const typeClass = isCheck ? 'check-text' : 'save-text';
-                const notificationType = isCheck ? 'check' : 'save';
+                const isSave = type === 'СПАСБРОСОК';
+                const isInitiative = type === 'ИНИЦИАТИВА';
+
+                // Классы для разных типов уведомлений
+                let typeClass;
+                if (isCheck) typeClass = 'check-text';
+                else if (isSave) typeClass = 'save-text';
+                else if (isInitiative) typeClass = 'initiative-text';
+                else typeClass = 'default-text'; // На всякий случай
+
                 const modifierDisplay = modifier >= 0 ? `+ ${modifier}` : modifier;
 
                 // Преобразуем старые уведомления
                 document.querySelectorAll('.notification.new').forEach(notif => {
-                    const oldTypeClass = notif.dataset.notificationType === 'check' ? 'check-text' : 'save-text';
+                    const oldType = notif.dataset.notificationType;
+                    let oldTypeClass = 'default-text';
+
+                    if (oldType === 'check') oldTypeClass = 'check-text';
+                    else if (oldType === 'save') oldTypeClass = 'save-text';
+                    else if (oldType === 'initiative') oldTypeClass = 'initiative-text';
+
                     notif.className = `notification old ${notif.dataset.notificationType}`;
                     notif.innerHTML = `
             <span>${notif.dataset.result} </span>
@@ -1468,6 +1481,13 @@
             <span> ${notif.dataset.attribute}</span>
         `;
                 });
+
+                // Определяем тип для data-атрибута
+                let notificationType;
+                if (isCheck) notificationType = 'check';
+                else if (isSave) notificationType = 'save';
+                else if (isInitiative) notificationType = 'initiative';
+                else notificationType = 'default';
 
                 // Создаем новое уведомление
                 const notification = document.createElement('div');
@@ -1477,9 +1497,17 @@
                 notification.dataset.result = result;
                 notification.dataset.notificationType = notificationType;
 
+                // Форматируем заголовок по-разному для инициативы
+                let headerContent;
+                if (isInitiative) {
+                    headerContent = `<span class="${typeClass}">${type}</span>`;
+                } else {
+                    headerContent = `<span class="${typeClass}">${type}</span> ${attributeName(attribute)}`;
+                }
+
                 notification.innerHTML = `
         <div class="notification-header">
-            <span class="${typeClass}">${type}</span> ${attributeName(attribute)}
+            ${headerContent}
         </div>
         <div class="notification-content">
             <div class="notification-formula">${roll} ${modifierDisplay}</div>
@@ -2200,16 +2228,16 @@
                 const roll = Math.floor(Math.random() * 20) + 1;
                 const total = roll + modifier;
 
-                // Обновляем отображение модификатора (на случай, если он изменился)
+                // Обновляем отображение модификатора
                 document.getElementById("initiative-modifier").textContent = modifier;
 
                 // Добавляем уведомление
                 addNotification(
-                    'ИНИЦИАТИВА',
-                    '',
-                    roll,
-                    modifier,
-                    total
+                    'ИНИЦИАТИВА',  // Тип уведомления
+                    'dexterity',    // Атрибут (ловкость)
+                    roll,           // Результат броска d20
+                    modifier,       // Модификатор
+                    total           // Итоговый результат
                 );
             }
 

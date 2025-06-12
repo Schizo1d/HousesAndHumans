@@ -59,3 +59,7 @@
     top: 0;
     width: 100%;
 }
+.initiative-text {
+    color: #9c27b0; /* Фиолетовый цвет */
+    font-weight: bold;
+}
