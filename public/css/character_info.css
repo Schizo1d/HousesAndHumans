@@ -232,6 +232,7 @@ form label {
     height: 1px;
     background-color: #edca99;
     width: 100%; /* Линия растягивается на всю ширину контейнера */
+    margin: 5px;
 }
 
 .check-block, .save-block {
