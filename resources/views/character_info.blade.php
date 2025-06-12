@@ -766,12 +766,31 @@
                     <span>инициатива</span>
                 </div>
                 <div class="">
-                    <div></div>
+                    <div>
+                        <label></label>
+                    </div>
                     <span>вдохновение</span>
                 </div>
                 <div class="">
-                    <div></div>
+                    <div>
+                        <label>
+                        <select>
+
+                        </select>
+                            <span>
+
+                            </span>
+                        </label>
+                    </div>
                     <span>истощение</span>
+                </div>
+                <div>
+                    <div>
+                        <div>
+                            <a href=""></a>
+                        </div>
+                    </div>
+                    <span>состояние</span>
                 </div>
             </div>
             <div>
