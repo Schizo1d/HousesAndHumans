@@ -760,14 +760,14 @@
                 <div class="digital_box">
                     <div class="digital_box_button">
                         <button class="digital_button">
-                            <p>1</p>
+                            <p></p>
                         </button>
                     </div>
                     <span>инициатива</span>
                 </div>
                 <div class="digital_box">
                     <div class="digital_box_button">
-                        <label></label>
+                        <label class="inspiration"></label>
                     </div>
                     <span>вдохновение</span>
                 </div>
