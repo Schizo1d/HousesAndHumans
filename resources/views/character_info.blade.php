@@ -881,6 +881,10 @@
                 charisma: "Харизма"
             };
 
+            function closeModal() {
+                document.getElementById("attributeModal").style.display = "none";
+            }
+
             // Функция расчета модификатора атрибута (по правилам D&D)
             function getModifier(attributeValue) {
                 return Math.floor((attributeValue - 10) / 2);
