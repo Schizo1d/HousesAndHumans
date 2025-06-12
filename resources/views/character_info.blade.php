@@ -1156,13 +1156,25 @@
                                 localStorage.setItem(`passive_${skill}_auto`, val);
                             }
                         });
-                    } else if (currentAttr === "intelligence") {
+                    }else if (currentAttr === "intelligence") {
                         const val = parseInt(document.getElementById(`modal-passive-investigation`).value) || 10;
+                        const modifier = getModifier(attrValue);
+                        const auto = 10 + modifier;
+
                         document.getElementById("passive_investigation").value = val;
-                        document.getElementById("passive-investigation-button").textContent = val;
-                        document.getElementById("passive-investigation-button").classList.add("manual");
-                        localStorage.setItem("passive_investigation_manual", val);
-                        localStorage.removeItem("passive_investigation_auto");
+                        const button = document.getElementById("passive-investigation-button");
+                        button.textContent = val;
+
+                        // 🟡 Только если значение отличается от авто — делаем ручным
+                        if (val !== auto) {
+                            button.classList.add("manual");
+                            localStorage.setItem("passive_investigation_manual", val);
+                            localStorage.removeItem("passive_investigation_auto");
+                        } else {
+                            button.classList.remove("manual");
+                            localStorage.removeItem("passive_investigation_manual");
+                            localStorage.setItem("passive_investigation_auto", val);
+                        }
                     }
 
                     document.getElementById("attributeModal").style.display = "none";
