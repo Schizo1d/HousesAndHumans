@@ -2226,18 +2226,29 @@
                 updateProgressBar();
             });
             //////ПРАВАЯ СТОРОНА ПЕРСОНАЖА
+
             function rollInitiative() {
                 const dexterityValue = parseInt(document.getElementById("dexterity").value) || 10;
                 const dexMod = getModifier(dexterityValue);
                 document.getElementById("initiative-mod").textContent = dexMod >= 0 ? `+${dexMod}` : dexMod;
-            }
-            document.addEventListener("DOMContentLoaded", function () {
-                const dexInput = document.getElementById("dexterity");
-                const initEl = document.getElementById("initiative-mod");
 
-                if (initEl && dexInput) {
-                    const mod = getModifier(parseInt(dexInput.value) || 10);
-                    initEl.textContent = mod >= 0 ? `+${mod}` : mod;
+                addNotification(
+                    "ИНИЦИАТИВА",
+                    "ЛОВКОСТЬ",
+                    Math.floor(Math.random() * 20) + 1,
+                    dexMod,
+                    Math.floor(Math.random() * 20) + 1 + dexMod
+                );
+            }
+
+            // 👇 Автоматическое обновление модификатора при загрузке
+            document.addEventListener("DOMContentLoaded", function () {
+                const dexEl = document.getElementById("dexterity");
+                const modEl = document.getElementById("initiative-mod");
+
+                if (dexEl && modEl) {
+                    const mod = getModifier(parseInt(dexEl.value) || 10);
+                    modEl.textContent = mod >= 0 ? `+${mod}` : mod;
                 }
             });
         </script>
