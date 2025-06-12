@@ -883,6 +883,10 @@
                 charisma: "Харизма"
             };
 
+            function closeModal() {
+                document.getElementById("attributeModal").style.display = "none";
+            }
+
             // Функция расчета модификатора атрибута (по правилам D&D)
             function getModifier(attributeValue) {
                 return Math.floor((attributeValue - 10) / 2);
@@ -1610,37 +1614,6 @@
                 currentExpression = '0';
             }
 
-            // Функция броска инициативы
-            function rollInitiative() {
-                // Получаем значение ловкости
-                const dexValue = parseInt(document.getElementById("dexterity").value) || 10;
-
-                // Рассчитываем модификатор
-                const modifier = Math.floor((dexValue - 10) / 2);
-
-                // Бросок кубика
-                const roll = Math.floor(Math.random() * 20) + 1;
-                const total = roll + modifier;
-
-                // Обновляем отображение модификатора
-                document.getElementById("initiative-modifier").textContent = modifier;
-
-                // Добавляем уведомление
-                addNotification(
-                    'ИНИЦИАТИВА',  // Тип уведомления
-                    'dexterity',    // Атрибут (ловкость)
-                    roll,           // Результат броска d20
-                    modifier,       // Модификатор
-                    total           // Итоговый результат
-                );
-            }
-
-            // Обновляем модификатор при загрузке страницы
-            document.addEventListener("DOMContentLoaded", function() {
-                const dexValue = parseInt(document.getElementById("dexterity").value) || 10;
-                const modifier = Math.floor((dexValue - 10) / 2);
-                document.getElementById("initiative-modifier").textContent = modifier;
-            });
 
             function closeLevelUpModal() {
                 if (!isLevelUpModalOpen) return;
@@ -2247,7 +2220,37 @@
 
             /////////////////////////////////// ПРАВАЯ СТОРОНА ПЕРСОНАЖА
             //
+            // Функция броска инициативы
+            function rollInitiative() {
+                // Получаем значение ловкости
+                const dexValue = parseInt(document.getElementById("dexterity").value) || 10;
 
+                // Рассчитываем модификатор
+                const modifier = Math.floor((dexValue - 10) / 2);
+
+                // Бросок кубика
+                const roll = Math.floor(Math.random() * 20) + 1;
+                const total = roll + modifier;
+
+                // Обновляем отображение модификатора
+                document.getElementById("initiative-modifier").textContent = modifier;
+
+                // Добавляем уведомление
+                addNotification(
+                    'ИНИЦИАТИВА',  // Тип уведомления
+                    'dexterity',    // Атрибут (ловкость)
+                    roll,           // Результат броска d20
+                    modifier,       // Модификатор
+                    total           // Итоговый результат
+                );
+            }
+
+            // Обновляем модификатор при загрузке страницы
+            document.addEventListener("DOMContentLoaded", function() {
+                const dexValue = parseInt(document.getElementById("dexterity").value) || 10;
+                const modifier = Math.floor((dexValue - 10) / 2);
+                document.getElementById("initiative-modifier").textContent = modifier;
+            });
 
         </script>
         <div class="sidebar-modal" id="settings-modal">
