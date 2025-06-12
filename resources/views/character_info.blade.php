@@ -715,10 +715,10 @@
 
                     <div class="passive-skill-item">
                         <button class="passive-skill-value" id="passive-perception-button">
-            {{ $character->attributes->passive_perception ?? 10 }}
-        </button>
+                            {{ $character->attributes->passive_perception ?? 10 }}
+                        </button>
                         <a href="javascript:void(0);" onclick="openModal('wisdom')" class="passive-link">
-                        <span class="passive-skill-name">Восприятие (Мудрость):</span>
+                            <span class="passive-skill-name">Восприятие (Мудрость):</span>
                         </a>
                         <input type="hidden" id="passive_perception" name="passive_perception"
                                value="{{ $character->attributes->passive_perception ?? 10 }}">
@@ -726,10 +726,10 @@
 
                     <div class="passive-skill-item">
                         <button class="passive-skill-value" id="passive-insight-button">
-            {{ $character->attributes->passive_insight ?? 10 }}
-        </button>
+                            {{ $character->attributes->passive_insight ?? 10 }}
+                        </button>
                         <a href="javascript:void(0);" onclick="openModal('wisdom')" class="passive-link">
-                        <span class="passive-skill-name">Проницательность (Мудрость):</span>
+                            <span class="passive-skill-name">Проницательность (Мудрость):</span>
                         </a>
                         <input type="hidden" id="passive_insight" name="passive_insight"
                                value="{{ $character->attributes->passive_insight ?? 10 }}">
@@ -737,10 +737,10 @@
 
                     <div class="passive-skill-item">
                         <button class="passive-skill-value" id="passive-investigation-button">
-            {{ $character->attributes->passive_investigation ?? 10 }}
-        </button>
+                            {{ $character->attributes->passive_investigation ?? 10 }}
+                        </button>
                         <a href="javascript:void(0);" onclick="openModal('intelligence')" class="passive-link">
-                        <span class="passive-skill-name">Анализ (Интеллект):</span>
+                            <span class="passive-skill-name">Анализ (Интеллект):</span>
                         </a>
                         <input type="hidden" id="passive_investigation" name="passive_investigation"
                                value="{{ $character->attributes->passive_investigation ?? 10 }}">
@@ -755,50 +755,48 @@
               method="POST">
             @csrf
             <input type="hidden" name="character_id" value="{{ $character->id }}">
-        <div class="digital_content_right">
-            <div>
-                <div class="digital_box">
-                    <div class="digital_box_button">
-                        <button class="digital_button" onclick="rollInitiative()">
-                            <p id="initiative-modifier">
-                                {{ floor(($character->attributes->dexterity ?? 10 - 10) / 2) }}
-                            </p>
-                        </button>
+            <div class="digital_content_right">
+                <div>
+                    <div class="digital_box">
+                        <div class="digital_box_button">
+                            <button class="digital_button">
+                                <p></p>
+                            </button>
+                        </div>
+                        <span>инициатива</span>
                     </div>
-                    <span>инициатива</span>
-                </div>
-                <div class="digital_box">
-                    <div class="digital_box_button">
-                        <label class="inspiration"></label>
+                    <div class="digital_box">
+                        <div class="digital_box_button">
+                            <label class="inspiration"></label>
+                        </div>
+                        <span>вдохновение</span>
                     </div>
-                    <span>вдохновение</span>
-                </div>
-                <div class="digital_box">
-                    <div class="digital_box_button">
-                        <label class="digital-exhaustion-wrap">
-                        <select class="digital-exhaustion">
+                    <div class="digital_box">
+                        <div class="digital_box_button">
+                            <label class="digital-exhaustion-wrap">
+                                <select class="digital-exhaustion">
 
-                        </select>
-                            <span>
+                                </select>
+                                <span>
 
                             </span>
-                        </label>
+                            </label>
+                        </div>
+                        <span>истощение</span>
                     </div>
-                    <span>истощение</span>
-                </div>
-                <div>
                     <div>
                         <div>
-                            <a href=""></a>
+                            <div>
+                                <a href=""></a>
+                            </div>
                         </div>
+                        <span>состояние</span>
                     </div>
-                    <span>состояние</span>
+                </div>
+                <div>
+
                 </div>
             </div>
-            <div>
-
-            </div>
-        </div>
         </form>
 
         <!-- Модальное окно -->
@@ -882,10 +880,6 @@
                 wisdom: "Мудрость",
                 charisma: "Харизма"
             };
-
-            function closeModal() {
-                document.getElementById("attributeModal").style.display = "none";
-            }
 
             // Функция расчета модификатора атрибута (по правилам D&D)
             function getModifier(attributeValue) {
@@ -1289,10 +1283,6 @@
                 let modifier = getModifier(attrValue);
                 document.getElementById(`${attribute}-modifier`).textContent = modifier;
                 document.getElementById(`${attribute}-save-modifier`).textContent = modifier;
-
-                if (attribute === 'dexterity') {
-                    document.getElementById("initiative-modifier").textContent = modifier;
-                }
             }
 
 
@@ -1455,29 +1445,14 @@
                 const container = document.getElementById('notificationsContainer');
                 const closeBtn = document.querySelector('.close-all-btn');
 
-                // Определяем тип уведомления
                 const isCheck = type === 'ПРОВЕРКА';
-                const isSave = type === 'СПАСБРОСОК';
-                const isInitiative = type === 'ИНИЦИАТИВА';
-
-                // Классы для разных типов уведомлений
-                let typeClass;
-                if (isCheck) typeClass = 'check-text';
-                else if (isSave) typeClass = 'save-text';
-                else if (isInitiative) typeClass = 'initiative-text';
-                else typeClass = 'default-text'; // На всякий случай
-
+                const typeClass = isCheck ? 'check-text' : 'save-text';
+                const notificationType = isCheck ? 'check' : 'save';
                 const modifierDisplay = modifier >= 0 ? `+ ${modifier}` : modifier;
 
                 // Преобразуем старые уведомления
                 document.querySelectorAll('.notification.new').forEach(notif => {
-                    const oldType = notif.dataset.notificationType;
-                    let oldTypeClass = 'default-text';
-
-                    if (oldType === 'check') oldTypeClass = 'check-text';
-                    else if (oldType === 'save') oldTypeClass = 'save-text';
-                    else if (oldType === 'initiative') oldTypeClass = 'initiative-text';
-
+                    const oldTypeClass = notif.dataset.notificationType === 'check' ? 'check-text' : 'save-text';
                     notif.className = `notification old ${notif.dataset.notificationType}`;
                     notif.innerHTML = `
             <span>${notif.dataset.result} </span>
@@ -1485,13 +1460,6 @@
             <span> ${notif.dataset.attribute}</span>
         `;
                 });
-
-                // Определяем тип для data-атрибута
-                let notificationType;
-                if (isCheck) notificationType = 'check';
-                else if (isSave) notificationType = 'save';
-                else if (isInitiative) notificationType = 'initiative';
-                else notificationType = 'default';
 
                 // Создаем новое уведомление
                 const notification = document.createElement('div');
@@ -1501,17 +1469,9 @@
                 notification.dataset.result = result;
                 notification.dataset.notificationType = notificationType;
 
-                // Форматируем заголовок по-разному для инициативы
-                let headerContent;
-                if (isInitiative) {
-                    headerContent = `<span class="${typeClass}">${type}</span>`;
-                } else {
-                    headerContent = `<span class="${typeClass}">${type}</span> ${attributeName(attribute)}`;
-                }
-
                 notification.innerHTML = `
         <div class="notification-header">
-            ${headerContent}
+            <span class="${typeClass}">${type}</span> ${attributeName(attribute)}
         </div>
         <div class="notification-content">
             <div class="notification-formula">${roll} ${modifierDisplay}</div>
@@ -2218,40 +2178,6 @@
                 updateProgressBar();
             });
 
-            /////////////////////////////////// ПРАВАЯ СТОРОНА ПЕРСОНАЖА
-            //
-            // Функция броска инициативы
-            function rollInitiative() {
-                // Получаем значение ловкости
-                const dexValue = parseInt(document.getElementById("dexterity").value) || 10;
-
-                // Рассчитываем модификатор
-                const modifier = Math.floor((dexValue - 10) / 2);
-
-                // Бросок кубика
-                const roll = Math.floor(Math.random() * 20) + 1;
-                const total = roll + modifier;
-
-                // Обновляем отображение модификатора
-                document.getElementById("initiative-modifier").textContent = modifier;
-
-                // Добавляем уведомление
-                addNotification(
-                    'ИНИЦИАТИВА',  // Тип уведомления
-                    'dexterity',    // Атрибут (ловкость)
-                    roll,           // Результат броска d20
-                    modifier,       // Модификатор
-                    total           // Итоговый результат
-                );
-            }
-
-            // Обновляем модификатор при загрузке страницы
-            document.addEventListener("DOMContentLoaded", function() {
-                const dexValue = parseInt(document.getElementById("dexterity").value) || 10;
-                const modifier = Math.floor((dexValue - 10) / 2);
-                document.getElementById("initiative-modifier").textContent = modifier;
-            });
-
         </script>
         <div class="sidebar-modal" id="settings-modal">
             <div class="sidebar-content">
@@ -2366,3 +2292,4 @@
         <div id="settings-backdrop" class="modal-backdrop"></div>
 </body>
 </html>
+
