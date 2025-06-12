@@ -757,7 +757,7 @@
             <input type="hidden" name="character_id" value="{{ $character->id }}">
         <div class="digital_content_right">
             <div>
-                <div class="">
+                <div class="digital_box">
                     <div>
                         <button>
                             <p></p>
@@ -765,13 +765,13 @@
                     </div>
                     <span>инициатива</span>
                 </div>
-                <div class="">
+                <div class="digital_box">
                     <div>
                         <label></label>
                     </div>
                     <span>вдохновение</span>
                 </div>
-                <div class="">
+                <div class="digital_box">
                     <div>
                         <label>
                         <select>
