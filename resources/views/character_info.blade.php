@@ -758,16 +758,20 @@
         <div class="digital_content_right">
             <div>
                 <div class="">
-                    <div></div>
-                    <span>gdfgdgdfg</span>
+                    <div>
+                        <button>
+                            <p></p>
+                        </button>
+                    </div>
+                    <span>инициатива</span>
                 </div>
                 <div class="">
                     <div></div>
-                    <span>dfgdfg</span>
+                    <span>вдохновение</span>
                 </div>
                 <div class="">
                     <div></div>
-                    <span>gfddgdfg</span>
+                    <span>истощение</span>
                 </div>
             </div>
             <div>

@@ -1356,11 +1356,11 @@ form label {
     text-decoration: none;
     cursor: pointer;
     font-family: inherit;
-    font-size: inherit;
-    height: 35px;
+    font-size: 18px;
+    height: 30px;
     justify-content: center;
     pointer-events: none;
-    min-width: 45px;
+    min-width: 35px;
 }
 .passive-skill-value.manual-value {
     border: 2px solid #ff4d4d !important;
