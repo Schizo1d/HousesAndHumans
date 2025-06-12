@@ -759,8 +759,10 @@
             <div>
                 <div class="digital_box">
                     <div class="digital_box_button">
-                        <button class="digital_button">
-                            <p></p>
+                        <button class="digital_button" onclick="rollInitiative()">
+                            <p id="initiative-modifier">
+                                {{ floor(($character->attributes->dexterity ?? 10 - 10) / 2) }}
+                            </p>
                         </button>
                     </div>
                     <span>инициатива</span>
@@ -1283,6 +1285,12 @@
                 let modifier = getModifier(attrValue);
                 document.getElementById(`${attribute}-modifier`).textContent = modifier;
                 document.getElementById(`${attribute}-save-modifier`).textContent = modifier;
+
+                if (attribute === 'dexterity') {
+                    document.getElementById(`${attribute}-modifier`).textContent = modifier;
+                    document.getElementById(`${attribute}-save-modifier`).textContent = modifier;
+                    document.getElementById("initiative-modifier").textContent = modifier; // Обновляем инициативу
+                }
             }
 
 
@@ -2176,6 +2184,40 @@
 
                 // Инициализируем прогресс-бары
                 updateProgressBar();
+            });
+
+            /////////////////////////////////// ПРАВАЯ СТОРОНА ПЕРСОНАЖА
+            //
+            // Функция броска инициативы
+            function rollInitiative() {
+                // Получаем значение ловкости
+                const dexValue = parseInt(document.getElementById("dexterity").value) || 10;
+
+                // Рассчитываем модификатор
+                const modifier = Math.floor((dexValue - 10) / 2);
+
+                // Бросок кубика
+                const roll = Math.floor(Math.random() * 20) + 1;
+                const total = roll + modifier;
+
+                // Обновляем отображение модификатора (на случай, если он изменился)
+                document.getElementById("initiative-modifier").textContent = modifier;
+
+                // Добавляем уведомление
+                addNotification(
+                    'ИНИЦИАТИВА',
+                    '',
+                    roll,
+                    modifier,
+                    total
+                );
+            }
+
+            // Обновляем модификатор при загрузке страницы
+            document.addEventListener("DOMContentLoaded", function() {
+                const dexValue = parseInt(document.getElementById("dexterity").value) || 10;
+                const modifier = Math.floor((dexValue - 10) / 2);
+                document.getElementById("initiative-modifier").textContent = modifier;
             });
 
         </script>
