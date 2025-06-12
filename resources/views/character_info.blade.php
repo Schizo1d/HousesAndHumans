@@ -1138,11 +1138,23 @@
                     if (currentAttr === "wisdom") {
                         ["perception", "insight"].forEach(skill => {
                             const val = parseInt(document.getElementById(`modal-passive-${skill}`).value) || 10;
+                            const modifier = getModifier(attrValue);
+                            const auto = 10 + modifier;
+
                             document.getElementById(`passive_${skill}`).value = val;
-                            document.getElementById(`passive-${skill}-button`).textContent = val;
-                            document.getElementById(`passive-${skill}-button`).classList.add("manual");
-                            localStorage.setItem(`passive_${skill}_manual`, val);
-                            localStorage.removeItem(`passive_${skill}_auto`);
+                            const button = document.getElementById(`passive-${skill}-button`);
+                            button.textContent = val;
+
+                            // 🟡 Только если значение отличается от авто — делаем его ручным
+                            if (val !== auto) {
+                                button.classList.add("manual");
+                                localStorage.setItem(`passive_${skill}_manual`, val);
+                                localStorage.removeItem(`passive_${skill}_auto`);
+                            } else {
+                                button.classList.remove("manual");
+                                localStorage.removeItem(`passive_${skill}_manual`);
+                                localStorage.setItem(`passive_${skill}_auto`, val);
+                            }
                         });
                     } else if (currentAttr === "intelligence") {
                         const val = parseInt(document.getElementById(`modal-passive-investigation`).value) || 10;
