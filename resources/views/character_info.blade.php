@@ -2001,6 +2001,15 @@
                 );
             }
 
+            document.addEventListener("DOMContentLoaded", function () {
+                const dexterityValue = parseInt(document.getElementById("dexterity").value) || 10;
+                const dexMod = getModifier(dexterityValue);
+                const initiativeEl = document.getElementById("initiative-mod");
+
+                if (initiativeEl) {
+                    initiativeEl.textContent = dexMod >= 0 ? `+${dexMod}` : dexMod;
+                }
+            });
 
             ///// ВСЯ ИНИЦИАЦИЯ
             document.addEventListener("DOMContentLoaded", function () {
