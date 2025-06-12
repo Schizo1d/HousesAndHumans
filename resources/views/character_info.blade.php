@@ -1325,6 +1325,12 @@
                     updateSkills(attr);
                 });
 
+                // Инициализация модификатора инициативы
+                const dexValue = parseInt(document.getElementById("dexterity").value) || 10;
+                const initiativeMod = getModifier(dexValue);
+                const initiativeModElement = document.getElementById("initiative-mod");
+                initiativeModElement.textContent = initiativeMod >= 0 ? `+${initiativeMod}` : initiativeMod;
+
                 // Восстановление пассивных навыков
                 ["perception", "insight", "investigation"].forEach(skill => {
                     const manual = localStorage.getItem(`passive_${skill}_manual`);
@@ -1352,14 +1358,17 @@
 
                 // Обработка ручного изменения в модальном окне
                 ["perception", "insight", "investigation"].forEach(skill => {
-                    document.getElementById(`modal-passive-${skill}`).addEventListener("change", function () {
-                        const value = parseInt(this.value) || 10;
-                        document.getElementById(`passive-${skill}-button`).classList.add("manual");
-                        document.getElementById(`passive_${skill}`).value = value;
-                        document.getElementById(`passive-${skill}-button`).textContent = value;
-                        localStorage.setItem(`passive_${skill}_manual`, value);
-                        localStorage.removeItem(`passive_${skill}_auto`);
-                    });
+                    const input = document.getElementById(`modal-passive-${skill}`);
+                    if (input) {
+                        input.addEventListener("change", function () {
+                            const value = parseInt(this.value) || 10;
+                            document.getElementById(`passive-${skill}-button`).classList.add("manual");
+                            document.getElementById(`passive_${skill}`).value = value;
+                            document.getElementById(`passive-${skill}-button`).textContent = value;
+                            localStorage.setItem(`passive_${skill}_manual`, value);
+                            localStorage.removeItem(`passive_${skill}_auto`);
+                        });
+                    }
                 });
             });
 
@@ -2253,17 +2262,6 @@
                     const mod = getModifier(parseInt(dexEl.value) || 10);
                     modEl.textContent = mod >= 0 ? `+${mod}` : mod;
                 }
-            });
-            document.addEventListener("DOMContentLoaded", function() {
-                // Инициализация модификатора инициативы
-                const dexValue = parseInt(document.getElementById("dexterity").value) || 10;
-                const initiativeMod = getModifier(dexValue);
-                const initiativeModElement = document.getElementById("initiative-mod");
-
-                // Форматируем вывод: добавляем "+" для положительных значений
-                initiativeModElement.textContent = initiativeMod >= 0 ? `+${initiativeMod}` : initiativeMod;
-
-                // Остальной код инициализации...
             });
         </script>
         <div class="sidebar-modal" id="settings-modal">
