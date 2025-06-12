@@ -757,6 +757,7 @@
             <input type="hidden" name="character_id" value="{{ $character->id }}">
             <div class="digital_content_right">
                 <div>
+                    <input id="dexterity" type="number" value="16">
                     <div class="digital_box">
                         <div class="digital_box_button">
                             <button class="digital_button" type="button" onclick="rollInitiative()">
@@ -2229,34 +2230,16 @@
             function rollInitiative() {
                 const dexterityValue = parseInt(document.getElementById("dexterity").value) || 10;
                 const dexMod = getModifier(dexterityValue);
-                const roll = Math.floor(Math.random() * 20) + 1;
-                const total = roll + dexMod;
-
-                // Выводим модификатор в <p>
                 document.getElementById("initiative-mod").textContent = dexMod >= 0 ? `+${dexMod}` : dexMod;
-
-                // Показываем уведомление
-                addNotification(
-                    "ИНИЦИАТИВА",
-                    "ЛОВКОСТЬ",
-                    roll,
-                    dexMod,
-                    total
-                );
             }
             document.addEventListener("DOMContentLoaded", function () {
+                const dexInput = document.getElementById("dexterity");
                 const initEl = document.getElementById("initiative-mod");
-                const dexEl = document.getElementById("dexterity");
 
-                if (initEl && dexEl) {
-                    const dex = parseInt(dexEl.value) || 10;
-                    const mod = getModifier(dex);
+                if (initEl && dexInput) {
+                    const mod = getModifier(parseInt(dexInput.value) || 10);
                     initEl.textContent = mod >= 0 ? `+${mod}` : mod;
                 }
-            });
-            document.getElementById("dexterity").addEventListener("change", function () {
-                const mod = getModifier(parseInt(this.value) || 10);
-                document.getElementById("initiative-mod").textContent = mod >= 0 ? `+${mod}` : mod;
             });
         </script>
         <div class="sidebar-modal" id="settings-modal">
