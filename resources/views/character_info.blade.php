@@ -149,7 +149,8 @@
                 {{ $character->attributes->dexterity ?? 10 }}
             </span>
                         </a>
-                        <input type="hidden" id="dexterity" name="dexterity" value="{{ $character->attributes->dexterity ?? 10 }}">
+                        <input type="hidden" id="dexterity" name="dexterity"
+                               value="{{ $character->attributes->dexterity ?? 10 }}">
                     </div>
                     <div class="attribute-checks">
                         <!-- Блок для проверки -->
@@ -925,11 +926,55 @@
                 // Предотвращаем стандартное поведение checkbox
                 element.checked = false;
             }
+
             document.addEventListener("DOMContentLoaded", function () {
-                // Обновляем модификаторы для всех основных атрибутов
+                // Инициализация модификаторов
                 Object.keys(attributeNames).forEach(attr => {
                     updateBaseModifier(attr);
                     updateSkills(attr);
+                });
+                // Инициализация модификатора инициативы
+                const dexValue =
+                    parseInt(document.getElementById("dexterity").value) || 10;
+                const initiativeMod = getModifier(dexValue);
+                const initiativeModElement = document.getElementById("initiative-mod");
+                initiativeModElement.textContent = initiativeMod >= 0 ? `+${initiativeMod}` : initiativeMod;
+                // Восстановление пассивных навыков
+                ["perception", "insight", "investigation"].forEach(skill => {
+                    const manual = localStorage.getItem(`passive_${skill}_manual`);
+                    const auto = localStorage.getItem(`passive_${skill}_auto`);
+                    const button = document.getElementById(`passive-${skill}-button`);
+                    if (manual) {
+                        document.getElementById(`passive_${skill}`).value = manual;
+                        button.textContent = manual;
+                        button.classList.add("manual");
+                    } else if (auto) {
+                        document.getElementById(`passive_${skill}`).value = auto;
+                        button.textContent = auto;
+                        button.classList.remove("manual");
+                    } else {
+                        // Авторасчёт, если ничего не сохранено
+                        const attr = skill === "investigation" ? "intelligence" : "wisdom";
+                        const mod = getModifier(parseInt(document.getElementById(attr).value));
+                        const value = 10 + mod;
+                        document.getElementById(`passive_${skill}`).value = value;
+                        button.textContent = value;
+                        button.classList.remove("manual");
+                    }
+                });
+                // Обработка ручного изменения в модальном окне
+                ["perception", "insight", "investigation"].forEach(skill => {
+                    const input = document.getElementById(`modal-passive-${skill}`);
+                    if (input) {
+                        input.addEventListener("change", function () {
+                            const value = parseInt(this.value) || 10;
+                            document.getElementById(`passive-${skill}-button`).classList.add("manual");
+                            document.getElementById(`passive_${skill}`).value = value;
+                            document.getElementById(`passive-${skill}-button`).textContent = value;
+                            localStorage.setItem(`passive_${skill}_manual`, value);
+                            localStorage.removeItem(`passive_${skill}_auto`);
+                        });
+                    }
                 });
             });
             // Инициализация состояний при загрузке страницы
@@ -1185,7 +1230,7 @@
                                 localStorage.setItem(`passive_${skill}_auto`, val);
                             }
                         });
-                    }else if (currentAttr === "intelligence") {
+                    } else if (currentAttr === "intelligence") {
                         const val = parseInt(document.getElementById(`modal-passive-investigation`).value) || 10;
                         const modifier = getModifier(attrValue);
                         const auto = 10 + modifier;
@@ -1242,8 +1287,7 @@
                         insightButton.textContent = passiveInsight;
                         if (forceUpdate) insightButton.classList.remove('manual-value');
                     }
-                }
-                else if (attribute === 'intelligence') {
+                } else if (attribute === 'intelligence') {
                     const investigationButton = document.getElementById("passive-investigation-button");
 
                     if (!investigationButton.classList.contains('manual-value') || forceUpdate) {
@@ -1306,14 +1350,12 @@
 
                     document.querySelector('.passive-skill[data-skill="perception"]').style.display = "block";
                     document.querySelector('.passive-skill[data-skill="insight"]').style.display = "block";
-                }
-                else if (attr === 'intelligence') {
+                } else if (attr === 'intelligence') {
                     document.getElementById("modal-passive-investigation").value =
                         document.getElementById("passive_investigation").value;
 
                     document.querySelector('.passive-skill[data-skill="investigation"]').style.display = "block";
-                }
-                else {
+                } else {
                     passiveSection.style.display = "none";
                 }
 
@@ -1626,26 +1668,26 @@
             }
 
             // Обработчик открытия по кнопке
-            document.querySelector('.level-up-btn').addEventListener('click', function(e) {
+            document.querySelector('.level-up-btn').addEventListener('click', function (e) {
                 e.stopPropagation();
                 openLevelUpModal();
             });
 
             // Обработчик закрытия по крестику
-            document.querySelector('#level-up-modal .modal-close-btn').addEventListener('click', function(e) {
+            document.querySelector('#level-up-modal .modal-close-btn').addEventListener('click', function (e) {
                 e.stopPropagation();
                 closeLevelUpModal();
             });
 
             // Закрытие при клике на backdrop
-            document.getElementById('modal-backdrop').addEventListener('click', function(e) {
+            document.getElementById('modal-backdrop').addEventListener('click', function (e) {
                 if (e.target === this) {
                     closeLevelUpModal();
                 }
             });
 
             // Защита от закрытия при клике внутри модального окна
-            document.getElementById('level-up-modal').addEventListener('click', function(e) {
+            document.getElementById('level-up-modal').addEventListener('click', function (e) {
                 e.stopPropagation();
             });
 
@@ -1708,6 +1750,7 @@
                     console.error('Error in updateCharacterLevel:', error);
                 }
             }
+
             // Функции для работы с калькулятором
             function appendNumber(num) {
                 if (currentExpression === '0') {
@@ -1806,6 +1849,7 @@
                     alert('Ошибка при сохранении опыта');
                 }
             }
+
             // Функция для вычитания опыта
             async function subtractXp() {
                 const input = document.getElementById('xp-input');
@@ -1886,6 +1930,7 @@
                     document.getElementById('level-up-btn').style.display = 'none';
                 }
             }
+
             // Функция повышения уровня
             async function levelUpCharacter() {
                 const nextLevel = currentLevel + 1;
@@ -1910,6 +1955,7 @@
                     alert('Недостаточно опыта для повышения уровня!');
                 }
             }
+
             // Анимация повышения уровня
             function animateLevelUp() {
                 const progressBar = document.getElementById('xp-progress-bar');
@@ -2028,6 +2074,7 @@
                     throw error;
                 }
             }
+
             // Проверка возможности понижения уровня
             function checkLevelDown() {
                 const currentLevelXp = XP_TABLE[currentLevel] || 0;
@@ -2044,6 +2091,7 @@
                     levelUpBtn.style.display = currentXp >= currentLevelXp ? 'block' : 'none';
                 }
             }
+
             // Функция понижения уровня
             async function levelDownCharacter() {
                 if (currentLevel <= 1) return; // Нельзя понизить ниже 1 уровня
@@ -2105,7 +2153,8 @@
                 }
                 document.getElementById('xp-input').value = currentExpression;
             }
-            document.addEventListener("DOMContentLoaded", function() {
+
+            document.addEventListener("DOMContentLoaded", function () {
                 // Получаем данные из data-атрибутов
                 const miniProgress = document.querySelector('.mini-progress-container');
                 currentLevel = parseInt(miniProgress.dataset.currentLevel) || 1;
@@ -2118,7 +2167,7 @@
                 document.getElementById('level-up-btn').addEventListener('click', levelUpCharacter);
             });
 
-            document.getElementById('settings-backdrop').addEventListener('click', function() {
+            document.getElementById('settings-backdrop').addEventListener('click', function () {
                 const sidebarModal = document.getElementById('settings-modal');
                 const backdrop = document.getElementById('settings-backdrop');
                 sidebarModal.classList.remove("show");
@@ -2127,7 +2176,7 @@
                     backdrop.style.display = 'none';
                 }, 300);
             });
-            document.addEventListener("DOMContentLoaded", function() {
+            document.addEventListener("DOMContentLoaded", function () {
                 const miniProgress = document.querySelector('.mini-progress-container');
                 currentLevel = parseInt(miniProgress.dataset.currentLevel) || 1;
                 currentXp = parseInt(miniProgress.dataset.currentXp) || 0;
@@ -2136,6 +2185,7 @@
                 updateMiniProgressBar();
                 updateProgressBar();
             });
+
             // Функция обновления мини-прогресс бара
             function updateMiniProgressBar() {
                 const currentLevelXp = XP_TABLE[currentLevel] || 0;
@@ -2164,7 +2214,7 @@
                 document.querySelector('.character-level').textContent = `Уровень ${currentLevel}`;
             }
 
-            document.addEventListener("DOMContentLoaded", function() {
+            document.addEventListener("DOMContentLoaded", function () {
                 // Отключаем анимацию при первой загрузке
                 const progressBar = document.getElementById('xp-progress-bar');
                 progressBar.style.transition = 'none';
@@ -2178,7 +2228,7 @@
             });
 
             // Инициализация при загрузке
-            document.addEventListener("DOMContentLoaded", function() {
+            document.addEventListener("DOMContentLoaded", function () {
                 initProgressBars();
             });
 
@@ -2195,10 +2245,10 @@
                 checkLevelDown();
             }
 
-            document.addEventListener("DOMContentLoaded", function() {
+            document.addEventListener("DOMContentLoaded", function () {
                 updateMiniProgressBar();
             });
-            document.addEventListener("DOMContentLoaded", function() {
+            document.addEventListener("DOMContentLoaded", function () {
                 // Получаем начальные значения
                 const miniProgress = document.querySelector('.mini-progress-container');
                 currentLevel = parseInt(miniProgress.dataset.currentLevel) || 1;
@@ -2207,6 +2257,7 @@
                 // Инициализируем прогресс-бары
                 updateProgressBar();
             });
+
             //////ПРАВАЯ СТОРОНА ПЕРСОНАЖА
 
             function rollInitiative() {
@@ -2330,10 +2381,17 @@
                     </div>
 
                     <div class="xp-action-buttons">
-                        <button type="button" class="xp-action-btn add-btn" onclick="calculateAndAdd()">ПРИБАВИТЬ</button>
-                        <button type="button" class="xp-action-btn subtract-btn" onclick="calculateAndSubtract()">ОТНЯТЬ</button>
-                        <button type="button" class="xp-action-btn level-up-btn" id="level-up-btn" onclick="levelUpCharacter()">ПОВЫСИТЬ</button>
-                        <button type="button" class="xp-action-btn level-down-btn" id="level-down-btn" onclick="levelDownCharacter()">ПОНИЗИТЬ</button>
+                        <button type="button" class="xp-action-btn add-btn" onclick="calculateAndAdd()">ПРИБАВИТЬ
+                        </button>
+                        <button type="button" class="xp-action-btn subtract-btn" onclick="calculateAndSubtract()">
+                            ОТНЯТЬ
+                        </button>
+                        <button type="button" class="xp-action-btn level-up-btn" id="level-up-btn"
+                                onclick="levelUpCharacter()">ПОВЫСИТЬ
+                        </button>
+                        <button type="button" class="xp-action-btn level-down-btn" id="level-down-btn"
+                                onclick="levelDownCharacter()">ПОНИЗИТЬ
+                        </button>
                     </div>
                 </div>
             </div>
