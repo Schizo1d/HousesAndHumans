@@ -1126,6 +1126,27 @@
                 return names[attr] || attr;
             }
 
+            document.addEventListener("DOMContentLoaded", function () {
+                const dexInput = document.getElementById("dexterity");
+                const initiativeEl = document.getElementById("initiative-mod");
+
+                if (dexInput && initiativeEl) {
+                    function updateInitiative() {
+                        const dexValue = parseInt(dexInput.value) || 10;
+                        const mod = getModifier(dexValue);
+                        initiativeEl.textContent = mod >= 0 ? `+${mod}` : mod;
+                        console.log("Инициатива обновлена:", mod);
+                    }
+
+                    // Вызываем сразу после загрузки DOM
+                    updateInitiative();
+
+                    // Если значение меняется (например, ввёл пользователь или обновляется программно через input),
+                    // используем событие "input" для моментального обновления
+                    dexInput.addEventListener("input", updateInitiative);
+                }
+            });
+
             function saveAttribute() {
                 try {
                     const attrValue = parseInt(document.getElementById("modal-input").value) || 10;
@@ -1134,6 +1155,7 @@
 
                     updateBaseModifier(currentAttr);
                     updateSkills(currentAttr);
+                    updateInitiative();
 
                     if (currentAttr === "wisdom") {
                         ["perception", "insight"].forEach(skill => {
@@ -1181,6 +1203,7 @@
                 } catch (e) {
                     console.error("Ошибка сохранения:", e);
                 }
+
             }
 
             function updateModifier(attribute, forceUpdate = false) {
@@ -2197,20 +2220,7 @@
                 );
             }
 
-            document.addEventListener("DOMContentLoaded", function () {
-                const dexInput = document.getElementById("dexterity");
-                const initiativeEl = document.getElementById("initiative-mod");
 
-                if (dexInput && initiativeEl) {
-                    const updateInitiative = () => {
-                        const mod = getModifier(parseInt(dexInput.value) || 10);
-                        initiativeEl.textContent = mod >= 0 ? `+${mod}` : mod;
-                    };
-
-                    updateInitiative(); // Показать число сразу
-                    dexInput.addEventListener("input", updateInitiative); // Обновлять при изменении
-                }
-            });
         </script>
         <div class="sidebar-modal" id="settings-modal">
             <div class="sidebar-content">
