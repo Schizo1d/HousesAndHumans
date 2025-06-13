@@ -2263,6 +2263,24 @@
                     modEl.textContent = mod >= 0 ? `+${mod}` : mod;
                 }
             });
+
+            document.addEventListener("DOMContentLoaded", function () {
+                const dexInput = document.getElementById("dexterity");
+                const initiativeEl = document.getElementById("initiative-mod");
+
+                function updateInitiative() {
+                    if (dexInput && initiativeEl) {
+                        const dexMod = getModifier(parseInt(dexInput.value) || 10);
+                        initiativeEl.textContent = dexMod >= 0 ? `+${dexMod}` : dexMod;
+                    }
+                }
+
+                // Отображаем модификатор сразу при загрузке
+                updateInitiative();
+
+                // Обновляем при изменении ловкости
+                dexInput?.addEventListener("change", updateInitiative);
+            });
         </script>
         <div class="sidebar-modal" id="settings-modal">
             <div class="sidebar-content">
