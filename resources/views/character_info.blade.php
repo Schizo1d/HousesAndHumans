@@ -2199,20 +2199,18 @@
 
             document.addEventListener("DOMContentLoaded", function () {
                 const dexInput = document.getElementById("dexterity");
-                const initiativeEl = document.getElementById("initiative-mod");
+                const initiativeDisplay = document.getElementById("initiative-mod");
 
-                function updateInitiative() {
-                    if (dexInput && initiativeEl) {
-                        const dexMod = getModifier(parseInt(dexInput.value) || 10);
-                        initiativeEl.textContent = dexMod >= 0 ? `+${dexMod}` : dexMod;
-                    }
+                if (dexInput && initiativeDisplay) {
+                    const updateInitiative = () => {
+                        const dex = parseInt(dexInput.value) || 10;
+                        const mod = getModifier(dex);
+                        initiativeDisplay.textContent = mod >= 0 ? `+${mod}` : mod;
+                    };
+
+                    updateInitiative(); // При загрузке
+                    dexInput.addEventListener("change", updateInitiative); // При изменении
                 }
-
-                // Отображаем модификатор сразу при загрузке
-                updateInitiative();
-
-                // Обновляем при изменении ловкости
-                dexInput?.addEventListener("change", updateInitiative);
             });
         </script>
         <div class="sidebar-modal" id="settings-modal">
