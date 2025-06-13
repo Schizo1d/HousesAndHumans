@@ -759,7 +759,7 @@
                     <div class="digital_box">
                         <div class="digital_box_button">
                             <button class="digital_button" type="button" onclick="rollInitiative()">
-                                <p id="initiative-mod"></p>
+                                <p id="initiative-mod" class="initiative"></p>
                             </button>
                         </div>
                         <span>инициатива</span>
