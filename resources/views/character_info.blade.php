@@ -2199,17 +2199,16 @@
 
             document.addEventListener("DOMContentLoaded", function () {
                 const dexInput = document.getElementById("dexterity");
-                const initiativeDisplay = document.getElementById("initiative-mod");
+                const initiativeEl = document.getElementById("initiative-mod");
 
-                if (dexInput && initiativeDisplay) {
+                if (dexInput && initiativeEl) {
                     const updateInitiative = () => {
-                        const dex = parseInt(dexInput.value) || 10;
-                        const mod = getModifier(dex);
-                        initiativeDisplay.textContent = mod >= 0 ? `+${mod}` : mod;
+                        const mod = getModifier(parseInt(dexInput.value) || 10);
+                        initiativeEl.textContent = mod >= 0 ? `+${mod}` : mod;
                     };
 
-                    updateInitiative(); // При загрузке
-                    dexInput.addEventListener("change", updateInitiative); // При изменении
+                    updateInitiative(); // Показать число сразу
+                    dexInput.addEventListener("input", updateInitiative); // Обновлять при изменении
                 }
             });
         </script>
