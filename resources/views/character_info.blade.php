@@ -1317,62 +1317,6 @@
                 document.getElementById(`${attribute}-save-modifier`).textContent = modifier;
             }
 
-
-            document.addEventListener("DOMContentLoaded", function () {
-                // Инициализация модификаторов
-                Object.keys(attributeNames).forEach(attr => {
-                    updateBaseModifier(attr);
-                    updateSkills(attr);
-                });
-
-                // Инициализация модификатора инициативы
-                const dexValue = parseInt(document.getElementById("dexterity").value) || 10;
-                const initiativeMod = getModifier(dexValue);
-                const initiativeModElement = document.getElementById("initiative-mod");
-                initiativeModElement.textContent = initiativeMod >= 0 ? `+${initiativeMod}` : initiativeMod;
-
-                // Восстановление пассивных навыков
-                ["perception", "insight", "investigation"].forEach(skill => {
-                    const manual = localStorage.getItem(`passive_${skill}_manual`);
-                    const auto = localStorage.getItem(`passive_${skill}_auto`);
-                    const button = document.getElementById(`passive-${skill}-button`);
-
-                    if (manual) {
-                        document.getElementById(`passive_${skill}`).value = manual;
-                        button.textContent = manual;
-                        button.classList.add("manual");
-                    } else if (auto) {
-                        document.getElementById(`passive_${skill}`).value = auto;
-                        button.textContent = auto;
-                        button.classList.remove("manual");
-                    } else {
-                        // Авторасчёт, если ничего не сохранено
-                        const attr = skill === "investigation" ? "intelligence" : "wisdom";
-                        const mod = getModifier(parseInt(document.getElementById(attr).value));
-                        const value = 10 + mod;
-                        document.getElementById(`passive_${skill}`).value = value;
-                        button.textContent = value;
-                        button.classList.remove("manual");
-                    }
-                });
-
-                // Обработка ручного изменения в модальном окне
-                ["perception", "insight", "investigation"].forEach(skill => {
-                    const input = document.getElementById(`modal-passive-${skill}`);
-                    if (input) {
-                        input.addEventListener("change", function () {
-                            const value = parseInt(this.value) || 10;
-                            document.getElementById(`passive-${skill}-button`).classList.add("manual");
-                            document.getElementById(`passive_${skill}`).value = value;
-                            document.getElementById(`passive-${skill}-button`).textContent = value;
-                            localStorage.setItem(`passive_${skill}_manual`, value);
-                            localStorage.removeItem(`passive_${skill}_auto`);
-                        });
-                    }
-                });
-            });
-
-
             document.addEventListener("DOMContentLoaded", function () {
                 const characterAvatar = document.getElementById("character-avatar");
                 const dropdown = document.getElementById("character-dropdown");
@@ -2252,17 +2196,6 @@
                     total
                 );
             }
-
-            // 👇 Автоматическое обновление модификатора при загрузке
-            document.addEventListener("DOMContentLoaded", function () {
-                const dexEl = document.getElementById("dexterity");
-                const modEl = document.getElementById("initiative-mod");
-
-                if (dexEl && modEl) {
-                    const mod = getModifier(parseInt(dexEl.value) || 10);
-                    modEl.textContent = mod >= 0 ? `+${mod}` : mod;
-                }
-            });
 
             document.addEventListener("DOMContentLoaded", function () {
                 const dexInput = document.getElementById("dexterity");
