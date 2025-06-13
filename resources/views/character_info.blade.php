@@ -925,7 +925,13 @@
                 // Предотвращаем стандартное поведение checkbox
                 element.checked = false;
             }
-
+            document.addEventListener("DOMContentLoaded", function () {
+                // Обновляем модификаторы для всех основных атрибутов
+                Object.keys(attributeNames).forEach(attr => {
+                    updateBaseModifier(attr);
+                    updateSkills(attr);
+                });
+            });
             // Инициализация состояний при загрузке страницы
             document.addEventListener("DOMContentLoaded", function () {
                 // Навыки силы
