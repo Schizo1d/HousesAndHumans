@@ -1126,7 +1126,25 @@
                 return names[attr] || attr;
             }
 
+            function updateInitiative() {
+                const dexInput = document.getElementById("dexterity");
+                const initiativeEl = document.getElementById("initiative-mod");
+                if (dexInput && initiativeEl) {
+                    const dexValue = parseInt(dexInput.value) || 10;
+                    const mod = getModifier(dexValue);
+                    initiativeEl.textContent = mod >= 0 ? `+${mod}` : mod;
+                    console.log("Инициатива обновлена:", mod);
+                }
+            }
 
+            // Инициализация после загрузки
+            document.addEventListener("DOMContentLoaded", function () {
+                updateInitiative();
+                const dexInput = document.getElementById("dexterity");
+                if (dexInput) {
+                    dexInput.addEventListener("input", updateInitiative);
+                }
+            });
 
             function saveAttribute() {
                 try {
@@ -2202,26 +2220,7 @@
                     total
                 );
             }
-            document.addEventListener("DOMContentLoaded", function () {
-                const dexInput = document.getElementById("dexterity");
-                const initiativeEl = document.getElementById("initiative-mod");
 
-                if (dexInput && initiativeEl) {
-                    function updateInitiative() {
-                        const dexValue = parseInt(dexInput.value) || 10;
-                        const mod = getModifier(dexValue);
-                        initiativeEl.textContent = mod >= 0 ? `+${mod}` : mod;
-                        console.log("Инициатива обновлена:", mod);
-                    }
-
-                    // Вызываем сразу после загрузки DOM
-                    updateInitiative();
-
-                    // Если значение меняется (например, ввёл пользователь или обновляется программно через input),
-                    // используем событие "input" для моментального обновления
-                    dexInput.addEventListener("input", updateInitiative);
-                }
-            });
 
         </script>
         <div class="sidebar-modal" id="settings-modal">
