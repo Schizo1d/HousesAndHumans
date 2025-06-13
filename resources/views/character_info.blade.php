@@ -1318,7 +1318,59 @@
             }
 
 
+            document.addEventListener("DOMContentLoaded", function () {
+                // Инициализация модификаторов
+                Object.keys(attributeNames).forEach(attr => {
+                    updateBaseModifier(attr);
+                    updateSkills(attr);
+                });
 
+                // Инициализация модификатора инициативы
+                const dexValue = parseInt(document.getElementById("dexterity").value) || 10;
+                const initiativeMod = getModifier(dexValue);
+                const initiativeModElement = document.getElementById("initiative-mod");
+                initiativeModElement.textContent = initiativeMod >= 0 ? `+${initiativeMod}` : initiativeMod;
+
+                // Восстановление пассивных навыков
+                ["perception", "insight", "investigation"].forEach(skill => {
+                    const manual = localStorage.getItem(`passive_${skill}_manual`);
+                    const auto = localStorage.getItem(`passive_${skill}_auto`);
+                    const button = document.getElementById(`passive-${skill}-button`);
+
+                    if (manual) {
+                        document.getElementById(`passive_${skill}`).value = manual;
+                        button.textContent = manual;
+                        button.classList.add("manual");
+                    } else if (auto) {
+                        document.getElementById(`passive_${skill}`).value = auto;
+                        button.textContent = auto;
+                        button.classList.remove("manual");
+                    } else {
+                        // Авторасчёт, если ничего не сохранено
+                        const attr = skill === "investigation" ? "intelligence" : "wisdom";
+                        const mod = getModifier(parseInt(document.getElementById(attr).value));
+                        const value = 10 + mod;
+                        document.getElementById(`passive_${skill}`).value = value;
+                        button.textContent = value;
+                        button.classList.remove("manual");
+                    }
+                });
+
+                // Обработка ручного изменения в модальном окне
+                ["perception", "insight", "investigation"].forEach(skill => {
+                    const input = document.getElementById(`modal-passive-${skill}`);
+                    if (input) {
+                        input.addEventListener("change", function () {
+                            const value = parseInt(this.value) || 10;
+                            document.getElementById(`passive-${skill}-button`).classList.add("manual");
+                            document.getElementById(`passive_${skill}`).value = value;
+                            document.getElementById(`passive-${skill}-button`).textContent = value;
+                            localStorage.setItem(`passive_${skill}_manual`, value);
+                            localStorage.removeItem(`passive_${skill}_auto`);
+                        });
+                    }
+                });
+            });
 
 
             document.addEventListener("DOMContentLoaded", function () {
@@ -2210,74 +2262,6 @@
                     const mod = getModifier(parseInt(dexEl.value) || 10);
                     modEl.textContent = mod >= 0 ? `+${mod}` : mod;
                 }
-            });
-
-            document.addEventListener("DOMContentLoaded", function () {
-                // 1. Инициализация модификаторов и навыков
-                Object.keys(attributeNames).forEach(attr => {
-                    updateBaseModifier(attr);
-                    updateSkills(attr);
-                });
-
-                // 2. Инициализация инициативы (показываем модификатор сразу)
-                const dexInput = document.getElementById("dexterity");
-                const initModEl = document.getElementById("initiative-mod");
-                if (dexInput && initModEl) {
-                    const dexMod = getModifier(parseInt(dexInput.value) || 10);
-                    initModEl.textContent = dexMod >= 0 ? `+${dexMod}` : dexMod;
-                }
-
-                // Обновляем инициативу при изменении ловкости
-                dexInput?.addEventListener("change", function () {
-                    const dexMod = getModifier(parseInt(this.value) || 10);
-                    if (initModEl) {
-                        initModEl.textContent = dexMod >= 0 ? `+${dexMod}` : dexMod;
-                    }
-                });
-
-                // 3. Восстановление пассивных навыков
-                ["perception", "insight", "investigation"].forEach(skill => {
-                    const manual = localStorage.getItem(`passive_${skill}_manual`);
-                    const auto = localStorage.getItem(`passive_${skill}_auto`);
-                    const button = document.getElementById(`passive-${skill}-button`);
-                    const input = document.getElementById(`passive_${skill}`);
-
-                    if (manual) {
-                        input.value = manual;
-                        button.textContent = manual;
-                        button.classList.add("manual");
-                    } else if (auto) {
-                        input.value = auto;
-                        button.textContent = auto;
-                        button.classList.remove("manual");
-                    } else {
-                        const attr = skill === "investigation" ? "intelligence" : "wisdom";
-                        const mod = getModifier(parseInt(document.getElementById(attr).value));
-                        const value = 10 + mod;
-                        input.value = value;
-                        button.textContent = value;
-                        button.classList.remove("manual");
-                    }
-                });
-
-                // 4. Обработка ручного изменения в модальных окнах
-                ["perception", "insight", "investigation"].forEach(skill => {
-                    const input = document.getElementById(`modal-passive-${skill}`);
-                    if (input) {
-                        input.addEventListener("change", function () {
-                            const value = parseInt(this.value) || 10;
-                            document.getElementById(`passive-${skill}-button`).classList.add("manual");
-                            document.getElementById(`passive_${skill}`).value = value;
-                            document.getElementById(`passive-${skill}-button`).textContent = value;
-                            localStorage.setItem(`passive_${skill}_manual`, value);
-                            localStorage.removeItem(`passive_${skill}_auto`);
-                        });
-                    }
-                });
-
-                // 5. Обновляем пассивные навыки при изменении атрибутов
-                document.getElementById("wisdom")?.addEventListener("change", updatePassiveSkills);
-                document.getElementById("intelligence")?.addEventListener("change", updatePassiveSkills);
             });
         </script>
         <div class="sidebar-modal" id="settings-modal">
