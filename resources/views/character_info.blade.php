@@ -783,7 +783,7 @@
                                     <option value="5">5</option>
                                     <option value="6">6</option>
                                 </select>
-                                <span id="exhaustion-value">0</span>
+                                <span id="exhaustion-value" class="exhaustion">0</span>
                             </label>
                         </div>
                         <span>истощение</span>

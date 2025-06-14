@@ -66,3 +66,15 @@
 .initiative{
     margin: 0;
 }
+.exhaustion{
+    color: var(--c-text);
+    display: block;
+    flex: 1 1;
+    font-size: 19px;
+    font-weight: 700;
+    letter-spacing: .01em;
+    line-height: 21px;
+    pointer-events: none;
+    text-align: center;
+    text-transform: uppercase;
+}
