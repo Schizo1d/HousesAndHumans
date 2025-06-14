@@ -46,6 +46,8 @@ return new class extends Migration
             $table->integer('passive_perception')->default(10);
             $table->integer('passive_insight')->default(10);
             $table->integer('passive_investigation')->default(10);
+            $table->tinyInteger('exhaustion')->default(0);
+
 
             $table->timestamps();
 

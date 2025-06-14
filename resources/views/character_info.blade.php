@@ -774,7 +774,7 @@
                     <div class="digital_box">
                         <div class="digital_box_button">
                             <label class="digital-exhaustion-wrap">
-                                <select class="digital-exhaustion">
+                                <select class="digital-exhaustion" id="exhaustion-level" name="exhaustion">
                                     <option value="0">0</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
@@ -783,6 +783,7 @@
                                     <option value="5">5</option>
                                     <option value="6">6</option>
                                 </select>
+                                <span id="exhaustion-value">0</span>
                             </label>
                         </div>
                         <span>истощение</span>

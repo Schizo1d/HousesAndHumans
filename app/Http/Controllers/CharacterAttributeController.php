@@ -40,6 +40,7 @@ class CharacterAttributeController extends Controller
             'passive_perception' => 'required|integer|min:1|max:30',
             'passive_insight' => 'required|integer|min:1|max:30',
             'passive_investigation' => 'required|integer|min:1|max:30',
+            'exhaustion' => 'required|integer|min:0|max:6',
         ]);
 
         // Сохраняем атрибуты и навыки
@@ -51,7 +52,7 @@ class CharacterAttributeController extends Controller
                 'investigation', 'history', 'arcana', 'nature', 'religion',
                 'perception', 'survival', 'medicine', 'insight', 'animal_handling',
                 'performance', 'intimidation', 'deception', 'persuasion',
-                'passive_perception', 'passive_insight', 'passive_investigation'
+                'passive_perception', 'passive_insight', 'passive_investigation','exhaustion'
             ])
         );
 
