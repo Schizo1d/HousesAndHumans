@@ -1042,6 +1042,31 @@
                 initSkillRadio('persuasion');
             });
 
+            document.addEventListener("DOMContentLoaded", function() {
+                const exhaustionSelect = document.getElementById('exhaustion-level');
+                const exhaustionValue = document.getElementById('exhaustion-value');
+
+                // Загружаем сохраненное значение (если есть)
+                const savedExhaustion = localStorage.getItem(`character_${characterId}_exhaustion`);
+                if (savedExhaustion) {
+                    exhaustionSelect.value = savedExhaustion;
+                    exhaustionValue.textContent = savedExhaustion;
+                }
+
+                // Обработчик изменения значения
+                exhaustionSelect.addEventListener('change', function() {
+                    const selectedValue = this.value;
+                    exhaustionValue.textContent = selectedValue;
+
+                    // Сохраняем значение для этого персонажа
+                    localStorage.setItem(`character_${characterId}_exhaustion`, selectedValue);
+
+                    // Отправляем на сервер (если нужно)
+                    saveExhaustionLevel(selectedValue);
+                });
+            });
+
+
             // Функция инициализации радио-кнопки навыка
             function initSkillRadio(skillId) {
                 const skillValue = parseInt(document.getElementById(skillId).value) || 0;
@@ -2316,7 +2341,29 @@
                 );
             }
 
-
+            // Функция для сохранения уровня истощения на сервере
+            function saveExhaustionLevel(level) {
+                fetch('/character/update-exhaustion', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                    },
+                    body: JSON.stringify({
+                        character_id: characterId,
+                        exhaustion: level
+                    })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (!data.success) {
+                            console.error('Ошибка сохранения уровня истощения:', data.error);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Ошибка:', error);
+                    });
+            }
         </script>
         <div class="sidebar-modal" id="settings-modal">
             <div class="sidebar-content">
