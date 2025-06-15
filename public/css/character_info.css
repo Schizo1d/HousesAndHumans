@@ -101,7 +101,7 @@ header {
 form {
     display: flex;
     width: 100%;
-
+    justify-content: space-between;
 }
 
 /* Стилизация числовых полей */
