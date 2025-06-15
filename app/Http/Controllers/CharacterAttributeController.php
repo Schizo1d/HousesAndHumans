@@ -42,24 +42,28 @@ class CharacterAttributeController extends Controller
             'passive_investigation' => 'required|integer|min:1|max:30',
             'exhaustion' => 'required|integer|min:0|max:6',
         ]);
-        \Log::info("Saving attributes for character ID: " . ($character->id ?? 'NULL'));
         // Сохраняем атрибуты и навыки
-        $attributes = CharacterAttribute::updateOrCreate(
+        try {
+            $character = Character::findOrFail($request->character_id); // Проверка ID
+            \Log::info("Сохранение персонажа ID: " . $character->id);
 
-            ['character_id' => $character->id],
-            $request->only([
-                'strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma',
-                'athletics', 'acrobatics', 'sleight_of_hand', 'stealth',
-                'investigation', 'history', 'arcana', 'nature', 'religion',
-                'perception', 'survival', 'medicine', 'insight', 'animal_handling',
-                'performance', 'intimidation', 'deception', 'persuasion',
-                'passive_perception', 'passive_insight', 'passive_investigation','exhaustion'
-            ])
-        );
+            $attributes = CharacterAttribute::updateOrCreate(
+                ['character_id' => $character->id],
+                $request->only([
+                    'strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma',
+                    'athletics', 'acrobatics', 'sleight_of_hand', 'stealth',
+                    'investigation', 'history', 'arcana', 'nature', 'religion',
+                    'perception', 'survival', 'medicine', 'insight', 'animal_handling',
+                    'performance', 'intimidation', 'deception', 'persuasion',
+                    'passive_perception', 'passive_insight', 'passive_investigation', 'exhaustion'
+                ])
+            );
 
-        // Перенаправление с успешным сообщением
-        return redirect()->route('character_info', ['id' => $character->id])
-            ->with('success', 'Атрибуты и навыки успешно сохранены!');
+            return response()->json(['success' => true]);
+        } catch (\Exception $e) {
+            \Log::error("Ошибка при сохранении персонажа: " . $e->getMessage());
+            return response()->json(['success' => false, 'error' => $e->getMessage()], 500);
+        }
     }
 
     public function edit(Character $character)
