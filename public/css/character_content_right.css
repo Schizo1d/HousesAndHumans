@@ -100,13 +100,13 @@
     font-size: 14px;
     height: 36px;
     justify-content: center;
-    padding: 0 8px;
+    padding: 0;
     position: relative;
 }
 .digital-conditions{
     align-items: center;
-    background: #272e43;
-    border: 1px solid #606b85;
+    background: #edca99;
+    border: 1px solid #915f32;
     border-radius: 5px;
     display: flex;
     height: 100%;
