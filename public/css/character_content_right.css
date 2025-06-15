@@ -107,10 +107,8 @@
     align-items: center;
     background: #edca99;
     display: flex;
-    border-radius: 5px;
     height: 100%;
     min-width: 46px;
-    transition: background-color .1s;
     width: 100%;
 }
 .digital-conditions-boxed{
