@@ -106,6 +106,15 @@
 .digital-conditions{
     align-items: center;
     background: #edca99;
+    display: flex;
+    height: 100%;
+    min-width: 46px;
+    transition: background-color .1s;
+    width: 100%;
+}
+.digital-conditions-boxed{
+    align-items: center;
+    background: #edca99;
     border: 1px solid #915f32;
     border-radius: 5px;
     display: flex;
