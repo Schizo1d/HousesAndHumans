@@ -148,14 +148,18 @@
 }
 
 .tab-button {
-    background-color: inherit;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    padding: 10px 15px;
-    transition: 0.3s;
+    background: none;
     font-size: 14px;
-    white-space: nowrap;
+    align-items: center;
+    border-bottom: 2px solid transparent;
+    color: var(--c-text);
+    cursor: pointer;
+    display: flex;
+    font-weight: 700;
+    margin: 0;
+    padding: 0 0 2px;
+    text-transform: uppercase;
+    transition: color .2s;
 }
 
 .tab-button:hover {
