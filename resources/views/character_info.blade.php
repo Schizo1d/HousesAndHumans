@@ -749,12 +749,7 @@
 
                 <button type="submit">Сохранить атрибуты</button>
             </div>
-        </form>
 
-        <form id="attributesForm" action="{{ route('character_attributes.store', ['character' => $character->id]) }}"
-              method="POST">
-            @csrf
-            <input type="hidden" name="character_id" value="{{ $character->id }}">
             <div class="digital_content_right">
                 <div class="digital-header-additional">
                     <div class="digital-header-additional-wrap">
@@ -1095,6 +1090,32 @@
                 initSkillRadio('deception');
                 initSkillRadio('persuasion');
             });
+
+            document.getElementById('attributesForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                fetch(this.action, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                    },
+                    body: JSON.stringify(Object.fromEntries(new FormData(this)))
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert('Атрибуты успешно сохранены!');
+                        } else {
+                            alert('Ошибка: ' + (data.error || 'Не удалось сохранить'));
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Произошла ошибка при сохранении');
+                    });
+            });
+
 
             document.addEventListener("DOMContentLoaded", function() {
                 const exhaustionSelect = document.getElementById('exhaustion-level');
