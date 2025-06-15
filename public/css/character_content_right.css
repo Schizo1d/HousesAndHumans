@@ -134,3 +134,49 @@
     text-transform: uppercase;
     width: 100%;
 }
+.tabs-container {
+    width: 100%;
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.tabs-header {
+    display: flex;
+    background-color: #f1f1f1;
+    overflow-x: auto;
+}
+
+.tab-button {
+    background-color: inherit;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 10px 15px;
+    transition: 0.3s;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.tab-button:hover {
+    background-color: #ddd;
+}
+
+.tab-button.active {
+    background-color: #8a5a44;
+    color: white;
+}
+
+.tabs-content {
+    padding: 15px;
+    min-height: 200px;
+}
+
+.tab-pane {
+    display: none;
+}
+
+.tab-pane.active {
+    display: block;
+}

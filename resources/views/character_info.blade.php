@@ -799,8 +799,60 @@
                         </div>
                     </div>
                 </div>
-                <div>
+                <div class="tabs-container">
+                    <div class="tabs-header">
+                        <button class="tab-button active" onclick="openTab(event, 'attacks-tab')">Атаки</button>
+                        <button class="tab-button" onclick="openTab(event, 'abilities-tab')">Способности</button>
+                        <button class="tab-button" onclick="openTab(event, 'equipment-tab')">Снаряжение</button>
+                        <button class="tab-button" onclick="openTab(event, 'personality-tab')">Личность</button>
+                        <button class="tab-button" onclick="openTab(event, 'goals-tab')">Цели</button>
+                        <button class="tab-button" onclick="openTab(event, 'notes-tab')">Заметки</button>
+                        <button class="tab-button" onclick="openTab(event, 'spells-tab')">Заклинания</button>
+                    </div>
 
+                    <div class="tabs-content">
+                        <!-- Вкладка Атаки -->
+                        <div id="attacks-tab" class="tab-pane active">
+                            <h3>Атаки персонажа</h3>
+                            <p>Здесь будет список атак и их характеристики...</p>
+                        </div>
+
+                        <!-- Вкладка Способности -->
+                        <div id="abilities-tab" class="tab-pane">
+                            <h3>Способности персонажа</h3>
+                            <p>Здесь будут перечислены способности персонажа...</p>
+                        </div>
+
+                        <!-- Вкладка Снаряжение -->
+                        <div id="equipment-tab" class="tab-pane">
+                            <h3>Снаряжение персонажа</h3>
+                            <p>Здесь будет список снаряжения и предметов...</p>
+                        </div>
+
+                        <!-- Вкладка Личность -->
+                        <div id="personality-tab" class="tab-pane">
+                            <h3>Черты личности</h3>
+                            <p>Здесь будет описание личности персонажа...</p>
+                        </div>
+
+                        <!-- Вкладка Цели -->
+                        <div id="goals-tab" class="tab-pane">
+                            <h3>Цели персонажа</h3>
+                            <p>Здесь будут описаны цели и стремления персонажа...</p>
+                        </div>
+
+                        <!-- Вкладка Заметки -->
+                        <div id="notes-tab" class="tab-pane">
+                            <h3>Заметки игрока</h3>
+                            <p>Здесь могут быть заметки игрока о персонаже...</p>
+                        </div>
+
+                        <!-- Вкладка Заклинания -->
+                        <div id="spells-tab" class="tab-pane">
+                            <h3>Заклинания</h3>
+                            <p>Здесь будет список заклинаний персонажа...</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </form>
@@ -2365,6 +2417,23 @@
                     .catch(error => {
                         console.error('Ошибка:', error);
                     });
+            }
+            function openTab(evt, tabId) {
+                // Скрыть все вкладки
+                const tabContents = document.getElementsByClassName("tab-pane");
+                for (let i = 0; i < tabContents.length; i++) {
+                    tabContents[i].classList.remove("active");
+                }
+
+                // Убрать активный класс у всех кнопок
+                const tabButtons = document.getElementsByClassName("tab-button");
+                for (let i = 0; i < tabButtons.length; i++) {
+                    tabButtons[i].classList.remove("active");
+                }
+
+                // Показать текущую вкладку и сделать кнопку активной
+                document.getElementById(tabId).classList.add("active");
+                evt.currentTarget.classList.add("active");
             }
         </script>
         <div class="sidebar-modal" id="settings-modal">
