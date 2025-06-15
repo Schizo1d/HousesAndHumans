@@ -149,7 +149,7 @@
 
 .tab-button {
     background: none;
-    font-size: 14px;
+    font-size: 12px;
     align-items: center;
     border-bottom: 2px solid transparent;
     color: var(--c-text);
@@ -160,6 +160,7 @@
     padding: 0 0 2px;
     text-transform: uppercase;
     transition: color .4s;
+    border-radius: 0;
 }
 
 .tab-button:not(:last-of-type){
@@ -172,6 +173,7 @@
 
 .tab-button.active {
     color: #915f32;
+    border-bottom: 2px solid #915f32;
 }
 
 .tabs-content {
