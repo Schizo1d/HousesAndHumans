@@ -751,7 +751,7 @@
             </div>
         </form>
 
-        <form action="{{ route('character_attributes.store', ['character' => $character->id]) }}"
+        <form
               method="POST">
             @csrf
             <input type="hidden" name="character_id" value="{{ $character->id }}">
