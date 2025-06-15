@@ -790,8 +790,8 @@
                             <span>истощение</span>
                         </div>
                         <div class="digital_box">
-                            <div>
-                                <div>
+                            <div class="digital_boxed">
+                                <div class="digital-conditions">
                                     <a href=""></a>
                                 </div>
                             </div>
