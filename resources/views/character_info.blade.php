@@ -521,6 +521,7 @@
                     <span class="radio-dot dot-1"></span>
                     <span class="radio-dot dot-2"></span>
                 </span>
+
                             </label>
                             <span class="attribute-skill-name">Медицина</span>
 
