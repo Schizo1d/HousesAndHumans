@@ -789,7 +789,7 @@
                             </div>
                             <span>истощение</span>
                         </div>
-                        <div class="digital_box">
+                        <div class="digital_box digital-conditions-boxed">
                             <div class="digital_boxed">
                                 <div class="digital-conditions">
                                     <a href=""></a>
