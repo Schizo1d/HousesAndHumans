@@ -1103,18 +1103,6 @@
                     },
                     body: JSON.stringify(Object.fromEntries(new FormData(this)))
                 })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            alert('Атрибуты успешно сохранены!');
-                        } else {
-                            alert('Ошибка: ' + (data.error || 'Не удалось сохранить'));
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        alert('Произошла ошибка при сохранении');
-                    });
             });
 
 
