@@ -78,3 +78,15 @@
     text-align: center;
     text-transform: uppercase;
 }
+.digital-header-additional{
+    background: none;
+    height: auto;
+    min-height: 54px;
+    width: 100%;
+}
+.digital-header-additional-wrap{
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+}

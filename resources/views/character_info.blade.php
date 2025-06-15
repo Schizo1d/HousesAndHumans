@@ -756,45 +756,47 @@
             @csrf
             <input type="hidden" name="character_id" value="{{ $character->id }}">
             <div class="digital_content_right">
-                <div>
-                    <div class="digital_box">
-                        <div class="digital_box_button">
-                            <button class="digital_button" type="button" onclick="rollInitiative()">
-                                <p id="initiative-mod" class="initiative"></p>
-                            </button>
+                <div class="digital-header-additional">
+                    <div class="digital-header-additional-wrap">
+                        <div class="digital_box">
+                            <div class="digital_box_button">
+                                <button class="digital_button" type="button" onclick="rollInitiative()">
+                                    <p id="initiative-mod" class="initiative"></p>
+                                </button>
+                            </div>
+                            <span>инициатива</span>
                         </div>
-                        <span>инициатива</span>
-                    </div>
-                    <div class="digital_box">
-                        <div class="digital_box_button">
-                            <label class="inspiration"></label>
+                        <div class="digital_box">
+                            <div class="digital_box_button">
+                                <label class="inspiration"></label>
+                            </div>
+                            <span>вдохновение</span>
                         </div>
-                        <span>вдохновение</span>
-                    </div>
-                    <div class="digital_box">
-                        <div class="digital_box_button">
-                            <label class="digital-exhaustion-wrap">
-                                <select class="digital-exhaustion" id="exhaustion-level" name="exhaustion">
-                                    <option value="0">0</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                </select>
-                                <span id="exhaustion-value" class="exhaustion">0</span>
-                            </label>
+                        <div class="digital_box">
+                            <div class="digital_box_button">
+                                <label class="digital-exhaustion-wrap">
+                                    <select class="digital-exhaustion" id="exhaustion-level" name="exhaustion">
+                                        <option value="0">0</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                    </select>
+                                    <span id="exhaustion-value" class="exhaustion">0</span>
+                                </label>
+                            </div>
+                            <span>истощение</span>
                         </div>
-                        <span>истощение</span>
-                    </div>
-                    <div>
                         <div>
                             <div>
-                                <a href=""></a>
+                                <div>
+                                    <a href=""></a>
+                                </div>
                             </div>
+                            <span>состояние</span>
                         </div>
-                        <span>состояние</span>
                     </div>
                 </div>
                 <div>
