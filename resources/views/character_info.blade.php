@@ -764,13 +764,13 @@
                                     <p id="initiative-mod" class="initiative"></p>
                                 </button>
                             </div>
-                            <span>инициатива</span>
+                            <span class="digital-boxed-value-label">инициатива</span>
                         </div>
                         <div class="digital_box">
                             <div class="digital_box_button">
                                 <label class="inspiration"></label>
                             </div>
-                            <span>вдохновение</span>
+                            <span class="digital-boxed-value-label">вдохновение</span>
                         </div>
                         <div class="digital_box">
                             <div class="digital_box_button">
@@ -787,7 +787,7 @@
                                     <span id="exhaustion-value" class="exhaustion">0</span>
                                 </label>
                             </div>
-                            <span>истощение</span>
+                            <span class="digital-boxed-value-label">истощение</span>
                         </div>
                         <div class="digital_box digital-conditions-boxed">
                             <div class="digital_boxed">
@@ -795,7 +795,7 @@
                                     <a href=""></a>
                                 </div>
                             </div>
-                            <span>состояние</span>
+                            <span class="digital-boxed-value-label">состояние</span>
                         </div>
                     </div>
                 </div>

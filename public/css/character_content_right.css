@@ -122,3 +122,14 @@
     transition: background-color .1s;
     width: 100%;
 }
+.digital-boxed-value-label{
+    color: var(--c-text);
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .01em;
+    line-height: 12px;
+    text-align: center;
+    text-transform: uppercase;
+    width: 100%;
+}
