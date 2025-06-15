@@ -801,13 +801,13 @@
                 </div>
                 <div class="tabs-container">
                     <div class="tabs-header">
-                        <button class="tab-button active" onclick="openTab(event, 'attacks-tab')">Атаки</button>
-                        <button class="tab-button" onclick="openTab(event, 'abilities-tab')">Способности</button>
-                        <button class="tab-button" onclick="openTab(event, 'equipment-tab')">Снаряжение</button>
-                        <button class="tab-button" onclick="openTab(event, 'personality-tab')">Личность</button>
-                        <button class="tab-button" onclick="openTab(event, 'goals-tab')">Цели</button>
-                        <button class="tab-button" onclick="openTab(event, 'notes-tab')">Заметки</button>
-                        <button class="tab-button" onclick="openTab(event, 'spells-tab')">Заклинания</button>
+                        <button type="button" class="tab-button active" onclick="openTab(event, 'attacks-tab')">Атаки</button>
+                        <button type="button" class="tab-button" onclick="openTab(event, 'abilities-tab')">Способности</button>
+                        <button type="button" class="tab-button" onclick="openTab(event, 'equipment-tab')">Снаряжение</button>
+                        <button type="button" class="tab-button" onclick="openTab(event, 'personality-tab')">Личность</button>
+                        <button type="button" class="tab-button" onclick="openTab(event, 'goals-tab')">Цели</button>
+                        <button type="button" class="tab-button" onclick="openTab(event, 'notes-tab')">Заметки</button>
+                        <button type="button" class="tab-button" onclick="openTab(event, 'spells-tab')">Заклинания</button>
                     </div>
 
                     <div class="tabs-content">
@@ -2419,6 +2419,8 @@
                     });
             }
             function openTab(evt, tabId) {
+                evt.preventDefault(); // Добавьте эту строку
+
                 // Скрыть все вкладки
                 const tabContents = document.getElementsByClassName("tab-pane");
                 for (let i = 0; i < tabContents.length; i++) {
