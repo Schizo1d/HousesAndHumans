@@ -42,9 +42,10 @@ class CharacterAttributeController extends Controller
             'passive_investigation' => 'required|integer|min:1|max:30',
             'exhaustion' => 'required|integer|min:0|max:6',
         ]);
-
+        \Log::info("Saving attributes for character ID: " . ($character->id ?? 'NULL'));
         // Сохраняем атрибуты и навыки
         $attributes = CharacterAttribute::updateOrCreate(
+
             ['character_id' => $character->id],
             $request->only([
                 'strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma',
