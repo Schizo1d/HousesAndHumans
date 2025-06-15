@@ -89,6 +89,7 @@
     display: flex;
     justify-content: space-between;
     padding: 0;
+    gap: 5px;
 }
 .digital_boxed{
     align-items: center;
