@@ -1046,7 +1046,6 @@
                 // Обработчик сохранения состояний
                 document.getElementById('save-conditions').addEventListener('click', function() {
                     // Здесь код для сохранения состояний
-                    alert('Состояния сохранены!');
                     closeConditionsModal();
                 });
             });
