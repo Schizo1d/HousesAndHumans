@@ -93,7 +93,6 @@
 }
 .digital_boxed{
     align-items: center;
-    /* background: #272e43; */
     border: 1px solid var(--c-accent);
     border-radius: 5px;
     color: var(--c-text);
