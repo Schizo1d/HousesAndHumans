@@ -1321,6 +1321,7 @@
 
             function saveAttribute() {
                 try {
+
                     const attrValue = parseInt(document.getElementById("modal-input").value) || 10;
                     document.getElementById(currentAttr).value = attrValue;
                     document.getElementById(`${currentAttr}-button`).textContent = attrValue;
