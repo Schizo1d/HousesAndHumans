@@ -102,13 +102,12 @@
     justify-content: center;
     position: relative;
     width: 100%;
-    padding: 2px 0;
 }
 .digital-conditions{
     align-items: center;
     background: #edca99;
     display: flex;
-    height: 100%;
+    height: 90%;
     min-width: 46px;
     width: 100%;
 }
