@@ -203,3 +203,70 @@
 .tab-pane.active {
     display: block;
 }
+/* Стили для модального окна состояний */
+.conditions-list {
+    margin: 20px 0;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.condition-item {
+    margin-bottom: 10px;
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    position: relative;
+}
+
+.condition-checkbox {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.checkbox-custom {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #666;
+    border-radius: 3px;
+    position: relative;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+.condition-checkbox input[type="checkbox"] {
+    display: none;
+}
+
+.condition-checkbox input[type="checkbox"]:checked + .checkbox-custom::after {
+    content: "✓";
+    position: absolute;
+    top: -2px;
+    left: 2px;
+    color: #fff;
+    font-size: 14px;
+}
+
+.condition-name {
+    color: #fff;
+    cursor: pointer;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+.condition-name:hover {
+    color: #ccc;
+    text-decoration: underline;
+}
+
+.condition-description {
+    margin-top: 5px;
+    padding: 8px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    color: #ddd;
+    font-size: 14px;
+    line-height: 1.4;
+}

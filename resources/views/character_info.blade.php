@@ -1123,6 +1123,12 @@
                 })
             });
 
+            // Обновите обработчик сохранения модального окна состояния
+            document.addEventListener("DOMContentLoaded", function() {
+                document.getElementById('save-conditions').addEventListener('click', saveConditions);
+                loadConditions();
+            });
+
 
             document.addEventListener("DOMContentLoaded", function() {
                 const exhaustionSelect = document.getElementById('exhaustion-level');
@@ -2488,13 +2494,220 @@
                     backdrop.style.display = 'none';
                 }, 300);
             }
+            // Функция для переключения описания состояния
+            function toggleConditionDescription(conditionId) {
+                const description = document.getElementById(`${conditionId}-description`);
+                if (description.style.display === 'none') {
+                    description.style.display = 'block';
+                } else {
+                    description.style.display = 'none';
+                }
+            }
+
+            // Функция для сохранения выбранных состояний
+            function saveConditions() {
+                const checkboxes = document.querySelectorAll('input[name="conditions[]"]:checked');
+                const conditions = Array.from(checkboxes).map(cb => cb.value);
+                const conditionsButton = document.querySelector('.digital-conditions-button');
+
+                if (conditions.length > 0) {
+                    conditionsButton.textContent = conditions.join(', ');
+                } else {
+                    conditionsButton.textContent = '—';
+                }
+
+                // Сохраняем состояния в localStorage
+                localStorage.setItem(`character_${characterId}_conditions`, JSON.stringify(conditions));
+
+                closeConditionsModal();
+            }
+
+            // Функция для загрузки сохраненных состояний
+            function loadConditions() {
+                const savedConditions = localStorage.getItem(`character_${characterId}_conditions`);
+                const conditionsButton = document.querySelector('.digital-conditions-button');
+
+                if (savedConditions) {
+                    const conditions = JSON.parse(savedConditions);
+                    conditions.forEach(condition => {
+                        const checkbox = document.querySelector(`input[value="${condition}"]`);
+                        if (checkbox) {
+                            checkbox.checked = true;
+                        }
+                    });
+
+                    if (conditions.length > 0) {
+                        conditionsButton.textContent = conditions.join(', ');
+                    }
+                }
+            }
+
+
         </script>
         <div class="sidebar-modal" id="conditions-modal">
             <div class="sidebar-content">
                 <button class="close-sidebar" id="close-conditions-sidebar">&times;</button>
                 <h2 class="settings-title">Состояния персонажа</h2>
 
-                <!-- Пустое содержимое -->
+                <div class="conditions-list">
+                    <!-- Пример состояния с описанием -->
+                    <div class="condition-item">
+                        <label class="condition-checkbox">
+                            <input type="checkbox" id="condition-unconscious" name="conditions[]" value="Бессознательный">
+                            <span class="checkbox-custom"></span>
+                        </label>
+                        <span class="condition-name" onclick="toggleConditionDescription('unconscious')">Бессознательный</span>
+                        <div class="condition-description" id="unconscious-description" style="display: none;">
+                            Персонаж в бессознательном состоянии...
+                        </div>
+                    </div>
+
+                    <div class="condition-item">
+                        <label class="condition-checkbox">
+                            <input type="checkbox" id="condition-frightened" name="conditions[]" value="Испуганный">
+                            <span class="checkbox-custom"></span>
+                        </label>
+                        <span class="condition-name" onclick="toggleConditionDescription('frightened')">Испуганный</span>
+                        <div class="condition-description" id="frightened-description" style="display: none;">
+                            Персонаж испытывает страх...
+                        </div>
+                    </div>
+
+                    <!-- Добавьте остальные состояния по аналогии -->
+                    <div class="condition-item">
+                        <label class="condition-checkbox">
+                            <input type="checkbox" id="condition-invisible" name="conditions[]" value="Невидимый">
+                            <span class="checkbox-custom"></span>
+                        </label>
+                        <span class="condition-name" onclick="toggleConditionDescription('invisible')">Невидимый</span>
+                        <div class="condition-description" id="invisible-description" style="display: none;">
+                            Персонаж невидим для окружающих...
+                        </div>
+                    </div>
+
+                    <div class="condition-item">
+                        <label class="condition-checkbox">
+                            <input type="checkbox" id="condition-incapacitated" name="conditions[]" value="Недееспособный">
+                            <span class="checkbox-custom"></span>
+                        </label>
+                        <span class="condition-name" onclick="toggleConditionDescription('incapacitated')">Недееспособный</span>
+                        <div class="condition-description" id="incapacitated-description" style="display: none;">
+                            Персонаж не может совершать действия...
+                        </div>
+                    </div>
+
+                    <div class="condition-item">
+                        <label class="condition-checkbox">
+                            <input type="checkbox" id="condition-deafened" name="conditions[]" value="Оглохший">
+                            <span class="checkbox-custom"></span>
+                        </label>
+                        <span class="condition-name" onclick="toggleConditionDescription('deafened')">Оглохший</span>
+                        <div class="condition-description" id="deafened-description" style="display: none;">
+                            Персонаж ничего не слышит...
+                        </div>
+                    </div>
+
+                    <div class="condition-item">
+                        <label class="condition-checkbox">
+                            <input type="checkbox" id="condition-petrified" name="conditions[]" value="Окаменевший">
+                            <span class="checkbox-custom"></span>
+                        </label>
+                        <span class="condition-name" onclick="toggleConditionDescription('petrified')">Окаменевший</span>
+                        <div class="condition-description" id="petrified-description" style="display: none;">
+                            Персонаж превращен в камень...
+                        </div>
+                    </div>
+
+                    <div class="condition-item">
+                        <label class="condition-checkbox">
+                            <input type="checkbox" id="condition-restrained" name="conditions[]" value="Опутанный">
+                            <span class="checkbox-custom"></span>
+                        </label>
+                        <span class="condition-name" onclick="toggleConditionDescription('restrained')">Опутанный</span>
+                        <div class="condition-description" id="restrained-description" style="display: none;">
+                            Персонаж ограничен в движениях...
+                        </div>
+                    </div>
+
+                    <div class="condition-item">
+                        <label class="condition-checkbox">
+                            <input type="checkbox" id="condition-blinded" name="conditions[]" value="Ослеплённый">
+                            <span class="checkbox-custom"></span>
+                        </label>
+                        <span class="condition-name" onclick="toggleConditionDescription('blinded')">Ослеплённый</span>
+                        <div class="condition-description" id="blinded-description" style="display: none;">
+                            Персонаж ничего не видит...
+                        </div>
+                    </div>
+
+                    <div class="condition-item">
+                        <label class="condition-checkbox">
+                            <input type="checkbox" id="condition-poisoned" name="conditions[]" value="Отравленный">
+                            <span class="checkbox-custom"></span>
+                        </label>
+                        <span class="condition-name" onclick="toggleConditionDescription('poisoned')">Отравленный</span>
+                        <div class="condition-description" id="poisoned-description" style="display: none;">
+                            Персонаж отравлен...
+                        </div>
+                    </div>
+
+                    <div class="condition-item">
+                        <label class="condition-checkbox">
+                            <input type="checkbox" id="condition-charmed" name="conditions[]" value="Очарованный">
+                            <span class="checkbox-custom"></span>
+                        </label>
+                        <span class="condition-name" onclick="toggleConditionDescription('charmed')">Очарованный</span>
+                        <div class="condition-description" id="charmed-description" style="display: none;">
+                            Персонаж находится под чарами...
+                        </div>
+                    </div>
+
+                    <div class="condition-item">
+                        <label class="condition-checkbox">
+                            <input type="checkbox" id="condition-stunned" name="conditions[]" value="Ошеломлённый">
+                            <span class="checkbox-custom"></span>
+                        </label>
+                        <span class="condition-name" onclick="toggleConditionDescription('stunned')">Ошеломлённый</span>
+                        <div class="condition-description" id="stunned-description" style="display: none;">
+                            Персонаж ошеломлен...
+                        </div>
+                    </div>
+
+                    <div class="condition-item">
+                        <label class="condition-checkbox">
+                            <input type="checkbox" id="condition-paralyzed" name="conditions[]" value="Парализованный">
+                            <span class="checkbox-custom"></span>
+                        </label>
+                        <span class="condition-name" onclick="toggleConditionDescription('paralyzed')">Парализованный</span>
+                        <div class="condition-description" id="paralyzed-description" style="display: none;">
+                            Персонаж парализован...
+                        </div>
+                    </div>
+
+                    <div class="condition-item">
+                        <label class="condition-checkbox">
+                            <input type="checkbox" id="condition-prone" name="conditions[]" value="Сбитый с ног">
+                            <span class="checkbox-custom"></span>
+                        </label>
+                        <span class="condition-name" onclick="toggleConditionDescription('prone')">Сбитый с ног</span>
+                        <div class="condition-description" id="prone-description" style="display: none;">
+                            Персонаж лежит на земле...
+                        </div>
+                    </div>
+
+                    <div class="condition-item">
+                        <label class="condition-checkbox">
+                            <input type="checkbox" id="condition-grappled" name="conditions[]" value="Схваченный">
+                            <span class="checkbox-custom"></span>
+                        </label>
+                        <span class="condition-name" onclick="toggleConditionDescription('grappled')">Схваченный</span>
+                        <div class="condition-description" id="grappled-description" style="display: none;">
+                            Персонаж схвачен...
+                        </div>
+                    </div>
+                </div>
+
+                <button id="save-conditions">Сохранить состояния</button>
             </div>
         </div>
         <div class="sidebar-modal" id="settings-modal">
