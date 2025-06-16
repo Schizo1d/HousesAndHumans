@@ -788,7 +788,7 @@
                         <div class="digital_box digital-conditions-boxed">
                             <div class="digital_boxed">
                                 <div class="digital-conditions">
-                                    <a href="javascript:void(0);" onclick="openConditionsModal()">авва</a>
+                                    <a href="javascript:void(0);" onclick="openConditionsModal()">-</a>
                                 </div>
                             </div>
                             <span class="digital-boxed-value-label">состояние</span>
