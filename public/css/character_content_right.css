@@ -131,6 +131,7 @@
     line-height: 16px;
     text-align: center;
     width: 100%;
+    text-decoration: none;
 }
 .digital-boxed-value-label{
     color: var(--c-text);
