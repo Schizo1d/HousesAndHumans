@@ -93,7 +93,7 @@
 }
 .digital_boxed{
     align-items: center;
-    background: #272e43;
+    /* background: #272e43; */
     border: 1px solid var(--c-accent);
     border-radius: 5px;
     color: var(--c-text);
@@ -101,9 +101,9 @@
     font-size: 14px;
     height: 36px;
     justify-content: center;
-    padding: 0;
     position: relative;
     width: 100%;
+    padding: 2px 0;
 }
 .digital-conditions{
     align-items: center;
