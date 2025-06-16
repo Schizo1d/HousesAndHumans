@@ -1025,17 +1025,16 @@
                             document.getElementById(`passive-${skill}-button`).classList.add("manual");
                             document.getElementById(`passive_${skill}`).value = value;
                             document.getElementById(`passive-${skill}-button`).textContent = value;
-                            localStorage.setItem(`passive_${skill}_manual`, value);
+                            localStorage.setItem(`character_${characterId}_passive_${skill}_manual`, value);
                             localStorage.removeItem(`passive_${skill}_auto`);
                         });
                     }
                 });
             });
             document.addEventListener("DOMContentLoaded", function() {
-                // Восстановление пассивных навыков
                 ["perception", "insight", "investigation"].forEach(skill => {
-                    const manual = localStorage.getItem(`passive_${skill}_manual`);
-                    const auto = localStorage.getItem(`passive_${skill}_auto`);
+                    const manual = localStorage.getItem(`character_${characterId}_passive_${skill}_manual`);
+                    const auto = localStorage.getItem(`character_${characterId}_passive_${skill}_auto`);
                     const button = document.getElementById(`passive-${skill}-button`);
                     const input = document.getElementById(`passive_${skill}`);
 
@@ -1057,7 +1056,7 @@
                         input.value = value;
                         button.textContent = value;
                         button.classList.remove("manual");
-                        localStorage.setItem(`passive_${skill}_auto`, value);
+                        localStorage.setItem(`character_${characterId}_passive_${skill}_auto`, value);
                     }
                 });
             });
@@ -1341,15 +1340,15 @@
                                 const val = parseInt(document.getElementById(`modal-passive-${skill}`).value) || 10;
                                 input.value = val;
                                 button.textContent = val;
-                                localStorage.setItem(`passive_${skill}_manual`, val);
-                                localStorage.removeItem(`passive_${skill}_auto`);
+                                localStorage.setItem(`character_${characterId}_passive_${skill}_manual`, val);
+                                localStorage.removeItem(`character_${characterId}_passive_${skill}_auto`);
                             } else {
                                 // Если автоматический - пересчитываем
                                 const autoValue = 10 + getModifier(attrValue);
                                 input.value = autoValue;
                                 button.textContent = autoValue;
-                                localStorage.setItem(`passive_${skill}_auto`, autoValue);
-                                localStorage.removeItem(`passive_${skill}_manual`);
+                                localStorage.setItem(`character_${characterId}_passive_${skill}_auto`, autoValue);
+                                localStorage.removeItem(`character_${characterId}_passive_${skill}_manual`);
                             }
                         });
                     } else if (currentAttr === "intelligence") {
@@ -1360,14 +1359,14 @@
                             const val = parseInt(document.getElementById(`modal-passive-investigation`).value) || 10;
                             input.value = val;
                             button.textContent = val;
-                            localStorage.setItem("passive_investigation_manual", val);
-                            localStorage.removeItem("passive_investigation_auto");
+                            localStorage.setItem(`character_${characterId}_passive_investigation_manual`, val);
+                            localStorage.removeItem(`character_${characterId}_passive_investigation_auto`);
                         } else {
                             const autoValue = 10 + getModifier(attrValue);
                             input.value = autoValue;
                             button.textContent = autoValue;
-                            localStorage.setItem("passive_investigation_auto", autoValue);
-                            localStorage.removeItem("passive_investigation_manual");
+                            localStorage.setItem(`character_${characterId}_passive_investigation_auto`, autoValue);
+                            localStorage.removeItem(`character_${characterId}_passive_investigation_manual`);
                         }
                     }
 
@@ -1431,8 +1430,8 @@
                 button.textContent = value;
                 button.classList.remove("manual");
 
-                localStorage.removeItem(`passive_${skill}_manual`);
-                localStorage.setItem(`passive_${skill}_auto`, value);
+                localStorage.removeItem(`character_${characterId}_passive_${skill}_manual`);
+                localStorage.setItem(`character_${characterId}_passive_${skill}_auto`, value);
 
                 // Обновляем инпут модального окна, если оно открыто
                 const modal = document.getElementById("attributeModal");
