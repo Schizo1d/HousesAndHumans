@@ -788,7 +788,7 @@
                         <div class="digital_box digital-conditions-boxed">
                             <div class="digital_boxed">
                                 <div class="digital-conditions">
-                                    <a href=""></a>
+                                    <a href="javascript:void(0);" onclick="openConditionsModal()"></a>
                                 </div>
                             </div>
                             <span class="digital-boxed-value-label">состояние</span>
@@ -1029,6 +1029,25 @@
                             localStorage.removeItem(`passive_${skill}_auto`);
                         });
                     }
+                });
+            });
+            // Инициализация при загрузке страницы
+            document.addEventListener("DOMContentLoaded", function() {
+                // Обработчик закрытия по крестику
+                document.getElementById('close-conditions-sidebar').addEventListener('click', closeConditionsModal);
+
+                // Обработчик закрытия по клику вне модального окна
+                document.getElementById('settings-backdrop').addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        closeConditionsModal();
+                    }
+                });
+
+                // Обработчик сохранения состояний
+                document.getElementById('save-conditions').addEventListener('click', function() {
+                    // Здесь код для сохранения состояний
+                    alert('Состояния сохранены!');
+                    closeConditionsModal();
                 });
             });
             document.addEventListener("DOMContentLoaded", function() {
@@ -2447,7 +2466,37 @@
                 document.getElementById(tabId).classList.add("active");
                 evt.currentTarget.classList.add("active");
             }
+            function openConditionsModal() {
+                const backdrop = document.getElementById('settings-backdrop');
+                const modal = document.getElementById('conditions-modal');
+
+                backdrop.style.display = 'block';
+                setTimeout(() => {
+                    modal.classList.add("show");
+                    backdrop.classList.add('active');
+                }, 10);
+            }
+
+            // Функция для закрытия модального окна состояний
+            function closeConditionsModal() {
+                const backdrop = document.getElementById('settings-backdrop');
+                const modal = document.getElementById('conditions-modal');
+
+                modal.classList.remove("show");
+                backdrop.classList.remove('active');
+                setTimeout(() => {
+                    backdrop.style.display = 'none';
+                }, 300);
+            }
         </script>
+        <div class="sidebar-modal" id="conditions-modal">
+            <div class="sidebar-content">
+                <button class="close-sidebar" id="close-conditions-sidebar">&times;</button>
+                <h2 class="settings-title">Состояния персонажа</h2>
+
+                <!-- Пустое содержимое -->
+            </div>
+        </div>
         <div class="sidebar-modal" id="settings-modal">
             <div class="sidebar-content">
                 <button class="close-sidebar" id="close-sidebar">&times;</button>
