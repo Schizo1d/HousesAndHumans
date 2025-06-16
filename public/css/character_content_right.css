@@ -103,6 +103,7 @@
     justify-content: center;
     padding: 0;
     position: relative;
+    width: 100%;
 }
 .digital-conditions{
     align-items: center;
@@ -125,13 +126,16 @@
 }
 .digital-conditions-button{
     color: var(--c-text);
-    display: block;
+    display: flex;
     font-size: 19px;
     font-weight: 700;
     line-height: 16px;
     text-align: center;
     width: 100%;
     text-decoration: none;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
 }
 .digital-boxed-value-label{
     color: var(--c-text);
