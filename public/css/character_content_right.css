@@ -206,7 +206,6 @@
 /* Стили для модального окна состояний */
 .conditions-list {
     margin: 20px 0;
-    max-height: 60vh;
     overflow-y: auto;
 }
 
