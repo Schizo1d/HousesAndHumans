@@ -2600,25 +2600,40 @@
                 <div class="conditions-list">
                     <!-- Пример состояния с описанием -->
                     <div class="condition-item">
-                        <label class="condition-checkbox">
-                            <input type="checkbox" id="condition-unconscious" name="conditions[]" value="Бессознательный" class="hidden-checkbox">
-                            <span class="checkbox-custom"></span>
-                        </label>
-                        <span class="condition-name" onclick="toggleConditionDescription('unconscious')">Бессознательный</span>
-                        <div class="condition-description" id="unconscious-description" style="display: none;">
-                            Персонаж в бессознательном состоянии...
+                        <div class="condition-header">
+                            <label class="condition-checkbox">
+                                <input type="checkbox" id="condition-unconscious" name="conditions[]" value="Бессознательный" class="hidden-checkbox">
+                                <span class="checkbox-custom"></span>
+                            </label>
+                            <span class="condition-name">Бессознательный</span>
+                            <button class="toggle-description-btn">▼</button>
                         </div>
+                        <ul class="condition-description" id="unconscious-description" style="display: none;">
+                            <li>Персонаж без сознания и не может совершать действия</li>
+                            <li>Не может двигаться или говорить</li>
+                            <li>Не осознает происходящее вокруг</li>
+                            <li>Автоматически проваливает проверки Силы и Ловкости</li>
+                            <li>Атаки против него совершаются с преимуществом</li>
+                            <li>Любая атака в ближнем радиусе - критическое попадание</li>
+                        </ul>
                     </div>
 
                     <div class="condition-item">
-                        <label class="condition-checkbox">
-                            <input type="checkbox" id="condition-frightened" name="conditions[]" value="Испуганный" class="hidden-checkbox">
-                            <span class="checkbox-custom"></span>
-                        </label>
-                        <span class="condition-name" onclick="toggleConditionDescription('frightened')">Испуганный</span>
-                        <div class="condition-description" id="frightened-description" style="display: none;">
-                            Персонаж испытывает страх...
+                        <div class="condition-header">
+                            <label class="condition-checkbox">
+                                <input type="checkbox" id="condition-frightened" name="conditions[]" value="Испуганный" class="hidden-checkbox">
+                                <span class="checkbox-custom"></span>
+                            </label>
+                            <span class="condition-name">Испуганный</span>
+                            <button class="toggle-description-btn">▼</button>
                         </div>
+                        <ul class="condition-description" id="frightened-description" style="display: none;">
+                            <li>Персонаж испытывает страх перед источником страха</li>
+                            <li>Не может добровольно приближаться к источнику страха</li>
+                            <li>Получает помеху к броскам атак и проверкам характеристик</li>
+                            <li>Пока источник страха в поле зрения, персонаж дезориентирован</li>
+                            <li>Действует, пока находится в пределах видимости источника</li>
+                        </ul>
                     </div>
 
                     <div class="condition-item">
