@@ -2512,15 +2512,17 @@
                 // Сохраняем все выбранные состояния
                 localStorage.setItem(`character_${characterId}_conditions`, JSON.stringify(conditions));
 
-                // Отображаем первые 3 состояния + троеточие, если их больше 6
+                // Отображаем первые 6 состояний + троеточие, если их больше 6
                 if (conditions.length > 0) {
-                    const displayConditions = conditions.slice(0, 3);
-                    if (conditions.length > 6) {  // <-- Изменили с 3 на 6
-                        displayConditions.push('...');
+                    const displayConditions = conditions.slice(0, 6); // Берем первые 6
+                    if (conditions.length > 6) {
+                        displayConditions.push('...'); // Добавляем троеточие если больше 6
                     }
                     conditionsButton.textContent = displayConditions.join(', ');
+                    conditionsButton.title = conditions.join(', '); // Подсказка со всеми состояниями
                 } else {
                     conditionsButton.textContent = '—';
+                    conditionsButton.removeAttribute('title');
                 }
 
                 closeConditionsModal();
@@ -2542,13 +2544,14 @@
                         }
                     });
 
-                    // Отображаем первые 3 состояния + троеточие, если их больше 6
+                    // Отображаем первые 6 состояний + троеточие, если их больше 6
                     if (conditions.length > 0) {
-                        const displayConditions = conditions.slice(0, 3);
-                        if (conditions.length > 6) {  // <-- Изменили с 3 на 6
-                            displayConditions.push('...');
+                        const displayConditions = conditions.slice(0, 6); // Берем первые 6
+                        if (conditions.length > 6) {
+                            displayConditions.push('...'); // Добавляем троеточие если больше 6
                         }
                         conditionsButton.textContent = displayConditions.join(', ');
+                        conditionsButton.title = conditions.join(', '); // Подсказка со всеми состояниями
                     }
                 }
             }
