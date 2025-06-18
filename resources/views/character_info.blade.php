@@ -1121,7 +1121,41 @@
                     body: JSON.stringify(Object.fromEntries(new FormData(this)))
                 })
             });
+            document.addEventListener("DOMContentLoaded", function() {
+                // Обработчики для кнопок раскрытия описания
+                document.querySelectorAll('.toggle-description-btn').forEach(btn => {
+                    btn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        const description = this.closest('.condition-header').nextElementSibling;
+                        const isActive = this.classList.contains('active');
 
+                        if (isActive) {
+                            this.classList.remove('active');
+                            description.style.display = 'none';
+                        } else {
+                            this.classList.add('active');
+                            description.style.display = 'block';
+                        }
+                    });
+                });
+
+                // Обработчики для клика по всему заголовку
+                document.querySelectorAll('.condition-header').forEach(header => {
+                    header.addEventListener('click', function() {
+                        const btn = this.querySelector('.toggle-description-btn');
+                        const description = this.nextElementSibling;
+                        const isActive = btn.classList.contains('active');
+
+                        if (isActive) {
+                            btn.classList.remove('active');
+                            description.style.display = 'none';
+                        } else {
+                            btn.classList.add('active');
+                            description.style.display = 'block';
+                        }
+                    });
+                });
+            });
             // Обновите обработчик сохранения модального окна состояния
             document.addEventListener("DOMContentLoaded", function() {
                 document.getElementById('save-conditions').addEventListener('click', saveConditions);
@@ -2710,14 +2744,19 @@
                     </div>
 
                     <div class="condition-item">
-                        <label class="condition-checkbox">
-                            <input type="checkbox" id="condition-grappled" name="conditions[]" value="Схваченный" class="hidden-checkbox">
-                            <span class="checkbox-custom"></span>
-                        </label>
-                        <span class="condition-name" onclick="toggleConditionDescription('grappled')">Схваченный</span>
-                        <div class="condition-description" id="grappled-description" style="display: none;">
-                            Персонаж схвачен...
+                        <div class="condition-header">
+                            <label class="condition-checkbox">
+                                <input type="checkbox" id="condition-grappled" name="conditions[]" value="Схваченный" class="hidden-checkbox">
+                                <span class="checkbox-custom"></span>
+                            </label>
+                            <span class="condition-name">Схваченный</span>
+                            <button class="toggle-description-btn">▼</button>
                         </div>
+                        <ul class="condition-description" id="grappled-description" style="display: none;">
+                            <li>Персонаж не может двигаться</li>
+                            <li>Скорость становится 0</li>
+                            <li>Получает штраф к ловкости</li>
+                        </ul>
                     </div>
                 </div>
 
