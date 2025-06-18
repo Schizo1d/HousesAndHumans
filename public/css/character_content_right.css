@@ -229,13 +229,16 @@
     display: inline-block;
     width: 18px;
     height: 18px;
-    border: 2px solid #666;
+    background: #edca99; /* Цвет как у других элементов */
+    border: 2px solid #915f32; /* Цвет рамки */
     border-radius: 3px;
     position: relative;
     vertical-align: middle;
-    margin-right: 5px;
-    transition: background-color 0.2s;
+    margin-right: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
 }
+
 
 
 .condition-checkbox input[type="checkbox"]:checked + .checkbox-custom {
@@ -245,6 +248,26 @@
 
 .condition-checkbox input[type="checkbox"]:checked + .checkbox-custom::after {
     content: ""; /* Убираем галочку */
+}
+.condition-checkbox:hover .checkbox-custom {
+    background: #e0b985;
+}
+
+/* Состояние когда чекбокс отмечен */
+.hidden-checkbox:checked + .checkbox-custom {
+    background: #915f32; /* Заливка при выборе */
+}
+
+/* Белый квадратик внутри (имитация "галочки") */
+.hidden-checkbox:checked + .checkbox-custom::after {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 10px;
+    height: 10px;
+    background: white;
+    border-radius: 1px;
 }
 .condition-name {
     color: #fff;
