@@ -1,13 +1,17 @@
-.digital_content_right{
+/* Общие стили для правой колонки */
+.digital_content_right {
     min-width: 550px;
 }
-.digital_box{
+
+/* Стили для блоков с кнопками */
+.digital_box {
     display: flex;
     flex-direction: column;
     gap: 5px;
     justify-content: flex-start;
 }
-.digital_box_button{
+
+.digital_box_button {
     align-items: center;
     background: #edca99;
     border: 1px solid var(--c-accent);
@@ -20,7 +24,8 @@
     padding: 0;
     position: relative;
 }
-.digital_button{
+
+.digital_button {
     border: 1px solid #915f32;
     border-radius: 5px;
     color: var(--c-text);
@@ -32,7 +37,8 @@
     height: 100%;
 }
 
-.digital_box_button .inspiration{
+/* Стили для вдохновения */
+.digital_box_button .inspiration {
     border: 1px solid #915f32;
     border-radius: 5px;
     color: var(--c-text);
@@ -40,7 +46,9 @@
     width: 100%;
     height: 100%;
 }
-.digital-exhaustion-wrap{
+
+/* Стили для истощения */
+.digital-exhaustion-wrap {
     align-items: center;
     border: 1px solid #915f32;
     border-radius: 5px;
@@ -51,7 +59,8 @@
     transition: background-color .1s;
     width: 100%;
 }
-.digital-exhaustion{
+
+.digital-exhaustion {
     height: 100%;
     left: 0;
     opacity: 0;
@@ -59,14 +68,12 @@
     top: 0;
     width: 100%;
 }
-.initiative-text {
-    color: #9c27b0; /* Фиолетовый цвет */
-    font-weight: bold;
-}
-.initiative{
+
+.initiative {
     margin: 0;
 }
-.exhaustion{
+
+.exhaustion {
     color: var(--c-text);
     display: block;
     flex: 1 1;
@@ -78,20 +85,25 @@
     text-align: center;
     text-transform: uppercase;
 }
-.digital-header-additional{
+
+/* Заголовок и контейнеры */
+.digital-header-additional {
     background: none;
     height: auto;
     min-height: 54px;
     width: 100%;
 }
-.digital-header-additional-wrap{
+
+.digital-header-additional-wrap {
     align-items: center;
     display: flex;
     justify-content: space-between;
     padding: 0;
     gap: 5px;
 }
-.digital_boxed{
+
+/* Стили для состояний */
+.digital_boxed {
     align-items: center;
     border: 1px solid var(--c-accent);
     border-radius: 5px;
@@ -103,7 +115,8 @@
     position: relative;
     width: 100%;
 }
-.digital-conditions{
+
+.digital-conditions {
     align-items: center;
     background: #edca99;
     display: flex;
@@ -111,7 +124,8 @@
     min-width: 46px;
     width: 100%;
 }
-.digital-conditions-boxed{
+
+.digital-conditions-boxed {
     align-items: center;
     background: #edca99;
     border: 1px solid #915f32;
@@ -123,7 +137,8 @@
     width: 100%;
     max-width: 330px;
 }
-.digital-conditions-button{
+
+.digital-conditions-button {
     color: var(--c-text);
     display: flex;
     font-size: 14px;
@@ -136,7 +151,8 @@
     justify-content: center;
     align-items: center;
 }
-.digital-boxed-value-label{
+
+.digital-boxed-value-label {
     color: var(--c-text);
     display: inline-block;
     font-size: 9px;
@@ -147,6 +163,8 @@
     text-transform: uppercase;
     width: 100%;
 }
+
+/* Вкладки */
 .tabs-container {
     display: flex;
     flex-direction: column;
@@ -157,7 +175,6 @@
 
 .tabs-header {
     display: flex;
-
 }
 
 .tab-button {
@@ -176,8 +193,8 @@
     border-radius: 0;
 }
 
-.tab-button:not(:last-of-type){
-    margin-right:  8px;
+.tab-button:not(:last-of-type) {
+    margin-right: 8px;
 }
 
 .tab-button:hover {
@@ -204,18 +221,33 @@
 .tab-pane.active {
     display: block;
 }
-/* Стили для модального окна состояний */
+
+/* Улучшенные стили для списка состояний */
 .conditions-list {
     margin: 20px 0;
     overflow-y: auto;
+    max-height: 500px;
+    padding-right: 8px;
 }
 
 .condition-item {
     margin-bottom: 10px;
     padding: 8px;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(237, 202, 153, 0.1); /* Полупрозрачный фон в цветовой гамме */
+    border: 1px solid rgba(145, 95, 50, 0.3); /* Граница в цветовой гамме */
     border-radius: 4px;
-    position: relative;
+    transition: all 0.2s ease;
+}
+
+.condition-item:hover {
+    background: rgba(237, 202, 153, 0.2);
+    border-color: rgba(145, 95, 50, 0.5);
+}
+
+.condition-header {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
 }
 
 .condition-checkbox {
@@ -229,8 +261,8 @@
     display: inline-block;
     width: 18px;
     height: 18px;
-    background: #edca99; /* Цвет как у других элементов */
-    border: 2px solid #915f32; /* Цвет рамки */
+    background: #edca99;
+    border: 2px solid #915f32;
     border-radius: 3px;
     position: relative;
     vertical-align: middle;
@@ -239,56 +271,80 @@
     transition: all 0.2s;
 }
 
-
-
-.condition-checkbox input[type="checkbox"]:checked + .checkbox-custom {
-    border-color: #915f32;
+.hidden-checkbox:checked + .checkbox-custom {
+    background: #915f32;
 }
 
-.condition-checkbox input[type="checkbox"]:checked + .checkbox-custom::after {
-    content: ""; /* Убираем галочку */
+.hidden-checkbox:checked + .checkbox-custom::after {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 10px;
+    height: 10px;
+    background: #edca99;
+    border-radius: 1px;
 }
+
 .condition-checkbox:hover .checkbox-custom {
     background: #e0b985;
 }
 
-/* Состояние когда чекбокс отмечен */
-.hidden-checkbox:checked + .checkbox-custom {
-
-}
-
-/* Белый квадратик внутри (имитация "галочки") */
-.hidden-checkbox:checked + .checkbox-custom::after {
-    content: "";
-    position: absolute;
-    top: 3px;
-    left: 3px;
-    width: 12px;
-    height: 12px;
-    background: #915f32;
-    border-radius: 2px;
-}
 .condition-name {
-    color: #fff;
-    cursor: pointer;
-    font-weight: bold;
-    vertical-align: middle;
+    color: var(--c-text);
+    font-weight: 700;
+    flex-grow: 1;
+    margin-left: 8px;
+    transition: color 0.2s;
 }
 
 .condition-name:hover {
-    color: #ccc;
-    text-decoration: underline;
+    color: #915f32;
+}
+
+.toggle-description-btn {
+    background: none;
+    border: none;
+    color: #915f32;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 0 8px;
+    transition: transform 0.2s;
+}
+
+.toggle-description-btn.active {
+    transform: rotate(180deg);
 }
 
 .condition-description {
-    margin-top: 5px;
-    padding: 8px;
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 4px;
-    color: #ddd;
-    font-size: 14px;
-    line-height: 1.4;
+    margin-top: 8px;
+    padding-left: 28px;
+    color: var(--c-text);
+    font-size: 13px;
+    line-height: 1.5;
+    display: none;
 }
+
+.condition-description ul {
+    margin: 5px 0;
+    padding-left: 15px;
+}
+
+.condition-description li {
+    margin-bottom: 4px;
+    position: relative;
+    list-style-type: none;
+}
+
+.condition-description li:before {
+    content: "•";
+    color: #915f32;
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+}
+
 .hidden-checkbox {
     position: absolute;
     opacity: 0;
