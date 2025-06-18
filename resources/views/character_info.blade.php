@@ -2509,14 +2509,19 @@
                 const conditions = Array.from(checkboxes).map(cb => cb.value);
                 const conditionsButton = document.querySelector('.digital-conditions-button');
 
+                // Сохраняем все выбранные состояния
+                localStorage.setItem(`character_${characterId}_conditions`, JSON.stringify(conditions));
+
+                // Отображаем первые 3 состояния + троеточие, если их больше 6
                 if (conditions.length > 0) {
-                    conditionsButton.textContent = conditions.join(', ');
+                    const displayConditions = conditions.slice(0, 3);
+                    if (conditions.length > 6) {  // <-- Изменили с 3 на 6
+                        displayConditions.push('...');
+                    }
+                    conditionsButton.textContent = displayConditions.join(', ');
                 } else {
                     conditionsButton.textContent = '—';
                 }
-
-                // Сохраняем состояния в localStorage
-                localStorage.setItem(`character_${characterId}_conditions`, JSON.stringify(conditions));
 
                 closeConditionsModal();
             }
@@ -2528,6 +2533,8 @@
 
                 if (savedConditions) {
                     const conditions = JSON.parse(savedConditions);
+
+                    // Устанавливаем чекбоксы
                     conditions.forEach(condition => {
                         const checkbox = document.querySelector(`input[value="${condition}"]`);
                         if (checkbox) {
@@ -2535,8 +2542,13 @@
                         }
                     });
 
+                    // Отображаем первые 3 состояния + троеточие, если их больше 6
                     if (conditions.length > 0) {
-                        conditionsButton.textContent = conditions.join(', ');
+                        const displayConditions = conditions.slice(0, 3);
+                        if (conditions.length > 6) {  // <-- Изменили с 3 на 6
+                            displayConditions.push('...');
+                        }
+                        conditionsButton.textContent = displayConditions.join(', ');
                     }
                 }
             }
