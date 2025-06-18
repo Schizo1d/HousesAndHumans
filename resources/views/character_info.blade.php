@@ -2612,7 +2612,7 @@
 
                     <div class="condition-item">
                         <label class="condition-checkbox">
-                            <input type="checkbox" id="condition-deafened" name="conditions[]" value="Оглохший">
+                            <input type="checkbox" id="condition-deafened" name="conditions[]" value="Оглохший" class="hidden-checkbox">
                             <span class="checkbox-custom"></span>
                         </label>
                         <span class="condition-name" onclick="toggleConditionDescription('deafened')">Оглохший</span>
@@ -2623,7 +2623,7 @@
 
                     <div class="condition-item">
                         <label class="condition-checkbox">
-                            <input type="checkbox" id="condition-petrified" name="conditions[]" value="Окаменевший">
+                            <input type="checkbox" id="condition-petrified" name="conditions[]" value="Окаменевший" class="hidden-checkbox">
                             <span class="checkbox-custom"></span>
                         </label>
                         <span class="condition-name" onclick="toggleConditionDescription('petrified')">Окаменевший</span>
@@ -2634,7 +2634,7 @@
 
                     <div class="condition-item">
                         <label class="condition-checkbox">
-                            <input type="checkbox" id="condition-restrained" name="conditions[]" value="Опутанный">
+                            <input type="checkbox" id="condition-restrained" name="conditions[]" value="Опутанный" class="hidden-checkbox">
                             <span class="checkbox-custom"></span>
                         </label>
                         <span class="condition-name" onclick="toggleConditionDescription('restrained')">Опутанный</span>
@@ -2645,7 +2645,7 @@
 
                     <div class="condition-item">
                         <label class="condition-checkbox">
-                            <input type="checkbox" id="condition-blinded" name="conditions[]" value="Ослеплённый">
+                            <input type="checkbox" id="condition-blinded" name="conditions[]" value="Ослеплённый" class="hidden-checkbox">
                             <span class="checkbox-custom"></span>
                         </label>
                         <span class="condition-name" onclick="toggleConditionDescription('blinded')">Ослеплённый</span>
@@ -2656,7 +2656,7 @@
 
                     <div class="condition-item">
                         <label class="condition-checkbox">
-                            <input type="checkbox" id="condition-poisoned" name="conditions[]" value="Отравленный">
+                            <input type="checkbox" id="condition-poisoned" name="conditions[]" value="Отравленный" class="hidden-checkbox">
                             <span class="checkbox-custom"></span>
                         </label>
                         <span class="condition-name" onclick="toggleConditionDescription('poisoned')">Отравленный</span>
@@ -2667,7 +2667,7 @@
 
                     <div class="condition-item">
                         <label class="condition-checkbox">
-                            <input type="checkbox" id="condition-charmed" name="conditions[]" value="Очарованный">
+                            <input type="checkbox" id="condition-charmed" name="conditions[]" value="Очарованный" class="hidden-checkbox">
                             <span class="checkbox-custom"></span>
                         </label>
                         <span class="condition-name" onclick="toggleConditionDescription('charmed')">Очарованный</span>
@@ -2678,7 +2678,7 @@
 
                     <div class="condition-item">
                         <label class="condition-checkbox">
-                            <input type="checkbox" id="condition-stunned" name="conditions[]" value="Ошеломлённый">
+                            <input type="checkbox" id="condition-stunned" name="conditions[]" value="Ошеломлённый" class="hidden-checkbox">
                             <span class="checkbox-custom"></span>
                         </label>
                         <span class="condition-name" onclick="toggleConditionDescription('stunned')">Ошеломлённый</span>
@@ -2689,7 +2689,7 @@
 
                     <div class="condition-item">
                         <label class="condition-checkbox">
-                            <input type="checkbox" id="condition-paralyzed" name="conditions[]" value="Парализованный">
+                            <input type="checkbox" id="condition-paralyzed" name="conditions[]" value="Парализованный" class="hidden-checkbox">
                             <span class="checkbox-custom"></span>
                         </label>
                         <span class="condition-name" onclick="toggleConditionDescription('paralyzed')">Парализованный</span>
@@ -2700,7 +2700,7 @@
 
                     <div class="condition-item">
                         <label class="condition-checkbox">
-                            <input type="checkbox" id="condition-prone" name="conditions[]" value="Сбитый с ног">
+                            <input type="checkbox" id="condition-prone" name="conditions[]" value="Сбитый с ног" class="hidden-checkbox">
                             <span class="checkbox-custom"></span>
                         </label>
                         <span class="condition-name" onclick="toggleConditionDescription('prone')">Сбитый с ног</span>
@@ -2711,7 +2711,7 @@
 
                     <div class="condition-item">
                         <label class="condition-checkbox">
-                            <input type="checkbox" id="condition-grappled" name="conditions[]" value="Схваченный">
+                            <input type="checkbox" id="condition-grappled" name="conditions[]" value="Схваченный" class="hidden-checkbox">
                             <span class="checkbox-custom"></span>
                         </label>
                         <span class="condition-name" onclick="toggleConditionDescription('grappled')">Схваченный</span>
