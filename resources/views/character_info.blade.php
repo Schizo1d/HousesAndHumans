@@ -2567,7 +2567,7 @@
                     <!-- Пример состояния с описанием -->
                     <div class="condition-item">
                         <label class="condition-checkbox">
-                            <input type="checkbox" id="condition-unconscious" name="conditions[]" value="Бессознательный">
+                            <input type="checkbox" id="condition-unconscious" name="conditions[]" value="Бессознательный" class="hidden-checkbox">
                             <span class="checkbox-custom"></span>
                         </label>
                         <span class="condition-name" onclick="toggleConditionDescription('unconscious')">Бессознательный</span>
@@ -2578,7 +2578,7 @@
 
                     <div class="condition-item">
                         <label class="condition-checkbox">
-                            <input type="checkbox" id="condition-frightened" name="conditions[]" value="Испуганный">
+                            <input type="checkbox" id="condition-frightened" name="conditions[]" value="Испуганный" class="hidden-checkbox">
                             <span class="checkbox-custom"></span>
                         </label>
                         <span class="condition-name" onclick="toggleConditionDescription('frightened')">Испуганный</span>
@@ -2590,7 +2590,7 @@
                     <!-- Добавьте остальные состояния по аналогии -->
                     <div class="condition-item">
                         <label class="condition-checkbox">
-                            <input type="checkbox" id="condition-invisible" name="conditions[]" value="Невидимый">
+                            <input type="checkbox" id="condition-invisible" name="conditions[]" value="Невидимый" class="hidden-checkbox">
                             <span class="checkbox-custom"></span>
                         </label>
                         <span class="condition-name" onclick="toggleConditionDescription('invisible')">Невидимый</span>
@@ -2601,7 +2601,7 @@
 
                     <div class="condition-item">
                         <label class="condition-checkbox">
-                            <input type="checkbox" id="condition-incapacitated" name="conditions[]" value="Недееспособный">
+                            <input type="checkbox" id="condition-incapacitated" name="conditions[]" value="Недееспособный" class="hidden-checkbox">
                             <span class="checkbox-custom"></span>
                         </label>
                         <span class="condition-name" onclick="toggleConditionDescription('incapacitated')">Недееспособный</span>

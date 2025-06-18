@@ -267,3 +267,9 @@
     font-size: 14px;
     line-height: 1.4;
 }
+.hidden-checkbox {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
