@@ -234,21 +234,18 @@
     position: relative;
     vertical-align: middle;
     margin-right: 5px;
+    transition: background-color 0.2s;
 }
 
-.condition-checkbox input[type="checkbox"] {
-    display: none;
+
+.condition-checkbox input[type="checkbox"]:checked + .checkbox-custom {
+    background-color: #915f32; /* Цвет фона при выборе */
+    border-color: #915f32;
 }
 
 .condition-checkbox input[type="checkbox"]:checked + .checkbox-custom::after {
-    content: "✓";
-    position: absolute;
-    top: -2px;
-    left: 2px;
-    color: #fff;
-    font-size: 14px;
+    content: ""; /* Убираем галочку */
 }
-
 .condition-name {
     color: #fff;
     cursor: pointer;
