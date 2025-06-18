@@ -121,6 +121,7 @@
     min-width: 46px;
     transition: background-color .1s;
     width: 100%;
+    max-width: 330px;
 }
 .digital-conditions-button{
     color: var(--c-text);
