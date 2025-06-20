@@ -936,6 +936,7 @@
             }
 
 
+
             const attributeNames = {
                 strength: "Сила",
                 dexterity: "Ловкость",
@@ -964,9 +965,18 @@
                 const currentLevel = parseInt(document.querySelector('.mini-progress-container').dataset.currentLevel) || 1;
                 const proficiencyBonus = getProficiencyBonus(currentLevel);
 
-                // Циклическое изменение значения: 0 → proficiencyBonus → 0
+                // Три состояния: 0 → proficiencyBonus → proficiencyBonus (второе нажатие) → 0
                 let currentValue = parseInt(hiddenInput.value) || 0;
-                let newValue = currentValue === proficiencyBonus ? 0 : proficiencyBonus;
+                let newValue;
+
+                if (currentValue === 0) {
+                    newValue = proficiencyBonus; // Первое нажатие: +2 (или +3, +4 и т.д.)
+                } else if (currentValue === proficiencyBonus) {
+                    // Второе нажатие: оставляем тот же бонус, но меняем визуальное состояние
+                    newValue = proficiencyBonus;
+                } else {
+                    newValue = 0; // Третье нажатие: сброс
+                }
 
                 // Обновляем скрытое поле
                 hiddenInput.value = newValue;
@@ -980,9 +990,16 @@
                 displaySpan.textContent = finalValue;
 
                 // Обновляем визуальное состояние радио-кнопки
-                customRadio.classList.remove('checked');
+                customRadio.classList.remove('checked', 'double-checked');
                 if (newValue === proficiencyBonus) {
-                    customRadio.classList.add('checked');
+                    // Если это первое нажатие — просто 'checked'
+                    if (currentValue === 0) {
+                        customRadio.classList.add('checked');
+                    }
+                    // Если второе нажатие — 'double-checked'
+                    else if (currentValue === proficiencyBonus) {
+                        customRadio.classList.add('double-checked');
+                    }
                 }
 
                 // Предотвращаем стандартное поведение checkbox
@@ -1207,9 +1224,15 @@
                 const currentLevel = parseInt(document.querySelector('.mini-progress-container').dataset.currentLevel) || 1;
                 const proficiencyBonus = getProficiencyBonus(currentLevel);
 
-                radioCustom.classList.remove('checked');
+                radioCustom.classList.remove('checked', 'double-checked');
                 if (skillValue === proficiencyBonus) {
-                    radioCustom.classList.add('checked');
+                    // Проверяем, было ли это первое или второе нажатие (можно хранить в data-атрибуте)
+                    const isDoubleChecked = radioCustom.getAttribute('data-double-checked') === 'true';
+                    if (isDoubleChecked) {
+                        radioCustom.classList.add('double-checked');
+                    } else {
+                        radioCustom.classList.add('checked');
+                    }
                 }
             }
 
