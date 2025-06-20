@@ -76,6 +76,7 @@ header {
     display: flex;
     flex-direction: column;
     gap: 3px;
+    min-width: 300px;
 }
 
 .character-header-name {
@@ -1235,7 +1236,7 @@ form label {
 .mini-progress-text {
     position: absolute;
     top: 50%;
-    left: 25%;
+    left: 18%;
     transform: translate(-50%, -50%);
     font-size: 10px;
     color: #ffffff;
