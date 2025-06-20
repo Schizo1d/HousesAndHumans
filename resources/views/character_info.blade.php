@@ -66,6 +66,14 @@
                     </div>
                 </div>
             </div>
+            <div class="proficiency-bonus-container">
+                <div class="proficiency-bonus-value">
+                    +{{ getProficiencyBonus($character->level ?? 1) }}
+                </div>
+                <div class="proficiency-bonus-label">
+                    Владение
+                </div>
+            </div>
         </nav>
     </div>
 </div>
