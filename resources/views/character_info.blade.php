@@ -943,6 +943,7 @@
                 return 2; // Уровни 1-4
             }
 
+
             function closeModal() {
                 document.getElementById("attributeModal").style.display = "none";
             }
@@ -962,16 +963,16 @@
                 const currentLevel = parseInt(document.querySelector('.character-level').textContent.match(/\d+/)[0]) || 1;
                 const proficiencyBonus = getProficiencyBonus(currentLevel);
 
-                // Циклическое изменение значения: 0 → proficiencyBonus → proficiencyBonus → 0
+                // Циклическое изменение значения: 0 → бонус → бонус → 0 (двойное нажатие на одном значении)
                 let currentValue = parseInt(hiddenInput.value) || 0;
                 let newValue;
 
                 if (currentValue === 0) {
-                    newValue = proficiencyBonus;
+                    newValue = proficiencyBonus; // Первое нажатие - устанавливаем бонус
                 } else if (currentValue === proficiencyBonus) {
-                    newValue = proficiencyBonus; // Второе нажатие оставляет то же значение
+                    newValue = proficiencyBonus; // Второе нажатие - оставляем бонус
                 } else {
-                    newValue = 0;
+                    newValue = 0; // Третье нажатие - сбрасываем
                 }
 
                 // Обновляем скрытое поле
@@ -994,6 +995,7 @@
                 // Предотвращаем стандартное поведение checkbox
                 element.checked = false;
             }
+
 
             document.addEventListener("DOMContentLoaded", function () {
                 // Инициализация модификаторов
@@ -1214,7 +1216,6 @@
                     radioCustom.classList.add('fully-checked');
                 }
             }
-
             document.querySelectorAll('.skill-toggle').forEach(item => {
                 item.addEventListener('click', function () {
                     let targetId = this.getAttribute('data-target');
