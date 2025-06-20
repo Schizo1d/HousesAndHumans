@@ -967,18 +967,23 @@
                 let currentValue = parseInt(hiddenInput.value) || 0;
                 let newValue;
 
+                // Сначала сбрасываем все визуальные состояния
+                customRadio.classList.remove('half-checked', 'fully-checked');
+                customRadio.querySelector('.dot-1').style.display = 'none';
+                customRadio.querySelector('.dot-2').style.display = 'none';
+
                 if (currentValue === 0) {
-                    newValue = proficiencyBonus; // Первое нажатие - устанавливаем бонус
-                    customRadio.querySelector('.dot-1').style.display = 'block'; // Показываем первую точку
-                    customRadio.querySelector('.dot-2').style.display = 'none';
+                    newValue = proficiencyBonus; // Первое нажатие
+                    customRadio.classList.add('half-checked');
+                    customRadio.querySelector('.dot-1').style.display = 'block';
                 } else if (currentValue === proficiencyBonus) {
-                    newValue = proficiencyBonus * 2; // Второе нажатие - удваиваем бонус
-                    customRadio.querySelector('.dot-1').style.display = 'block'; // Показываем обе точки
+                    newValue = proficiencyBonus * 2; // Второе нажатие
+                    customRadio.classList.add('fully-checked');
+                    customRadio.querySelector('.dot-1').style.display = 'block';
                     customRadio.querySelector('.dot-2').style.display = 'block';
                 } else {
-                    newValue = 0; // Третье нажатие - сбрасываем
-                    customRadio.querySelector('.dot-1').style.display = 'none'; // Скрываем обе точки
-                    customRadio.querySelector('.dot-2').style.display = 'none';
+                    newValue = 0; // Третье нажатие
+                    // Все уже скрыто и классы удалены
                 }
 
                 // Обновляем скрытое поле
@@ -1213,12 +1218,16 @@
 
                 if (!radioCustom) return;
 
+                // Сбрасываем все состояния
+                radioCustom.classList.remove('half-checked', 'fully-checked');
                 radioCustom.querySelector('.dot-1').style.display = 'none';
                 radioCustom.querySelector('.dot-2').style.display = 'none';
 
                 if (skillValue === proficiencyBonus) {
+                    radioCustom.classList.add('half-checked');
                     radioCustom.querySelector('.dot-1').style.display = 'block';
                 } else if (skillValue === proficiencyBonus * 2) {
+                    radioCustom.classList.add('fully-checked');
                     radioCustom.querySelector('.dot-1').style.display = 'block';
                     radioCustom.querySelector('.dot-2').style.display = 'block';
                 }
