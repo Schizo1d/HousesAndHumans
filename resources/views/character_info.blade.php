@@ -68,7 +68,7 @@
             </div>
             <div class="proficiency-bonus-container">
                 <div class="proficiency-bonus-value">
-                    <a href="javascript:void(0);" id="proficiency-bonus-link">+{{ $proficiencyBonus }}</a>
+                    <a href="javascript:void(0);" id="proficiency-bonus-link">+2</a>
                 </div>
                 <div class="proficiency-bonus-label">
                     владение
@@ -1150,6 +1150,7 @@
                     body: JSON.stringify(Object.fromEntries(new FormData(this)))
                 })
             });
+            document.addEventListener("DOMContentLoaded", updateProficiencyBonus);
             document.addEventListener("DOMContentLoaded", function() {
                 // Обработчики для кнопок раскрытия описания
                 document.querySelectorAll('.toggle-description-btn').forEach(btn => {
@@ -2630,10 +2631,11 @@
             }
 
             function updateProficiencyBonus() {
-                const currentLevel = parseInt(document.querySelector('.character-level').textContent.match(/\d+/)[0]) || 1;
-                const bonus = getProficiencyBonus(currentLevel);
-                document.getElementById('proficiency-bonus-link').textContent = `+${bonus}`;
+                const level = parseInt(document.querySelector('.character-level').textContent.match(/\d+/)[0] || 1;
+                document.getElementById('proficiency-bonus-link').textContent =
+                    `+${getProficiencyBonus(level)}`;
             }
+
 
             // Вызывайте эту функцию при изменении уровня
             updateProficiencyBonus();

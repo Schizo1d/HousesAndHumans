@@ -68,12 +68,6 @@ class CharacterAttributeController extends Controller
 
     public function edit(Character $character)
     {
-        $level = $character->level ?? 1;
-        $proficiencyBonus = floor(($level + 7) / 4); // Стандартная формула D&D 5e
-
-        return view('character_attributes', [
-            'character' => $character,
-            'proficiencyBonus' => $proficiencyBonus, // Убедитесь, что передаете переменную
-        ]);
+        return view('character_attributes', compact('character'));
     }
 }
