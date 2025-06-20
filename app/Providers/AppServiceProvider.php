@@ -24,8 +24,9 @@ class AppServiceProvider extends ServiceProvider
             $event->extendSocialite('vkontakte', \SocialiteProviders\VKontakte\Provider::class);
         });
 
-        Blade::directive('proficiencyBonus', function ($level) {
-            return "<?php echo floor(($level + 3) / 4) + 1; ?>";
+        Blade::directive('proficiencyBonus', function ($expression) {
+            return "<?php echo floor(($expression + 3) / 4) + 1; ?>";
         });
     }
+
 }
