@@ -68,10 +68,10 @@
             </div>
             <div class="proficiency-bonus-container">
                 <div class="proficiency-bonus-value">
-                    <a href="javascript:void(0);" id="proficiency-bonus-link">+{{ getProficiencyBonus($character->level ?? 1) }}</a>
+                    <a href="javascript:void(0);" id="proficiency-bonus-link">+{{ $proficiencyBonus }}</a>
                 </div>
                 <div class="proficiency-bonus-label">
-                    Владение
+                    владение
                 </div>
             </div>
         </nav>
