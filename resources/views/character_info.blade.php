@@ -926,6 +926,15 @@
             let nextLevelXp = XP_TABLE[currentLevel + 1] || XP_TABLE[20];
             let currentAttr = null;
 
+            // Функция для определения бонуса владения в зависимости от уровня
+            function getProficiencyBonus(level) {
+                if (level >= 17) return 6;
+                if (level >= 13) return 5;
+                if (level >= 9) return 4;
+                if (level >= 5) return 3;
+                return 2; // Уровни 1-4
+            }
+
             const attributeNames = {
                 strength: "Сила",
                 dexterity: "Ловкость",
@@ -950,13 +959,13 @@
                 const displaySpan = document.getElementById(skillId + '-value');
                 const customRadio = element.nextElementSibling;
 
-                // Циклическое изменение значения: 0 → 2 → 4 → 0
-                let currentValue = parseInt(hiddenInput.value) || 0;
-                let newValue;
+                // Получаем текущий уровень персонажа
+                const currentLevel = parseInt(document.querySelector('.mini-progress-container').dataset.currentLevel) || 1;
+                const proficiencyBonus = getProficiencyBonus(currentLevel);
 
-                if (currentValue === 0) newValue = 2;
-                else if (currentValue === 2) newValue = 4;
-                else newValue = 0;
+                // Циклическое изменение значения: 0 → proficiencyBonus → 0
+                let currentValue = parseInt(hiddenInput.value) || 0;
+                let newValue = currentValue === proficiencyBonus ? 0 : proficiencyBonus;
 
                 // Обновляем скрытое поле
                 hiddenInput.value = newValue;
@@ -971,9 +980,7 @@
 
                 // Обновляем визуальное состояние радио-кнопки
                 customRadio.classList.remove('half-checked', 'fully-checked');
-                if (newValue === 2) {
-                    customRadio.classList.add('half-checked');
-                } else if (newValue === 4) {
+                if (newValue === proficiencyBonus) {
                     customRadio.classList.add('fully-checked');
                 }
 
@@ -1195,10 +1202,12 @@
 
                 if (!radioCustom) return;
 
+                // Получаем текущий уровень персонажа
+                const currentLevel = parseInt(document.querySelector('.mini-progress-container').dataset.currentLevel) || 1;
+                const proficiencyBonus = getProficiencyBonus(currentLevel);
+
                 radioCustom.classList.remove('half-checked', 'fully-checked');
-                if (skillValue === 2) {
-                    radioCustom.classList.add('half-checked');
-                } else if (skillValue === 4) {
+                if (skillValue === proficiencyBonus) {
                     radioCustom.classList.add('fully-checked');
                 }
             }
