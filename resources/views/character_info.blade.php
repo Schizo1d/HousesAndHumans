@@ -928,12 +928,13 @@
 
             // Функция для определения бонуса владения в зависимости от уровня
             function getProficiencyBonus(level) {
-                if (level >= 17) return 6;
-                if (level >= 13) return 5;
-                if (level >= 9) return 4;
-                if (level >= 5) return 3;
-                return 2; // Уровни 1-4
+                if (level >= 17) return 6;  // Уровни 17-20: +6
+                if (level >= 13) return 5;  // Уровни 13-16: +5
+                if (level >= 9) return 4;   // Уровни 9-12: +4
+                if (level >= 5) return 3;   // Уровни 5-8: +3
+                return 2;                   // Уровни 1-4: +2
             }
+
 
             const attributeNames = {
                 strength: "Сила",
@@ -979,9 +980,9 @@
                 displaySpan.textContent = finalValue;
 
                 // Обновляем визуальное состояние радио-кнопки
-                customRadio.classList.remove('half-checked', 'fully-checked');
+                customRadio.classList.remove('checked');
                 if (newValue === proficiencyBonus) {
-                    customRadio.classList.add('fully-checked');
+                    customRadio.classList.add('checked');
                 }
 
                 // Предотвращаем стандартное поведение checkbox
@@ -1206,9 +1207,9 @@
                 const currentLevel = parseInt(document.querySelector('.mini-progress-container').dataset.currentLevel) || 1;
                 const proficiencyBonus = getProficiencyBonus(currentLevel);
 
-                radioCustom.classList.remove('half-checked', 'fully-checked');
+                radioCustom.classList.remove('checked');
                 if (skillValue === proficiencyBonus) {
-                    radioCustom.classList.add('fully-checked');
+                    radioCustom.classList.add('checked');
                 }
             }
 
