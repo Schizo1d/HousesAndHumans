@@ -68,7 +68,7 @@
             </div>
             <div class="proficiency-bonus-container">
                 <div class="proficiency-bonus-value">
-                    @proficiencyBonus($character->level ?? 1)
+                    <a href=""></a>
                 </div>
                 <div class="proficiency-bonus-label">
                     Владение
