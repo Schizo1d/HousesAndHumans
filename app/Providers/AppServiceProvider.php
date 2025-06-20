@@ -27,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
 
         Blade::directive('proficiencyBonus', function ($expression) {
             return "<?php
-                \$level = $expression;
+                \$level = {$expression};
                 echo '+' . (\$level >= 17 ? 6 : (\$level >= 13 ? 5 : (\$level >= 9 ? 4 : (\$level >= 5 ? 3 : 2)));
             ?>";
         });
