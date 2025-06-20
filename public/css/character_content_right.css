@@ -354,3 +354,11 @@
     width: 0;
     height: 0;
 }
+.proficiency-bonus-label{
+    color: var(--c-text);
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: .01em;
+    line-height: 14px;
+    text-transform: uppercase;
+}

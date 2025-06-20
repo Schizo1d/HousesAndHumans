@@ -70,9 +70,9 @@
                 <div class="proficiency-bonus-value">
                     <a href="javascript:void(0);" id="proficiency-bonus-link">+2</a>
                 </div>
-                <div class="proficiency-bonus-label">
+                <span class="proficiency-bonus-label">
                     владение
-                </div>
+                </span>
             </div>
         </nav>
     </div>
