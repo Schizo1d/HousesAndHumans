@@ -963,16 +963,22 @@
                 const currentLevel = parseInt(document.querySelector('.character-level').textContent.match(/\d+/)[0]) || 1;
                 const proficiencyBonus = getProficiencyBonus(currentLevel);
 
-                // Циклическое изменение значения: 0 → бонус → бонус → 0 (двойное нажатие на одном значении)
+                // Циклическое изменение значения: 0 → бонус → бонус×2 → 0
                 let currentValue = parseInt(hiddenInput.value) || 0;
                 let newValue;
 
                 if (currentValue === 0) {
                     newValue = proficiencyBonus; // Первое нажатие - устанавливаем бонус
+                    customRadio.querySelector('.dot-1').style.display = 'block'; // Показываем первую точку
+                    customRadio.querySelector('.dot-2').style.display = 'none';
                 } else if (currentValue === proficiencyBonus) {
-                    newValue = proficiencyBonus; // Второе нажатие - оставляем бонус
+                    newValue = proficiencyBonus * 2; // Второе нажатие - удваиваем бонус
+                    customRadio.querySelector('.dot-1').style.display = 'block'; // Показываем обе точки
+                    customRadio.querySelector('.dot-2').style.display = 'block';
                 } else {
                     newValue = 0; // Третье нажатие - сбрасываем
+                    customRadio.querySelector('.dot-1').style.display = 'none'; // Скрываем обе точки
+                    customRadio.querySelector('.dot-2').style.display = 'none';
                 }
 
                 // Обновляем скрытое поле
@@ -985,12 +991,6 @@
 
                 // Обновляем отображаемое значение
                 displaySpan.textContent = finalValue;
-
-                // Обновляем визуальное состояние радио-кнопки
-                customRadio.classList.remove('half-checked', 'fully-checked');
-                if (newValue === proficiencyBonus) {
-                    customRadio.classList.add('fully-checked');
-                }
 
                 // Предотвращаем стандартное поведение checkbox
                 element.checked = false;
@@ -1208,12 +1208,19 @@
             function initSkillRadio(skillId) {
                 const skillValue = parseInt(document.getElementById(skillId).value) || 0;
                 const radioCustom = document.querySelector('#' + skillId + '-radio + .double-radio-custom');
+                const currentLevel = parseInt(document.querySelector('.character-level').textContent.match(/\d+/)[0]) || 1;
+                const proficiencyBonus = getProficiencyBonus(currentLevel);
 
                 if (!radioCustom) return;
 
-                radioCustom.classList.remove('half-checked', 'fully-checked');
-                if (skillValue > 0) {
-                    radioCustom.classList.add('fully-checked');
+                radioCustom.querySelector('.dot-1').style.display = 'none';
+                radioCustom.querySelector('.dot-2').style.display = 'none';
+
+                if (skillValue === proficiencyBonus) {
+                    radioCustom.querySelector('.dot-1').style.display = 'block';
+                } else if (skillValue === proficiencyBonus * 2) {
+                    radioCustom.querySelector('.dot-1').style.display = 'block';
+                    radioCustom.querySelector('.dot-2').style.display = 'block';
                 }
             }
             document.querySelectorAll('.skill-toggle').forEach(item => {
