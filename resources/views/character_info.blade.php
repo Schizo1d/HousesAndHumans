@@ -68,7 +68,7 @@
             </div>
             <div class="proficiency-bonus-container">
                 <div class="proficiency-bonus-value">
-                    <a href=""></a>
+                    <a href="javascript:void(0);" id="proficiency-bonus-link">+{{ getProficiencyBonus($character->level ?? 1) }}</a>
                 </div>
                 <div class="proficiency-bonus-label">
                     Владение
@@ -2176,6 +2176,7 @@
                 } else {
                     alert('Недостаточно опыта для повышения уровня!');
                 }
+                updateProficiencyBonus();
             }
 
             // Анимация повышения уровня
@@ -2365,6 +2366,7 @@
                     alert('Ошибка: ' + error.message);
                     updateProgressBar(); // Восстанавливаем состояние при ошибке
                 }
+                updateProficiencyBonus();
             }
 
             function deleteLastChar() {
@@ -2627,7 +2629,14 @@
                 }
             }
 
+            function updateProficiencyBonus() {
+                const currentLevel = parseInt(document.querySelector('.character-level').textContent.match(/\d+/)[0]) || 1;
+                const bonus = getProficiencyBonus(currentLevel);
+                document.getElementById('proficiency-bonus-link').textContent = `+${bonus}`;
+            }
 
+            // Вызывайте эту функцию при изменении уровня
+            updateProficiencyBonus();
         </script>
         <div class="sidebar-modal" id="conditions-modal">
             <div class="sidebar-content">
