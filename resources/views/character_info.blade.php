@@ -926,17 +926,6 @@
             let nextLevelXp = XP_TABLE[currentLevel + 1] || XP_TABLE[20];
             let currentAttr = null;
 
-            // Функция для определения бонуса владения в зависимости от уровня
-            function getProficiencyBonus(level) {
-                if (level >= 17) return 6;  // Уровни 17-20: +6
-                if (level >= 13) return 5;  // Уровни 13-16: +5
-                if (level >= 9) return 4;   // Уровни 9-12: +4
-                if (level >= 5) return 3;   // Уровни 5-8: +3
-                return 2;                   // Уровни 1-4: +2
-            }
-
-
-
             const attributeNames = {
                 strength: "Сила",
                 dexterity: "Ловкость",
@@ -961,22 +950,13 @@
                 const displaySpan = document.getElementById(skillId + '-value');
                 const customRadio = element.nextElementSibling;
 
-                // Получаем текущий уровень персонажа
-                const currentLevel = parseInt(document.querySelector('.mini-progress-container').dataset.currentLevel) || 1;
-                const proficiencyBonus = getProficiencyBonus(currentLevel);
-
-                // Три состояния: 0 → proficiencyBonus → proficiencyBonus (второе нажатие) → 0
+                // Циклическое изменение значения: 0 → 2 → 4 → 0
                 let currentValue = parseInt(hiddenInput.value) || 0;
                 let newValue;
 
-                if (currentValue === 0) {
-                    newValue = proficiencyBonus; // Первое нажатие: +2 (или +3, +4 и т.д.)
-                } else if (currentValue === proficiencyBonus) {
-                    // Второе нажатие: оставляем тот же бонус, но меняем визуальное состояние
-                    newValue = proficiencyBonus;
-                } else {
-                    newValue = 0; // Третье нажатие: сброс
-                }
+                if (currentValue === 0) newValue = 2;
+                else if (currentValue === 2) newValue = 4;
+                else newValue = 0;
 
                 // Обновляем скрытое поле
                 hiddenInput.value = newValue;
@@ -990,16 +970,11 @@
                 displaySpan.textContent = finalValue;
 
                 // Обновляем визуальное состояние радио-кнопки
-                customRadio.classList.remove('checked', 'double-checked');
-                if (newValue === proficiencyBonus) {
-                    // Если это первое нажатие — просто 'checked'
-                    if (currentValue === 0) {
-                        customRadio.classList.add('checked');
-                    }
-                    // Если второе нажатие — 'double-checked'
-                    else if (currentValue === proficiencyBonus) {
-                        customRadio.classList.add('double-checked');
-                    }
+                customRadio.classList.remove('half-checked', 'fully-checked');
+                if (newValue === 2) {
+                    customRadio.classList.add('half-checked');
+                } else if (newValue === 4) {
+                    customRadio.classList.add('fully-checked');
                 }
 
                 // Предотвращаем стандартное поведение checkbox
@@ -1220,19 +1195,11 @@
 
                 if (!radioCustom) return;
 
-                // Получаем текущий уровень персонажа
-                const currentLevel = parseInt(document.querySelector('.mini-progress-container').dataset.currentLevel) || 1;
-                const proficiencyBonus = getProficiencyBonus(currentLevel);
-
-                radioCustom.classList.remove('checked', 'double-checked');
-                if (skillValue === proficiencyBonus) {
-                    // Проверяем, было ли это первое или второе нажатие (можно хранить в data-атрибуте)
-                    const isDoubleChecked = radioCustom.getAttribute('data-double-checked') === 'true';
-                    if (isDoubleChecked) {
-                        radioCustom.classList.add('double-checked');
-                    } else {
-                        radioCustom.classList.add('checked');
-                    }
+                radioCustom.classList.remove('half-checked', 'fully-checked');
+                if (skillValue === 2) {
+                    radioCustom.classList.add('half-checked');
+                } else if (skillValue === 4) {
+                    radioCustom.classList.add('fully-checked');
                 }
             }
 
@@ -2994,4 +2961,3 @@
         <div id="settings-backdrop" class="modal-backdrop"></div>
 </body>
 </html>
-
