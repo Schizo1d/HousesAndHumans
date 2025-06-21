@@ -1489,7 +1489,6 @@ form label {
 
 .calc-button.action-btn {
     font-weight: bold;
-    flex: 1 0 calc(50% - 4px);
 }
 
 .calc-button.add-btn {
