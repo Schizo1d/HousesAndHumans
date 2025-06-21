@@ -1480,9 +1480,11 @@
                 return 2; // Уровни 1-4
             }
 
-            document.addEventListener('DOMContentLoaded', function () {
-                document.querySelector('#death-save-roll-btn').addEventListener('click', function () {
+            document.addEventListener('DOMContentLoaded', function() {
+                document.querySelector('#death-save-roll-btn').addEventListener('click', function() {
                     // Проверяем, что здоровье действительно равно 0
+                    if (currentHealth > 0) return;
+
                     console.log("Кнопка спасброска нажата!");
 
                     // Бросаем кубик
@@ -1495,9 +1497,7 @@
                         message += "Критическая неудача! +2 к провалам.";
                     } else if (roll === 20) {
                         deathSaves.successes = 3;
-                        document.getElementById('current-health-value').textContent = '1';
                         message += "Критический успех! Персонаж приходит в сознание с 1 HP.";
-                        updateHealthDisplay();
                     } else if (roll >= 10) {
                         deathSaves.successes = Math.min(deathSaves.successes + 1, 3);
                         message += "Успех! +1 к успешным попыткам.";
@@ -1508,9 +1508,17 @@
 
                     // Сохраняем и обновляем состояние
                     localStorage.setItem(`character_${characterId}_deathSaves`, JSON.stringify(deathSaves));
-
                     updateDeathSavesCheckboxes();
                     checkDeathSaveStatus();
+
+                    // Показываем уведомление
+                    addNotification(
+                        'СПАСБРОСОК',
+                        'ОТ СМЕРТИ',
+                        roll,
+                        0, // Модификатор не применяется к спасброскам от смерти
+                        roll // Итоговый результат равен броску
+                    );
                 });
             });
 
@@ -3193,8 +3201,6 @@
                 updateHealthColor();
             }
 
-
-
             // Инициализация при загрузке
             document.addEventListener("DOMContentLoaded", function() {
                 updateHealthDisplay();
@@ -3294,16 +3300,22 @@
             // Функция для проверки статуса спасбросков
             function checkDeathSaveStatus() {
                 if (deathSaves.failures >= 3) {
-                    // Сбрасываем спасброски
+                    // Персонаж умирает
+                    currentHealth = 0;
                     deathSaves = { successes: 0, failures: 0 };
                     localStorage.setItem(`character_${characterId}_deathSaves`, JSON.stringify(deathSaves));
                     updateDeathSavesCheckboxes();
+                    updateHealthDisplay();
+                    saveHealth();
                 }
                 else if (deathSaves.successes >= 3) {
-                    // Сбрасываем спасброски
+                    // Персонаж приходит в сознание с 1 HP
+                    currentHealth = 1;
                     deathSaves = { successes: 0, failures: 0 };
                     localStorage.setItem(`character_${characterId}_deathSaves`, JSON.stringify(deathSaves));
                     updateDeathSavesCheckboxes();
+                    updateHealthDisplay();
+                    saveHealth();
                 }
             }
 
