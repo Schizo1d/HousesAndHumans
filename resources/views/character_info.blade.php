@@ -3222,12 +3222,7 @@
                 }));
             }
 
-            // В обработчике кнопки "УРОН" добавляем флаг manualDeath
-            document.querySelector('.subtract-btn').addEventListener('click', function() {
-                // Устанавливаем флаг, что смерть наступила от ручного нанесения урона
-                document.getElementById('death-saves-display').dataset.manualDeath = 'true';
-                subtractHealth();
-            });
+
 
             // Функция для переключения видимости настроек максимального здоровья
             function toggleMaxHealthSettings() {
@@ -3333,7 +3328,12 @@
                     saveHealth();
                 }
             }
-
+            // В обработчике кнопки "УРОН" добавляем флаг manualDeath
+            document.querySelector('.subtract-btn').addEventListener('click', function() {
+                // Устанавливаем флаг, что смерть наступила от ручного нанесения урона
+                document.getElementById('death-saves-display').dataset.manualDeath = 'true';
+                subtractHealth();
+            });
             //////ПРАВАЯ СТОРОНА ПЕРСОНАЖА
 
             function rollInitiative() {
