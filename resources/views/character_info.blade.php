@@ -965,6 +965,18 @@
                 charisma: "Харизма"
             };
 
+            // Загрузка сохраненных данных при открытии страницы
+            document.addEventListener("DOMContentLoaded", function() {
+                // Загружаем сохраненные спасброски из localStorage
+                const savedDeathSaves = localStorage.getItem(`character_${characterId}_deathSaves`);
+                if (savedDeathSaves) {
+                    deathSaves = JSON.parse(savedDeathSaves);
+                }
+
+                // Обновляем отображение чекбоксов
+                updateDeathSavesCheckboxes();
+            });
+
             function getProficiencyBonus(level) {
                 if (level >= 17) return 6;
                 if (level >= 13) return 5;
@@ -2610,97 +2622,103 @@
             }
 
             function updateHealthDisplay() {
-                const currentHealth = parseInt(document.getElementById('current-health-value').textContent) || 0;
-                const maxHealth = parseInt(document.getElementById('max-health-value').textContent) || 0;
-
+                const currentHP = parseInt(document.getElementById('current-health-value').textContent) || 0;
                 const standardDisplay = document.getElementById('standard-health-display');
                 const deathSavesDisplay = document.getElementById('death-saves-display');
 
-                if (currentHealth <= 0) {
+                if (currentHP <= 0) {
+                    // Режим спасбросков
                     standardDisplay.style.display = 'none';
                     deathSavesDisplay.style.display = 'flex';
-
-                    // Обновляем чекбоксы
                     updateDeathSavesCheckboxes();
                 } else {
+                    // Обычный режим
                     standardDisplay.style.display = 'flex';
                     deathSavesDisplay.style.display = 'none';
-
-                    // Сбрасываем спасброски при восстановлении здоровья
+                    // Сбрасываем спасброски если вылечились
                     if (deathSaves.successes > 0 || deathSaves.failures > 0) {
                         deathSaves = { successes: 0, failures: 0 };
+                        localStorage.setItem(`character_${characterId}_deathSaves`, JSON.stringify(deathSaves));
                         updateDeathSavesCheckboxes();
                     }
                 }
-
                 updateHealthColor();
             }
 
             // Обработчик для кнопки броска спасброска
             document.getElementById('death-save-roll-btn').addEventListener('click', function() {
-                // Бросаем d20
-                const roll = Math.floor(Math.random() * 20) + 1;
-
-                if (roll === 1) {
-                    // Критическая неудача - 2 провала
-                    deathSaves.failures = Math.min(deathSaves.failures + 2, 3);
-                    showCustomAlert(`Критическая неудача! Выпало 1. Получено 2 провала.`);
-                } else if (roll === 20) {
-                    // Критический успех - восстановление 1 HP
-                    document.getElementById('current-health-value').textContent = '1';
-                    showCustomAlert(`Критический успех! Выпало 20. Персонаж восстанавливает 1 HP.`);
-                    updateHealthDisplay();
-                } else if (roll >= 10) {
-                    // Успех
-                    deathSaves.successes = Math.min(deathSaves.successes + 1, 3);
-                    showCustomAlert(`Успех! Выпало ${roll}.`);
-                } else {
-                    // Неудача
-                    deathSaves.failures = Math.min(deathSaves.failures + 1, 3);
-                    showCustomAlert(`Неудача! Выпало ${roll}.`);
+                // Проверяем, что здоровье действительно 0
+                if (parseInt(document.getElementById('current-health-value').textContent) > 0) {
+                    showCustomAlert('Спасброски от смерти возможны только при 0 HP!');
+                    return;
                 }
 
+                // Бросаем d20
+                const roll = Math.floor(Math.random() * 20) + 1;
+                let message = `Результат броска: ${roll}. `;
+
+                // Обработка результатов
+                if (roll === 1) { // Критическая неудача
+                    deathSaves.failures = Math.min(deathSaves.failures + 2, 3);
+                    message += "Критическая неудача! +2 к провалам.";
+                }
+                else if (roll === 20) { // Критический успех
+                    deathSaves.successes = 3; // Автоматическая стабилизация
+                    document.getElementById('current-health-value').textContent = '1';
+                    message += "Критический успех! Персонаж приходит в сознание с 1 HP.";
+                    updateHealthDisplay();
+                }
+                else if (roll >= 10) { // Успех
+                    deathSaves.successes = Math.min(deathSaves.successes + 1, 3);
+                    message += "Успех! +1 к успешным попыткам.";
+                }
+                else { // Неудача
+                    deathSaves.failures = Math.min(deathSaves.failures + 1, 3);
+                    message += "Неудача! +1 к проваленным попыткам.";
+                }
+
+                // Сохраняем состояние
+                localStorage.setItem(`character_${characterId}_deathSaves`, JSON.stringify(deathSaves));
+
+                // Обновляем интерфейс
                 updateDeathSavesCheckboxes();
+                showCustomAlert(message);
+
+                // Проверяем условия смерти/стабилизации
+                checkDeathSaveStatus();
             });
 
             function updateDeathSavesCheckboxes() {
-                const failCheckboxes = document.querySelectorAll('.death-save-checkbox.fail');
-                const successCheckboxes = document.querySelectorAll('.death-save-checkbox.success');
+                // Получаем все чекбоксы
+                const failChecks = document.querySelectorAll('.death-save-checkbox.fail');
+                const successChecks = document.querySelectorAll('.death-save-checkbox.success');
 
-                // Обновляем красные чекбоксы (неудачи)
-                failCheckboxes.forEach((checkbox, index) => {
-                    if (index < deathSaves.failures) {
-                        checkbox.classList.add('checked');
-                    } else {
-                        checkbox.classList.remove('checked');
-                    }
+                // Обновляем провалы
+                failChecks.forEach((box, index) => {
+                    box.classList.toggle('checked', index < deathSaves.failures);
                 });
 
-                // Обновляем зеленые чекбоксы (успехи)
-                successCheckboxes.forEach((checkbox, index) => {
-                    if (index < deathSaves.successes) {
-                        checkbox.classList.add('checked');
-                    } else {
-                        checkbox.classList.remove('checked');
-                    }
+                // Обновляем успехи
+                successChecks.forEach((box, index) => {
+                    box.classList.toggle('checked', index < deathSaves.successes);
                 });
-
-                // Проверяем условия смерти или стабилизации
-                checkDeathSaveStatus();
             }
 
             // Функция для проверки статуса спасбросков
             function checkDeathSaveStatus() {
                 if (deathSaves.failures >= 3) {
-                    // Персонаж умер
-                    showCustomAlert('Персонаж умер! 3 неудачных спасброска от смерти.');
-                    // Можно добавить дополнительную логику здесь
-                } else if (deathSaves.successes >= 3) {
-                    // Персонаж стабилизирован
-                    showCustomAlert('Персонаж стабилизирован! 3 успешных спасброска от смерти.');
-                    // Восстанавливаем 1 HP
-                    document.getElementById('current-health-value').textContent = '1';
-                    updateHealthDisplay();
+                    showCustomAlert('Персонаж умер! Набрано 3 провала.');
+                    // Сбрасываем спасброски
+                    deathSaves = { successes: 0, failures: 0 };
+                    localStorage.setItem(`character_${characterId}_deathSaves`, JSON.stringify(deathSaves));
+                    updateDeathSavesCheckboxes();
+                }
+                else if (deathSaves.successes >= 3) {
+                    showCustomAlert('Персонаж стабилизировался! 3 успешных спасброска.');
+                    // Сбрасываем спасброски
+                    deathSaves = { successes: 0, failures: 0 };
+                    localStorage.setItem(`character_${characterId}_deathSaves`, JSON.stringify(deathSaves));
+                    updateDeathSavesCheckboxes();
                 }
             }
 

@@ -1582,38 +1582,56 @@ form label {
     height: 20px;
     border: 2px solid;
     border-radius: 4px;
-    cursor: default;
+    display: inline-block;
+    position: relative;
 }
 
+
 .death-save-checkbox.fail {
-    border-color: #FF5252;
-    background-color: transparent;
+    border-color: #ff5252;
 }
 
 .death-save-checkbox.fail.checked {
     background-color: #FF5252;
 }
+.death-save-checkbox.fail.checked::after {
+    content: "✖";
+    color: #ff5252;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 
 .death-save-checkbox.success {
     border-color: #4CAF50;
-    background-color: transparent;
 }
 
 .death-save-checkbox.success.checked {
     background-color: #4CAF50;
 }
 
+.death-save-checkbox.success.checked::after {
+    content: "✓";
+    color: #4caf50;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
 .death-save-roll-btn {
-    width: 40px;
-    height: 40px;
+    background: #edca99;
+    border: none;
     border-radius: 50%;
-    background-color: #edca99;
-    border: 2px solid #915f32;
+    width: 30px;
+    height: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: background 0.3s;
 }
 
 .death-save-roll-btn:hover {
