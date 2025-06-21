@@ -2675,6 +2675,7 @@
 
             // Обработчик для кнопки броска спасброска
             document.getElementById('death-save-roll-btn').addEventListener('click', function() {
+                console.log('Кнопка нажата!', e);
                 // Бросаем d20
                 const roll = Math.floor(Math.random() * 20) + 1;
 
