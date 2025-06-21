@@ -381,6 +381,9 @@
     display: flex;
     justify-content: space-between;
 }
+.digital_box_button a{
+    text-decoration: none;
+}
 .digital-health{
     align-items: center;
     border: 2px solid var(--c-health);
@@ -392,6 +395,4 @@
     padding: 8px 7px 7px;
     transition: cubic-bezier(.215,.61,.355,1);
 }
-.digital-health a{
-    text-decoration: none;
-}
+
