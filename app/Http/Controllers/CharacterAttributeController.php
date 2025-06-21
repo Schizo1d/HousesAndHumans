@@ -68,6 +68,21 @@ class CharacterAttributeController extends Controller
 
     public function edit(Character $character)
     {
-        return view('character_attributes', compact('character'));
+        // Рассчитываем бонус владения по правилам D&D 5e
+        $proficiencyBonus = $this->calculateProficiencyBonus($character->level ?? 1);
+
+        // Получаем или создаем атрибуты персонажа
+        $attributes = CharacterAttribute::firstOrNew(['character_id' => $character->id]);
+
+        return view('character_attributes', [
+            'character' => $character,
+            'attributes' => $attributes,
+            'proficiencyBonus' => $proficiencyBonus, // Явно передаем в представление
+        ]);
     }
+    private function calculateProficiencyBonus(int $level): int
+    {
+        return (int) floor(($level + 7) / 4); // Формула из D&D 5e
+    }
+
 }
