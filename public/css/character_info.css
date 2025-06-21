@@ -1440,13 +1440,16 @@ form label {
 }
 
 .calc-input {
-    flex-grow: 1;
-    padding: 8px 12px;
-    border: 1px solid #915f32;
-    border-radius: 4px;
-    font-size: 16px;
-    background: #edca99;
-    color: #000;
+    height: 45px;
+    padding: 0 12px;
+    font-size: 18px;
+    background: #f8f1d8;
+    border: 2px solid #edca99;
+    border-radius: 6px 0 0 6px;
+    color: #333;
+    font-weight: bold;
+    text-align: right;
+    width: 100%;
 }
 
 
