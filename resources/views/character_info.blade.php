@@ -769,8 +769,6 @@
                                value="{{ $character->attributes->passive_investigation ?? 10 }}">
                     </div>
                 </div>
-
-                <button type="submit">Сохранить атрибуты</button>
             </div>
 
             <div class="digital_content_right">
