@@ -3112,41 +3112,34 @@
 
                 <!-- Калькулятор опыта -->
                 <div class="xp-calculator">
-                    <div class="xp-input-container">
-                        <input type="text" id="xp-input" value="0" placeholder="Введите XP">
-                        <button type="button" class="delete-btn" onclick="deleteLastChar()">⌫</button>
+                    <div class="calc-input-container">
+                        <input type="text" class="calc-input" id="xp-input" value="0" placeholder="Введите XP">
+                        <button type="button" class="calc-button delete-btn" onclick="deleteLastChar()">⌫</button>
                     </div>
 
-                    <div class="xp-calculator-grid">
-                        <button type="button" class="xp-btn num-btn" onclick="appendNumber(7)">7</button>
-                        <button type="button" class="xp-btn num-btn" onclick="appendNumber(8)">8</button>
-                        <button type="button" class="xp-btn num-btn" onclick="appendNumber(9)">9</button>
+                    <div class="calc-buttons-grid">
+                        <button type="button" class="calc-button num-btn" onclick="appendNumber(7)">7</button>
+                        <button type="button" class="calc-button num-btn" onclick="appendNumber(8)">8</button>
+                        <button type="button" class="calc-button num-btn" onclick="appendNumber(9)">9</button>
 
-                        <button type="button" class="xp-btn num-btn" onclick="appendNumber(4)">4</button>
-                        <button type="button" class="xp-btn num-btn" onclick="appendNumber(5)">5</button>
-                        <button type="button" class="xp-btn num-btn" onclick="appendNumber(6)">6</button>
+                        <button type="button" class="calc-button num-btn" onclick="appendNumber(4)">4</button>
+                        <button type="button" class="calc-button num-btn" onclick="appendNumber(5)">5</button>
+                        <button type="button" class="calc-button num-btn" onclick="appendNumber(6)">6</button>
 
-                        <button type="button" class="xp-btn num-btn" onclick="appendNumber(1)">1</button>
-                        <button type="button" class="xp-btn num-btn" onclick="appendNumber(2)">2</button>
-                        <button type="button" class="xp-btn num-btn" onclick="appendNumber(3)">3</button>
+                        <button type="button" class="calc-button num-btn" onclick="appendNumber(1)">1</button>
+                        <button type="button" class="calc-button num-btn" onclick="appendNumber(2)">2</button>
+                        <button type="button" class="calc-button num-btn" onclick="appendNumber(3)">3</button>
 
-                        <button type="button" class="xp-btn num-btn" onclick="appendNumber(0)">0</button>
-                        <button type="button" class="xp-btn plus-btn" onclick="appendOperator('+')">+</button>
-                        <button type="button" class="xp-btn minus-btn" onclick="appendOperator('-')">-</button>
+                        <button type="button" class="calc-button num-btn" onclick="appendNumber(0)">0</button>
+                        <button type="button" class="calc-button plus-btn" onclick="appendOperator('+')">+</button>
+                        <button type="button" class="calc-button minus-btn" onclick="appendOperator('-')">-</button>
                     </div>
 
-                    <div class="xp-action-buttons">
-                        <button type="button" class="xp-action-btn add-btn" onclick="calculateAndAdd()">ПРИБАВИТЬ
-                        </button>
-                        <button type="button" class="xp-action-btn subtract-btn" onclick="calculateAndSubtract()">
-                            ОТНЯТЬ
-                        </button>
-                        <button type="button" class="xp-action-btn level-up-btn" id="level-up-btn"
-                                onclick="levelUpCharacter()">ПОВЫСИТЬ
-                        </button>
-                        <button type="button" class="xp-action-btn level-down-btn" id="level-down-btn"
-                                onclick="levelDownCharacter()">ПОНИЗИТЬ
-                        </button>
+                    <div class="calc-action-buttons">
+                        <button type="button" class="calc-button action-btn add-btn" onclick="calculateAndAdd()">ПРИБАВИТЬ</button>
+                        <button type="button" class="calc-button action-btn subtract-btn" onclick="calculateAndSubtract()">ОТНЯТЬ</button>
+                        <button type="button" class="calc-button action-btn level-up-btn" id="level-up-btn" onclick="levelUpCharacter()">ПОВЫСИТЬ</button>
+                        <button type="button" class="calc-button action-btn level-down-btn" id="level-down-btn" onclick="levelDownCharacter()">ПОНИЗИТЬ</button>
                     </div>
                 </div>
             </div>
@@ -3164,35 +3157,35 @@
                 </div>
 
                 <!-- Калькулятор здоровья -->
-                <div class="xp-calculator">
-                    <div class="xp-input-container">
-                        <input type="text" id="health-input" value="0" placeholder="Введите значение">
-                        <button type="button" class="delete-btn" onclick="deleteHealthLastChar()">⌫</button>
+                <div class="health-calculator">
+                    <div class="calc-input-container">
+                        <input type="text" class="calc-input" id="health-input" value="0" placeholder="Введите значение">
+                        <button type="button" class="calc-button delete-btn" onclick="deleteHealthLastChar()">⌫</button>
                     </div>
 
-                    <div class="xp-calculator-grid">
-                        <button type="button" class="xp-btn num-btn" onclick="appendHealthNumber(7)">7</button>
-                        <button type="button" class="xp-btn num-btn" onclick="appendHealthNumber(8)">8</button>
-                        <button type="button" class="xp-btn num-btn" onclick="appendHealthNumber(9)">9</button>
+                    <div class="calc-buttons-grid">
+                        <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(7)">7</button>
+                        <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(8)">8</button>
+                        <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(9)">9</button>
 
-                        <button type="button" class="xp-btn num-btn" onclick="appendHealthNumber(4)">4</button>
-                        <button type="button" class="xp-btn num-btn" onclick="appendHealthNumber(5)">5</button>
-                        <button type="button" class="xp-btn num-btn" onclick="appendHealthNumber(6)">6</button>
+                        <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(4)">4</button>
+                        <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(5)">5</button>
+                        <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(6)">6</button>
 
-                        <button type="button" class="xp-btn num-btn" onclick="appendHealthNumber(1)">1</button>
-                        <button type="button" class="xp-btn num-btn" onclick="appendHealthNumber(2)">2</button>
-                        <button type="button" class="xp-btn num-btn" onclick="appendHealthNumber(3)">3</button>
+                        <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(1)">1</button>
+                        <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(2)">2</button>
+                        <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(3)">3</button>
 
-                        <button type="button" class="xp-btn num-btn" onclick="appendHealthNumber(0)">0</button>
-                        <button type="button" class="xp-btn plus-btn" onclick="appendHealthOperator('+')">+</button>
-                        <button type="button" class="xp-btn minus-btn" onclick="appendHealthOperator('-')">-</button>
+                        <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(0)">0</button>
+                        <button type="button" class="calc-button plus-btn" onclick="appendHealthOperator('+')">+</button>
+                        <button type="button" class="calc-button minus-btn" onclick="appendHealthOperator('-')">-</button>
                     </div>
 
-                    <div class="xp-action-buttons">
-                        <button type="button" class="xp-action-btn add-btn" onclick="addHealth()">ДОБАВИТЬ</button>
-                        <button type="button" class="xp-action-btn subtract-btn" onclick="subtractHealth()">ОТНЯТЬ</button>
-                        <button type="button" class="xp-action-btn level-up-btn" onclick="setMaxHealth()">МАКС.</button>
-                        <button type="button" class="xp-action-btn level-down-btn" onclick="resetHealth()">СБРОС</button>
+                    <div class="calc-action-buttons">
+                        <button type="button" class="calc-button action-btn add-btn" onclick="addHealth()">ДОБАВИТЬ</button>
+                        <button type="button" class="calc-button action-btn subtract-btn" onclick="subtractHealth()">ОТНЯТЬ</button>
+                        <button type="button" class="calc-button action-btn level-up-btn" onclick="setMaxHealth()">МАКС.</button>
+                        <button type="button" class="calc-button action-btn level-down-btn" onclick="resetHealth()">СБРОС</button>
                     </div>
                 </div>
             </div>

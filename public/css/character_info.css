@@ -1433,3 +1433,76 @@ form label {
     color: #ff5252;
     font-weight: bold;
 }
+/* Общие стили для калькуляторов */
+.calc-input-container {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.calc-input {
+    flex-grow: 1;
+    padding: 8px 12px;
+    border: 1px solid #915f32;
+    border-radius: 4px;
+    font-size: 16px;
+    background: #edca99;
+    color: #000;
+}
+
+.calc-buttons-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.calc-action-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+}
+
+.calc-button {
+    padding: 10px;
+    border: 1px solid #915f32;
+    border-radius: 4px;
+    background: #edca99;
+    color: #000;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.calc-button:hover {
+    background: #e0b985;
+}
+
+.calc-button.num-btn {
+    background: #f5e5d0;
+}
+
+.calc-button.action-btn {
+    font-weight: bold;
+}
+
+.calc-button.add-btn {
+    background: #d4edda;
+}
+
+.calc-button.subtract-btn {
+    background: #f8d7da;
+}
+
+.calc-button.level-up-btn {
+    background: #cce5ff;
+}
+
+.calc-button.level-down-btn {
+    background: #e2e3e5;
+}
+
+.calc-button.delete-btn {
+    width: 50px;
+    margin-left: 8px;
+    background: #f8d7da;
+}
