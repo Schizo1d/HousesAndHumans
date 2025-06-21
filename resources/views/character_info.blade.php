@@ -2675,9 +2675,11 @@
 
                 updateHealthColor();
             }
+
             document.addEventListener('DOMContentLoaded', () => {
-            document.addEventListener('click', function (e) {
-                if (e.target && e.target.id === 'death-save-roll-btn') {
+                document.addEventListener('click', function (e) {
+                    const target = e.target.closest('#death-save-roll-btn');
+                    if (!target) return;
                     // Кнопка была нажата!
                     console.log("Сработал делегированный клик на спасбросок");
 
@@ -2709,9 +2711,9 @@
                     updateDeathSavesCheckboxes();
                     showCustomAlert(message);
                     checkDeathSaveStatus();
-                }
+                });
             });
-            });
+
             function updateDeathSavesCheckboxes() {
                 // Получаем все чекбоксы
                 const failChecks = document.querySelectorAll('.death-save-checkbox.fail');
