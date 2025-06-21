@@ -66,13 +66,27 @@
                     </div>
                 </div>
             </div>
-            <div class="proficiency-bonus-container">
-                <div class="proficiency-bonus-value">
-                    <a href="javascript:void(0);" id="proficiency-bonus-link">+2</a>
+            <div class="digital-header-fixed">
+                <div class="digital-header-bonus">
+                    <div class="digital-header-bonus_block">
+                        <a href="javascript:void(0);" id="proficiency-bonus-link"></a>
+                        <span class="digital-bonus-label">
+                            владение
+                        </span>
+                    </div>
                 </div>
-                <span class="proficiency-bonus-label">
-                    владение
-                </span>
+                <div class="digital_box">
+                    <div class="digital_box_button">
+                        <a href="javascript:void(0);" onclick="openHealthModal()">
+                            <span>
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 21.35L10.55 20.03C5.4 15.36 2 12.28 2 8.5C2 5.42 4.42 3 7.5 3C9.24 3 10.91 3.81 12 5.09C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.42 22 8.5C22 12.28 18.6 15.36 13.45 20.03L12 21.35Z" fill="#FF5252"/>
+                                </svg>
+                                <span id="health-display">0/0</span>
+                            </span>
+                        </a>
+                    </div>
+                </div>
             </div>
         </nav>
     </div>
@@ -908,6 +922,11 @@
                 'insight': 'Проницательность',
                 'investigation': 'Анализ'
             };
+            // Глобальные переменные для здоровья
+            let currentHealth = 0;
+            let maxHealth = 0;
+            let healthExpression = '0';
+
 
             const XP_TABLE = {
                 1: 0,
@@ -2482,6 +2501,134 @@
                 updateProgressBar();
             });
 
+            // Функции для модального окна здоровья
+            function openHealthModal() {
+                const modal = document.getElementById('health-modal');
+                const backdrop = document.getElementById('modal-backdrop');
+
+                backdrop.style.display = 'block';
+                modal.style.display = 'block';
+
+                setTimeout(() => {
+                    backdrop.classList.add('active');
+                    modal.classList.add('show');
+                }, 10);
+
+                // Инициализация значений
+                document.getElementById('current-health-value').textContent = currentHealth;
+                document.getElementById('max-health-value').textContent = maxHealth;
+                document.getElementById('health-input').value = '0';
+                healthExpression = '0';
+            }
+
+            function closeHealthModal() {
+                const modal = document.getElementById('health-modal');
+                const backdrop = document.getElementById('modal-backdrop');
+
+                modal.classList.remove('show');
+                backdrop.classList.remove('active');
+
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                    backdrop.style.display = 'none';
+                }, 300);
+            }
+
+            // Функции калькулятора здоровья
+            function appendHealthNumber(num) {
+                if (healthExpression === '0') {
+                    healthExpression = num.toString();
+                } else {
+                    healthExpression += num.toString();
+                }
+                document.getElementById('health-input').value = healthExpression;
+            }
+
+            function appendHealthOperator(operator) {
+                const lastChar = healthExpression.slice(-1);
+                if (['+', '-'].includes(lastChar)) {
+                    healthExpression = healthExpression.slice(0, -1) + operator;
+                } else {
+                    healthExpression += operator;
+                }
+                document.getElementById('health-input').value = healthExpression;
+            }
+
+            function deleteHealthLastChar() {
+                if (healthExpression.length > 1) {
+                    healthExpression = healthExpression.slice(0, -1);
+                } else {
+                    healthExpression = '0';
+                }
+                document.getElementById('health-input').value = healthExpression;
+            }
+
+            function calculateHealth() {
+                try {
+                    return eval(healthExpression.replace(/[^-+0-9]/g, '')) || 0;
+                } catch (e) {
+                    console.error('Error calculating health:', e);
+                    return 0;
+                }
+            }
+
+            function addHealth() {
+                const amount = calculateHealth();
+                currentHealth = Math.min(currentHealth + amount, maxHealth);
+                updateHealthDisplay();
+                saveHealth();
+            }
+
+            function subtractHealth() {
+                const amount = calculateHealth();
+                currentHealth = Math.max(0, currentHealth - amount);
+                updateHealthDisplay();
+                saveHealth();
+            }
+
+            function setMaxHealth() {
+                currentHealth = maxHealth;
+                updateHealthDisplay();
+                saveHealth();
+            }
+
+            function resetHealth() {
+                currentHealth = 0;
+                updateHealthDisplay();
+                saveHealth();
+            }
+
+            function updateHealthDisplay() {
+                document.getElementById('current-health-value').textContent = currentHealth;
+                document.getElementById('health-display').textContent = `${currentHealth}/${maxHealth}`;
+            }
+
+            function saveHealth() {
+                // Здесь можно добавить сохранение здоровья на сервер
+                localStorage.setItem(`character_${characterId}_health`, JSON.stringify({
+                    current: currentHealth,
+                    max: maxHealth
+                }));
+            }
+
+            function loadHealth() {
+                const savedHealth = localStorage.getItem(`character_${characterId}_health`);
+                if (savedHealth) {
+                    const health = JSON.parse(savedHealth);
+                    currentHealth = health.current || 0;
+                    maxHealth = health.max || 0;
+                } else {
+                    // Инициализация по умолчанию
+                    currentHealth = 0;
+                    maxHealth = 0;
+                }
+                updateHealthDisplay();
+            }
+
+            // Инициализация при загрузке
+            document.addEventListener("DOMContentLoaded", function() {
+                loadHealth();
+            });
             //////ПРАВАЯ СТОРОНА ПЕРСОНАЖА
 
             function rollInitiative() {
@@ -2965,41 +3112,90 @@
 
                 <!-- Калькулятор опыта -->
                 <div class="xp-calculator">
-                    <div class="xp-input-container">
-                        <input type="text" id="xp-input" value="0" placeholder="Введите XP">
-                        <button type="button" class="delete-btn" onclick="deleteLastChar()">⌫</button>
+                    <div class="calc-input-container">
+                        <input type="text" class="calc-input" id="xp-input" value="0" placeholder="Введите XP">
+                        <button type="button" class="calc-button delete-btn" onclick="deleteLastChar()">⌫</button>
                     </div>
 
-                    <div class="xp-calculator-grid">
-                        <button type="button" class="xp-btn num-btn" onclick="appendNumber(7)">7</button>
-                        <button type="button" class="xp-btn num-btn" onclick="appendNumber(8)">8</button>
-                        <button type="button" class="xp-btn num-btn" onclick="appendNumber(9)">9</button>
+                    <div class="calc-buttons-grid">
+                        <button type="button" class="calc-button num-btn" onclick="appendNumber(7)">7</button>
+                        <button type="button" class="calc-button num-btn" onclick="appendNumber(8)">8</button>
+                        <button type="button" class="calc-button num-btn" onclick="appendNumber(9)">9</button>
+                        <div class="calc-empty"></div>
 
-                        <button type="button" class="xp-btn num-btn" onclick="appendNumber(4)">4</button>
-                        <button type="button" class="xp-btn num-btn" onclick="appendNumber(5)">5</button>
-                        <button type="button" class="xp-btn num-btn" onclick="appendNumber(6)">6</button>
+                        <button type="button" class="calc-button num-btn" onclick="appendNumber(4)">4</button>
+                        <button type="button" class="calc-button num-btn" onclick="appendNumber(5)">5</button>
+                        <button type="button" class="calc-button num-btn" onclick="appendNumber(6)">6</button>
+                        <div class="calc-empty"></div>
 
-                        <button type="button" class="xp-btn num-btn" onclick="appendNumber(1)">1</button>
-                        <button type="button" class="xp-btn num-btn" onclick="appendNumber(2)">2</button>
-                        <button type="button" class="xp-btn num-btn" onclick="appendNumber(3)">3</button>
+                        <button type="button" class="calc-button num-btn" onclick="appendNumber(1)">1</button>
+                        <button type="button" class="calc-button num-btn" onclick="appendNumber(2)">2</button>
+                        <button type="button" class="calc-button num-btn" onclick="appendNumber(3)">3</button>
+                        <div class="calc-empty"></div>
 
-                        <button type="button" class="xp-btn num-btn" onclick="appendNumber(0)">0</button>
-                        <button type="button" class="xp-btn plus-btn" onclick="appendOperator('+')">+</button>
-                        <button type="button" class="xp-btn minus-btn" onclick="appendOperator('-')">-</button>
+                        <button type="button" class="calc-button num-btn" onclick="appendNumber(0)">0</button>
+                        <button type="button" class="calc-button plus-btn" onclick="appendOperator('+')">+</button>
+                        <button type="button" class="calc-button minus-btn" onclick="appendOperator('-')">-</button>
+                        <div class="calc-empty"></div>
                     </div>
 
-                    <div class="xp-action-buttons">
-                        <button type="button" class="xp-action-btn add-btn" onclick="calculateAndAdd()">ПРИБАВИТЬ
-                        </button>
-                        <button type="button" class="xp-action-btn subtract-btn" onclick="calculateAndSubtract()">
-                            ОТНЯТЬ
-                        </button>
-                        <button type="button" class="xp-action-btn level-up-btn" id="level-up-btn"
-                                onclick="levelUpCharacter()">ПОВЫСИТЬ
-                        </button>
-                        <button type="button" class="xp-action-btn level-down-btn" id="level-down-btn"
-                                onclick="levelDownCharacter()">ПОНИЗИТЬ
-                        </button>
+                    <div class="calc-action-buttons">
+                        <button type="button" class="calc-button action-btn add-btn" onclick="calculateAndAdd()">ПРИБАВИТЬ</button>
+                        <button type="button" class="calc-button action-btn subtract-btn" onclick="calculateAndSubtract()">ОТНЯТЬ</button>
+                        <button type="button" class="calc-button action-btn level-up-btn" id="level-up-btn" onclick="levelUpCharacter()">ПОВЫСИТЬ</button>
+                        <button type="button" class="calc-button action-btn level-down-btn" id="level-down-btn" onclick="levelDownCharacter()">ПОНИЗИТЬ</button>
+                        <div class="calc-empty"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Модальное окно здоровья -->
+        <div id="health-modal" class="level-modal">
+            <div class="level-up-content">
+                <button class="modal-close-btn" onclick="closeHealthModal()">✖</button>
+                <h3>Управление здоровьем</h3>
+
+                <div class="health-display-container">
+                    <span id="current-health-value">0</span>
+                    <span>/</span>
+                    <span id="max-health-value">0</span>
+                </div>
+
+                <!-- Калькулятор здоровья -->
+                <div class="health-calculator">
+                    <div class="calc-input-container">
+                        <input type="text" class="calc-input" id="health-input" value="0" placeholder="Введите значение">
+                        <button type="button" class="calc-button delete-btn" onclick="deleteHealthLastChar()">⌫</button>
+                    </div>
+
+                    <div class="calc-buttons-grid">
+                        <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(7)">7</button>
+                        <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(8)">8</button>
+                        <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(9)">9</button>
+                        <div class="calc-empty"></div>
+
+                        <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(4)">4</button>
+                        <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(5)">5</button>
+                        <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(6)">6</button>
+                        <div class="calc-empty"></div>
+
+                        <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(1)">1</button>
+                        <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(2)">2</button>
+                        <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(3)">3</button>
+                        <div class="calc-empty"></div>
+
+                        <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(0)">0</button>
+                        <button type="button" class="calc-button plus-btn" onclick="appendHealthOperator('+')">+</button>
+                        <button type="button" class="calc-button minus-btn" onclick="appendHealthOperator('-')">-</button>
+                        <div class="calc-empty"></div>
+                    </div>
+
+                    <div class="calc-action-buttons">
+                        <button type="button" class="calc-button action-btn add-btn" onclick="addHealth()">ДОБАВИТЬ</button>
+                        <button type="button" class="calc-button action-btn subtract-btn" onclick="subtractHealth()">ОТНЯТЬ</button>
+                        <button type="button" class="calc-button action-btn level-up-btn" onclick="setMaxHealth()">МАКС.</button>
+                        <button type="button" class="calc-button action-btn level-down-btn" onclick="resetHealth()">СБРОС</button>
+                        <div class="calc-empty"></div>
                     </div>
                 </div>
             </div>
