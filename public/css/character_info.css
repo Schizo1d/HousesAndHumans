@@ -1479,6 +1479,7 @@ form label {
 
 .calc-button.num-btn {
     background: #f5e5d0;
+    font-size: 28px;
 }
 
 .calc-button.action-btn {
