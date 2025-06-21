@@ -44,6 +44,7 @@
 
     .background-image-main {
         top: 50px;
+        opacity: 0;
     }
 }
 
@@ -63,5 +64,6 @@
 
     .footer {
         height: 60px;
+        opacity: 0;
     }
 }
