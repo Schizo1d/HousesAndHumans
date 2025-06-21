@@ -2614,6 +2614,7 @@
                 updateHealthDisplay();
                 saveHealth();
                 updateHealthColor();
+
             }
 
             function subtractHealth() {
@@ -2652,20 +2653,26 @@
             }
 
             function updateHealthDisplay() {
+                // Обновляем отображение в верхней панели
+                document.getElementById('health-display').textContent = `${currentHealth}/${maxHealth}`;
+
+                // Обновляем отображение в модальном окне
                 const standardDisplay = document.getElementById('standard-health-display');
                 const deathSavesDisplay = document.getElementById('death-saves-display');
 
-                // Проверяем текущее здоровье
                 if (currentHealth <= 0) {
-                    // Режим спасбросков
                     standardDisplay.style.display = 'none';
                     deathSavesDisplay.style.display = 'flex';
                     updateDeathSavesCheckboxes();
                 } else {
-                    // Обычный режим
                     standardDisplay.style.display = 'flex';
                     deathSavesDisplay.style.display = 'none';
                 }
+
+                // Обновляем значения в модальном окне
+                document.getElementById('current-health-value').textContent = currentHealth;
+                document.getElementById('max-health-value').textContent = maxHealth;
+
                 updateHealthColor();
             }
 
