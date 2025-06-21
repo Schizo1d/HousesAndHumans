@@ -23,7 +23,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Auth::routes();
 
-Route::get('/character/{character}/edit', [CharacterAttributeController::class, 'edit'])
+Route::get('/character/{character}/attributes', [CharacterAttributeController::class, 'edit'])
     ->name('character.edit');
 Route::post('/character/{character}/attributes', [CharacterAttributeController::class, 'store'])
     ->name('character_attributes.store');
