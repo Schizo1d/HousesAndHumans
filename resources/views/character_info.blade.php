@@ -2774,40 +2774,47 @@
                 loadHealth();
             });
 
-            document.getElementById('death-save-roll-btn').addEventListener('click', function() {
-                // Проверяем, что здоровье действительно равно 0
-                console.log("Кнопка спасброска нажата!");
-                if (parseInt(document.getElementById('current-health-value').textContent) > 0) {
-                    showCustomAlert('Спасброски от смерти возможны только при 0 HP!');
+            document.addEventListener("DOMContentLoaded", function() {
+                // Проверяем, что кнопка существует
+                const deathSaveBtn = document.getElementById('death-save-roll-btn');
+                if (!deathSaveBtn) {
+                    console.error("❌ Кнопка 'death-save-roll-btn' не найдена в DOM!");
                     return;
                 }
 
-                // Бросаем кубик
-                const roll = Math.floor(Math.random() * 20) + 1;
-                let message = `Результат броска: ${roll}. `;
+                // Вешаем обработчик
+                deathSaveBtn.addEventListener('click', function() {
+                    console.log("✅ Кнопка спасброска нажата!");
 
-                // Обрабатываем результат
-                if (roll === 1) {
-                    deathSaves.failures = Math.min(deathSaves.failures + 2, 3);
-                    message += "Критическая неудача! +2 к провалам.";
-                } else if (roll === 20) {
-                    deathSaves.successes = 3;
-                    document.getElementById('current-health-value').textContent = '1';
-                    message += "Критический успех! Персонаж приходит в сознание с 1 HP.";
-                    updateHealthDisplay();
-                } else if (roll >= 10) {
-                    deathSaves.successes = Math.min(deathSaves.successes + 1, 3);
-                    message += "Успех! +1 к успешным попыткам.";
-                } else {
-                    deathSaves.failures = Math.min(deathSaves.failures + 1, 3);
-                    message += "Неудача! +1 к проваленным попыткам.";
-                }
+                    if (parseInt(document.getElementById('current-health-value').textContent) > 0) {
+                        showCustomAlert('Спасброски от смерти возможны только при 0 HP!');
+                        return;
+                    }
 
-                // Сохраняем и обновляем состояние
-                localStorage.setItem(`character_${characterId}_deathSaves`, JSON.stringify(deathSaves));
-                updateDeathSavesCheckboxes();
-                showCustomAlert(message);
-                checkDeathSaveStatus();
+                    const roll = Math.floor(Math.random() * 20) + 1;
+                    let message = `Результат броска: ${roll}. `;
+
+                    if (roll === 1) {
+                        deathSaves.failures = Math.min(deathSaves.failures + 2, 3);
+                        message += "Критическая неудача! +2 к провалам.";
+                    } else if (roll === 20) {
+                        deathSaves.successes = 3;
+                        document.getElementById('current-health-value').textContent = '1';
+                        message += "Критический успех! Персонаж приходит в сознание с 1 HP.";
+                        updateHealthDisplay();
+                    } else if (roll >= 10) {
+                        deathSaves.successes = Math.min(deathSaves.successes + 1, 3);
+                        message += "Успех! +1 к успешным попыткам.";
+                    } else {
+                        deathSaves.failures = Math.min(deathSaves.failures + 1, 3);
+                        message += "Неудача! +1 к проваленным попыткам.";
+                    }
+
+                    localStorage.setItem(`character_${characterId}_deathSaves`, JSON.stringify(deathSaves));
+                    updateDeathSavesCheckboxes();
+                    showCustomAlert(message);
+                    checkDeathSaveStatus();
+                });
             });
 
             function updateDeathSavesCheckboxes() {
