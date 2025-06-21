@@ -3235,10 +3235,9 @@
                     </div>
 
                     <div class="calc-action-buttons">
-                        <button type="button" class="calc-button action-btn add-btn" onclick="addHealth()">ДОБАВИТЬ</button>
-                        <button type="button" class="calc-button action-btn subtract-btn" onclick="subtractHealth()">ОТНЯТЬ</button>
-                        <button type="button" class="calc-button action-btn level-up-btn" onclick="setMaxHealth()">МАКС.</button>
-                        <button type="button" class="calc-button action-btn level-down-btn" onclick="resetHealth()">СБРОС</button>
+                        <button type="button" class="calc-button action-btn add-btn" onclick="addHealth()">ЛЕЧЕНИЕ</button>
+                        <button type="button" class="calc-button action-btn subtract-btn" onclick="subtractHealth()">УРОН</button>
+                        <button type="button" class="calc-button action-btn level-up-btn" onclick="setMaxHealth()">ВРЕМЕННЫЕ</button>
                         <div class="calc-empty">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" onclick="toggleMaxHealthSettings()">
                                 <path d="M12 15.5C13.933 15.5 15.5 13.933 15.5 12C15.5 10.067 13.933 8.5 12 8.5C10.067 8.5 8.5 10.067 8.5 12C8.5 13.933 10.067 15.5 12 15.5Z" stroke="currentColor" stroke-width="1.5"/>
