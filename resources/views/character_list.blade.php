@@ -36,12 +36,11 @@
         </div>
         @if(Auth::check())
             <p style="font-size: 36px" class="list-text-title">
-                Мои персонажи <span id="character-counter">(0/16)</span>
+                Мои персонажи <span id="character-counter">({{ count($characters) }}/16)</span>
             </p>
             <div id="character-container" class="characters-container">
                 <!-- Загружаем сохранённые персонажи -->
                 @foreach($characters as $character)
-
                     <div class="character-card" data-id="{{ $character->id }}">
                         <div class="menu">
                             <button class="menu-button">⋮</button>
@@ -53,13 +52,14 @@
                             <div class="character-name">{{ $character->name }}</div>
                         </a>
                     </div>
-
                 @endforeach
 
                 <!-- Кнопка добавления персонажа -->
-                <div id="add-character" class="character-card add-character">
-                    <i class="fa-solid fa-plus fa-2x"></i>
-                </div>
+                @if(count($characters) < 16)
+                    <div id="add-character" class="character-card add-character">
+                        <i class="fa-solid fa-plus fa-2x"></i>
+                    </div>
+                @endif
             </div>
             <script>
                 const characterContainer = document.getElementById('character-container');
@@ -68,75 +68,102 @@
 
                 // Функция для обновления счетчика
                 function updateCharacterCounter() {
-                    const totalCharacters = document.querySelectorAll('.character-card').length - 1; // Исключаем кнопку "+"
+                    const totalCharacters = document.querySelectorAll('.character-card:not(.add-character)').length;
                     characterCounter.textContent = `(${totalCharacters}/16)`;
 
                     // Показываем или скрываем кнопку "+"
-                    addCharacterButton.style.display = totalCharacters >= 16 ? "none" : "flex";
+                    if (addCharacterButton) {
+                        addCharacterButton.style.display = totalCharacters >= 16 ? "none" : "flex";
+                    }
                 }
 
-                // Вызываем функцию при загрузке страницы
-                updateCharacterCounter();
+                // Функция для создания HTML нового персонажа
+                function createCharacterCard(character) {
+                    const card = document.createElement('div');
+                    card.className = 'character-card';
+                    card.setAttribute('data-id', character.id);
+
+                    const menuHtml = `
+                        <div class="menu">
+                            <button class="menu-button">⋮</button>
+                            <div class="menu-content">
+                                <button class="delete-button">Удалить</button>
+                            </div>
+                        </div>
+                    `;
+
+                    const linkHtml = `
+                        <a style="text-decoration: none" href="/characters/${character.id}">
+                            <div class="character-name">${character.name}</div>
+                        </a>
+                    `;
+
+                    card.innerHTML = menuHtml + linkHtml;
+
+                    // Добавляем обработчики событий
+                    const deleteButton = card.querySelector('.delete-button');
+                    deleteButton.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        deleteCharacter(character.id, card);
+                    });
+
+                    const menuButton = card.querySelector('.menu-button');
+                    menuButton.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const menu = e.target.closest('.menu');
+                        document.querySelectorAll('.menu').forEach(m => {
+                            if (m !== menu) m.classList.remove('open');
+                        });
+                        menu.classList.toggle('open');
+                    });
+
+                    return card;
+                }
 
                 // Добавление нового персонажа
-                addCharacterButton.addEventListener('click', async () => {
-                    const characterCards = document.querySelectorAll('.character-card').length;
-                    updateCharacterCounter();
-                    if (characterCards >= 17) {
-                        alert("Максимальное количество персонажей достигнуто!");
-                        addCharacterButton.style.display = "none"; // Скрываем кнопку добавления
-                        return;
-                    }
-
-                    let name = prompt("Введите имя персонажа:");
-                    name = name ? name.trim() : "Безымянный персонаж"; // Имя по умолчанию
-
-                    try {
-                        const response = await fetch('/characters', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                            },
-                            body: JSON.stringify({ name }),
-                        });
-
-                        if (!response.ok) {
-                            throw new Error(`Ошибка при создании персонажа: ${response.status}`);
+                if (addCharacterButton) {
+                    addCharacterButton.addEventListener('click', async () => {
+                        const totalCharacters = document.querySelectorAll('.character-card:not(.add-character)').length;
+                        if (totalCharacters >= 16) {
+                            alert("Максимальное количество персонажей достигнуто!");
+                            return;
                         }
 
-                        const character = await response.json();
+                        let name = prompt("Введите имя персонажа:");
+                        name = name ? name.trim() : "Безымянный персонаж";
 
-                        // Создаём новый блок персонажа
-                        const newCharacter = document.createElement('div');
-                        newCharacter.className = 'character-card';
-                        newCharacter.setAttribute('data-id', character.id);
-                        newCharacter.innerHTML = `
-    <div class="character-name">${character.name}</div>
-    <div class="menu">
-        <button class="menu-button">⋮</button>
-        <div class="menu-content">
-            <button class="delete-button">Удалить</button>
-        </div>
-    </div>`;
+                        try {
+                            const response = await fetch('/characters', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                                },
+                                body: JSON.stringify({ name }),
+                            });
 
-                        // Подключаем событие удаления
-                        newCharacter.querySelector('.delete-button').addEventListener('click', () => {
-                            deleteCharacter(character.id, newCharacter);
-                        });
+                            if (!response.ok) {
+                                throw new Error(`Ошибка при создании персонажа: ${response.status}`);
+                            }
 
-                        // Добавляем новый элемент перед кнопкой добавления
-                        characterContainer.insertBefore(newCharacter, addCharacterButton);
-                        updateCharacterCounter();
-                        // Проверяем, если персонажей уже 16, убираем кнопку добавления
-                        if (document.querySelectorAll('.character-card').length >= 17) {
-                            addCharacterButton.style.display = "none";
+                            const character = await response.json();
+
+                            // Создаём и добавляем нового персонажа
+                            const newCharacter = createCharacterCard(character);
+                            characterContainer.insertBefore(newCharacter, addCharacterButton);
+
+                            updateCharacterCounter();
+
+                            // Если достигли лимита, скрываем кнопку добавления
+                            if (document.querySelectorAll('.character-card:not(.add-character)').length >= 16) {
+                                addCharacterButton.style.display = "none";
+                            }
+                        } catch (error) {
+                            console.error('Ошибка при добавлении персонажа:', error);
+                            alert('Не удалось создать персонажа. Попробуйте ещё раз.');
                         }
-                    } catch (error) {
-                        console.error('Ошибка при добавлении персонажа:', error);
-                    }
-                });
-
+                    });
+                }
 
                 // Удаление персонажа
                 const deleteCharacter = async (id, element) => {
@@ -157,14 +184,11 @@
                             throw new Error(data.error || "Ошибка при удалении персонажа");
                         }
 
-                        // Удаляем элемент из DOM
-                        if (element) element.remove();
-
-                        // Обновляем счётчик персонажей
+                        element.remove();
                         updateCharacterCounter();
 
                         // Показываем кнопку "Добавить", если персонажей < 16
-                        if (document.querySelectorAll('.character-card').length < 17) {
+                        if (addCharacterButton && document.querySelectorAll('.character-card:not(.add-character)').length < 16) {
                             addCharacterButton.style.display = "flex";
                         }
                     } catch (error) {
@@ -173,26 +197,17 @@
                     }
                 };
 
-                // Подключаем удаление к существующим персонажам
-                document.querySelectorAll('.delete-button').forEach(button => {
-                    const characterElement = button.closest('.character-card');
-                    const characterId = characterElement.getAttribute('data-id');
-                    button.addEventListener('click', () => {
-                        deleteCharacter(characterId, characterElement);
-                    });
-                });
+                // Инициализация меню для существующих персонажей
                 document.addEventListener("DOMContentLoaded", function () {
                     document.querySelectorAll(".menu-button").forEach(button => {
-                        button.addEventListener("click", function (event) {
-                            event.stopPropagation(); // Чтобы клик не закрывал сразу меню
+                        button.addEventListener("click", function (e) {
+                            e.stopPropagation();
                             const menu = this.closest(".menu");
 
-                            // Закрываем все открытые меню перед открытием текущего
                             document.querySelectorAll(".menu").forEach(m => {
                                 if (m !== menu) m.classList.remove("open");
                             });
 
-                            // Переключаем состояние текущего меню
                             menu.classList.toggle("open");
                         });
                     });
@@ -202,10 +217,10 @@
                         document.querySelectorAll(".menu").forEach(menu => menu.classList.remove("open"));
                     });
 
-                    // Чтобы клик внутри меню не закрывал его
+                    // Остановка всплытия для содержимого меню
                     document.querySelectorAll(".menu-content").forEach(menu => {
-                        menu.addEventListener("click", function (event) {
-                            event.stopPropagation();
+                        menu.addEventListener("click", function (e) {
+                            e.stopPropagation();
                         });
                     });
                 });
@@ -226,5 +241,4 @@
     <div class="footer"></div>
 </main>
 </body>
-
 </html>
