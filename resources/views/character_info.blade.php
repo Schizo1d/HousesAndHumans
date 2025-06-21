@@ -66,13 +66,13 @@
                     </div>
                 </div>
             </div>
-            <div class="proficiency-bonus-container">
-                <div class="proficiency-bonus-value">
+            <div class="digital-header-bonus">
+                <div class="digital-header-bonus_block">
                     <a href="javascript:void(0);" id="proficiency-bonus-link"></a>
+                    <span class="digital-bonus-label">
+                        владение
+                    </span>
                 </div>
-                <span class="proficiency-bonus-label">
-                    владение
-                </span>
             </div>
         </nav>
     </div>
