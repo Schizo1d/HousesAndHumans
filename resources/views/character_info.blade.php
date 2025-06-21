@@ -2600,9 +2600,9 @@
 
             function updateHealthDisplay() {
                 document.getElementById('current-health-value').textContent = currentHealth;
+                document.getElementById('max-health-value').textContent = maxHealth;
                 document.getElementById('health-display').textContent = `${currentHealth}/${maxHealth}`;
             }
-
             function saveHealth() {
                 // Здесь можно добавить сохранение здоровья на сервер
                 localStorage.setItem(`character_${characterId}_health`, JSON.stringify({
@@ -2611,6 +2611,38 @@
                 }));
             }
 
+            // Функция для переключения видимости настроек максимального здоровья
+            function toggleMaxHealthSettings() {
+                const settings = document.getElementById('max-health-settings');
+                if (settings.style.display === 'none') {
+                    settings.style.display = 'block';
+                    // Устанавливаем текущее значение максимального здоровья в инпут
+                    document.getElementById('max-health-input').value = maxHealth;
+                } else {
+                    settings.style.display = 'none';
+                }
+            }
+
+            // Функция для сохранения максимального здоровья
+            function saveMaxHealth() {
+                const newMaxHealth = parseInt(document.getElementById('max-health-input').value) || 0;
+                maxHealth = newMaxHealth;
+
+                // Обновляем отображение
+                document.getElementById('max-health-value').textContent = maxHealth;
+                document.getElementById('health-display').textContent = `${currentHealth}/${maxHealth}`;
+
+                // Сохраняем в localStorage
+                localStorage.setItem(`character_${characterId}_health`, JSON.stringify({
+                    current: currentHealth,
+                    max: maxHealth
+                }));
+
+                // Скрываем настройки
+                document.getElementById('max-health-settings').style.display = 'none';
+            }
+
+            // Обновите функцию loadHealth для загрузки максимального здоровья
             function loadHealth() {
                 const savedHealth = localStorage.getItem(`character_${characterId}_health`);
                 if (savedHealth) {
@@ -3207,7 +3239,25 @@
                         <button type="button" class="calc-button action-btn subtract-btn" onclick="subtractHealth()">ОТНЯТЬ</button>
                         <button type="button" class="calc-button action-btn level-up-btn" onclick="setMaxHealth()">МАКС.</button>
                         <button type="button" class="calc-button action-btn level-down-btn" onclick="resetHealth()">СБРОС</button>
-                        <div class="calc-empty"></div>
+                        <div class="calc-empty">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" onclick="toggleMaxHealthSettings()">
+                                <path d="M12 15.5C13.933 15.5 15.5 13.933 15.5 12C15.5 10.067 13.933 8.5 12 8.5C10.067 8.5 8.5 10.067 8.5 12C8.5 13.933 10.067 15.5 12 15.5Z" stroke="currentColor" stroke-width="1.5"/>
+                                <path d="M18.5063 15.525L18.5066 15.5247C18.7588 15.2724 18.88 15.1463 18.9496 14.9966C19.0166 14.8528 19.0445 14.6965 19.031 14.5414C19.0162 14.3705 18.9407 14.1982 18.7896 13.8536L18.7896 13.8536L18.7891 13.8524C18.6736 13.5894 18.6158 13.4579 18.5848 13.3215C18.5565 13.1972 18.548 13.0698 18.5596 12.9434C18.5724 12.8009 18.6153 12.6616 18.7011 12.383L18.7011 12.383L18.7014 12.382C18.7649 12.174 18.7966 12.07 18.8239 11.9654C18.8961 11.6759 18.8961 11.3241 18.8239 11.0346C18.7966 10.93 18.7649 10.826 18.7014 10.618L18.7011 10.617C18.6153 10.3384 18.5724 10.1991 18.5596 10.0566C18.548 9.93022 18.5565 9.80283 18.5848 9.67854C18.6158 9.54213 18.6736 9.41056 18.7891 9.14758L18.7896 9.14645C18.9407 8.80176 19.0162 8.62952 19.031 8.45858C19.0445 8.30348 19.0166 8.14723 18.9496 8.00343C18.88 7.85372 18.7588 7.72764 18.5066 7.47532L18.5063 7.475C18.254 7.22268 18.1279 7.10152 17.9782 7.03195C17.8344 6.96495 17.6781 6.93704 17.523 6.95056C17.3521 6.96536 17.1799 7.04085 16.8352 7.19194L16.8341 7.19243C16.5711 7.30794 16.4396 7.36572 16.3032 7.39672C16.1789 7.42504 16.0515 7.43355 15.9251 7.42194C15.7826 7.40914 15.6433 7.36623 15.3647 7.28043L15.3637 7.28011C15.1557 7.21661 15.0517 7.18485 14.9471 7.15761C14.6576 7.08538 14.3058 7.08538 14.0163 7.15761C13.9117 7.18485 13.8077 7.21661 13.5997 7.28011L13.5987 7.28043C13.3201 7.36623 13.1808 7.40914 13.0383 7.42194C12.9119 7.43355 12.7845 7.42504 12.6602 7.39672C12.5238 7.36572 12.3923 7.30794 12.1293 7.19243L12.1282 7.19194C11.7835 7.04085 11.6112 6.96536 11.4403 6.95056C11.2852 6.93704 11.129 6.96495 10.9852 7.03195C10.8355 7.10152 10.7094 7.22268 10.457 7.475L10.4567 7.47532C10.2044 7.72764 10.0833 7.85372 10.0137 8.00343C9.94669 8.14723 9.91878 8.30348 9.9323 8.45858C9.9471 8.62952 10.0226 8.80176 10.1737 9.14645L10.1742 9.14758C10.2897 9.41056 10.3475 9.54213 10.3785 9.67854C10.4068 9.80283 10.4153 9.93022 10.4037 10.0566C10.3909 10.1991 10.348 10.3384 10.2622 10.617L10.2619 10.618C10.1984 10.826 10.1666 10.93 10.1394 11.0346C10.0672 11.3241 10.0672 11.6759 10.1394 11.9654C10.1666 12.07 10.1984 12.174 10.2619 12.382L10.2622 12.383C10.348 12.6616 10.3909 12.8009 10.4037 12.9434C10.4153 13.0698 10.4068 13.1972 10.3785 13.3215C10.3475 13.4579 10.2897 13.5894 10.1742 13.8524L10.1737 13.8536C10.0226 14.1982 9.9471 14.3705 9.9323 14.5414C9.91878 14.6965 9.94669 14.8528 10.0137 14.9966C10.0833 15.1463 10.2044 15.2724 10.4567 15.5247L10.457 15.525C10.7094 15.7773 10.8355 15.8985 10.9852 15.9681C11.129 16.0351 11.2852 16.063 11.4403 16.0494C11.6112 16.0346 11.7835 15.9592 12.1282 15.8081L12.1293 15.8076C12.3923 15.6921 12.5238 15.6343 12.6602 15.6033C12.7845 15.575 12.9119 15.5664 13.0383 15.5781C13.1808 15.5909 13.3201 15.6338 13.5987 15.7196L13.5997 15.7199C13.8077 15.7834 13.9117 15.8151 14.0163 15.8424C14.3058 15.9146 14.6576 15.9146 14.9471 15.8424C15.0517 15.8151 15.1557 15.7834 15.3637 15.7199L15.3647 15.7196C15.6433 15.6338 15.7826 15.5909 15.9251 15.5781C16.0515 15.5664 16.1789 15.575 16.3032 15.6033C16.4396 15.6343 16.5711 15.6921 16.8341 15.8076L16.8352 15.8081C17.1799 15.9592 17.3521 16.0346 17.523 16.0494C17.6781 16.063 17.8344 16.0351 17.9782 15.9681C18.1279 15.8985 18.254 15.7773 18.5063 15.525Z" stroke="currentColor" stroke-width="1.5"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div id="max-health-settings" style="display: none; margin-top: 15px;">
+                    <div class="modal-row">
+                        <div class="modal-col">
+                            <div class="modal-wrapper">
+                                <input class="modal-input" type="number" id="max-health-input" value="0" min="0">
+                                <label for="max-health-input">Максимум хитов</label>
+                            </div>
+                        </div>
+                        <div class="modal-col">
+                            <button class="calc-button action-btn" onclick="saveMaxHealth()" style="margin-top: 20px;">Сохранить</button>
+                        </div>
                     </div>
                 </div>
             </div>
