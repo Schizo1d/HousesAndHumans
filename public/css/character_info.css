@@ -1509,6 +1509,7 @@ form label {
     width: 50px;
     margin-left: 8px;
     background: #f8d7da;
+    min-width: 52px;
 }
 
 .calc-empty {
