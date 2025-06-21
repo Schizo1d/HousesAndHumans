@@ -2675,50 +2675,53 @@
 
                 updateHealthColor();
             }
+            document.addEventListener('click', function (e) {
+                if (e.target && e.target.id === 'death-save-roll-btn') {
+                    console.log("Клик зарегистрирован");
+                        // Обработчик для кнопки броска спасброска
+                        document.getElementById('death-save-roll-btn').addEventListener('click', function() {
+                            // Проверяем, что здоровье действительно 0
+                            if (parseInt(document.getElementById('current-health-value').textContent) > 0) {
+                                showCustomAlert('Спасброски от смерти возможны только при 0 HP!');
+                                return;
+                            }
 
-            // Обработчик для кнопки броска спасброска
-            document.getElementById('death-save-roll-btn').addEventListener('click', function() {
-                // Проверяем, что здоровье действительно 0
-                if (parseInt(document.getElementById('current-health-value').textContent) > 0) {
-                    showCustomAlert('Спасброски от смерти возможны только при 0 HP!');
-                    return;
+                            // Бросаем d20
+                            const roll = Math.floor(Math.random() * 20) + 1;
+                            let message = `Результат броска: ${roll}. `;
+
+                            // Обработка результатов
+                            if (roll === 1) { // Критическая неудача
+                                deathSaves.failures = Math.min(deathSaves.failures + 2, 3);
+                                message += "Критическая неудача! +2 к провалам.";
+                            }
+                            else if (roll === 20) { // Критический успех
+                                deathSaves.successes = 3; // Автоматическая стабилизация
+                                document.getElementById('current-health-value').textContent = '1';
+                                message += "Критический успех! Персонаж приходит в сознание с 1 HP.";
+                                updateHealthDisplay();
+                            }
+                            else if (roll >= 10) { // Успех
+                                deathSaves.successes = Math.min(deathSaves.successes + 1, 3);
+                                message += "Успех! +1 к успешным попыткам.";
+                            }
+                            else { // Неудача
+                                deathSaves.failures = Math.min(deathSaves.failures + 1, 3);
+                                message += "Неудача! +1 к проваленным попыткам.";
+                            }
+
+                            // Сохраняем состояние
+                            localStorage.setItem(`character_${characterId}_deathSaves`, JSON.stringify(deathSaves));
+
+                            // Обновляем интерфейс
+                            updateDeathSavesCheckboxes();
+                            showCustomAlert(message);
+
+                            // Проверяем условия смерти/стабилизации
+                            checkDeathSaveStatus();
+                        });
                 }
-
-                // Бросаем d20
-                const roll = Math.floor(Math.random() * 20) + 1;
-                let message = `Результат броска: ${roll}. `;
-
-                // Обработка результатов
-                if (roll === 1) { // Критическая неудача
-                    deathSaves.failures = Math.min(deathSaves.failures + 2, 3);
-                    message += "Критическая неудача! +2 к провалам.";
-                }
-                else if (roll === 20) { // Критический успех
-                    deathSaves.successes = 3; // Автоматическая стабилизация
-                    document.getElementById('current-health-value').textContent = '1';
-                    message += "Критический успех! Персонаж приходит в сознание с 1 HP.";
-                    updateHealthDisplay();
-                }
-                else if (roll >= 10) { // Успех
-                    deathSaves.successes = Math.min(deathSaves.successes + 1, 3);
-                    message += "Успех! +1 к успешным попыткам.";
-                }
-                else { // Неудача
-                    deathSaves.failures = Math.min(deathSaves.failures + 1, 3);
-                    message += "Неудача! +1 к проваленным попыткам.";
-                }
-
-                // Сохраняем состояние
-                localStorage.setItem(`character_${characterId}_deathSaves`, JSON.stringify(deathSaves));
-
-                // Обновляем интерфейс
-                updateDeathSavesCheckboxes();
-                showCustomAlert(message);
-
-                // Проверяем условия смерти/стабилизации
-                checkDeathSaveStatus();
             });
-
             function updateDeathSavesCheckboxes() {
                 // Получаем все чекбоксы
                 const failChecks = document.querySelectorAll('.death-save-checkbox.fail');
