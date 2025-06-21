@@ -380,6 +380,7 @@
     align-items: center;
     display: flex;
     justify-content: space-between;
+    gap: 10px;
 }
 .digital_box_button a{
     text-decoration: none;
