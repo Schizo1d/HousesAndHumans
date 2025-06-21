@@ -3131,10 +3131,12 @@
                         <div class="calc-empty"></div>
                     </div>
 
+                    <div class="calc-buttons-row">
                         <button type="button" class="calc-button num-btn" onclick="appendNumber(1)">1</button>
                         <button type="button" class="calc-button num-btn" onclick="appendNumber(2)">2</button>
                         <button type="button" class="calc-button num-btn" onclick="appendNumber(3)">3</button>
                         <div class="calc-empty"></div>
+                    </div>
 
                     <div class="calc-buttons-row">
                         <button type="button" class="calc-button num-btn" onclick="appendNumber(0)">0</button>
