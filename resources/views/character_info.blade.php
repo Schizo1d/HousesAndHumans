@@ -2491,6 +2491,33 @@
                 checkLevelDown();
             }
 
+            // Обработчик для кнопки броска спасброска
+            document.getElementById('death-save-roll-btn').addEventListener('click', function() {
+                // Бросаем d20
+                const roll = Math.floor(Math.random() * 20) + 1;
+
+                if (roll === 1) {
+                    // Критическая неудача - 2 провала
+                    deathSaves.failures = Math.min(deathSaves.failures + 2, 3);
+                    showCustomAlert(`Критическая неудача! Выпало 1. Получено 2 провала.`);
+                } else if (roll === 20) {
+                    // Критический успех - восстановление 1 HP
+                    document.getElementById('current-health-value').textContent = '1';
+                    showCustomAlert(`Критический успех! Выпало 20. Персонаж восстанавливает 1 HP.`);
+                    updateHealthDisplay();
+                } else if (roll >= 10) {
+                    // Успех
+                    deathSaves.successes = Math.min(deathSaves.successes + 1, 3);
+                    showCustomAlert(`Успех! Выпало ${roll}.`);
+                } else {
+                    // Неудача
+                    deathSaves.failures = Math.min(deathSaves.failures + 1, 3);
+                    showCustomAlert(`Неудача! Выпало ${roll}.`);
+                }
+
+                updateDeathSavesCheckboxes();
+            });
+
             document.addEventListener("DOMContentLoaded", function () {
                 updateMiniProgressBar();
             });
@@ -2673,33 +2700,7 @@
                 }
             }
 
-            // Обработчик для кнопки броска спасброска
-            document.getElementById('death-save-roll-btn').addEventListener('click', function() {
-                console.log('Кнопка нажата!', e);
-                // Бросаем d20
-                const roll = Math.floor(Math.random() * 20) + 1;
 
-                if (roll === 1) {
-                    // Критическая неудача - 2 провала
-                    deathSaves.failures = Math.min(deathSaves.failures + 2, 3);
-                    showCustomAlert(`Критическая неудача! Выпало 1. Получено 2 провала.`);
-                } else if (roll === 20) {
-                    // Критический успех - восстановление 1 HP
-                    document.getElementById('current-health-value').textContent = '1';
-                    showCustomAlert(`Критический успех! Выпало 20. Персонаж восстанавливает 1 HP.`);
-                    updateHealthDisplay();
-                } else if (roll >= 10) {
-                    // Успех
-                    deathSaves.successes = Math.min(deathSaves.successes + 1, 3);
-                    showCustomAlert(`Успех! Выпало ${roll}.`);
-                } else {
-                    // Неудача
-                    deathSaves.failures = Math.min(deathSaves.failures + 1, 3);
-                    showCustomAlert(`Неудача! Выпало ${roll}.`);
-                }
-
-                updateDeathSavesCheckboxes();
-            });
 
             // Инициализация при загрузке
             document.addEventListener("DOMContentLoaded", function() {
