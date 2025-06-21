@@ -2675,9 +2675,11 @@
 
                 updateHealthColor();
             }
-            document.addEventListener('click', function (e) {
-                if (e.target && e.target.id === 'death-save-roll-btn') {
-                    console.log("Клик зарегистрирован");
+            document.addEventListener('DOMContentLoaded', function () {
+                const btn = document.getElementById('death-save-roll-btn');
+                if (btn) {
+                    btn.addEventListener('click', function () {
+                        console.log("Бросок спасброска сработал");
                         // Обработчик для кнопки броска спасброска
                         document.getElementById('death-save-roll-btn').addEventListener('click', function() {
                             // Проверяем, что здоровье действительно 0
@@ -2720,6 +2722,7 @@
                             // Проверяем условия смерти/стабилизации
                             checkDeathSaveStatus();
                         });
+                    });
                 }
             });
             function updateDeathSavesCheckboxes() {
