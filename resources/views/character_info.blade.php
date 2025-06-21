@@ -2601,10 +2601,23 @@
 
             function subtractHealth() {
                 const amount = calculateHealth();
-                currentHealth = Math.max(0, currentHealth - amount);
+                const newHealth = Math.max(0, currentHealth - amount);
+
+                // Проверяем, было ли здоровье больше 0 до вычитания
+                const wasAlive = currentHealth > 0;
+
+                currentHealth = newHealth;
                 updateHealthDisplay();
                 saveHealth();
                 updateHealthColor();
+
+                // Если персонаж был жив и теперь умер (здоровье <= 0)
+                if (wasAlive && currentHealth <= 0) {
+                    // Сбрасываем спасброски при смерти
+                    deathSaves = { successes: 0, failures: 0 };
+                    localStorage.setItem(`character_${characterId}_deathSaves`, JSON.stringify(deathSaves));
+                    updateDeathSavesCheckboxes();
+                }
             }
 
             function setMaxHealth() {
@@ -2622,11 +2635,11 @@
             }
 
             function updateHealthDisplay() {
-                const currentHP = parseInt(document.getElementById('current-health-value').textContent) || 0;
                 const standardDisplay = document.getElementById('standard-health-display');
                 const deathSavesDisplay = document.getElementById('death-saves-display');
 
-                if (currentHP <= 0) {
+                // Проверяем текущее здоровье
+                if (currentHealth <= 0) {
                     // Режим спасбросков
                     standardDisplay.style.display = 'none';
                     deathSavesDisplay.style.display = 'flex';
@@ -2635,12 +2648,6 @@
                     // Обычный режим
                     standardDisplay.style.display = 'flex';
                     deathSavesDisplay.style.display = 'none';
-                    // Сбрасываем спасброски если вылечились
-                    if (deathSaves.successes > 0 || deathSaves.failures > 0) {
-                        deathSaves = { successes: 0, failures: 0 };
-                        localStorage.setItem(`character_${characterId}_deathSaves`, JSON.stringify(deathSaves));
-                        updateDeathSavesCheckboxes();
-                    }
                 }
                 updateHealthColor();
             }
@@ -2795,6 +2802,9 @@
                 // Скрываем настройки
                 document.getElementById('max-health-settings').style.display = 'none';
                 updateHealthColor();
+
+                // Обновляем отображение (но не сбрасываем спасброски)
+                updateHealthDisplay();
             }
 
             // Обновите функцию loadHealth для загрузки максимального здоровья
