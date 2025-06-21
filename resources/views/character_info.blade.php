@@ -2675,6 +2675,7 @@
 
                 updateHealthColor();
             }
+            document.addEventListener('DOMContentLoaded', () => {
             document.addEventListener('click', function (e) {
                 if (e.target && e.target.id === 'death-save-roll-btn') {
                     // Кнопка была нажата!
@@ -2709,6 +2710,7 @@
                     showCustomAlert(message);
                     checkDeathSaveStatus();
                 }
+            });
             });
             function updateDeathSavesCheckboxes() {
                 // Получаем все чекбоксы
