@@ -3117,22 +3117,26 @@
                         <button type="button" class="calc-button delete-btn" onclick="deleteLastChar()">⌫</button>
                     </div>
 
-                    <div class="calc-buttons-grid">
+                    <div class="calc-buttons-row">
                         <button type="button" class="calc-button num-btn" onclick="appendNumber(7)">7</button>
                         <button type="button" class="calc-button num-btn" onclick="appendNumber(8)">8</button>
                         <button type="button" class="calc-button num-btn" onclick="appendNumber(9)">9</button>
                         <div class="calc-empty"></div>
+                    </div>
 
+                    <div class="calc-buttons-row">
                         <button type="button" class="calc-button num-btn" onclick="appendNumber(4)">4</button>
                         <button type="button" class="calc-button num-btn" onclick="appendNumber(5)">5</button>
                         <button type="button" class="calc-button num-btn" onclick="appendNumber(6)">6</button>
                         <div class="calc-empty"></div>
+                    </div>
 
                         <button type="button" class="calc-button num-btn" onclick="appendNumber(1)">1</button>
                         <button type="button" class="calc-button num-btn" onclick="appendNumber(2)">2</button>
                         <button type="button" class="calc-button num-btn" onclick="appendNumber(3)">3</button>
                         <div class="calc-empty"></div>
 
+                    <div class="calc-buttons-row">
                         <button type="button" class="calc-button num-btn" onclick="appendNumber(0)">0</button>
                         <button type="button" class="calc-button plus-btn" onclick="appendOperator('+')">+</button>
                         <button type="button" class="calc-button minus-btn" onclick="appendOperator('-')">-</button>
