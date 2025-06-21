@@ -84,19 +84,20 @@
                     card.setAttribute('data-id', character.id);
 
                     const menuHtml = `
-                        <div class="menu">
-                            <button class="menu-button">⋮</button>
-                            <div class="menu-content">
-                                <button class="delete-button">Удалить</button>
-                            </div>
-                        </div>
-                    `;
+        <div class="menu">
+            <button class="menu-button">⋮</button>
+            <div class="menu-content">
+                <button class="delete-button">Удалить</button>
+            </div>
+        </div>
+    `;
 
+                    // Используем тот же маршрут, что и в Blade-шаблоне
                     const linkHtml = `
-                        <a style="text-decoration: none" href="/characters/${character.id}">
-                            <div class="character-name">${character.name}</div>
-                        </a>
-                    `;
+        <a style="text-decoration: none" href="/character/${character.id}">
+            <div class="character-name">${character.name}</div>
+        </a>
+    `;
 
                     card.innerHTML = menuHtml + linkHtml;
 
