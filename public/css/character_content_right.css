@@ -392,3 +392,6 @@
     padding: 8px 7px 7px;
     transition: cubic-bezier(.215,.61,.355,1);
 }
+.digital-health{
+    text-decoration: none;
+}
