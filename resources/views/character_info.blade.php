@@ -76,7 +76,7 @@
                     </div>
                 </div>
                 <div class="digital_box">
-                    <div class="digital_box_button">
+                    <div class="digital_box_button" style="height: 100%;">
                         <a href="javascript:void(0);" onclick="openHealthModal()">
                             <span class="digital-health">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
