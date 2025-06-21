@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('css/font-style.css') }}">
     <link rel="stylesheet" href="{{asset('css/modal-authorization.css')}}">
+    <link rel="stylesheet" href="{{asset('css/mobile-adaptation.css')}}">
     <link rel="stylesheet" href="{{asset('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css')}}">
 
 </head>

@@ -1,0 +1,95 @@
+/* Мобильные стили */
+@media (max-width: 768px) {
+    .nav {
+        flex-direction: column;
+        align-items: center;
+        padding: 15px 0 0 0;
+    }
+
+    .image-text-container {
+        margin: 10px 0;
+        width: 90%;
+        text-align: center;
+    }
+
+    .image-text-container img {
+        width: 100%;
+    }
+
+    .text-overlay {
+        font-size: 24px;
+        top: 50%;
+    }
+
+    #user-info {
+        width: 100%;
+    }
+
+    #avatar {
+        width: 80px;
+        height: 80px;
+    }
+
+    #username {
+        font-size: 20px;
+    }
+
+    .image-text-container-logo {
+        margin: 20px auto;
+        width: 90%;
+    }
+
+    .text-overlay-logo {
+        font-size: 32px;
+        left: 50%;
+        top: 50%;
+        width: 100%;
+        text-align: center;
+    }
+
+    .house-img {
+        width: 80%;
+    }
+
+    .city-img {
+        top: 200px;
+        height: 70%;
+    }
+
+    /* Модальное окно для мобильных */
+    .modal {
+        width: 90%;
+        height: auto;
+        padding: 40px 15px 15px;
+    }
+
+    .text-authorization {
+        font-size: 36px;
+        top: 10%;
+    }
+
+    .input-text input {
+        width: 90%;
+        font-size: 18px;
+        height: 50px;
+    }
+
+    .input-text button {
+        width: 90%;
+        font-size: 18px;
+    }
+
+    .buttons-container {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .buttons-container button {
+        width: 90%;
+        margin: 5px auto;
+    }
+
+    .background-image-main img {
+        width: 100%;
+    }
+}
