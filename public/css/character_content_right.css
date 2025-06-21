@@ -386,6 +386,7 @@
     text-decoration: none;
 }
 .digital-health {
+    border: 2px solid #FF5252;
     align-items: center;
     border-radius: 5px;
     display: flex;
