@@ -1293,7 +1293,6 @@
                 const span = document.getElementById(targetId + "-value");
                 const input = document.getElementById(targetId);
 
-                // Циклическое изменение значения: 0 → 2 → 4 → 0
                 let currentValue = parseInt(input.value);
                 let newValue = currentValue === 4 ? 0 : currentValue + 2;
                 input.value = newValue;
