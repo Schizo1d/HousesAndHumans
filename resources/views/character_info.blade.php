@@ -3154,8 +3154,8 @@
                 saveHealth();
                 updateHealthColor();
 
-                // Если персонаж был жив и теперь умер (здоровье <= 0)
-                if (wasAlive && currentHealth <= 0) {
+                // Если персонаж был жив и теперь умер (здоровье <= 0) И урон был нанесен через кнопку
+                if (wasAlive && currentHealth <= 0 && event.target.classList.contains('subtract-btn')) {
                     // Сбрасываем спасброски при смерти
                     deathSaves = { successes: 0, failures: 0 };
                     localStorage.setItem(`character_${characterId}_deathSaves`, JSON.stringify(deathSaves));
@@ -3185,11 +3185,19 @@
                 const standardDisplay = document.getElementById('standard-health-display');
                 const deathSavesDisplay = document.getElementById('death-saves-display');
 
-                if (currentHealth <= 0) {
+                // Показываем стандартное отображение, если здоровье > 0
+                if (currentHealth > 0) {
+                    standardDisplay.style.display = 'flex';
+                    deathSavesDisplay.style.display = 'none';
+                }
+                // Показываем спасброски только если здоровье = 0 И был нанесен урон через кнопку
+                else if (currentHealth <= 0 && deathSavesDisplay.dataset.manualDeath === 'true') {
                     standardDisplay.style.display = 'none';
                     deathSavesDisplay.style.display = 'flex';
                     updateDeathSavesCheckboxes();
-                } else {
+                }
+                // В остальных случаях показываем стандартное отображение с 0 HP
+                else {
                     standardDisplay.style.display = 'flex';
                     deathSavesDisplay.style.display = 'none';
                 }
@@ -3213,6 +3221,13 @@
                     max: maxHealth
                 }));
             }
+
+            // В обработчике кнопки "УРОН" добавляем флаг manualDeath
+            document.querySelector('.subtract-btn').addEventListener('click', function() {
+                // Устанавливаем флаг, что смерть наступила от ручного нанесения урона
+                document.getElementById('death-saves-display').dataset.manualDeath = 'true';
+                subtractHealth();
+            });
 
             // Функция для переключения видимости настроек максимального здоровья
             function toggleMaxHealthSettings() {
