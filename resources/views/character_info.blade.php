@@ -2749,8 +2749,6 @@
                 }
             }
 
-
-
             // Инициализация при загрузке
             document.addEventListener("DOMContentLoaded", function() {
                 updateHealthDisplay();
