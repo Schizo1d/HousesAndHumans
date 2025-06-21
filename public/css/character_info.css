@@ -1449,20 +1449,20 @@ form label {
     color: #000;
 }
 
-.calc-buttons-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
+
+.calc-buttons-row {
+    display: flex;
     gap: 8px;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
 }
 
 .calc-action-buttons {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    display: flex;
+    flex-wrap: wrap;
     gap: 8px;
 }
-
 .calc-button {
+    flex: 1;
     padding: 10px;
     border: 1px solid #915f32;
     border-radius: 4px;
@@ -1472,6 +1472,7 @@ form label {
     cursor: pointer;
     transition: all 0.2s;
     height: 50px;
+    min-width: 0;
 }
 
 .calc-button:hover {
@@ -1485,6 +1486,7 @@ form label {
 
 .calc-button.action-btn {
     font-weight: bold;
+    flex: 1 0 calc(50% - 4px);
 }
 
 .calc-button.add-btn {
@@ -1508,11 +1510,13 @@ form label {
     margin-left: 8px;
     background: #f8d7da;
 }
+
 .calc-empty {
     background: rgba(96, 107, 133, .05);
     border: 1px solid rgba(96, 107, 133, .3);
     border-radius: 3px;
-    height: 100%;
+    height: 50px;
     width: 50px;
     min-width: 50px;
+    flex: none;
 }

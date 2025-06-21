@@ -3110,29 +3110,35 @@
                     </div>
                 </div>
 
-                <!-- Калькулятор опыта -->
+                <!-- Калькулятор опыта (измененная версия) -->
                 <div class="xp-calculator">
                     <div class="calc-input-container">
                         <input type="text" class="calc-input" id="xp-input" value="0" placeholder="Введите XP">
                         <button type="button" class="calc-button delete-btn" onclick="deleteLastChar()">⌫</button>
                     </div>
 
-                    <div class="calc-buttons-grid">
+                    <div class="calc-buttons-row">
                         <button type="button" class="calc-button num-btn" onclick="appendNumber(7)">7</button>
                         <button type="button" class="calc-button num-btn" onclick="appendNumber(8)">8</button>
                         <button type="button" class="calc-button num-btn" onclick="appendNumber(9)">9</button>
                         <div class="calc-empty"></div>
+                    </div>
 
+                    <div class="calc-buttons-row">
                         <button type="button" class="calc-button num-btn" onclick="appendNumber(4)">4</button>
                         <button type="button" class="calc-button num-btn" onclick="appendNumber(5)">5</button>
                         <button type="button" class="calc-button num-btn" onclick="appendNumber(6)">6</button>
                         <div class="calc-empty"></div>
+                    </div>
 
+                    <div class="calc-buttons-row">
                         <button type="button" class="calc-button num-btn" onclick="appendNumber(1)">1</button>
                         <button type="button" class="calc-button num-btn" onclick="appendNumber(2)">2</button>
                         <button type="button" class="calc-button num-btn" onclick="appendNumber(3)">3</button>
                         <div class="calc-empty"></div>
+                    </div>
 
+                    <div class="calc-buttons-row">
                         <button type="button" class="calc-button num-btn" onclick="appendNumber(0)">0</button>
                         <button type="button" class="calc-button plus-btn" onclick="appendOperator('+')">+</button>
                         <button type="button" class="calc-button minus-btn" onclick="appendOperator('-')">-</button>
@@ -3147,43 +3153,35 @@
                         <div class="calc-empty"></div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <!-- Модальное окно здоровья -->
-        <div id="health-modal" class="level-modal">
-            <div class="level-up-content">
-                <button class="modal-close-btn" onclick="closeHealthModal()">✖</button>
-                <h3>Управление здоровьем</h3>
-
-                <div class="health-display-container">
-                    <span id="current-health-value">0</span>
-                    <span>/</span>
-                    <span id="max-health-value">0</span>
-                </div>
-
-                <!-- Калькулятор здоровья -->
+                <!-- Калькулятор здоровья (измененная версия) -->
                 <div class="health-calculator">
                     <div class="calc-input-container">
                         <input type="text" class="calc-input" id="health-input" value="0" placeholder="Введите значение">
                         <button type="button" class="calc-button delete-btn" onclick="deleteHealthLastChar()">⌫</button>
                     </div>
 
-                    <div class="calc-buttons-grid">
+                    <div class="calc-buttons-row">
                         <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(7)">7</button>
                         <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(8)">8</button>
                         <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(9)">9</button>
                         <div class="calc-empty"></div>
+                    </div>
 
+                    <div class="calc-buttons-row">
                         <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(4)">4</button>
                         <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(5)">5</button>
                         <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(6)">6</button>
                         <div class="calc-empty"></div>
+                    </div>
 
+                    <div class="calc-buttons-row">
                         <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(1)">1</button>
                         <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(2)">2</button>
                         <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(3)">3</button>
                         <div class="calc-empty"></div>
+                    </div>
 
+                    <div class="calc-buttons-row">
                         <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(0)">0</button>
                         <button type="button" class="calc-button plus-btn" onclick="appendHealthOperator('+')">+</button>
                         <button type="button" class="calc-button minus-btn" onclick="appendHealthOperator('-')">-</button>
@@ -3198,8 +3196,6 @@
                         <div class="calc-empty"></div>
                     </div>
                 </div>
-            </div>
-        </div>
         <div id="modal-backdrop" class="modal-backdrop"></div>
         <div id="settings-backdrop" class="modal-backdrop"></div>
 </body>
