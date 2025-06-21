@@ -977,6 +977,23 @@
                 updateDeathSavesCheckboxes();
             });
 
+            // При загрузке страницы
+            document.addEventListener("DOMContentLoaded", function() {
+                // Загружаем сохраненное здоровье
+                const savedHealth = localStorage.getItem(`character_${characterId}_health`);
+                if (savedHealth) {
+                    const health = JSON.parse(savedHealth);
+                    currentHealth = health.current || 0;
+                    maxHealth = health.max || 0;
+                }
+
+                // Обновляем отображение
+                document.getElementById('current-health-value').textContent = currentHealth;
+                document.getElementById('max-health-value').textContent = maxHealth;
+                document.getElementById('health-display').textContent = `${currentHealth}/${maxHealth}`;
+                updateHealthColor();
+            });
+
             function getProficiencyBonus(level) {
                 if (level >= 17) return 6;
                 if (level >= 13) return 5;
