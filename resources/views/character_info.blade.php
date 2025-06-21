@@ -1203,13 +1203,7 @@
             <div class="notifications-container" id="notificationsContainer"></div>
             <button class="close-all-btn" onclick="hideCloseButtonInstantly(); clearAllNotifications()">×</button>
         </div>
-        <div id="customAlertOverlay" class="alert-overlay" style="display: none;"></div>
-        <div id="customAlert" class="custom-alert" style="display: none;">
-            <div class="alert-content">
-                <p id="customAlertMessage"></p>
-                <button class="alert-button" onclick="hideCustomAlert()">OK</button>
-            </div>
-        </div>
+
 
         <!-- Модальное окно повышения уровня -->
         <div id="level-up-modal" class="level-modal">
@@ -1490,10 +1484,6 @@
                 document.querySelector('#death-save-roll-btn').addEventListener('click', function () {
                     // Проверяем, что здоровье действительно равно 0
                     console.log("Кнопка спасброска нажата!");
-                    if (parseInt(document.getElementById('current-health-value').textContent) > 0) {
-                        showCustomAlert('Спасброски от смерти возможны только при 0 HP!');
-                        return;
-                    }
 
                     // Бросаем кубик
                     const roll = Math.floor(Math.random() * 20) + 1;
@@ -1520,7 +1510,6 @@
                     localStorage.setItem(`character_${characterId}_deathSaves`, JSON.stringify(deathSaves));
 
                     updateDeathSavesCheckboxes();
-                    showCustomAlert(message);
                     checkDeathSaveStatus();
                 });
             });
@@ -2376,23 +2365,6 @@
                 document.getElementById('bottomLeftAlert').style.display = 'none';
             }
 
-            function showCustomAlert(message) {
-                const messageElement = document.getElementById('customAlertMessage');
-                if (messageElement) {
-                    messageElement.textContent = message;
-                    document.getElementById('customAlertOverlay').style.display = 'block';
-                    document.getElementById('customAlert').style.display = 'block';
-                } else {
-                    console.error('Элементы кастомного алерта не найдены в DOM');
-                    // Используем стандартный alert как запасной вариант
-                    alert(message);
-                }
-            }
-
-            function hideCustomAlert() {
-                document.getElementById('customAlertOverlay').style.display = 'none';
-                document.getElementById('customAlert').style.display = 'none';
-            }
 
             // Добавляем обработчик для ручного управления видимостью
             document.getElementById('notificationsWrapper').addEventListener('mouseenter', function () {
@@ -3319,21 +3291,15 @@
                 loadHealth();
             });
 
-
-
-
-
             // Функция для проверки статуса спасбросков
             function checkDeathSaveStatus() {
                 if (deathSaves.failures >= 3) {
-                    showCustomAlert('Персонаж умер! Набрано 3 провала.');
                     // Сбрасываем спасброски
                     deathSaves = { successes: 0, failures: 0 };
                     localStorage.setItem(`character_${characterId}_deathSaves`, JSON.stringify(deathSaves));
                     updateDeathSavesCheckboxes();
                 }
                 else if (deathSaves.successes >= 3) {
-                    showCustomAlert('Персонаж стабилизировался! 3 успешных спасброска.');
                     // Сбрасываем спасброски
                     deathSaves = { successes: 0, failures: 0 };
                     localStorage.setItem(`character_${characterId}_deathSaves`, JSON.stringify(deathSaves));
