@@ -1443,6 +1443,24 @@
                 wisdom: "Мудрость",
                 charisma: "Харизма"
             };
+            function saveAttributes() {
+                const formData = new FormData(document.getElementById('attributesForm'));
+
+                fetch(document.getElementById('attributesForm').action, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                    },
+                    body: formData
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (!data.success) {
+                            console.error('Ошибка сохранения:', data.error);
+                        }
+                    })
+                    .catch(error => console.error('Ошибка:', error));
+            }
 
             // Загрузка сохраненных данных при открытии страницы
             document.addEventListener("DOMContentLoaded", function() {
@@ -1538,46 +1556,40 @@
                 const displaySpan = document.getElementById(skillId + '-value');
                 const customRadio = element.nextElementSibling;
 
-                // Получаем текущий уровень персонажа
                 const currentLevel = parseInt(document.querySelector('.character-level').textContent.match(/\d+/)[0]) || 1;
                 const proficiencyBonus = getProficiencyBonus(currentLevel);
 
-                // Циклическое изменение значения: 0 → бонус → бонус×2 → 0
                 let currentValue = parseInt(hiddenInput.value) || 0;
                 let newValue;
 
-                // Сначала сбрасываем все визуальные состояния
                 customRadio.classList.remove('half-checked', 'fully-checked');
                 customRadio.querySelector('.dot-1').style.display = 'none';
                 customRadio.querySelector('.dot-2').style.display = 'none';
 
                 if (currentValue === 0) {
-                    newValue = proficiencyBonus; // Первое нажатие
+                    newValue = proficiencyBonus;
                     customRadio.classList.add('half-checked');
                     customRadio.querySelector('.dot-1').style.display = 'block';
                 } else if (currentValue === proficiencyBonus) {
-                    newValue = proficiencyBonus * 2; // Второе нажатие
+                    newValue = proficiencyBonus * 2;
                     customRadio.classList.add('fully-checked');
                     customRadio.querySelector('.dot-1').style.display = 'block';
                     customRadio.querySelector('.dot-2').style.display = 'block';
                 } else {
-                    newValue = 0; // Третье нажатие
-                    // Все уже скрыто и классы удалены
+                    newValue = 0;
                 }
 
-                // Обновляем скрытое поле
                 hiddenInput.value = newValue;
 
-                // Рассчитываем итоговое значение с модификатором атрибута
                 const attributeValue = parseInt(document.getElementById(attributeId).value) || 10;
                 const modifier = Math.floor((attributeValue - 10) / 2);
                 const finalValue = modifier + newValue;
 
-                // Обновляем отображаемое значение
                 displaySpan.textContent = finalValue;
-
-                // Предотвращаем стандартное поведение checkbox
                 element.checked = false;
+
+                // Автоматически сохраняем изменения
+                saveAttributes();
             }
 
 
@@ -1987,7 +1999,6 @@
 
             function saveAttribute() {
                 try {
-
                     const attrValue = parseInt(document.getElementById("modal-input").value) || 10;
                     document.getElementById(currentAttr).value = attrValue;
                     document.getElementById(`${currentAttr}-button`).textContent = attrValue;
@@ -1996,26 +2007,20 @@
                     updateSkills(currentAttr);
                     updateInitiative();
 
-                    // Обновляем пассивные навыки только если они в автоматическом режиме
+                    // Обновляем пассивные навыки
                     if (currentAttr === "wisdom") {
                         ["perception", "insight"].forEach(skill => {
                             const button = document.getElementById(`passive-${skill}-button`);
                             const input = document.getElementById(`passive_${skill}`);
 
-                            // Если режим ручной - сохраняем значение из модального окна
                             if (button.classList.contains("manual")) {
                                 const val = parseInt(document.getElementById(`modal-passive-${skill}`).value) || 10;
                                 input.value = val;
                                 button.textContent = val;
-                                localStorage.setItem(`character_${characterId}_passive_${skill}_manual`, val);
-                                localStorage.removeItem(`character_${characterId}_passive_${skill}_auto`);
                             } else {
-                                // Если автоматический - пересчитываем
                                 const autoValue = 10 + getModifier(attrValue);
                                 input.value = autoValue;
                                 button.textContent = autoValue;
-                                localStorage.setItem(`character_${characterId}_passive_${skill}_auto`, autoValue);
-                                localStorage.removeItem(`character_${characterId}_passive_${skill}_manual`);
                             }
                         });
                     } else if (currentAttr === "intelligence") {
@@ -2026,18 +2031,17 @@
                             const val = parseInt(document.getElementById(`modal-passive-investigation`).value) || 10;
                             input.value = val;
                             button.textContent = val;
-                            localStorage.setItem(`character_${characterId}_passive_investigation_manual`, val);
-                            localStorage.removeItem(`character_${characterId}_passive_investigation_auto`);
                         } else {
                             const autoValue = 10 + getModifier(attrValue);
                             input.value = autoValue;
                             button.textContent = autoValue;
-                            localStorage.setItem(`character_${characterId}_passive_investigation_auto`, autoValue);
-                            localStorage.removeItem(`character_${characterId}_passive_investigation_manual`);
                         }
                     }
 
                     document.getElementById("attributeModal").style.display = "none";
+
+                    // Автоматически сохраняем изменения
+                    saveAttributes();
                 } catch (e) {
                     console.error("Ошибка сохранения:", e);
                 }
