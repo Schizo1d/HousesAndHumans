@@ -107,8 +107,7 @@ form {
 
 /* Подсветка при фокусе */
 input[type="number"]:focus {
-    border-bottom: 2px solid #a991f7; /* Утолщенная полоска при фокусе */
-    background: #3b3b5f;
+
 }
 
 /* Стилизация кнопки */
