@@ -1404,10 +1404,43 @@ form label {
 }
 /* Стили для модального окна здоровья */
 .health-display-container {
-    font-size: 2rem;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    font-size: 24px;
     margin: 20px 0;
-    color: #ff5252;
+    transition: all 0.3s ease;
+}
+.health-display-container svg {
+    transition: fill 0.3s ease;
+}
+
+/* Здоровье выше 70% - зеленый */
+.health-display-container.high-health svg path {
+    fill: #4CAF50;
+}
+.health-display-container.high-health #current-health-value,
+.health-display-container.high-health #max-health-value {
+    color: #4CAF50;
+}
+
+/* Здоровье от 40% до 70% - желтый */
+.health-display-container.medium-health svg path {
+    fill: #FFC107;
+}
+.health-display-container.medium-health #current-health-value,
+.health-display-container.medium-health #max-health-value {
+    color: #FFC107;
+}
+
+/* Здоровье ниже 40% - красный */
+.health-display-container.low-health svg path {
+    fill: #FF5252;
+}
+.health-display-container.low-health #current-health-value,
+.health-display-container.low-health #max-health-value {
+    color: #FF5252;
 }
 
 .health-display-container span {

@@ -2577,6 +2577,7 @@
                 currentHealth = Math.min(currentHealth + amount, maxHealth);
                 updateHealthDisplay();
                 saveHealth();
+                updateHealthColor();
             }
 
             function subtractHealth() {
@@ -2584,18 +2585,21 @@
                 currentHealth = Math.max(0, currentHealth - amount);
                 updateHealthDisplay();
                 saveHealth();
+                updateHealthColor();
             }
 
             function setMaxHealth() {
                 currentHealth = maxHealth;
                 updateHealthDisplay();
                 saveHealth();
+                updateHealthColor();
             }
 
             function resetHealth() {
                 currentHealth = 0;
                 updateHealthDisplay();
                 saveHealth();
+                updateHealthColor();
             }
 
             function updateHealthDisplay() {
@@ -2622,6 +2626,34 @@
                     settings.style.display = 'none';
                 }
             }
+            function updateHealthColor() {
+                const healthDisplay = document.querySelector('.digital-health');
+                const healthModalDisplay = document.querySelector('.health-display-container');
+                const currentHealth = parseInt(document.getElementById('current-health-value').textContent) || 0;
+                const maxHealth = parseInt(document.getElementById('max-health-value').textContent) || 1;
+                const healthPercentage = (currentHealth / maxHealth) * 100;
+
+                // Удаляем все классы цвета
+                healthDisplay.classList.remove('high-health', 'medium-health', 'low-health');
+                if (healthModalDisplay) {
+                    healthModalDisplay.classList.remove('high-health', 'medium-health', 'low-health');
+                }
+
+                // Добавляем соответствующий класс
+                if (healthPercentage >= 70) {
+                    healthDisplay.classList.add('high-health');
+                    if (healthModalDisplay) healthModalDisplay.classList.add('high-health');
+                } else if (healthPercentage >= 40) {
+                    healthDisplay.classList.add('medium-health');
+                    if (healthModalDisplay) healthModalDisplay.classList.add('medium-health');
+                } else {
+                    healthDisplay.classList.add('low-health');
+                    if (healthModalDisplay) healthModalDisplay.classList.add('low-health');
+                }
+            }
+
+            // Вызываем функцию при загрузке и при каждом изменении здоровья
+            document.addEventListener("DOMContentLoaded", updateHealthColor);
 
             // Функция для сохранения максимального здоровья
             function saveMaxHealth() {
@@ -2640,6 +2672,7 @@
 
                 // Скрываем настройки
                 document.getElementById('max-health-settings').style.display = 'none';
+                updateHealthColor();
             }
 
             // Обновите функцию loadHealth для загрузки максимального здоровья

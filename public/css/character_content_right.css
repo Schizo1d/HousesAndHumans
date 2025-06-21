@@ -385,15 +385,49 @@
 .digital_box_button a{
     text-decoration: none;
 }
-.digital-health{
+.digital-health {
     align-items: center;
-    border: 2px solid var(--c-health);
     border-radius: 5px;
     display: flex;
     font-size: 16px;
     font-weight: 400;
     line-height: 19px;
     padding: 8px 7px 7px;
-    transition: cubic-bezier(.215,.61,.355,1);
+    transition: all 0.3s ease;
+}
+.digital-health svg {
+    margin-right: 5px;
+    transition: fill 0.3s ease;
+}
+/* Здоровье выше 70% - зеленый */
+.digital-health.high-health {
+    border: 2px solid #4CAF50;
+}
+.digital-health.high-health svg path {
+    fill: #4CAF50;
+}
+.digital-health.high-health #health-display {
+    color: #4CAF50;
 }
 
+/* Здоровье от 40% до 70% - желтый */
+.digital-health.medium-health {
+    border: 2px solid #FFC107;
+}
+.digital-health.medium-health svg path {
+    fill: #FFC107;
+}
+.digital-health.medium-health #health-display {
+    color: #FFC107;
+}
+
+/* Здоровье ниже 40% - красный */
+.digital-health.low-health {
+    border: 2px solid #FF5252;
+}
+.digital-health.low-health svg path {
+    fill: #FF5252;
+}
+.digital-health.low-health #health-display {
+    color: #FF5252;
+}
