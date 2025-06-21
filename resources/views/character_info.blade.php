@@ -906,7 +906,482 @@
             </div>
         </div>
 
-        <script>
+        <div class="sidebar-modal" id="conditions-modal">
+            <div class="sidebar-content">
+                <button class="close-sidebar" id="close-conditions-sidebar">&times;</button>
+                <h2 class="settings-title">Состояния персонажа</h2>
+
+                <div class="conditions-list">
+                    <!-- Пример состояния с описанием -->
+                    <div class="condition-item">
+                        <div class="condition-header">
+                            <label class="condition-checkbox">
+                                <input type="checkbox" id="condition-unconscious" name="conditions[]" value="Бессознательный" class="hidden-checkbox">
+                                <span class="checkbox-custom"></span>
+                            </label>
+                            <span class="condition-name">Бессознательный</span>
+                            <button class="toggle-description-btn">▼</button>
+                        </div>
+                        <ul class="condition-description" id="unconscious-description" style="display: none;">
+                            <li>Персонаж без сознания и не может совершать действия</li>
+                            <li>Не может двигаться или говорить</li>
+                            <li>Не осознает происходящее вокруг</li>
+                            <li>Автоматически проваливает проверки Силы и Ловкости</li>
+                            <li>Атаки против него совершаются с преимуществом</li>
+                            <li>Любая атака в ближнем радиусе - критическое попадание</li>
+                        </ul>
+                    </div>
+
+                    <div class="condition-item">
+                        <div class="condition-header">
+                            <label class="condition-checkbox">
+                                <input type="checkbox" id="condition-frightened" name="conditions[]" value="Испуганный" class="hidden-checkbox">
+                                <span class="checkbox-custom"></span>
+                            </label>
+                            <span class="condition-name">Испуганный</span>
+                            <button class="toggle-description-btn">▼</button>
+                        </div>
+                        <ul class="condition-description" id="frightened-description" style="display: none;">
+                            <li>Персонаж испытывает страх перед источником страха</li>
+                            <li>Не может добровольно приближаться к источнику страха</li>
+                            <li>Получает помеху к броскам атак и проверкам характеристик</li>
+                            <li>Пока источник страха в поле зрения, персонаж дезориентирован</li>
+                            <li>Действует, пока находится в пределах видимости источника</li>
+                        </ul>
+                    </div>
+
+                    <div class="condition-item">
+                        <div class="condition-header">
+                            <label class="condition-checkbox">
+                                <input type="checkbox" id="condition-invisible" name="conditions[]" value="Невидимый" class="hidden-checkbox">
+                                <span class="checkbox-custom"></span>
+                            </label>
+                            <span class="condition-name">Невидимый</span>
+                            <button class="toggle-description-btn">▼</button>
+                        </div>
+                        <ul class="condition-description" id="invisible-description" style="display: none;">
+                            <li>Персонаж невидим для окружающих</li>
+                            <li>Атаки против него совершаются с помехой</li>
+                            <li>Его атаки совершаются с преимуществом</li>
+                        </ul>
+                    </div>
+
+                    <div class="condition-item">
+                        <div class="condition-header">
+                            <label class="condition-checkbox">
+                                <input type="checkbox" id="condition-incapacitated" name="conditions[]" value="Недееспособный" class="hidden-checkbox">
+                                <span class="checkbox-custom"></span>
+                            </label>
+                            <span class="condition-name">Недееспособный</span>
+                            <button class="toggle-description-btn">▼</button>
+                        </div>
+                        <ul class="condition-description" id="incapacitated-description" style="display: none;">
+                            <li>Персонаж не может совершать действия</li>
+                            <li>Не может совершать реакции</li>
+                            <li>Сохраняет сознание</li>
+                        </ul>
+                    </div>
+
+                    <div class="condition-item">
+                        <div class="condition-header">
+                            <label class="condition-checkbox">
+                                <input type="checkbox" id="condition-deafened" name="conditions[]" value="Оглохший" class="hidden-checkbox">
+                                <span class="checkbox-custom"></span>
+                            </label>
+                            <span class="condition-name">Оглохший</span>
+                            <button class="toggle-description-btn">▼</button>
+                        </div>
+                        <ul class="condition-description" id="deafened-description" style="display: none;">
+                            <li>Персонаж ничего не слышит</li>
+                            <li>Автоматически проваливает проверки, требующие слуха</li>
+                            <li>Не может быть оглушен звуковыми эффектами</li>
+                        </ul>
+                    </div>
+
+                    <div class="condition-item">
+                        <div class="condition-header">
+                            <label class="condition-checkbox">
+                                <input type="checkbox" id="condition-petrified" name="conditions[]" value="Окаменевший" class="hidden-checkbox">
+                                <span class="checkbox-custom"></span>
+                            </label>
+                            <span class="condition-name">Окаменевший</span>
+                            <button class="toggle-description-btn">▼</button>
+                        </div>
+                        <ul class="condition-description" id="petrified-description" style="display: none;">
+                            <li>Персонаж превращен в камень</li>
+                            <li>Имеет сопротивление всем видам урона</li>
+                            <li>Не может двигаться или говорить</li>
+                            <li>Не осознает происходящее вокруг</li>
+                        </ul>
+                    </div>
+
+                    <div class="condition-item">
+                        <div class="condition-header">
+                            <label class="condition-checkbox">
+                                <input type="checkbox" id="condition-restrained" name="conditions[]" value="Опутанный" class="hidden-checkbox">
+                                <span class="checkbox-custom"></span>
+                            </label>
+                            <span class="condition-name">Опутанный</span>
+                            <button class="toggle-description-btn">▼</button>
+                        </div>
+                        <ul class="condition-description" id="restrained-description" style="display: none;">
+                            <li>Персонаж ограничен в движениях</li>
+                            <li>Скорость становится 0</li>
+                            <li>Атаки против него совершаются с преимуществом</li>
+                            <li>Его атаки совершаются с помехой</li>
+                        </ul>
+                    </div>
+
+                    <div class="condition-item">
+                        <div class="condition-header">
+                            <label class="condition-checkbox">
+                                <input type="checkbox" id="condition-blinded" name="conditions[]" value="Ослеплённый" class="hidden-checkbox">
+                                <span class="checkbox-custom"></span>
+                            </label>
+                            <span class="condition-name">Ослеплённый</span>
+                            <button class="toggle-description-btn">▼</button>
+                        </div>
+                        <ul class="condition-description" id="blinded-description" style="display: none;">
+                            <li>Персонаж ничего не видит</li>
+                            <li>Автоматически проваливает проверки, требующие зрения</li>
+                            <li>Атаки против него совершаются с преимуществом</li>
+                            <li>Его атаки совершаются с помехой</li>
+                        </ul>
+                    </div>
+
+                    <div class="condition-item">
+                        <div class="condition-header">
+                            <label class="condition-checkbox">
+                                <input type="checkbox" id="condition-poisoned" name="conditions[]" value="Отравленный" class="hidden-checkbox">
+                                <span class="checkbox-custom"></span>
+                            </label>
+                            <span class="condition-name">Отравленный</span>
+                            <button class="toggle-description-btn">▼</button>
+                        </div>
+                        <ul class="condition-description" id="poisoned-description" style="display: none;">
+                            <li>Персонаж отравлен</li>
+                            <li>Получает помеху к броскам атак и проверкам характеристик</li>
+                            <li>Действует до окончания действия яда</li>
+                        </ul>
+                    </div>
+
+                    <div class="condition-item">
+                        <div class="condition-header">
+                            <label class="condition-checkbox">
+                                <input type="checkbox" id="condition-charmed" name="conditions[]" value="Очарованный" class="hidden-checkbox">
+                                <span class="checkbox-custom"></span>
+                            </label>
+                            <span class="condition-name">Очарованный</span>
+                            <button class="toggle-description-btn">▼</button>
+                        </div>
+                        <ul class="condition-description" id="charmed-description" style="display: none;">
+                            <li>Персонаж находится под чарами</li>
+                            <li>Не может атаковать источника чар</li>
+                            <li>Источник чар имеет преимущество на социальные проверки против персонажа</li>
+                        </ul>
+                    </div>
+
+                    <div class="condition-item">
+                        <div class="condition-header">
+                            <label class="condition-checkbox">
+                                <input type="checkbox" id="condition-stunned" name="conditions[]" value="Ошеломлённый" class="hidden-checkbox">
+                                <span class="checkbox-custom"></span>
+                            </label>
+                            <span class="condition-name">Ошеломлённый</span>
+                            <button class="toggle-description-btn">▼</button>
+                        </div>
+                        <ul class="condition-description" id="stunned-description" style="display: none;">
+                            <li>Персонаж ошеломлен</li>
+                            <li>Не может совершать действия</li>
+                            <li>Не может совершать реакции</li>
+                            <li>Атаки против него совершаются с преимуществом</li>
+                            <li>Автоматически проваливает проверки Силы и Ловкости</li>
+                        </ul>
+                    </div>
+
+                    <div class="condition-item">
+                        <div class="condition-header">
+                            <label class="condition-checkbox">
+                                <input type="checkbox" id="condition-paralyzed" name="conditions[]" value="Парализованный" class="hidden-checkbox">
+                                <span class="checkbox-custom"></span>
+                            </label>
+                            <span class="condition-name">Парализованный</span>
+                            <button class="toggle-description-btn">▼</button>
+                        </div>
+                        <ul class="condition-description" id="paralyzed-description" style="display: none;">
+                            <li>Персонаж парализован</li>
+                            <li>Не может двигаться или говорить</li>
+                            <li>Атаки в ближнем радиусе против него совершаются с преимуществом</li>
+                            <li>Критические попадания при атаке в ближнем радиусе</li>
+                            <li>Автоматически проваливает проверки Силы и Ловкости</li>
+                        </ul>
+                    </div>
+
+                    <div class="condition-item">
+                        <div class="condition-header">
+                            <label class="condition-checkbox">
+                                <input type="checkbox" id="condition-prone" name="conditions[]" value="Сбитый с ног" class="hidden-checkbox">
+                                <span class="checkbox-custom"></span>
+                            </label>
+                            <span class="condition-name">Сбитый с ног</span>
+                            <button class="toggle-description-btn">▼</button>
+                        </div>
+                        <ul class="condition-description" id="prone-description" style="display: none;">
+                            <li>Персонаж лежит на земле</li>
+                            <li>Единственное возможное перемещение - ползком</li>
+                            <li>Атаки в ближнем радиусе против него совершаются с преимуществом</li>
+                            <li>Атаки в дальнем радиусе совершаются с помехой</li>
+                            <li>Вставание требует половины скорости перемещения</li>
+                        </ul>
+                    </div>
+
+                    <div class="condition-item">
+                        <div class="condition-header">
+                            <label class="condition-checkbox">
+                                <input type="checkbox" id="condition-grappled" name="conditions[]" value="Схваченный" class="hidden-checkbox">
+                                <span class="checkbox-custom"></span>
+                            </label>
+                            <span class="condition-name">Схваченный</span>
+                            <button class="toggle-description-btn">▼</button>
+                        </div>
+                        <ul class="condition-description" id="grappled-description" style="display: none;">
+                            <li>Персонаж не может двигаться</li>
+                            <li>Скорость становится 0</li>
+                            <li>Получает штраф к ловкости</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <button id="save-conditions">Сохранить состояния</button>
+            </div>
+        </div>
+        <div class="sidebar-modal" id="settings-modal">
+            <div class="sidebar-content">
+                <button class="close-sidebar" id="close-sidebar">&times;</button>
+                <h2 class="settings-title">Настройки</h2>
+
+                <div class="modal-row">
+                    <div class="modal-col">
+                        <div class="modal-wrapper">
+                            <input class="modal-input" type="text" id="character-name-input"
+                                   value="{{ $character->name }}">
+                            <label for="character-name-input">имя</label>
+                        </div>
+                    </div>
+                    <div class="modal-col">
+                        <div class="modal-wrapper">
+                            <input class="modal-input" type="text" id="character-race-input"
+                                   value="{{ $character->race ?? '' }}">
+                            <label for="character-race-input">раса</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-row">
+                    <div class="modal-col">
+                        <div class="modal-wrapper">
+                            <input class="modal-input" type="text" id="character-class-input"
+                                   value="{{ $character->class ?? '' }}">
+                            <label for="character-class-input">класс</label>
+                        </div>
+                    </div>
+
+                    <div class="modal-col">
+                        <div class="modal-wrapper">
+                            <input class="modal-input" type="text" id="character-subclass-input"
+                                   value="{{ $character->subclass ?? '' }}">
+                            <label for="character-subclass-input">подкласс</label>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="save-character-settings">Сохранить</button>
+                <p id="save-message" style="display: none; color: #28a745;">Настройки сохранены!</p>
+            </div>
+        </div>
+        <div class="notifications-wrapper">
+            <div class="notifications-container" id="notificationsContainer"></div>
+            <button class="close-all-btn" onclick="hideCloseButtonInstantly(); clearAllNotifications()">×</button>
+        </div>
+        <!-- Модальное окно повышения уровня -->
+        <div id="level-up-modal" class="level-modal">
+            <div class="level-up-content">
+                <button class="modal-close-btn" onclick="closeLevelUpModal()">✖</button>
+                <h3>Прогресс уровня</h3>
+
+                <!-- Блок с уровнем и прогресс-баром -->
+                <div class="level-progress-container">
+                    <div class="level-marker current-level">
+                        <span class="level-number" id="current-level-value">1</span>
+                        <span class="level-xp" id="current-level-xp">0 XP</span>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-track">
+                            <div class="progress-bar" id="xp-progress-bar">
+                                <div class="progress-indicator">
+                                    <span class="current-xp-value" id="current-xp-display">0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="level-marker next-level">
+                        <span class="level-number" id="next-level-value">2</span>
+                        <span class="level-xp" id="next-level-xp">300 XP</span>
+                    </div>
+                </div>
+
+                <!-- Калькулятор опыта -->
+                <div class="xp-calculator">
+                    <div class="calc-input-container">
+                        <input type="text" class="calc-input" id="xp-input" value="0" placeholder="Введите XP">
+                        <button type="button" class="calc-button delete-btn" onclick="deleteLastChar()">⌫</button>
+                    </div>
+
+                    <div class="calc-buttons-row">
+                        <button type="button" class="calc-button num-btn" onclick="appendNumber(7)">7</button>
+                        <button type="button" class="calc-button num-btn" onclick="appendNumber(8)">8</button>
+                        <button type="button" class="calc-button num-btn" onclick="appendNumber(9)">9</button>
+                        <div class="calc-empty"></div>
+                    </div>
+
+                    <div class="calc-buttons-row">
+                        <button type="button" class="calc-button num-btn" onclick="appendNumber(4)">4</button>
+                        <button type="button" class="calc-button num-btn" onclick="appendNumber(5)">5</button>
+                        <button type="button" class="calc-button num-btn" onclick="appendNumber(6)">6</button>
+                        <div class="calc-empty"></div>
+                    </div>
+
+                    <div class="calc-buttons-row">
+                        <button type="button" class="calc-button num-btn" onclick="appendNumber(1)">1</button>
+                        <button type="button" class="calc-button num-btn" onclick="appendNumber(2)">2</button>
+                        <button type="button" class="calc-button num-btn" onclick="appendNumber(3)">3</button>
+                        <div class="calc-empty"></div>
+                    </div>
+
+                    <div class="calc-buttons-row">
+                        <button type="button" class="calc-button num-btn" onclick="appendNumber(0)">0</button>
+                        <button type="button" class="calc-button plus-btn" onclick="appendOperator('+')">+</button>
+                        <button type="button" class="calc-button minus-btn" onclick="appendOperator('-')">-</button>
+                        <div class="calc-empty"></div>
+                    </div>
+
+                    <div class="calc-action-buttons">
+                        <button type="button" class="calc-button action-btn add-btn" onclick="calculateAndAdd()">ПРИБАВИТЬ</button>
+                        <button type="button" class="calc-button action-btn subtract-btn" onclick="calculateAndSubtract()">ОТНЯТЬ</button>
+                        <button type="button" class="calc-button action-btn level-up-btn" id="level-up-btn" onclick="levelUpCharacter()">ПОВЫСИТЬ</button>
+                        <button type="button" class="calc-button action-btn level-down-btn" id="level-down-btn" onclick="levelDownCharacter()">ПОНИЗИТЬ</button>
+                        <div class="calc-empty"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Модальное окно здоровья -->
+        <div id="health-modal" class="level-modal">
+            <div class="level-up-content">
+                <button class="modal-close-btn" onclick="closeHealthModal()">✖</button>
+                <h3>Управление здоровьем</h3>
+
+                <div class="health-display-container" id="health-display-container">
+                    <!-- Стандартное отображение (показывается когда здоровье > 0) -->
+                    <div class="standard-health-display" id="standard-health-display">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 21.35L10.55 20.03C5.4 15.36 2 12.28 2 8.5C2 5.42 4.42 3 7.5 3C9.24 3 10.91 3.81 12 5.09C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.42 22 8.5C22 12.28 18.6 15.36 13.45 20.03L12 21.35Z" fill="#FF5252"/>
+                        </svg>
+                        <span id="current-health-value">0</span>
+                        <span>/</span>
+                        <span id="max-health-value">0</span>
+                    </div>
+
+                    <!-- Отображение при смерти (показывается когда здоровье = 0) -->
+                    <div class="death-saves-display" id="death-saves-display" style="display: none;">
+                        <div class="death-saves-title">Спасброски от смерти</div>
+                        <div class="death-saves-checkboxes">
+                            <!-- 3 красных чекбокса для неудачных попыток -->
+                            <div class="death-save-checkbox fail" data-index="0"></div>
+                            <div class="death-save-checkbox fail" data-index="1"></div>
+                            <div class="death-save-checkbox fail" data-index="2"></div>
+
+                            <!-- Кнопка для броска кубика -->
+                            <button class="death-save-roll-btn" id="death-save-roll-btn">
+                                <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M16.4997 1.99976L28.4997 9.95628M16.4997 1.99976L4.49969 9.95628M16.4997 1.99976V9.69541M28.4997 9.95628L16.4997 9.69541M28.4997 9.95628L23.9345 21.1737M28.4997 9.95628V22.3476M28.4997 22.3476L16.4997 30.4345M28.4997 22.3476L23.9345 21.1737M16.4997 30.4345L4.49969 22.3476M16.4997 30.4345L9.06491 21.1737M16.4997 30.4345L23.9345 21.1737M4.49969 22.3476V9.95628M4.49969 22.3476L9.06491 21.1737M4.49969 9.95628L16.4997 9.69541M4.49969 9.95628L9.06491 21.1737M16.4997 9.69541L9.06491 21.1737M16.4997 9.69541L23.9345 21.1737M9.06491 21.1737H23.9345" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </button>
+
+                            <!-- 3 зеленых чекбокса для успешных попыток -->
+                            <div class="death-save-checkbox success" data-index="0"></div>
+                            <div class="death-save-checkbox success" data-index="1"></div>
+                            <div class="death-save-checkbox success" data-index="2"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Калькулятор здоровья -->
+                <div class="health-calculator">
+                    <div class="calc-input-container">
+                        <input type="text" class="calc-input" id="health-input" value="0" placeholder="Введите значение">
+                        <button type="button" class="calc-button delete-btn" onclick="deleteHealthLastChar()">⌫</button>
+                    </div>
+
+                    <div class="calc-buttons-row">
+                        <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(7)">7</button>
+                        <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(8)">8</button>
+                        <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(9)">9</button>
+                        <div class="calc-empty"></div>
+                    </div>
+
+                    <div class="calc-buttons-row">
+                        <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(4)">4</button>
+                        <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(5)">5</button>
+                        <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(6)">6</button>
+                        <div class="calc-empty"></div>
+                    </div>
+
+                    <div class="calc-buttons-row">
+                        <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(1)">1</button>
+                        <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(2)">2</button>
+                        <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(3)">3</button>
+                        <div class="calc-empty"></div>
+                    </div>
+
+                    <div class="calc-buttons-row">
+                        <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(0)">0</button>
+                        <button type="button" class="calc-button plus-btn" onclick="appendHealthOperator('+')">+</button>
+                        <button type="button" class="calc-button minus-btn" onclick="appendHealthOperator('-')">-</button>
+                        <div class="calc-empty"></div>
+                    </div>
+
+                    <div class="calc-action-buttons">
+                        <button type="button" class="calc-button action-btn add-btn" onclick="addHealth()">ЛЕЧЕНИЕ</button>
+                        <button type="button" class="calc-button action-btn subtract-btn" onclick="subtractHealth()">УРОН</button>
+                        <button type="button" class="calc-button action-btn level-up-btn" onclick="setMaxHealth()">ВРЕМЕННЫЕ</button>
+                        <div class="calc-empty">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" onclick="toggleMaxHealthSettings()">
+                                <path d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z" stroke="currentColor" stroke-width="1.5"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div id="max-health-settings" style="display: none; margin-top: 15px;">
+                    <div class="modal-row">
+                        <div class="modal-col">
+                            <div class="modal-wrapper">
+                                <input class="modal-input" type="number" id="max-health-input" value="0" min="0">
+                                <label for="max-health-input">Максимум хитов</label>
+                            </div>
+                        </div>
+                        <div class="modal-col">
+                            <button class="calc-button action-btn" onclick="saveMaxHealth()" style="margin-top: 20px;">Сохранить</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="modal-backdrop" class="modal-backdrop"></div>
+        <div id="settings-backdrop" class="modal-backdrop"></div>
+
+    </div>
+    <script>
 
             // Глобальные переменные
             const levelUpModal = document.getElementById('level-up-modal');
@@ -3000,479 +3475,7 @@
 
             // Вызывайте эту функцию при изменении уровня
             updateProficiencyBonus();
-        </script>
-        <div class="sidebar-modal" id="conditions-modal">
-            <div class="sidebar-content">
-                <button class="close-sidebar" id="close-conditions-sidebar">&times;</button>
-                <h2 class="settings-title">Состояния персонажа</h2>
-
-                <div class="conditions-list">
-                    <!-- Пример состояния с описанием -->
-                    <div class="condition-item">
-                        <div class="condition-header">
-                            <label class="condition-checkbox">
-                                <input type="checkbox" id="condition-unconscious" name="conditions[]" value="Бессознательный" class="hidden-checkbox">
-                                <span class="checkbox-custom"></span>
-                            </label>
-                            <span class="condition-name">Бессознательный</span>
-                            <button class="toggle-description-btn">▼</button>
-                        </div>
-                        <ul class="condition-description" id="unconscious-description" style="display: none;">
-                            <li>Персонаж без сознания и не может совершать действия</li>
-                            <li>Не может двигаться или говорить</li>
-                            <li>Не осознает происходящее вокруг</li>
-                            <li>Автоматически проваливает проверки Силы и Ловкости</li>
-                            <li>Атаки против него совершаются с преимуществом</li>
-                            <li>Любая атака в ближнем радиусе - критическое попадание</li>
-                        </ul>
-                    </div>
-
-                    <div class="condition-item">
-                        <div class="condition-header">
-                            <label class="condition-checkbox">
-                                <input type="checkbox" id="condition-frightened" name="conditions[]" value="Испуганный" class="hidden-checkbox">
-                                <span class="checkbox-custom"></span>
-                            </label>
-                            <span class="condition-name">Испуганный</span>
-                            <button class="toggle-description-btn">▼</button>
-                        </div>
-                        <ul class="condition-description" id="frightened-description" style="display: none;">
-                            <li>Персонаж испытывает страх перед источником страха</li>
-                            <li>Не может добровольно приближаться к источнику страха</li>
-                            <li>Получает помеху к броскам атак и проверкам характеристик</li>
-                            <li>Пока источник страха в поле зрения, персонаж дезориентирован</li>
-                            <li>Действует, пока находится в пределах видимости источника</li>
-                        </ul>
-                    </div>
-
-                    <div class="condition-item">
-                        <div class="condition-header">
-                            <label class="condition-checkbox">
-                                <input type="checkbox" id="condition-invisible" name="conditions[]" value="Невидимый" class="hidden-checkbox">
-                                <span class="checkbox-custom"></span>
-                            </label>
-                            <span class="condition-name">Невидимый</span>
-                            <button class="toggle-description-btn">▼</button>
-                        </div>
-                        <ul class="condition-description" id="invisible-description" style="display: none;">
-                            <li>Персонаж невидим для окружающих</li>
-                            <li>Атаки против него совершаются с помехой</li>
-                            <li>Его атаки совершаются с преимуществом</li>
-                        </ul>
-                    </div>
-
-                    <div class="condition-item">
-                        <div class="condition-header">
-                            <label class="condition-checkbox">
-                                <input type="checkbox" id="condition-incapacitated" name="conditions[]" value="Недееспособный" class="hidden-checkbox">
-                                <span class="checkbox-custom"></span>
-                            </label>
-                            <span class="condition-name">Недееспособный</span>
-                            <button class="toggle-description-btn">▼</button>
-                        </div>
-                        <ul class="condition-description" id="incapacitated-description" style="display: none;">
-                            <li>Персонаж не может совершать действия</li>
-                            <li>Не может совершать реакции</li>
-                            <li>Сохраняет сознание</li>
-                        </ul>
-                    </div>
-
-                    <div class="condition-item">
-                        <div class="condition-header">
-                            <label class="condition-checkbox">
-                                <input type="checkbox" id="condition-deafened" name="conditions[]" value="Оглохший" class="hidden-checkbox">
-                                <span class="checkbox-custom"></span>
-                            </label>
-                            <span class="condition-name">Оглохший</span>
-                            <button class="toggle-description-btn">▼</button>
-                        </div>
-                        <ul class="condition-description" id="deafened-description" style="display: none;">
-                            <li>Персонаж ничего не слышит</li>
-                            <li>Автоматически проваливает проверки, требующие слуха</li>
-                            <li>Не может быть оглушен звуковыми эффектами</li>
-                        </ul>
-                    </div>
-
-                    <div class="condition-item">
-                        <div class="condition-header">
-                            <label class="condition-checkbox">
-                                <input type="checkbox" id="condition-petrified" name="conditions[]" value="Окаменевший" class="hidden-checkbox">
-                                <span class="checkbox-custom"></span>
-                            </label>
-                            <span class="condition-name">Окаменевший</span>
-                            <button class="toggle-description-btn">▼</button>
-                        </div>
-                        <ul class="condition-description" id="petrified-description" style="display: none;">
-                            <li>Персонаж превращен в камень</li>
-                            <li>Имеет сопротивление всем видам урона</li>
-                            <li>Не может двигаться или говорить</li>
-                            <li>Не осознает происходящее вокруг</li>
-                        </ul>
-                    </div>
-
-                    <div class="condition-item">
-                        <div class="condition-header">
-                            <label class="condition-checkbox">
-                                <input type="checkbox" id="condition-restrained" name="conditions[]" value="Опутанный" class="hidden-checkbox">
-                                <span class="checkbox-custom"></span>
-                            </label>
-                            <span class="condition-name">Опутанный</span>
-                            <button class="toggle-description-btn">▼</button>
-                        </div>
-                        <ul class="condition-description" id="restrained-description" style="display: none;">
-                            <li>Персонаж ограничен в движениях</li>
-                            <li>Скорость становится 0</li>
-                            <li>Атаки против него совершаются с преимуществом</li>
-                            <li>Его атаки совершаются с помехой</li>
-                        </ul>
-                    </div>
-
-                    <div class="condition-item">
-                        <div class="condition-header">
-                            <label class="condition-checkbox">
-                                <input type="checkbox" id="condition-blinded" name="conditions[]" value="Ослеплённый" class="hidden-checkbox">
-                                <span class="checkbox-custom"></span>
-                            </label>
-                            <span class="condition-name">Ослеплённый</span>
-                            <button class="toggle-description-btn">▼</button>
-                        </div>
-                        <ul class="condition-description" id="blinded-description" style="display: none;">
-                            <li>Персонаж ничего не видит</li>
-                            <li>Автоматически проваливает проверки, требующие зрения</li>
-                            <li>Атаки против него совершаются с преимуществом</li>
-                            <li>Его атаки совершаются с помехой</li>
-                        </ul>
-                    </div>
-
-                    <div class="condition-item">
-                        <div class="condition-header">
-                            <label class="condition-checkbox">
-                                <input type="checkbox" id="condition-poisoned" name="conditions[]" value="Отравленный" class="hidden-checkbox">
-                                <span class="checkbox-custom"></span>
-                            </label>
-                            <span class="condition-name">Отравленный</span>
-                            <button class="toggle-description-btn">▼</button>
-                        </div>
-                        <ul class="condition-description" id="poisoned-description" style="display: none;">
-                            <li>Персонаж отравлен</li>
-                            <li>Получает помеху к броскам атак и проверкам характеристик</li>
-                            <li>Действует до окончания действия яда</li>
-                        </ul>
-                    </div>
-
-                    <div class="condition-item">
-                        <div class="condition-header">
-                            <label class="condition-checkbox">
-                                <input type="checkbox" id="condition-charmed" name="conditions[]" value="Очарованный" class="hidden-checkbox">
-                                <span class="checkbox-custom"></span>
-                            </label>
-                            <span class="condition-name">Очарованный</span>
-                            <button class="toggle-description-btn">▼</button>
-                        </div>
-                        <ul class="condition-description" id="charmed-description" style="display: none;">
-                            <li>Персонаж находится под чарами</li>
-                            <li>Не может атаковать источника чар</li>
-                            <li>Источник чар имеет преимущество на социальные проверки против персонажа</li>
-                        </ul>
-                    </div>
-
-                    <div class="condition-item">
-                        <div class="condition-header">
-                            <label class="condition-checkbox">
-                                <input type="checkbox" id="condition-stunned" name="conditions[]" value="Ошеломлённый" class="hidden-checkbox">
-                                <span class="checkbox-custom"></span>
-                            </label>
-                            <span class="condition-name">Ошеломлённый</span>
-                            <button class="toggle-description-btn">▼</button>
-                        </div>
-                        <ul class="condition-description" id="stunned-description" style="display: none;">
-                            <li>Персонаж ошеломлен</li>
-                            <li>Не может совершать действия</li>
-                            <li>Не может совершать реакции</li>
-                            <li>Атаки против него совершаются с преимуществом</li>
-                            <li>Автоматически проваливает проверки Силы и Ловкости</li>
-                        </ul>
-                    </div>
-
-                    <div class="condition-item">
-                        <div class="condition-header">
-                            <label class="condition-checkbox">
-                                <input type="checkbox" id="condition-paralyzed" name="conditions[]" value="Парализованный" class="hidden-checkbox">
-                                <span class="checkbox-custom"></span>
-                            </label>
-                            <span class="condition-name">Парализованный</span>
-                            <button class="toggle-description-btn">▼</button>
-                        </div>
-                        <ul class="condition-description" id="paralyzed-description" style="display: none;">
-                            <li>Персонаж парализован</li>
-                            <li>Не может двигаться или говорить</li>
-                            <li>Атаки в ближнем радиусе против него совершаются с преимуществом</li>
-                            <li>Критические попадания при атаке в ближнем радиусе</li>
-                            <li>Автоматически проваливает проверки Силы и Ловкости</li>
-                        </ul>
-                    </div>
-
-                    <div class="condition-item">
-                        <div class="condition-header">
-                            <label class="condition-checkbox">
-                                <input type="checkbox" id="condition-prone" name="conditions[]" value="Сбитый с ног" class="hidden-checkbox">
-                                <span class="checkbox-custom"></span>
-                            </label>
-                            <span class="condition-name">Сбитый с ног</span>
-                            <button class="toggle-description-btn">▼</button>
-                        </div>
-                        <ul class="condition-description" id="prone-description" style="display: none;">
-                            <li>Персонаж лежит на земле</li>
-                            <li>Единственное возможное перемещение - ползком</li>
-                            <li>Атаки в ближнем радиусе против него совершаются с преимуществом</li>
-                            <li>Атаки в дальнем радиусе совершаются с помехой</li>
-                            <li>Вставание требует половины скорости перемещения</li>
-                        </ul>
-                    </div>
-
-                    <div class="condition-item">
-                        <div class="condition-header">
-                            <label class="condition-checkbox">
-                                <input type="checkbox" id="condition-grappled" name="conditions[]" value="Схваченный" class="hidden-checkbox">
-                                <span class="checkbox-custom"></span>
-                            </label>
-                            <span class="condition-name">Схваченный</span>
-                            <button class="toggle-description-btn">▼</button>
-                        </div>
-                        <ul class="condition-description" id="grappled-description" style="display: none;">
-                            <li>Персонаж не может двигаться</li>
-                            <li>Скорость становится 0</li>
-                            <li>Получает штраф к ловкости</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <button id="save-conditions">Сохранить состояния</button>
-            </div>
-        </div>
-        <div class="sidebar-modal" id="settings-modal">
-            <div class="sidebar-content">
-                <button class="close-sidebar" id="close-sidebar">&times;</button>
-                <h2 class="settings-title">Настройки</h2>
-
-                <div class="modal-row">
-                    <div class="modal-col">
-                        <div class="modal-wrapper">
-                            <input class="modal-input" type="text" id="character-name-input"
-                                   value="{{ $character->name }}">
-                            <label for="character-name-input">имя</label>
-                        </div>
-                    </div>
-                    <div class="modal-col">
-                        <div class="modal-wrapper">
-                            <input class="modal-input" type="text" id="character-race-input"
-                                   value="{{ $character->race ?? '' }}">
-                            <label for="character-race-input">раса</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="modal-row">
-                    <div class="modal-col">
-                        <div class="modal-wrapper">
-                            <input class="modal-input" type="text" id="character-class-input"
-                                   value="{{ $character->class ?? '' }}">
-                            <label for="character-class-input">класс</label>
-                        </div>
-                    </div>
-
-                    <div class="modal-col">
-                        <div class="modal-wrapper">
-                            <input class="modal-input" type="text" id="character-subclass-input"
-                                   value="{{ $character->subclass ?? '' }}">
-                            <label for="character-subclass-input">подкласс</label>
-                        </div>
-                    </div>
-                </div>
-
-                <button id="save-character-settings">Сохранить</button>
-                <p id="save-message" style="display: none; color: #28a745;">Настройки сохранены!</p>
-            </div>
-        </div>
-        <div class="notifications-wrapper">
-            <div class="notifications-container" id="notificationsContainer"></div>
-            <button class="close-all-btn" onclick="hideCloseButtonInstantly(); clearAllNotifications()">×</button>
-        </div>
-        <!-- Модальное окно повышения уровня -->
-        <div id="level-up-modal" class="level-modal">
-            <div class="level-up-content">
-                <button class="modal-close-btn" onclick="closeLevelUpModal()">✖</button>
-                <h3>Прогресс уровня</h3>
-
-                <!-- Блок с уровнем и прогресс-баром -->
-                <div class="level-progress-container">
-                    <div class="level-marker current-level">
-                        <span class="level-number" id="current-level-value">1</span>
-                        <span class="level-xp" id="current-level-xp">0 XP</span>
-                    </div>
-                    <div class="progress-container">
-                        <div class="progress-track">
-                            <div class="progress-bar" id="xp-progress-bar">
-                                <div class="progress-indicator">
-                                    <span class="current-xp-value" id="current-xp-display">0</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="level-marker next-level">
-                        <span class="level-number" id="next-level-value">2</span>
-                        <span class="level-xp" id="next-level-xp">300 XP</span>
-                    </div>
-                </div>
-
-                <!-- Калькулятор опыта -->
-                <div class="xp-calculator">
-                    <div class="calc-input-container">
-                        <input type="text" class="calc-input" id="xp-input" value="0" placeholder="Введите XP">
-                        <button type="button" class="calc-button delete-btn" onclick="deleteLastChar()">⌫</button>
-                    </div>
-
-                    <div class="calc-buttons-row">
-                        <button type="button" class="calc-button num-btn" onclick="appendNumber(7)">7</button>
-                        <button type="button" class="calc-button num-btn" onclick="appendNumber(8)">8</button>
-                        <button type="button" class="calc-button num-btn" onclick="appendNumber(9)">9</button>
-                        <div class="calc-empty"></div>
-                    </div>
-
-                    <div class="calc-buttons-row">
-                        <button type="button" class="calc-button num-btn" onclick="appendNumber(4)">4</button>
-                        <button type="button" class="calc-button num-btn" onclick="appendNumber(5)">5</button>
-                        <button type="button" class="calc-button num-btn" onclick="appendNumber(6)">6</button>
-                        <div class="calc-empty"></div>
-                    </div>
-
-                    <div class="calc-buttons-row">
-                        <button type="button" class="calc-button num-btn" onclick="appendNumber(1)">1</button>
-                        <button type="button" class="calc-button num-btn" onclick="appendNumber(2)">2</button>
-                        <button type="button" class="calc-button num-btn" onclick="appendNumber(3)">3</button>
-                        <div class="calc-empty"></div>
-                    </div>
-
-                    <div class="calc-buttons-row">
-                        <button type="button" class="calc-button num-btn" onclick="appendNumber(0)">0</button>
-                        <button type="button" class="calc-button plus-btn" onclick="appendOperator('+')">+</button>
-                        <button type="button" class="calc-button minus-btn" onclick="appendOperator('-')">-</button>
-                        <div class="calc-empty"></div>
-                    </div>
-
-                    <div class="calc-action-buttons">
-                        <button type="button" class="calc-button action-btn add-btn" onclick="calculateAndAdd()">ПРИБАВИТЬ</button>
-                        <button type="button" class="calc-button action-btn subtract-btn" onclick="calculateAndSubtract()">ОТНЯТЬ</button>
-                        <button type="button" class="calc-button action-btn level-up-btn" id="level-up-btn" onclick="levelUpCharacter()">ПОВЫСИТЬ</button>
-                        <button type="button" class="calc-button action-btn level-down-btn" id="level-down-btn" onclick="levelDownCharacter()">ПОНИЗИТЬ</button>
-                        <div class="calc-empty"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Модальное окно здоровья -->
-        <div id="health-modal" class="level-modal">
-            <div class="level-up-content">
-                <button class="modal-close-btn" onclick="closeHealthModal()">✖</button>
-                <h3>Управление здоровьем</h3>
-
-                <div class="health-display-container" id="health-display-container">
-                    <!-- Стандартное отображение (показывается когда здоровье > 0) -->
-                    <div class="standard-health-display" id="standard-health-display">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 21.35L10.55 20.03C5.4 15.36 2 12.28 2 8.5C2 5.42 4.42 3 7.5 3C9.24 3 10.91 3.81 12 5.09C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.42 22 8.5C22 12.28 18.6 15.36 13.45 20.03L12 21.35Z" fill="#FF5252"/>
-                        </svg>
-                        <span id="current-health-value">0</span>
-                        <span>/</span>
-                        <span id="max-health-value">0</span>
-                    </div>
-
-                    <!-- Отображение при смерти (показывается когда здоровье = 0) -->
-                    <div class="death-saves-display" id="death-saves-display" style="display: none;">
-                        <div class="death-saves-title">Спасброски от смерти</div>
-                        <div class="death-saves-checkboxes">
-                            <!-- 3 красных чекбокса для неудачных попыток -->
-                            <div class="death-save-checkbox fail" data-index="0"></div>
-                            <div class="death-save-checkbox fail" data-index="1"></div>
-                            <div class="death-save-checkbox fail" data-index="2"></div>
-
-                            <!-- Кнопка для броска кубика -->
-                            <button class="death-save-roll-btn" id="death-save-roll-btn">
-                                <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M16.4997 1.99976L28.4997 9.95628M16.4997 1.99976L4.49969 9.95628M16.4997 1.99976V9.69541M28.4997 9.95628L16.4997 9.69541M28.4997 9.95628L23.9345 21.1737M28.4997 9.95628V22.3476M28.4997 22.3476L16.4997 30.4345M28.4997 22.3476L23.9345 21.1737M16.4997 30.4345L4.49969 22.3476M16.4997 30.4345L9.06491 21.1737M16.4997 30.4345L23.9345 21.1737M4.49969 22.3476V9.95628M4.49969 22.3476L9.06491 21.1737M4.49969 9.95628L16.4997 9.69541M4.49969 9.95628L9.06491 21.1737M16.4997 9.69541L9.06491 21.1737M16.4997 9.69541L23.9345 21.1737M9.06491 21.1737H23.9345" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </button>
-
-                            <!-- 3 зеленых чекбокса для успешных попыток -->
-                            <div class="death-save-checkbox success" data-index="0"></div>
-                            <div class="death-save-checkbox success" data-index="1"></div>
-                            <div class="death-save-checkbox success" data-index="2"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Калькулятор здоровья -->
-                <div class="health-calculator">
-                    <div class="calc-input-container">
-                        <input type="text" class="calc-input" id="health-input" value="0" placeholder="Введите значение">
-                        <button type="button" class="calc-button delete-btn" onclick="deleteHealthLastChar()">⌫</button>
-                    </div>
-
-                    <div class="calc-buttons-row">
-                        <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(7)">7</button>
-                        <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(8)">8</button>
-                        <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(9)">9</button>
-                        <div class="calc-empty"></div>
-                    </div>
-
-                    <div class="calc-buttons-row">
-                        <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(4)">4</button>
-                        <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(5)">5</button>
-                        <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(6)">6</button>
-                        <div class="calc-empty"></div>
-                    </div>
-
-                    <div class="calc-buttons-row">
-                        <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(1)">1</button>
-                        <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(2)">2</button>
-                        <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(3)">3</button>
-                        <div class="calc-empty"></div>
-                    </div>
-
-                    <div class="calc-buttons-row">
-                        <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(0)">0</button>
-                        <button type="button" class="calc-button plus-btn" onclick="appendHealthOperator('+')">+</button>
-                        <button type="button" class="calc-button minus-btn" onclick="appendHealthOperator('-')">-</button>
-                        <div class="calc-empty"></div>
-                    </div>
-
-                    <div class="calc-action-buttons">
-                        <button type="button" class="calc-button action-btn add-btn" onclick="addHealth()">ЛЕЧЕНИЕ</button>
-                        <button type="button" class="calc-button action-btn subtract-btn" onclick="subtractHealth()">УРОН</button>
-                        <button type="button" class="calc-button action-btn level-up-btn" onclick="setMaxHealth()">ВРЕМЕННЫЕ</button>
-                        <div class="calc-empty">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" onclick="toggleMaxHealthSettings()">
-                                <path d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z" stroke="currentColor" stroke-width="1.5"/>
-                            </svg>
-                        </div>
-                    </div>
-                </div>
-                <div id="max-health-settings" style="display: none; margin-top: 15px;">
-                    <div class="modal-row">
-                        <div class="modal-col">
-                            <div class="modal-wrapper">
-                                <input class="modal-input" type="number" id="max-health-input" value="0" min="0">
-                                <label for="max-health-input">Максимум хитов</label>
-                            </div>
-                        </div>
-                        <div class="modal-col">
-                            <button class="calc-button action-btn" onclick="saveMaxHealth()" style="margin-top: 20px;">Сохранить</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="modal-backdrop" class="modal-backdrop"></div>
-        <div id="settings-backdrop" class="modal-backdrop"></div>
+    </script>
+</main>
 </body>
 </html>
