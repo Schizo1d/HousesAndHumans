@@ -2712,6 +2712,7 @@
                     showCustomAlert(message);
                     checkDeathSaveStatus();
                 });
+                console.log(document.getElementById('death-save-roll-btn'));
             });
 
             function updateDeathSavesCheckboxes() {
