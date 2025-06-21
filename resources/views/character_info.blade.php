@@ -1203,6 +1203,14 @@
             <div class="notifications-container" id="notificationsContainer"></div>
             <button class="close-all-btn" onclick="hideCloseButtonInstantly(); clearAllNotifications()">×</button>
         </div>
+        <div id="customAlertOverlay" class="alert-overlay" style="display: none;"></div>
+        <div id="customAlert" class="custom-alert" style="display: none;">
+            <div class="alert-content">
+                <p id="customAlertMessage"></p>
+                <button class="alert-button" onclick="hideCustomAlert()">OK</button>
+            </div>
+        </div>
+
         <!-- Модальное окно повышения уровня -->
         <div id="level-up-modal" class="level-modal">
             <div class="level-up-content">
@@ -1381,15 +1389,6 @@
         <div id="settings-backdrop" class="modal-backdrop"></div>
 
     </div>
-
-    <script>
-        class Player{
-
-        }
-
-
-
-    </script>
 
     <script>
 
@@ -2378,9 +2377,16 @@
             }
 
             function showCustomAlert(message) {
-                document.getElementById('customAlertMessage').textContent = message;
-                document.getElementById('customAlertOverlay').style.display = 'block';
-                document.getElementById('customAlert').style.display = 'block';
+                const messageElement = document.getElementById('customAlertMessage');
+                if (messageElement) {
+                    messageElement.textContent = message;
+                    document.getElementById('customAlertOverlay').style.display = 'block';
+                    document.getElementById('customAlert').style.display = 'block';
+                } else {
+                    console.error('Элементы кастомного алерта не найдены в DOM');
+                    // Используем стандартный alert как запасной вариант
+                    alert(message);
+                }
             }
 
             function hideCustomAlert() {
