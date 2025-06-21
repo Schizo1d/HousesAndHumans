@@ -355,21 +355,23 @@
     height: 0;
 }
 .digital-bonus-label{
-    color: var(--c-text);
+    color: white;
     font-size: 12px;
     font-weight: 400;
     letter-spacing: .01em;
     line-height: 14px;
     text-transform: uppercase;
+    padding-top: 2px;
 }
 .digital-header-bonus_block{
-    color: var(--c-text) !important;
+    color: white;
     display: flex;
     flex-direction: column;
     font-size: 18px;
     font-weight: 700;
     line-height: 25px;
     text-align: center;
+    text-decoration: none;
 }
 .digital-header-fixed{
     align-items: center;
