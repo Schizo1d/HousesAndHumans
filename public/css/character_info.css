@@ -1406,12 +1406,12 @@ form label {
 .health-display-container {
     display: flex;
     align-items: center;
-    justify-content: center;
     gap: 5px;
     font-size: 24px;
     margin: 20px 0;
     transition: all 0.3s ease;
 }
+
 .health-display-container svg {
     transition: fill 0.3s ease;
 }
@@ -1547,4 +1547,81 @@ form label {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+/* Стандартное отображение здоровья */
+.standard-health-display {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Отображение спасбросков от смерти */
+.death-saves-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.death-saves-title {
+    font-size: 14px;
+    color: white;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+.death-saves-checkboxes {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.death-save-checkbox {
+    width: 20px;
+    height: 20px;
+    border: 2px solid;
+    border-radius: 4px;
+    cursor: default;
+}
+
+.death-save-checkbox.fail {
+    border-color: #FF5252;
+    background-color: transparent;
+}
+
+.death-save-checkbox.fail.checked {
+    background-color: #FF5252;
+}
+
+.death-save-checkbox.success {
+    border-color: #4CAF50;
+    background-color: transparent;
+}
+
+.death-save-checkbox.success.checked {
+    background-color: #4CAF50;
+}
+
+.death-save-roll-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #edca99;
+    border: 2px solid #915f32;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.death-save-roll-btn:hover {
+    background-color: #e0b985;
+}
+
+.death-save-roll-btn svg {
+    width: 24px;
+    height: 24px;
+    color: #915f32;
 }

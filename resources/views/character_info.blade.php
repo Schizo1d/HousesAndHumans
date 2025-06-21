@@ -926,7 +926,10 @@
             let currentHealth = 0;
             let maxHealth = 0;
             let healthExpression = '0';
-
+            let deathSaves = {
+                successes: 0,
+                failures: 0
+            };
 
             const XP_TABLE = {
                 1: 0,
@@ -2603,10 +2606,105 @@
             }
 
             function updateHealthDisplay() {
-                document.getElementById('current-health-value').textContent = currentHealth;
-                document.getElementById('max-health-value').textContent = maxHealth;
-                document.getElementById('health-display').textContent = `${currentHealth}/${maxHealth}`;
+                const currentHealth = parseInt(document.getElementById('current-health-value').textContent) || 0;
+                const maxHealth = parseInt(document.getElementById('max-health-value').textContent) || 0;
+
+                const standardDisplay = document.getElementById('standard-health-display');
+                const deathSavesDisplay = document.getElementById('death-saves-display');
+
+                if (currentHealth <= 0) {
+                    standardDisplay.style.display = 'none';
+                    deathSavesDisplay.style.display = 'flex';
+
+                    // Обновляем чекбоксы
+                    updateDeathSavesCheckboxes();
+                } else {
+                    standardDisplay.style.display = 'flex';
+                    deathSavesDisplay.style.display = 'none';
+
+                    // Сбрасываем спасброски при восстановлении здоровья
+                    if (deathSaves.successes > 0 || deathSaves.failures > 0) {
+                        deathSaves = { successes: 0, failures: 0 };
+                        updateDeathSavesCheckboxes();
+                    }
+                }
+
+                updateHealthColor();
             }
+
+            function updateDeathSavesCheckboxes() {
+                const failCheckboxes = document.querySelectorAll('.death-save-checkbox.fail');
+                const successCheckboxes = document.querySelectorAll('.death-save-checkbox.success');
+
+                // Обновляем красные чекбоксы (неудачи)
+                failCheckboxes.forEach((checkbox, index) => {
+                    if (index < deathSaves.failures) {
+                        checkbox.classList.add('checked');
+                    } else {
+                        checkbox.classList.remove('checked');
+                    }
+                });
+
+                // Обновляем зеленые чекбоксы (успехи)
+                successCheckboxes.forEach((checkbox, index) => {
+                    if (index < deathSaves.successes) {
+                        checkbox.classList.add('checked');
+                    } else {
+                        checkbox.classList.remove('checked');
+                    }
+                });
+
+                // Проверяем условия смерти или стабилизации
+                checkDeathSaveStatus();
+            }
+
+            // Функция для проверки статуса спасбросков
+            function checkDeathSaveStatus() {
+                if (deathSaves.failures >= 3) {
+                    // Персонаж умер
+                    showCustomAlert('Персонаж умер! 3 неудачных спасброска от смерти.');
+                    // Можно добавить дополнительную логику здесь
+                } else if (deathSaves.successes >= 3) {
+                    // Персонаж стабилизирован
+                    showCustomAlert('Персонаж стабилизирован! 3 успешных спасброска от смерти.');
+                    // Восстанавливаем 1 HP
+                    document.getElementById('current-health-value').textContent = '1';
+                    updateHealthDisplay();
+                }
+            }
+
+            // Обработчик для кнопки броска спасброска
+            document.getElementById('death-save-roll-btn').addEventListener('click', function() {
+                // Бросаем d20
+                const roll = Math.floor(Math.random() * 20) + 1;
+
+                if (roll === 1) {
+                    // Критическая неудача - 2 провала
+                    deathSaves.failures = Math.min(deathSaves.failures + 2, 3);
+                    showCustomAlert(`Критическая неудача! Выпало 1. Получено 2 провала.`);
+                } else if (roll === 20) {
+                    // Критический успех - восстановление 1 HP
+                    document.getElementById('current-health-value').textContent = '1';
+                    showCustomAlert(`Критический успех! Выпало 20. Персонаж восстанавливает 1 HP.`);
+                    updateHealthDisplay();
+                } else if (roll >= 10) {
+                    // Успех
+                    deathSaves.successes = Math.min(deathSaves.successes + 1, 3);
+                    showCustomAlert(`Успех! Выпало ${roll}.`);
+                } else {
+                    // Неудача
+                    deathSaves.failures = Math.min(deathSaves.failures + 1, 3);
+                    showCustomAlert(`Неудача! Выпало ${roll}.`);
+                }
+
+                updateDeathSavesCheckboxes();
+            });
+
+            // Инициализация при загрузке
+            document.addEventListener("DOMContentLoaded", function() {
+                updateHealthDisplay();
+            });
+
             function saveHealth() {
                 // Здесь можно добавить сохранение здоровья на сервер
                 localStorage.setItem(`character_${characterId}_health`, JSON.stringify({
@@ -3226,13 +3324,39 @@
                 <button class="modal-close-btn" onclick="closeHealthModal()">✖</button>
                 <h3>Управление здоровьем</h3>
 
-                <div class="health-display-container">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 21.35L10.55 20.03C5.4 15.36 2 12.28 2 8.5C2 5.42 4.42 3 7.5 3C9.24 3 10.91 3.81 12 5.09C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.42 22 8.5C22 12.28 18.6 15.36 13.45 20.03L12 21.35Z" fill="#FF5252"/>
-                    </svg>
-                    <span id="current-health-value">0</span>
-                    <span>/</span>
-                    <span id="max-health-value">0</span>
+                <div class="health-display-container" id="health-display-container">
+                    <!-- Стандартное отображение (показывается когда здоровье > 0) -->
+                    <div class="standard-health-display" id="standard-health-display">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 21.35L10.55 20.03C5.4 15.36 2 12.28 2 8.5C2 5.42 4.42 3 7.5 3C9.24 3 10.91 3.81 12 5.09C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.42 22 8.5C22 12.28 18.6 15.36 13.45 20.03L12 21.35Z" fill="#FF5252"/>
+                        </svg>
+                        <span id="current-health-value">0</span>
+                        <span>/</span>
+                        <span id="max-health-value">0</span>
+                    </div>
+
+                    <!-- Отображение при смерти (показывается когда здоровье = 0) -->
+                    <div class="death-saves-display" id="death-saves-display" style="display: none;">
+                        <div class="death-saves-title">Спасброски от смерти</div>
+                        <div class="death-saves-checkboxes">
+                            <!-- 3 красных чекбокса для неудачных попыток -->
+                            <div class="death-save-checkbox fail" data-index="0"></div>
+                            <div class="death-save-checkbox fail" data-index="1"></div>
+                            <div class="death-save-checkbox fail" data-index="2"></div>
+
+                            <!-- Кнопка для броска кубика -->
+                            <button class="death-save-roll-btn" id="death-save-roll-btn">
+                                <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M16.4997 1.99976L28.4997 9.95628M16.4997 1.99976L4.49969 9.95628M16.4997 1.99976V9.69541M28.4997 9.95628L16.4997 9.69541M28.4997 9.95628L23.9345 21.1737M28.4997 9.95628V22.3476M28.4997 22.3476L16.4997 30.4345M28.4997 22.3476L23.9345 21.1737M16.4997 30.4345L4.49969 22.3476M16.4997 30.4345L9.06491 21.1737M16.4997 30.4345L23.9345 21.1737M4.49969 22.3476V9.95628M4.49969 22.3476L9.06491 21.1737M4.49969 9.95628L16.4997 9.69541M4.49969 9.95628L9.06491 21.1737M16.4997 9.69541L9.06491 21.1737M16.4997 9.69541L23.9345 21.1737M9.06491 21.1737H23.9345" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </button>
+
+                            <!-- 3 зеленых чекбокса для успешных попыток -->
+                            <div class="death-save-checkbox success" data-index="0"></div>
+                            <div class="death-save-checkbox success" data-index="1"></div>
+                            <div class="death-save-checkbox success" data-index="2"></div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Калькулятор здоровья -->
