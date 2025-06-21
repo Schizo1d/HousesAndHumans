@@ -1507,3 +1507,11 @@ form label {
     margin-left: 8px;
     background: #f8d7da;
 }
+.calc-empty {
+    background: rgba(96, 107, 133, .05);
+    border: 1px solid rgba(96, 107, 133, .3);
+    border-radius: 3px;
+    height: 100%;
+    width: 100%;
+    min-width: 50px;
+}

@@ -3121,18 +3121,22 @@
                         <button type="button" class="calc-button num-btn" onclick="appendNumber(7)">7</button>
                         <button type="button" class="calc-button num-btn" onclick="appendNumber(8)">8</button>
                         <button type="button" class="calc-button num-btn" onclick="appendNumber(9)">9</button>
+                        <div class="calc-empty"></div>
 
                         <button type="button" class="calc-button num-btn" onclick="appendNumber(4)">4</button>
                         <button type="button" class="calc-button num-btn" onclick="appendNumber(5)">5</button>
                         <button type="button" class="calc-button num-btn" onclick="appendNumber(6)">6</button>
+                        <div class="calc-empty"></div>
 
                         <button type="button" class="calc-button num-btn" onclick="appendNumber(1)">1</button>
                         <button type="button" class="calc-button num-btn" onclick="appendNumber(2)">2</button>
                         <button type="button" class="calc-button num-btn" onclick="appendNumber(3)">3</button>
+                        <div class="calc-empty"></div>
 
                         <button type="button" class="calc-button num-btn" onclick="appendNumber(0)">0</button>
                         <button type="button" class="calc-button plus-btn" onclick="appendOperator('+')">+</button>
                         <button type="button" class="calc-button minus-btn" onclick="appendOperator('-')">-</button>
+                        <div class="calc-empty"></div>
                     </div>
 
                     <div class="calc-action-buttons">
@@ -3167,18 +3171,22 @@
                         <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(7)">7</button>
                         <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(8)">8</button>
                         <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(9)">9</button>
+                        <div class="calc-empty"></div>
 
                         <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(4)">4</button>
                         <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(5)">5</button>
                         <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(6)">6</button>
+                        <div class="calc-empty"></div>
 
                         <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(1)">1</button>
                         <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(2)">2</button>
                         <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(3)">3</button>
+                        <div class="calc-empty"></div>
 
                         <button type="button" class="calc-button num-btn" onclick="appendHealthNumber(0)">0</button>
                         <button type="button" class="calc-button plus-btn" onclick="appendHealthOperator('+')">+</button>
                         <button type="button" class="calc-button minus-btn" onclick="appendHealthOperator('-')">-</button>
+                        <div class="calc-empty"></div>
                     </div>
 
                     <div class="calc-action-buttons">
