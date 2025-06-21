@@ -68,11 +68,11 @@
             </div>
             <div class="proficiency-bonus-container">
                 <div class="proficiency-bonus-value">
-                    <a href="javascript:void(0);" id="proficiency-bonus-link">+{{ $proficiencyBonus }}</a>
+                    <a href="javascript:void(0);" id="proficiency-bonus-link">+2</a>
                 </div>
-                <div class="proficiency-bonus-label">
-                    Владение
-                </div>
+                <span class="proficiency-bonus-label">
+                    владение
+                </span>
             </div>
         </nav>
     </div>
@@ -944,7 +944,11 @@
             };
 
             function getProficiencyBonus(level) {
-                return Math.floor((level + 7) / 4); // Та же формула, что и на сервере
+                if (level >= 17) return 6;
+                if (level >= 13) return 5;
+                if (level >= 9) return 4;
+                if (level >= 5) return 3;
+                return 2; // Уровни 1-4
             }
 
 
@@ -2626,9 +2630,9 @@
             }
 
             function updateProficiencyBonus() {
-                const level = parseInt(document.querySelector('.character-level').textContent.match(/\d+/)[0]) || 1;
-                const bonus = getProficiencyBonus(level);
-                document.getElementById('proficiency-bonus-link').textContent = `+${bonus}`;
+                const level = parseInt(document.querySelector('.character-level').textContent.match(/\d+/)[0] || 1);
+                document.getElementById('proficiency-bonus-link').textContent =
+                    `+${getProficiencyBonus(level)}`;
             }
 
 
