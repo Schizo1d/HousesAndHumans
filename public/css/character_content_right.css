@@ -381,3 +381,14 @@
     display: flex;
     justify-content: space-between;
 }
+.digital-health{
+    align-items: center;
+    border: 2px solid var(--c-health);
+    border-radius: 5px;
+    display: flex;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    padding: 8px 7px 7px;
+    transition: cubic-bezier(.215,.61,.355,1);
+}
