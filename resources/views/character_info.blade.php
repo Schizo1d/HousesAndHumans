@@ -3144,6 +3144,7 @@
                         <button type="button" class="calc-button action-btn subtract-btn" onclick="calculateAndSubtract()">ОТНЯТЬ</button>
                         <button type="button" class="calc-button action-btn level-up-btn" id="level-up-btn" onclick="levelUpCharacter()">ПОВЫСИТЬ</button>
                         <button type="button" class="calc-button action-btn level-down-btn" id="level-down-btn" onclick="levelDownCharacter()">ПОНИЗИТЬ</button>
+                        <div class="calc-empty"></div>
                     </div>
                 </div>
             </div>
@@ -3194,6 +3195,7 @@
                         <button type="button" class="calc-button action-btn subtract-btn" onclick="subtractHealth()">ОТНЯТЬ</button>
                         <button type="button" class="calc-button action-btn level-up-btn" onclick="setMaxHealth()">МАКС.</button>
                         <button type="button" class="calc-button action-btn level-down-btn" onclick="resetHealth()">СБРОС</button>
+                        <div class="calc-empty"></div>
                     </div>
                 </div>
             </div>
