@@ -68,7 +68,7 @@
             </div>
             <div class="proficiency-bonus-container">
                 <div class="proficiency-bonus-value">
-                    <a href="javascript:void(0);" id="proficiency-bonus-link">{{ $proficiencyBonus }}</a>
+                    <a href="javascript:void(0);" id="proficiency-bonus-link"></a>
                 </div>
                 <span class="proficiency-bonus-label">
                     владение
