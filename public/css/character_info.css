@@ -1079,7 +1079,6 @@ form label {
 }
 
 #xp-input {
-    flex: 1;
     height: 45px;
     padding: 0 12px;
     font-size: 18px;
@@ -1089,6 +1088,7 @@ form label {
     color: #333;
     font-weight: bold;
     text-align: right;
+    width: 100%;
 }
 
 .delete-btn {
