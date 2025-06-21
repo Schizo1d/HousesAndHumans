@@ -84,31 +84,42 @@
                     card.setAttribute('data-id', character.id);
 
                     const menuHtml = `
-        <div class="menu">
-            <button class="menu-button">⋮</button>
-            <div class="menu-content">
-                <button class="delete-button">Удалить</button>
-            </div>
-        </div>
-    `;
+                        <div class="menu">
+                            <button class="menu-button">⋮</button>
+                            <div class="menu-content">
+                                <button class="delete-button">Удалить</button>
+                            </div>
+                        </div>
+                    `;
 
                     // Используем тот же маршрут, что и в Blade-шаблоне
                     const linkHtml = `
-        <a style="text-decoration: none" href="/character/${character.id}">
-            <div class="character-name">${character.name}</div>
-        </a>
-    `;
+                        <a style="text-decoration: none" href="/character/${character.id}">
+                            <div class="character-name">${character.name}</div>
+                        </a>
+                    `;
 
                     card.innerHTML = menuHtml + linkHtml;
 
                     // Добавляем обработчики событий
+                    setupCharacterCardEvents(card);
+
+                    return card;
+                }
+
+                // Функция для настройки обработчиков событий карточки персонажа
+                function setupCharacterCardEvents(card) {
                     const deleteButton = card.querySelector('.delete-button');
+                    const menuButton = card.querySelector('.menu-button');
+                    const characterId = card.getAttribute('data-id');
+
+                    // Обработчик удаления
                     deleteButton.addEventListener('click', (e) => {
                         e.stopPropagation();
-                        deleteCharacter(character.id, card);
+                        deleteCharacter(characterId, card);
                     });
 
-                    const menuButton = card.querySelector('.menu-button');
+                    // Обработчик меню
                     menuButton.addEventListener('click', (e) => {
                         e.stopPropagation();
                         const menu = e.target.closest('.menu');
@@ -117,8 +128,6 @@
                         });
                         menu.classList.toggle('open');
                     });
-
-                    return card;
                 }
 
                 // Добавление нового персонажа
@@ -199,18 +208,11 @@
                 };
 
                 // Инициализация меню для существующих персонажей
-                document.addEventListener("DOMContentLoaded", function () {
-                    document.querySelectorAll(".menu-button").forEach(button => {
-                        button.addEventListener("click", function (e) {
-                            e.stopPropagation();
-                            const menu = this.closest(".menu");
-
-                            document.querySelectorAll(".menu").forEach(m => {
-                                if (m !== menu) m.classList.remove("open");
-                            });
-
-                            menu.classList.toggle("open");
-                        });
+                function initializeCharacterCards() {
+                    document.querySelectorAll(".character-card").forEach(card => {
+                        if (!card.classList.contains('add-character')) {
+                            setupCharacterCardEvents(card);
+                        }
                     });
 
                     // Закрываем меню при клике вне его
@@ -224,7 +226,10 @@
                             e.stopPropagation();
                         });
                     });
-                });
+                }
+
+                // Инициализируем карточки при загрузке страницы
+                document.addEventListener("DOMContentLoaded", initializeCharacterCards);
             </script>
         @else
             <h1 class="list-text-title">Интерактивный лист персонажа для D&D 5e</h1>
