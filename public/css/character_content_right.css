@@ -371,7 +371,10 @@
     font-weight: 700;
     line-height: 25px;
     text-align: center;
+}
+.digital-header-bonus_block a{
     text-decoration: none;
+    color: white;
 }
 .digital-header-fixed{
     align-items: center;
