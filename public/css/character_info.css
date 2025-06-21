@@ -1511,4 +1511,7 @@ form label {
     width: 50px;
     min-width: 50px;
     flex: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
