@@ -3662,7 +3662,12 @@
                 content.style.padding = '20px 10px';
             }
 
-
+            document.querySelectorAll('.open-modal-button').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelector('.sidebar-modal').classList.add('show');
+                    document.body.style.overflow = 'hidden';
+                });
+            });
             // Инициализация при загрузке
             document.addEventListener('DOMContentLoaded', function() {
                 // Показываем атрибуты по умолчанию
