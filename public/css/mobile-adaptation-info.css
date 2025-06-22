@@ -208,7 +208,7 @@
 
     /* Атрибуты */
     .attributes-mobile {
-        display: none;
+        display: block;
         padding: 10px;
     }
 
