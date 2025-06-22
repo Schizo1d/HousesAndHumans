@@ -3664,8 +3664,13 @@
 
             document.querySelectorAll('.open-modal-button').forEach(btn => {
                 btn.addEventListener('click', () => {
-                    document.querySelector('.sidebar-modal').classList.add('show');
+                    const modal = document.querySelector('.sidebar-modal');
+                    modal.classList.add('show');
                     document.body.style.overflow = 'hidden';
+
+                    if (window.innerWidth <= 768) {
+                        openModalMobile('settings-modal'); // или нужный ID
+                    }
                 });
             });
             // Инициализация при загрузке
