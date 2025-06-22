@@ -231,17 +231,6 @@
         width: 90%;
         max-width: 400px;
     }
-    /* Модальные окна на весь экран */
-    .sidebar-modal, .level-modal {
-        width: 100% !important;
-        left: -100% !important;
-        min-width: auto !important;
-    }
-    .sidebar-modal.show,
-    .level-modal.show {
-        left: 0 !important;
-        z-index: 1000 !important;
-    }
     /* Контент модалок */
     .modal-content {
         width: 90% !important;

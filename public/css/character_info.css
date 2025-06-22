@@ -1643,3 +1643,66 @@ form label {
     height: 24px;
     color: #915f32;
 }
+/* Общие стили для всех модальных окон */
+.modal, .sidebar-modal, .level-modal {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+/* Активное состояние модалки */
+.modal.active,
+.sidebar-modal.show,
+.level-modal.show {
+    left: 0;
+    opacity: 1;
+}
+
+/* Контент модального окна */
+.modal-content, .level-up-content {
+    background-color: #db934e;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 400px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+/* Кнопка закрытия */
+.modal-close-btn, .close-sidebar {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+/* Затемнение фона */
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 1999;
+    display: none;
+}
+
+.modal-backdrop.active {
+    display: block;
+}
