@@ -298,3 +298,21 @@
         display: block;
     }
 }
+@media (max-width: 768px) {
+    .sidebar-modal.show,
+    .level-modal.show {
+        display: flex !important;
+        justify-content: center;
+        align-items: center;
+        left: 0 !important;
+        z-index: 2000 !important;
+        width: 100% !important;
+    }
+
+    .modal-content {
+        width: 90% !important;
+        max-width: 400px;
+        padding: 15px !important;
+        background-color: white;
+    }
+}
