@@ -3635,23 +3635,33 @@
 
             // Функция для переключения вкладок на мобильных
             function changeMobileTab() {
-                const selector = document.getElementById('tabs-selector');
-                const selectedTab = selector.value;
+                const selectedTab = document.getElementById('tabs-selector').value;
 
-                // Скрыть все вкладки
+                // Скрываем все вкладки
                 document.querySelectorAll('.tab-content-mobile').forEach(tab => {
                     tab.classList.remove('active');
                 });
 
-                document.getElementById('attributes-mobile').classList.remove('show');
-
-                // Показать выбранную вкладку
+                // Показываем выбранную
                 if (selectedTab === 'attributes') {
                     document.getElementById('attributes-mobile').classList.add('show');
                 } else {
                     document.getElementById(`${selectedTab}-tab-mobile`).classList.add('active');
                 }
             }
+
+            // Открытие модалок на весь экран
+            function openModalMobile(modalId) {
+                const modal = document.getElementById(modalId);
+                modal.style.width = '100%';
+                modal.style.left = '0';
+
+                // Подгоняем контент
+                const content = modal.querySelector('.modal-content, .level-up-content');
+                content.style.width = '95%';
+                content.style.padding = '20px 10px';
+            }
+
 
             // Инициализация при загрузке
             document.addEventListener('DOMContentLoaded', function() {
@@ -3669,6 +3679,20 @@
                     document.getElementById('stats-container').classList.add('show');
                     document.getElementById('stats-toggle').classList.add('rotated');
                 }
+            });
+            // Инициализация при загрузке
+            document.addEventListener('DOMContentLoaded', function() {
+                // Настройка выбора вкладок
+                document.getElementById('tabs-selector').addEventListener('change', changeMobileTab);
+
+                // Открываем атрибуты по умолчанию
+                document.getElementById('attributes-mobile').classList.add('show');
+
+                // Адаптируем кнопки под мобилки
+                document.querySelectorAll('.calc-button').forEach(btn => {
+                    btn.style.minHeight = '60px';
+                    btn.style.fontSize = '20px';
+                });
             });
     </script>
 

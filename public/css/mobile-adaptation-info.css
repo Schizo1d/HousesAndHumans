@@ -231,6 +231,57 @@
         width: 90%;
         max-width: 400px;
     }
+    /* Модальные окна на весь экран */
+    .sidebar-modal, .level-modal {
+        width: 100% !important;
+        left: -100% !important;
+        min-width: auto !important;
+    }
+
+    /* Контент модалок */
+    .modal-content {
+        width: 90% !important;
+        max-width: none !important;
+        padding: 15px !important;
+    }
+
+    /* Адаптация калькуляторов */
+    .calc-buttons-row {
+        flex-wrap: wrap; /* Переносим кнопки на несколько строк */
+    }
+
+    .calc-button {
+        min-width: calc(33% - 10px); /* 3 кнопки в ряд */
+        margin-bottom: 5px;
+        height: 60px; /* Увеличиваем для удобного нажатия */
+        font-size: 24px !important;
+    }
+
+    /* Вкладки для мобилок */
+    .tabs-selector-mobile {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+        margin: 10px 0;
+    }
+
+    .tab-content-mobile {
+        display: none;
+        padding: 15px;
+        background: #f8f1d8;
+        border-radius: 8px;
+    }
+
+    .tab-content-mobile.active {
+        display: block;
+    }
+
+    /* Атрибуты с прокруткой */
+    #attributes-mobile {
+        max-height: 60vh;
+        overflow-y: auto;
+        padding: 10px;
+    }
 }
 
 /* Десктопные стили */
