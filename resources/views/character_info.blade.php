@@ -8,91 +8,93 @@
     <title>Персонажи</title>
     <link rel="stylesheet" href="{{ asset('css/character_info.css') }}">
     <link rel="stylesheet" href="{{asset('css/character_content_right.css')}}">
+    <link rel="stylesheet" href="{{asset('css/mobile-adaptation-info.css')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
 </head>
 <body>
-<header>
-    <div class="container">
-        <div class="background-image-main">
-            <img src="{{asset ('img/clouds.png')}}" alt="облака">
+<div class="desktop-version">
+    <header>
+        <div class="container">
+            <div class="background-image-main">
+                <img src="{{asset ('img/clouds.png')}}" alt="облака">
+            </div>
+            <div class="header__inner">
+                <nav class="nav">
+                    <a href="{{ route('character_list') }}"><i class="fa-solid fa-backward"></i></a>
+                    @if(Auth::check())
+                        <div class="user-info-avatar" id="user-info">
+                            <img id="avatar" src="{{ session('user_avatar') }}" alt="Avatar"
+                                 style="width: 50px; height: 50px; border-radius: 50%;">
+                        </div>
+                    @else
+                        <a class="window-auth" onclick="openModal();"><i class="fa-regular fa-circle-user"></i></a>
+                    @endif
+                </nav>
+            </div>
         </div>
-        <div class="header__inner">
-            <nav class="nav">
-                <a href="{{ route('character_list') }}"><i class="fa-solid fa-backward"></i></a>
-                @if(Auth::check())
-                    <div class="user-info-avatar" id="user-info">
-                        <img id="avatar" src="{{ session('user_avatar') }}" alt="Avatar"
-                             style="width: 50px; height: 50px; border-radius: 50%;">
+    </header>
+    <div class="header-two">
+        <div class="container">
+            <nav class="digital-nav">
+                <div class="character-nav">
+                    <div class="character-photo" id="character-avatar">
+                        <img src="{{ $character->photo ?? asset('img/avatar2.png') }}" alt="Персонаж"
+                             class="character-photo-img">
+                        <div class="dropdown-menu" id="character-dropdown">
+                            <button class="dropdown-item" id="settings-btn">Настройки</button>
+                        </div>
                     </div>
-                @else
-                    <a class="window-auth" onclick="openModal();"><i class="fa-regular fa-circle-user"></i></a>
-                @endif
-            </nav>
-        </div>
-    </div>
-</header>
-<div class="header-two">
-    <div class="container">
-        <nav class="digital-nav">
-            <div class="character-nav">
-                <div class="character-photo" id="character-avatar">
-                    <img src="{{ $character->photo ?? asset('img/avatar2.png') }}" alt="Персонаж"
-                         class="character-photo-img">
-                    <div class="dropdown-menu" id="character-dropdown">
-                        <button class="dropdown-item" id="settings-btn">Настройки</button>
-                    </div>
-                </div>
-                <div class="character-header-info">
-                    <p class="character-header-name">
-                        <span class="font-style">{{ $character->name }}</span>
-                    </p>
-                    <p class="character-header-subinfo">
-                        <span class="font-style">{{ $character->race}}</span>
-                        <span> — </span>
-                        <span class="font-style">{{ $character->class}}</span>
-                    </p>
-                    <div class="character-header-exp">
-                        <span class="character-level">Уровень {{ $character->level }}</span>
-                        <div class="mini-progress-container" onclick="openLevelUpModal()"
-                             data-current-xp="{{ $totalXp }}"
-                             data-current-level="{{ $character->level }}"
-                             data-next-level-xp="{{ $nextLevelXp }}">
-                            <div class="mini-progress-bar" id="mini-xp-progress-bar"
-                                 style="width: {{ $progressPercent }}%"></div>
-                            <div class="mini-progress-text" id="mini-xp-progress-text">
-                                {{ $totalXp }}/{{ $nextLevelXp }}
+                    <div class="character-header-info">
+                        <p class="character-header-name">
+                            <span class="font-style">{{ $character->name }}</span>
+                        </p>
+                        <p class="character-header-subinfo">
+                            <span class="font-style">{{ $character->race}}</span>
+                            <span> — </span>
+                            <span class="font-style">{{ $character->class}}</span>
+                        </p>
+                        <div class="character-header-exp">
+                            <span class="character-level">Уровень {{ $character->level }}</span>
+                            <div class="mini-progress-container" onclick="openLevelUpModal()"
+                                 data-current-xp="{{ $totalXp }}"
+                                 data-current-level="{{ $character->level }}"
+                                 data-next-level-xp="{{ $nextLevelXp }}">
+                                <div class="mini-progress-bar" id="mini-xp-progress-bar"
+                                     style="width: {{ $progressPercent }}%"></div>
+                                <div class="mini-progress-text" id="mini-xp-progress-text">
+                                    {{ $totalXp }}/{{ $nextLevelXp }}
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="digital-header-fixed">
-                <div class="digital-header-bonus">
-                    <div class="digital-header-bonus_block">
-                        <a href="javascript:void(0);" id="proficiency-bonus-link"></a>
-                        <span class="digital-bonus-label">
-                            владение
-                        </span>
-                    </div>
-                </div>
-                <div class="digital_box">
-                    <div class="digital_box_button" style="height: 100%;">
-                        <a href="javascript:void(0);" onclick="openHealthModal()">
-                            <span class="digital-health">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M12 21.35L10.55 20.03C5.4 15.36 2 12.28 2 8.5C2 5.42 4.42 3 7.5 3C9.24 3 10.91 3.81 12 5.09C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.42 22 8.5C22 12.28 18.6 15.36 13.45 20.03L12 21.35Z" fill="#FF5252"/>
-                                </svg>
-                                <span id="health-display">0/0</span>
+                <div class="digital-header-fixed">
+                    <div class="digital-header-bonus">
+                        <div class="digital-header-bonus_block">
+                            <a href="javascript:void(0);" id="proficiency-bonus-link"></a>
+                            <span class="digital-bonus-label">
+                                владение
                             </span>
-                        </a>
+                        </div>
+                    </div>
+                    <div class="digital_box">
+                        <div class="digital_box_button" style="height: 100%;">
+                            <a href="javascript:void(0);" onclick="openHealthModal()">
+                                <span class="digital-health">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M12 21.35L10.55 20.03C5.4 15.36 2 12.28 2 8.5C2 5.42 4.42 3 7.5 3C9.24 3 10.91 3.81 12 5.09C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.42 22 8.5C22 12.28 18.6 15.36 13.45 20.03L12 21.35Z" fill="#FF5252"/>
+                                    </svg>
+                                    <span id="health-display">0/0</span>
+                                </span>
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </nav>
+            </nav>
+        </div>
     </div>
-</div>
-<main>
+    <main>
     <div class="container-info">
         <form id="attributesForm" action="{{ route('character_attributes.store', ['character' => $character->id]) }}"
               method="POST">
@@ -1381,6 +1383,100 @@
         <div id="modal-backdrop" class="modal-backdrop"></div>
         <div id="settings-backdrop" class="modal-backdrop"></div>
 
+    </div>
+
+    <!-- Мобильная версия -->
+    <div class="header-mobile">
+        <a href="{{ route('character_list') }}" class="back-button">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <div class="character-name-mobile">{{ $character->name }}</div>
+        <div class="character-photo-mobile" id="character-avatar-mobile">
+            <img src="{{ $character->photo ?? asset('img/avatar2.png') }}" alt="Персонаж" class="character-photo-img">
+        </div>
+    </div>
+
+    <div class="character-nav-mobile">
+        <div class="character-header-info">
+            <p class="character-header-name">
+                <span class="font-style">{{ $character->name }}</span>
+            </p>
+            <p class="character-header-subinfo">
+                <span class="font-style">{{ $character->race}}</span>
+                <span> — </span>
+                <span class="font-style">{{ $character->class}}</span>
+            </p>
+            <div class="character-header-exp">
+                <span class="character-level">Уровень {{ $character->level }}</span>
+                <div class="mini-progress-container" onclick="openLevelUpModal()"
+                     data-current-xp="{{ $totalXp }}"
+                     data-current-level="{{ $character->level }}"
+                     data-next-level-xp="{{ $nextLevelXp }}">
+                    <div class="mini-progress-bar" id="mini-xp-progress-bar"
+                         style="width: {{ $progressPercent }}%"></div>
+                    <div class="mini-progress-text" id="mini-xp-progress-text">
+                        {{ $totalXp }}/{{ $nextLevelXp }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="stats-header-mobile" onclick="toggleStats()">
+        <span>Характеристики</span>
+        <button class="stats-toggle" id="stats-toggle">▼</button>
+    </div>
+
+    <div class="stats-container" id="stats-container">
+        <div class="stat-box">
+            <span class="stat-value" id="proficiency-bonus-link"></span>
+            <span class="stat-label">Владение</span>
+        </div>
+        <div class="stat-box">
+            <span class="stat-value" id="health-display">0/0</span>
+            <span class="stat-label">Здоровье</span>
+        </div>
+        <div class="stat-box">
+            <span class="stat-value" id="initiative-mod">+0</span>
+            <span class="stat-label">Инициатива</span>
+        </div>
+        <div class="stat-box">
+            <span class="stat-value">—</span>
+            <span class="stat-label">Вдохновение</span>
+        </div>
+        <div class="stat-box">
+            <span class="stat-value" id="exhaustion-value">0</span>
+            <span class="stat-label">Истощение</span>
+        </div>
+        <div class="stat-box">
+            <span class="stat-value">—</span>
+            <span class="stat-label">Состояние</span>
+        </div>
+    </div>
+
+    <select class="tabs-selector-mobile" id="tabs-selector" onchange="changeMobileTab()">
+        <option value="attributes">Атрибуты</option>
+        <option value="attacks">Атаки</option>
+        <option value="abilities">Способности</option>
+        <option value="equipment">Снаряжение</option>
+        <option value="personality">Личность</option>
+        <option value="goals">Цели</option>
+        <option value="notes">Заметки</option>
+        <option value="spells">Заклинания</option>
+    </select>
+
+    <div class="attributes-mobile" id="attributes-mobile">
+        <!-- Здесь будут атрибуты как в десктопной версии, но адаптированные -->
+    </div>
+
+    <div class="tab-content-mobile" id="attacks-tab-mobile">
+        <h3>Атаки персонажа</h3>
+        <p>Здесь будет список атак и их характеристики...</p>
+    </div>
+
+    <div class="tab-content-mobile" id="abilities-tab-mobile">
+        <h3>Способности персонажа</h3>
+        <p>Здесь будут перечислены способности персонажа...</p>
     </div>
 
     <script>
@@ -3497,7 +3593,44 @@
 
             // Вызывайте эту функцию при изменении уровня
             updateProficiencyBonus();
+            // Функция для переключения отображения характеристик
+            function toggleStats() {
+                const container = document.getElementById('stats-container');
+                const toggle = document.getElementById('stats-toggle');
+
+                container.classList.toggle('show');
+                toggle.textContent = container.classList.contains('show') ? '▲' : '▼';
+            }
+
+            // Функция для переключения вкладок на мобильных
+            function changeMobileTab() {
+                const selector = document.getElementById('tabs-selector');
+                const selectedTab = selector.value;
+
+                // Скрыть все вкладки
+                document.querySelectorAll('.tab-content-mobile').forEach(tab => {
+                    tab.classList.remove('active');
+                });
+
+                document.getElementById('attributes-mobile').classList.remove('show');
+
+                // Показать выбранную вкладку
+                if (selectedTab === 'attributes') {
+                    document.getElementById('attributes-mobile').classList.add('show');
+                } else {
+                    document.getElementById(`${selectedTab}-tab-mobile`).classList.add('active');
+                }
+            }
+
+            // Инициализация при загрузке
+            document.addEventListener('DOMContentLoaded', function() {
+                // Показываем атрибуты по умолчанию
+                document.getElementById('attributes-mobile').classList.add('show');
+
+                // Инициализация других элементов...
+            });
     </script>
 </main>
+</div>
 </body>
 </html>

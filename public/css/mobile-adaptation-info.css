@@ -1,0 +1,136 @@
+/* Мобильные стили */
+@media (max-width: 768px) {
+    /* Верхняя навигация */
+    .header-mobile {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        background-color: #db934e;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+
+    .back-button {
+        color: white;
+        font-size: 24px;
+        text-decoration: none;
+    }
+
+    .character-nav-mobile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+        background-color: #f8f9fa;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .character-photo-mobile {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin-bottom: 10px;
+    }
+
+    .character-photo-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* Блок с характеристиками */
+    .stats-header-mobile {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        background-color: #f0f0f0;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .stats-toggle {
+        background: none;
+        border: none;
+        font-size: 20px;
+        cursor: pointer;
+    }
+
+    .stats-container {
+        display: none;
+        padding: 10px;
+        background-color: white;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .stats-container.show {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .stat-box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+        background-color: #f8f9fa;
+        border-radius: 5px;
+    }
+
+    /* Селектор вкладок */
+    .tabs-selector-mobile {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    /* Атрибуты */
+    .attributes-mobile {
+        display: none; /* По умолчанию скрыто */
+    }
+
+    .attributes-mobile.show {
+        display: block;
+    }
+
+    /* Вкладки контента */
+    .tab-content-mobile {
+        display: none;
+        padding: 10px;
+    }
+
+    .tab-content-mobile.active {
+        display: block;
+    }
+
+    /* Адаптация модальных окон */
+    .modal-content {
+        width: 90%;
+        max-width: 400px;
+    }
+
+    /* Скрытие десктопных элементов */
+    .header-desktop, .character-nav-desktop, .digital-header-fixed,
+    .attributes-desktop, .tabs-header-desktop {
+        display: none;
+    }
+}
+
+/* Десктопные стили */
+@media (min-width: 769px) {
+    .header-mobile, .character-nav-mobile, .stats-header-mobile,
+    .stats-container, .tabs-selector-mobile {
+        display: none;
+    }
+
+    .header-desktop, .character-nav-desktop, .digital-header-fixed,
+    .attributes-desktop, .tabs-header-desktop {
+        display: block;
+    }
+}
