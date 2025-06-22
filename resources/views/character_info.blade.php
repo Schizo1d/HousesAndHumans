@@ -13,7 +13,7 @@
 
 </head>
 <body>
-<div class="desktop-version">
+<div class="desktop-only">
     <header>
         <div class="container">
             <div class="background-image-main">
@@ -1386,7 +1386,8 @@
     </div>
     </main>
     </div>
-    <!-- Мобильная версия -->
+<!-- Мобильная версия -->
+<div class="mobile-only">
     <div class="header-mobile">
         <a href="{{ route('character_list') }}" class="back-button">
             <i class="fa-solid fa-arrow-left"></i>
@@ -1430,14 +1431,14 @@
 
     <div class="stats-container" id="stats-container">
         <div class="stat-box">
-            <span class="stat-value" id="proficiency-bonus-link"></span>
+            <span class="stat-value" id="proficiency-bonus-link">+2</span>
             <span class="stat-label">Владение</span>
         </div>
-        <div class="stat-box">
+        <div class="stat-box" onclick="openHealthModal()">
             <span class="stat-value" id="health-display">0/0</span>
             <span class="stat-label">Здоровье</span>
         </div>
-        <div class="stat-box">
+        <div class="stat-box" onclick="rollInitiative()">
             <span class="stat-value" id="initiative-mod">+0</span>
             <span class="stat-label">Инициатива</span>
         </div>
@@ -1445,29 +1446,32 @@
             <span class="stat-value">—</span>
             <span class="stat-label">Вдохновение</span>
         </div>
-        <div class="stat-box">
+        <div class="stat-box" onclick="document.getElementById('exhaustion-level').focus()">
             <span class="stat-value" id="exhaustion-value">0</span>
             <span class="stat-label">Истощение</span>
         </div>
-        <div class="stat-box">
+        <div class="stat-box" onclick="openConditionsModal()">
             <span class="stat-value">—</span>
             <span class="stat-label">Состояние</span>
         </div>
     </div>
 
-    <select class="tabs-selector-mobile" id="tabs-selector" onchange="changeMobileTab()">
-        <option value="attributes">Атрибуты</option>
-        <option value="attacks">Атаки</option>
-        <option value="abilities">Способности</option>
-        <option value="equipment">Снаряжение</option>
-        <option value="personality">Личность</option>
-        <option value="goals">Цели</option>
-        <option value="notes">Заметки</option>
-        <option value="spells">Заклинания</option>
-    </select>
+    <div class="tabs-selector-container">
+        <select class="tabs-selector-mobile" id="tabs-selector" onchange="changeMobileTab()">
+            <option value="attributes">Атрибуты</option>
+            <option value="attacks">Атаки</option>
+            <option value="abilities">Способности</option>
+            <option value="equipment">Снаряжение</option>
+            <option value="personality">Личность</option>
+            <option value="goals">Цели</option>
+            <option value="notes">Заметки</option>
+            <option value="spells">Заклинания</option>
+        </select>
+    </div>
 
     <div class="attributes-mobile" id="attributes-mobile">
         <!-- Здесь будут атрибуты как в десктопной версии, но адаптированные -->
+        <p>Мобильная версия атрибутов будет здесь</p>
     </div>
 
     <div class="tab-content-mobile" id="attacks-tab-mobile">
@@ -1479,6 +1483,32 @@
         <h3>Способности персонажа</h3>
         <p>Здесь будут перечислены способности персонажа...</p>
     </div>
+
+    <div class="tab-content-mobile" id="equipment-tab-mobile">
+        <h3>Снаряжение персонажа</h3>
+        <p>Здесь будет список снаряжения и предметов...</p>
+    </div>
+
+    <div class="tab-content-mobile" id="personality-tab-mobile">
+        <h3>Черты личности</h3>
+        <p>Здесь будет описание личности персонажа...</p>
+    </div>
+
+    <div class="tab-content-mobile" id="goals-tab-mobile">
+        <h3>Цели персонажа</h3>
+        <p>Здесь будут описаны цели и стремления персонажа...</p>
+    </div>
+
+    <div class="tab-content-mobile" id="notes-tab-mobile">
+        <h3>Заметки игрока</h3>
+        <p>Здесь могут быть заметки игрока о персонаже...</p>
+    </div>
+
+    <div class="tab-content-mobile" id="spells-tab-mobile">
+        <h3>Заклинания</h3>
+        <p>Здесь будет список заклинаний персонажа...</p>
+    </div>
+</div>
 
     <script>
 
@@ -3600,7 +3630,7 @@
                 const toggle = document.getElementById('stats-toggle');
 
                 container.classList.toggle('show');
-                toggle.textContent = container.classList.contains('show') ? '▲' : '▼';
+                toggle.classList.toggle('rotated');
             }
 
             // Функция для переключения вкладок на мобильных
@@ -3629,6 +3659,16 @@
                 document.getElementById('attributes-mobile').classList.add('show');
 
                 // Инициализация других элементов...
+                updateProficiencyBonus();
+                loadHealth();
+                updateHealthDisplay();
+
+                // Проверяем, если это мобильное устройство
+                if (window.innerWidth <= 768) {
+                    // Инициализация для мобильных
+                    document.getElementById('stats-container').classList.add('show');
+                    document.getElementById('stats-toggle').classList.add('rotated');
+                }
             });
     </script>
 
