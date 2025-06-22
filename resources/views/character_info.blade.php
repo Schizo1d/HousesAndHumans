@@ -1384,7 +1384,8 @@
         <div id="settings-backdrop" class="modal-backdrop"></div>
 
     </div>
-
+    </main>
+    </div>
     <!-- Мобильная версия -->
     <div class="header-mobile">
         <a href="{{ route('character_list') }}" class="back-button">
@@ -3630,7 +3631,6 @@
                 // Инициализация других элементов...
             });
     </script>
-</main>
-</div>
+
 </body>
 </html>
