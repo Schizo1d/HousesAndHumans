@@ -2729,6 +2729,7 @@
             console.error('Add XP error:', error);
             alert('Ошибка: ' + (error.message || 'Не удалось добавить опыт'));
         }
+        updateMiniProgressBar()
     }
 
     async function calculateAndSubtract() {
@@ -2750,6 +2751,7 @@
             console.error('Subtract XP error:', error);
             alert('Ошибка: ' + (error.message || 'Не удалось вычесть опыт'));
         }
+        updateMiniProgressBar()
     }
 
     function clearInput() {
@@ -2778,6 +2780,7 @@
             updateXpDisplay();
             alert('Ошибка при сохранении опыта');
         }
+        updateMiniProgressBar()
     }
 
     // Функция для вычитания опыта
@@ -2885,6 +2888,7 @@
             alert('Недостаточно опыта для повышения уровня!');
         }
         updateProficiencyBonus();
+        updateMiniProgressBar()
     }
 
     // Анимация повышения уровня
