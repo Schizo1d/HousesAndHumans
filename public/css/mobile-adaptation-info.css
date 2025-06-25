@@ -430,5 +430,7 @@
     .passive-skill-name{
         color: #915f32;
     }
-
+    .attribute-item{
+        width: 370px;
+    }
 }
