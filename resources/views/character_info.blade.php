@@ -1037,8 +1037,8 @@
             <option value="spells">Заклинания</option>
         </select>
     </div>
-
-    <div class="attributes-mobile" id="attributes-mobile">
+    <div class="tab-content-mobile" id="attacks-tab-mobile">
+    <div id="attributes-mobile" class="tab-content-mobile">
         <div class="attributes">
             <!-- Сила -->
             <div class="attribute-item">
@@ -1708,10 +1708,12 @@
                     </a>
                     <input type="hidden" id="passive_investigation" name="passive_investigation"
                            value="{{ $character->attributes->passive_investigation ?? 10 }}">
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
 
     <div class="tab-content-mobile" id="attacks-tab-mobile">
         <h3>Атаки персонажа</h3>
@@ -4375,12 +4377,16 @@
             tab.classList.remove('active');
         });
 
-        // Показываем выбранную
+        // Показываем выбранную вкладку
         if (selectedTab === 'attributes') {
             document.getElementById('attributes-mobile').classList.add('active');
-            syncAttributes(); // Заменили syncMobileAttributes на syncAttributes
         } else {
             document.getElementById(`${selectedTab}-tab-mobile`).classList.add('active');
+        }
+
+        // Синхронизируем значения атрибутов при переключении
+        if (selectedTab === 'attributes') {
+            syncMobileAttributes();
         }
     }
 
