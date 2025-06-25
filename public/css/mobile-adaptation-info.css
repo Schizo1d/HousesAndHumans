@@ -252,6 +252,11 @@
     .calc-buttons-row {
     }
 
+    .calc-empty{
+        height: 58px;
+        width: 58px;
+    }
+
     .calc-button {
         min-width: calc(33% - 10px); /* 3 кнопки в ряд */
         margin-bottom: 5px;
