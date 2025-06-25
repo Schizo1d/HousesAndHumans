@@ -3734,7 +3734,7 @@
 
             function updateMobileStats() {
                 // Обновляем бонус владения
-                const level = parseInt(document.querySelector('.character-level').textContent.match(/\d+/)[0] || 1;
+                const level = parseInt(document.querySelector('.character-level').textContent.match(/\d+/)[0] || 1);
                 document.getElementById('proficiency-bonus-link').textContent = `+${getProficiencyBonus(level)}`;
 
                 // Обновляем здоровье
