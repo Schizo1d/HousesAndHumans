@@ -2724,12 +2724,13 @@
             // Мгновенное обновление UI
             currentXp = newXp;
             updateProgressBar();
+            updateMiniProgressBar()
             clearInput();
         } catch (error) {
             console.error('Add XP error:', error);
             alert('Ошибка: ' + (error.message || 'Не удалось добавить опыт'));
         }
-        updateMiniProgressBar()
+
     }
 
     async function calculateAndSubtract() {
@@ -3139,15 +3140,26 @@
 
         const progressPercent = ((currentXp - startXp) / (endXp - startXp)) * 100;
 
-        const miniBar = document.getElementById('mini-xp-progress-bar');
-        const miniText = document.getElementById('mini-xp-progress-text');
+        // Обновляем все мини-прогресс бары (может быть несколько на странице)
+        document.querySelectorAll('.mini-progress-container').forEach(container => {
+            const miniBar = container.querySelector('.mini-progress-bar');
+            const miniText = container.querySelector('.mini-progress-text');
 
-        if (miniBar && miniText) {
-            miniBar.style.width = `${progressPercent}%`;
-            miniText.textContent = `${currentXp}/${endXp}`;
-        }
+            if (miniBar && miniText) {
+                miniBar.style.width = `${progressPercent}%`;
+                miniText.textContent = `${currentXp}/${endXp}`;
 
-        document.querySelector('.character-level').textContent = `Уровень ${currentLevel}`;
+                // Также обновляем data-атрибуты
+                container.dataset.currentXp = currentXp;
+                container.dataset.currentLevel = currentLevel;
+                container.dataset.nextLevelXp = endXp;
+            }
+        });
+
+        // Обновляем уровень везде, где он отображается
+        document.querySelectorAll('.character-level').forEach(el => {
+            el.textContent = `Уровень ${currentLevel}`;
+        });
     }
 
     document.addEventListener("DOMContentLoaded", function () {
@@ -3194,6 +3206,7 @@
 
         // Инициализируем прогресс-бары
         updateProgressBar();
+        updateMiniProgressBar();
     });
 
     // Функции для модального окна здоровья
