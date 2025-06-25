@@ -264,7 +264,9 @@
         height: 60px; /* Увеличиваем для удобного нажатия */
         font-size: 24px;
     }
-
+    .calc-action-buttons{
+        width: 340px;
+    }
     .conditions-list{
         max-height: 1000px;
     }
