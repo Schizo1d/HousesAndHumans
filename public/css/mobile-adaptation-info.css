@@ -250,6 +250,7 @@
 
     /* Адаптация калькуляторов */
     .calc-buttons-row {
+        width: 290px;
     }
 
     .calc-empty{
