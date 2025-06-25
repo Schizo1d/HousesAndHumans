@@ -1601,6 +1601,14 @@
         updateDeathSavesCheckboxes();
     });
 
+    document.addEventListener("DOMContentLoaded", function() {
+        // Показываем характеристики по умолчанию (если мобильная версия)
+        if (window.innerWidth <= 768) {
+            document.getElementById('stats-container').classList.add('show');
+        }
+        updateProficiencyBonus();
+    });
+
     // При загрузке страницы
     document.addEventListener("DOMContentLoaded", function() {
         // Загружаем сохраненное здоровье
