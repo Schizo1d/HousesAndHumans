@@ -1711,7 +1711,6 @@
                 </div>
                 </div>
             </div>
-        </div>
     </div>
 
     <div class="tab-content-mobile" id="attacks-tab-mobile">
