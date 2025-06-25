@@ -3119,8 +3119,13 @@
         currentXp = parseInt(miniProgress.dataset.currentXp) || 0;
         nextLevelXp = parseInt(miniProgress.dataset.nextLevelXp) || XP_TABLE[currentLevel + 1];
 
-        updateMiniProgressBar();
         updateProgressBar();
+        updateProficiencyBonus();
+
+        // Для мобильной версии
+        if (window.innerWidth <= 768) {
+            updateProficiencyBonus();
+        }
     });
 
     // Функция обновления мини-прогресс бара
