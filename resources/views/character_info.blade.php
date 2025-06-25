@@ -95,865 +95,865 @@
         </div>
     </div>
     <main>
-    <div class="container-info">
-        <form id="attributesForm" action="{{ route('character_attributes.store', ['character' => $character->id]) }}"
-              method="POST">
-            @csrf
-            <input type="hidden" name="character_id" value="{{ $character->id }}">
+        <div class="container-info">
+            <form id="attributesForm" action="{{ route('character_attributes.store', ['character' => $character->id]) }}"
+                  method="POST">
+                @csrf
+                <input type="hidden" name="character_id" value="{{ $character->id }}">
 
-            <div class="attributes">
-                <!-- Сила -->
-                <div class="attribute-item">
-                    <div class="attribute-main-stat">
-                        <a href="javascript:void(0);" class="attribute-link" onclick="openModal('strength')">
-                            <span class="attribute-name">Сила</span>
-                            <div class="line"></div>
-                            <span class="attribute-value" id="strength-button">
+                <div class="attributes">
+                    <!-- Сила -->
+                    <div class="attribute-item">
+                        <div class="attribute-main-stat">
+                            <a href="javascript:void(0);" class="attribute-link" onclick="openModal('strength')">
+                                <span class="attribute-name">Сила</span>
+                                <div class="line"></div>
+                                <span class="attribute-value" id="strength-button">
                                 {{ $character->attributes->strength ?? 10 }}
                             </span>
-                        </a>
-                        <input type="hidden" id="strength" name="strength"
-                               value="{{ $character->attributes->strength ?? 10 }}">
-                    </div>
-                    <div class="attribute-checks">
-                        <!-- Блок для проверки -->
-                        <div class="check-block">
-                            <div class="attribute-skill-wrap">
-                                <a href="#" class="check-link"
-                                   onclick="openModal('strength'); return false;">Проверка</a>
-                            </div>
-                            <button type="button" class="dice-roll-button"
-                                    onclick="rollDice('strength'); return false;">
+                            </a>
+                            <input type="hidden" id="strength" name="strength"
+                                   value="{{ $character->attributes->strength ?? 10 }}">
+                        </div>
+                        <div class="attribute-checks">
+                            <!-- Блок для проверки -->
+                            <div class="check-block">
+                                <div class="attribute-skill-wrap">
+                                    <a href="#" class="check-link"
+                                       onclick="openModal('strength'); return false;">Проверка</a>
+                                </div>
+                                <button type="button" class="dice-roll-button"
+                                        onclick="rollDice('strength'); return false;">
             <span id="strength-modifier" class="modifier">
                 {{ floor(($character->attributes->strength ?? 10 - 10) / 2) }}
             </span>
-                            </button>
-                        </div>
-
-                        <!-- Блок для спасброска -->
-                        <div class="save-block">
-                            <div class="attribute-skill-wrap">
-                                <a href="#" class="save-link"
-                                   onclick="openModal('strength'); return false;">Спасбросок</a>
+                                </button>
                             </div>
-                            <button type="button" class="dice-roll-button"
-                                    onclick="rollSave('strength'); return false;">
+
+                            <!-- Блок для спасброска -->
+                            <div class="save-block">
+                                <div class="attribute-skill-wrap">
+                                    <a href="#" class="save-link"
+                                       onclick="openModal('strength'); return false;">Спасбросок</a>
+                                </div>
+                                <button type="button" class="dice-roll-button"
+                                        onclick="rollSave('strength'); return false;">
             <span id="strength-save-modifier" class="modifier">
                 {{ floor(($character->attributes->strength ?? 10 - 10) / 2) }}
             </span>
-                            </button>
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                    <!--Атлетика-->
+                        <!--Атлетика-->
 
-                    <div class="attribute-skill">
-                        <label class="double-radio-container">
-                            <input type="checkbox" class="double-radio-input" id="athletics-radio"
-                                   name="athletics-radio" onclick="handleSkillRadio(this, 'athletics', 'strength')">
-                            <span class="double-radio-custom">
+                        <div class="attribute-skill">
+                            <label class="double-radio-container">
+                                <input type="checkbox" class="double-radio-input" id="athletics-radio"
+                                       name="athletics-radio" onclick="handleSkillRadio(this, 'athletics', 'strength')">
+                                <span class="double-radio-custom">
                     <span class="radio-dot dot-1"></span>
                     <span class="radio-dot dot-2"></span>
                 </span>
-                        </label>
-                        <span class="attribute-skill-name">Атлетика</span>
-                        <button type="button" class="dice-roll-button" onclick="rollSkill('athletics', 'strength')">
-                            <span id="athletics-value">{{ $character->attributes->athletics ?? 0 }}</span>
-                        </button>
-                    </div>
-                    <input type="hidden" name="athletics" id="athletics"
-                           value="{{ $character->attributes->athletics ?? 0 }}">
+                            </label>
+                            <span class="attribute-skill-name">Атлетика</span>
+                            <button type="button" class="dice-roll-button" onclick="rollSkill('athletics', 'strength')">
+                                <span id="athletics-value">{{ $character->attributes->athletics ?? 0 }}</span>
+                            </button>
+                        </div>
+                        <input type="hidden" name="athletics" id="athletics"
+                               value="{{ $character->attributes->athletics ?? 0 }}">
 
-                </div>
-                <!-- Ловкость -->
-                <div class="attribute-item">
-                    <div class="attribute-main-stat">
-                        <a href="javascript:void(0);" class="attribute-link" onclick="openModal('dexterity')">
-                            <span class="attribute-name">Ловкость</span>
-                            <div class="line"></div>
-                            <span class="attribute-value" id="dexterity-button">
+                    </div>
+                    <!-- Ловкость -->
+                    <div class="attribute-item">
+                        <div class="attribute-main-stat">
+                            <a href="javascript:void(0);" class="attribute-link" onclick="openModal('dexterity')">
+                                <span class="attribute-name">Ловкость</span>
+                                <div class="line"></div>
+                                <span class="attribute-value" id="dexterity-button">
                 {{ $character->attributes->dexterity ?? 10 }}
             </span>
-                        </a>
-                        <input type="hidden" id="dexterity" name="dexterity"
-                               value="{{ $character->attributes->dexterity ?? 10 }}">
-                    </div>
-                    <div class="attribute-checks">
-                        <!-- Блок для проверки -->
-                        <div class="check-block">
-                            <div class="attribute-skill-wrap">
-                                <a href="#" class="check-link"
-                                   onclick="openModal('dexterity'); return false;">Проверка</a>
-                            </div>
-                            <button type="button" class="dice-roll-button"
-                                    onclick="rollDice('dexterity'); return false;">
+                            </a>
+                            <input type="hidden" id="dexterity" name="dexterity"
+                                   value="{{ $character->attributes->dexterity ?? 10 }}">
+                        </div>
+                        <div class="attribute-checks">
+                            <!-- Блок для проверки -->
+                            <div class="check-block">
+                                <div class="attribute-skill-wrap">
+                                    <a href="#" class="check-link"
+                                       onclick="openModal('dexterity'); return false;">Проверка</a>
+                                </div>
+                                <button type="button" class="dice-roll-button"
+                                        onclick="rollDice('dexterity'); return false;">
                 <span id="dexterity-modifier" class="modifier">
                     {{ floor(($character->attributes->dexterity ?? 10 - 10) / 2) }}
                 </span>
-                            </button>
-                        </div>
-
-                        <!-- Блок для спасброска -->
-                        <div class="save-block">
-                            <div class="attribute-skill-wrap">
-                                <a href="#" class="save-link"
-                                   onclick="openModal('dexterity'); return false;">Спасбросок</a>
+                                </button>
                             </div>
-                            <button type="button" class="dice-roll-button"
-                                    onclick="rollSave('dexterity'); return false;">
+
+                            <!-- Блок для спасброска -->
+                            <div class="save-block">
+                                <div class="attribute-skill-wrap">
+                                    <a href="#" class="save-link"
+                                       onclick="openModal('dexterity'); return false;">Спасбросок</a>
+                                </div>
+                                <button type="button" class="dice-roll-button"
+                                        onclick="rollSave('dexterity'); return false;">
                 <span id="dexterity-save-modifier" class="modifier">
                     {{ floor(($character->attributes->dexterity ?? 10 - 10) / 2) }}
                 </span>
-                            </button>
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="sub-attributes">
-                        <!-- Акробатика -->
-                        <div class="attribute-skill">
-                            <label class="double-radio-container">
-                                <input type="checkbox" class="double-radio-input" id="acrobatics-radio"
-                                       name="acrobatics-radio"
-                                       onclick="handleSkillRadio(this, 'acrobatics', 'dexterity')">
-                                <span class="double-radio-custom">
+                        <div class="sub-attributes">
+                            <!-- Акробатика -->
+                            <div class="attribute-skill">
+                                <label class="double-radio-container">
+                                    <input type="checkbox" class="double-radio-input" id="acrobatics-radio"
+                                           name="acrobatics-radio"
+                                           onclick="handleSkillRadio(this, 'acrobatics', 'dexterity')">
+                                    <span class="double-radio-custom">
                     <span class="radio-dot dot-1"></span>
                     <span class="radio-dot dot-2"></span>
                 </span>
-                            </label>
-                            <span class="attribute-skill-name">Акробатика</span>
+                                </label>
+                                <span class="attribute-skill-name">Акробатика</span>
 
-                            <button type="button" class="dice-roll-button"
-                                    onclick="rollSkill('acrobatics', 'dexterity')">
-                                <span id="acrobatics-value">{{ $character->attributes->acrobatics ?? 0 }}</span>
-                            </button>
-                        </div>
-                        <input type="hidden" name="acrobatics" id="acrobatics"
-                               value="{{ $character->attributes->acrobatics ?? 0 }}">
+                                <button type="button" class="dice-roll-button"
+                                        onclick="rollSkill('acrobatics', 'dexterity')">
+                                    <span id="acrobatics-value">{{ $character->attributes->acrobatics ?? 0 }}</span>
+                                </button>
+                            </div>
+                            <input type="hidden" name="acrobatics" id="acrobatics"
+                                   value="{{ $character->attributes->acrobatics ?? 0 }}">
 
-                        <div class="attribute-skill">
-                            <label class="double-radio-container">
-                                <input type="checkbox" class="double-radio-input" id="sleight_of_hand-radio"
-                                       name="sleight_of_hand-radio"
-                                       onclick="handleSkillRadio(this, 'sleight_of_hand', 'dexterity')">
-                                <span class="double-radio-custom">
+                            <div class="attribute-skill">
+                                <label class="double-radio-container">
+                                    <input type="checkbox" class="double-radio-input" id="sleight_of_hand-radio"
+                                           name="sleight_of_hand-radio"
+                                           onclick="handleSkillRadio(this, 'sleight_of_hand', 'dexterity')">
+                                    <span class="double-radio-custom">
                     <span class="radio-dot dot-1"></span>
                     <span class="radio-dot dot-2"></span>
                 </span>
-                            </label>
-                            <span class="attribute-skill-name">Ловкость рук</span>
+                                </label>
+                                <span class="attribute-skill-name">Ловкость рук</span>
 
-                            <button type="button" class="dice-roll-button"
-                                    onclick="rollSkill('sleight_of_hand', 'dexterity')">
+                                <button type="button" class="dice-roll-button"
+                                        onclick="rollSkill('sleight_of_hand', 'dexterity')">
                                 <span
                                     id="sleight_of_hand-value">{{ $character->attributes->sleight_of_hand ?? 0 }}</span>
-                            </button>
-                        </div>
-                        <input type="hidden" name="sleight_of_hand" id="sleight_of_hand"
-                               value="{{ $character->attributes->sleight_of_hand ?? 0 }}">
+                                </button>
+                            </div>
+                            <input type="hidden" name="sleight_of_hand" id="sleight_of_hand"
+                                   value="{{ $character->attributes->sleight_of_hand ?? 0 }}">
 
-                        <div class="attribute-skill">
-                            <label class="double-radio-container">
-                                <input type="checkbox" class="double-radio-input" id="stealth-radio"
-                                       name="stealth-radio" onclick="handleSkillRadio(this, 'stealth', 'dexterity')">
-                                <span class="double-radio-custom">
+                            <div class="attribute-skill">
+                                <label class="double-radio-container">
+                                    <input type="checkbox" class="double-radio-input" id="stealth-radio"
+                                           name="stealth-radio" onclick="handleSkillRadio(this, 'stealth', 'dexterity')">
+                                    <span class="double-radio-custom">
                     <span class="radio-dot dot-1"></span>
                     <span class="radio-dot dot-2"></span>
                 </span>
-                            </label>
-                            <span class="attribute-skill-name">Скрытность</span>
+                                </label>
+                                <span class="attribute-skill-name">Скрытность</span>
 
-                            <button type="button" class="dice-roll-button" onclick="rollSkill('stealth', 'dexterity')">
-                                <span id="stealth-value">{{ $character->attributes->stealth ?? 0 }}</span>
-                            </button>
+                                <button type="button" class="dice-roll-button" onclick="rollSkill('stealth', 'dexterity')">
+                                    <span id="stealth-value">{{ $character->attributes->stealth ?? 0 }}</span>
+                                </button>
+                            </div>
+                            <input type="hidden" name="stealth" id="stealth"
+                                   value="{{ $character->attributes->stealth ?? 0 }}">
                         </div>
-                        <input type="hidden" name="stealth" id="stealth"
-                               value="{{ $character->attributes->stealth ?? 0 }}">
                     </div>
-                </div>
 
-                <!-- Телосложение -->
-                <div class="attribute-item">
-                    <div class="attribute-main-stat">
-                        <a href="javascript:void(0);" class="attribute-link" onclick="openModal('constitution')">
-                            <span class="attribute-name">Телосложение</span>
-                            <div class="line"></div>
-                            <span class="attribute-value" id="constitution-button">
+                    <!-- Телосложение -->
+                    <div class="attribute-item">
+                        <div class="attribute-main-stat">
+                            <a href="javascript:void(0);" class="attribute-link" onclick="openModal('constitution')">
+                                <span class="attribute-name">Телосложение</span>
+                                <div class="line"></div>
+                                <span class="attribute-value" id="constitution-button">
                 {{ $character->attributes->constitution ?? 10 }}
             </span>
-                        </a>
-                        <input type="hidden" id="constitution" name="constitution"
-                               value="{{ $character->attributes->constitution ?? 10 }}">
-                    </div>
-                    <div class="attribute-checks">
-                        <!-- Блок для проверки -->
-                        <div class="check-block">
-                            <div class="attribute-skill-wrap">
-                                <a href="#" class="check-link" onclick="openModal('constitution'); return false;">Проверка</a>
-                            </div>
-                            <button type="button" class="dice-roll-button"
-                                    onclick="rollDice('constitution'); return false;">
+                            </a>
+                            <input type="hidden" id="constitution" name="constitution"
+                                   value="{{ $character->attributes->constitution ?? 10 }}">
+                        </div>
+                        <div class="attribute-checks">
+                            <!-- Блок для проверки -->
+                            <div class="check-block">
+                                <div class="attribute-skill-wrap">
+                                    <a href="#" class="check-link" onclick="openModal('constitution'); return false;">Проверка</a>
+                                </div>
+                                <button type="button" class="dice-roll-button"
+                                        onclick="rollDice('constitution'); return false;">
                 <span id="constitution-modifier" class="modifier">
                     {{ floor(($character->attributes->constitution ?? 10 - 10) / 2) }}
                 </span>
-                            </button>
-                        </div>
-
-                        <!-- Блок для спасброска -->
-                        <div class="save-block">
-                            <div class="attribute-skill-wrap">
-                                <a href="#" class="save-link" onclick="openModal('constitution'); return false;">Спасбросок</a>
+                                </button>
                             </div>
-                            <button type="button" class="dice-roll-button"
-                                    onclick="rollSave('constitution'); return false;">
+
+                            <!-- Блок для спасброска -->
+                            <div class="save-block">
+                                <div class="attribute-skill-wrap">
+                                    <a href="#" class="save-link" onclick="openModal('constitution'); return false;">Спасбросок</a>
+                                </div>
+                                <button type="button" class="dice-roll-button"
+                                        onclick="rollSave('constitution'); return false;">
                 <span id="constitution-save-modifier" class="modifier">
                     {{ floor(($character->attributes->constitution ?? 10 - 10) / 2) }}
                 </span>
-                            </button>
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Интеллект -->
-                <div class="attribute-item">
-                    <div class="attribute-main-stat">
-                        <a href="javascript:void(0);" class="attribute-link" onclick="openModal('intelligence')">
-                            <span class="attribute-name">Интеллект</span>
-                            <div class="line"></div>
-                            <span class="attribute-value" id="intelligence-button">
+                    <!-- Интеллект -->
+                    <div class="attribute-item">
+                        <div class="attribute-main-stat">
+                            <a href="javascript:void(0);" class="attribute-link" onclick="openModal('intelligence')">
+                                <span class="attribute-name">Интеллект</span>
+                                <div class="line"></div>
+                                <span class="attribute-value" id="intelligence-button">
                 {{ $character->attributes->intelligence ?? 10 }}
             </span>
-                        </a>
-                        <input type="hidden" id="intelligence" name="intelligence"
-                               value="{{ $character->attributes->intelligence ?? 10 }}">
-                    </div>
-                    <div class="attribute-checks">
-                        <!-- Блок для проверки -->
-                        <div class="check-block">
-                            <div class="attribute-skill-wrap">
-                                <a href="#" class="check-link" onclick="openModal('intelligence'); return false;">Проверка</a>
-                            </div>
-                            <button type="button" class="dice-roll-button"
-                                    onclick="rollDice('intelligence'); return false;">
+                            </a>
+                            <input type="hidden" id="intelligence" name="intelligence"
+                                   value="{{ $character->attributes->intelligence ?? 10 }}">
+                        </div>
+                        <div class="attribute-checks">
+                            <!-- Блок для проверки -->
+                            <div class="check-block">
+                                <div class="attribute-skill-wrap">
+                                    <a href="#" class="check-link" onclick="openModal('intelligence'); return false;">Проверка</a>
+                                </div>
+                                <button type="button" class="dice-roll-button"
+                                        onclick="rollDice('intelligence'); return false;">
                 <span id="intelligence-modifier" class="modifier">
                     {{ floor(($character->attributes->intelligence ?? 10 - 10) / 2) }}
                 </span>
-                            </button>
-                        </div>
-
-                        <!-- Блок для спасброска -->
-                        <div class="save-block">
-                            <div class="attribute-skill-wrap">
-                                <a href="#" class="save-link" onclick="openModal('intelligence'); return false;">Спасбросок</a>
+                                </button>
                             </div>
-                            <button type="button" class="dice-roll-button"
-                                    onclick="rollSave('intelligence'); return false;">
+
+                            <!-- Блок для спасброска -->
+                            <div class="save-block">
+                                <div class="attribute-skill-wrap">
+                                    <a href="#" class="save-link" onclick="openModal('intelligence'); return false;">Спасбросок</a>
+                                </div>
+                                <button type="button" class="dice-roll-button"
+                                        onclick="rollSave('intelligence'); return false;">
                 <span id="intelligence-save-modifier" class="modifier">
                     {{ floor(($character->attributes->intelligence ?? 10 - 10) / 2) }}
                 </span>
-                            </button>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="sub-attributes">
+                            <!--Анализ-->
+                            <div class="attribute-skill">
+                                <label class="double-radio-container">
+                                    <input type="checkbox" class="double-radio-input" id="investigation-radio"
+                                           name="investigation-radio"
+                                           onclick="handleSkillRadio(this, 'investigation', 'intelligence')">
+                                    <span class="double-radio-custom">
+                    <span class="radio-dot dot-1"></span>
+                    <span class="radio-dot dot-2"></span>
+                </span>
+                                </label>
+                                <span class="attribute-skill-name">Анализ</span>
+
+                                <button type="button" class="dice-roll-button"
+                                        onclick="rollSkill('investigation', 'intelligence')">
+                                    <span id="investigation-value">{{ $character->attributes->investigation ?? 0 }}</span>
+                                </button>
+                            </div>
+                            <input type="hidden" name="investigation" id="investigation"
+                                   value="{{ $character->attributes->investigation ?? 0 }}">
+                            <!--История-->
+                            <div class="attribute-skill">
+                                <label class="double-radio-container">
+                                    <input type="checkbox" class="double-radio-input" id="history-radio"
+                                           name="history-radio" onclick="handleSkillRadio(this, 'history', 'intelligence')">
+                                    <span class="double-radio-custom">
+                    <span class="radio-dot dot-1"></span>
+                    <span class="radio-dot dot-2"></span>
+                </span>
+                                </label>
+                                <span class="attribute-skill-name">История</span>
+
+                                <button type="button" class="dice-roll-button"
+                                        onclick="rollSkill('history', 'intelligence')">
+                                    <span id="history-value">{{ $character->attributes->history ?? 0 }}</span>
+                                </button>
+                            </div>
+                            <input type="hidden" name="history" id="history"
+                                   value="{{ $character->attributes->history ?? 0 }}">
+
+                            <!--Магия-->
+                            <div class="attribute-skill">
+                                <label class="double-radio-container">
+                                    <input type="checkbox" class="double-radio-input" id="arcana-radio"
+                                           name="arcana-radio" onclick="handleSkillRadio(this, 'arcana', 'intelligence')">
+                                    <span class="double-radio-custom">
+                    <span class="radio-dot dot-1"></span>
+                    <span class="radio-dot dot-2"></span>
+                </span>
+                                </label>
+                                <span class="attribute-skill-name">Магия</span>
+
+                                <button type="button" class="dice-roll-button"
+                                        onclick="rollSkill('arcana', 'intelligence')">
+                                    <span id="arcana-value">{{ $character->attributes->arcana ?? 0 }}</span>
+                                </button>
+                            </div>
+                            <input type="hidden" name="arcana" id="arcana"
+                                   value="{{ $character->attributes->arcana ?? 0 }}">
+
+                            <!--Природа-->
+
+                            <div class="attribute-skill">
+                                <label class="double-radio-container">
+                                    <input type="checkbox" class="double-radio-input" id="nature-radio"
+                                           name="nature-radio" onclick="handleSkillRadio(this, 'nature', 'intelligence')">
+                                    <span class="double-radio-custom">
+                    <span class="radio-dot dot-1"></span>
+                    <span class="radio-dot dot-2"></span>
+                </span>
+                                </label>
+                                <span class="attribute-skill-name">Природа</span>
+
+                                <button type="button" class="dice-roll-button"
+                                        onclick="rollSkill('nature', 'intelligence')">
+                                    <span id="nature-value">{{ $character->attributes->nature ?? 0 }}</span>
+                                </button>
+                            </div>
+                            <input type="hidden" name="nature" id="nature"
+                                   value="{{ $character->attributes->nature ?? 0 }}">
+
+                            <!--Религия-->
+
+                            <div class="attribute-skill">
+                                <label class="double-radio-container">
+                                    <input type="checkbox" class="double-radio-input" id="religion-radio"
+                                           name="religion-radio"
+                                           onclick="handleSkillRadio(this, 'religion', 'intelligence')">
+                                    <span class="double-radio-custom">
+                    <span class="radio-dot dot-1"></span>
+                    <span class="radio-dot dot-2"></span>
+                </span>
+                                </label>
+                                <span class="attribute-skill-name">Религия</span>
+
+                                <button type="button" class="dice-roll-button"
+                                        onclick="rollSkill('religion', 'intelligence')">
+                                    <span id="religion-value">{{ $character->attributes->religion ?? 0 }}</span>
+                                </button>
+                            </div>
+                            <input type="hidden" name="religion" id="religion"
+                                   value="{{ $character->attributes->religion ?? 0 }}">
                         </div>
                     </div>
-                    <div class="sub-attributes">
-                        <!--Анализ-->
-                        <div class="attribute-skill">
-                            <label class="double-radio-container">
-                                <input type="checkbox" class="double-radio-input" id="investigation-radio"
-                                       name="investigation-radio"
-                                       onclick="handleSkillRadio(this, 'investigation', 'intelligence')">
-                                <span class="double-radio-custom">
-                    <span class="radio-dot dot-1"></span>
-                    <span class="radio-dot dot-2"></span>
-                </span>
-                            </label>
-                            <span class="attribute-skill-name">Анализ</span>
 
-                            <button type="button" class="dice-roll-button"
-                                    onclick="rollSkill('investigation', 'intelligence')">
-                                <span id="investigation-value">{{ $character->attributes->investigation ?? 0 }}</span>
-                            </button>
-                        </div>
-                        <input type="hidden" name="investigation" id="investigation"
-                               value="{{ $character->attributes->investigation ?? 0 }}">
-                        <!--История-->
-                        <div class="attribute-skill">
-                            <label class="double-radio-container">
-                                <input type="checkbox" class="double-radio-input" id="history-radio"
-                                       name="history-radio" onclick="handleSkillRadio(this, 'history', 'intelligence')">
-                                <span class="double-radio-custom">
-                    <span class="radio-dot dot-1"></span>
-                    <span class="radio-dot dot-2"></span>
-                </span>
-                            </label>
-                            <span class="attribute-skill-name">История</span>
-
-                            <button type="button" class="dice-roll-button"
-                                    onclick="rollSkill('history', 'intelligence')">
-                                <span id="history-value">{{ $character->attributes->history ?? 0 }}</span>
-                            </button>
-                        </div>
-                        <input type="hidden" name="history" id="history"
-                               value="{{ $character->attributes->history ?? 0 }}">
-
-                        <!--Магия-->
-                        <div class="attribute-skill">
-                            <label class="double-radio-container">
-                                <input type="checkbox" class="double-radio-input" id="arcana-radio"
-                                       name="arcana-radio" onclick="handleSkillRadio(this, 'arcana', 'intelligence')">
-                                <span class="double-radio-custom">
-                    <span class="radio-dot dot-1"></span>
-                    <span class="radio-dot dot-2"></span>
-                </span>
-                            </label>
-                            <span class="attribute-skill-name">Магия</span>
-
-                            <button type="button" class="dice-roll-button"
-                                    onclick="rollSkill('arcana', 'intelligence')">
-                                <span id="arcana-value">{{ $character->attributes->arcana ?? 0 }}</span>
-                            </button>
-                        </div>
-                        <input type="hidden" name="arcana" id="arcana"
-                               value="{{ $character->attributes->arcana ?? 0 }}">
-
-                        <!--Природа-->
-
-                        <div class="attribute-skill">
-                            <label class="double-radio-container">
-                                <input type="checkbox" class="double-radio-input" id="nature-radio"
-                                       name="nature-radio" onclick="handleSkillRadio(this, 'nature', 'intelligence')">
-                                <span class="double-radio-custom">
-                    <span class="radio-dot dot-1"></span>
-                    <span class="radio-dot dot-2"></span>
-                </span>
-                            </label>
-                            <span class="attribute-skill-name">Природа</span>
-
-                            <button type="button" class="dice-roll-button"
-                                    onclick="rollSkill('nature', 'intelligence')">
-                                <span id="nature-value">{{ $character->attributes->nature ?? 0 }}</span>
-                            </button>
-                        </div>
-                        <input type="hidden" name="nature" id="nature"
-                               value="{{ $character->attributes->nature ?? 0 }}">
-
-                        <!--Религия-->
-
-                        <div class="attribute-skill">
-                            <label class="double-radio-container">
-                                <input type="checkbox" class="double-radio-input" id="religion-radio"
-                                       name="religion-radio"
-                                       onclick="handleSkillRadio(this, 'religion', 'intelligence')">
-                                <span class="double-radio-custom">
-                    <span class="radio-dot dot-1"></span>
-                    <span class="radio-dot dot-2"></span>
-                </span>
-                            </label>
-                            <span class="attribute-skill-name">Религия</span>
-
-                            <button type="button" class="dice-roll-button"
-                                    onclick="rollSkill('religion', 'intelligence')">
-                                <span id="religion-value">{{ $character->attributes->religion ?? 0 }}</span>
-                            </button>
-                        </div>
-                        <input type="hidden" name="religion" id="religion"
-                               value="{{ $character->attributes->religion ?? 0 }}">
-                    </div>
-                </div>
-
-                <!-- Мудрость -->
-                <div class="attribute-item">
-                    <div class="attribute-main-stat">
-                        <a href="javascript:void(0);" class="attribute-link" onclick="openModal('wisdom')">
-                            <span class="attribute-name">Мудрость</span>
-                            <div class="line"></div>
-                            <span class="attribute-value" id="wisdom-button">
+                    <!-- Мудрость -->
+                    <div class="attribute-item">
+                        <div class="attribute-main-stat">
+                            <a href="javascript:void(0);" class="attribute-link" onclick="openModal('wisdom')">
+                                <span class="attribute-name">Мудрость</span>
+                                <div class="line"></div>
+                                <span class="attribute-value" id="wisdom-button">
                 {{ $character->attributes->wisdom ?? 10 }}
             </span>
-                        </a>
-                        <input type="hidden" id="wisdom" name="wisdom"
-                               value="{{ $character->attributes->wisdom ?? 10 }}">
-                    </div>
-                    <div class="attribute-checks">
-                        <!-- Блок для проверки -->
-                        <div class="check-block">
-                            <div class="attribute-skill-wrap">
-                                <a href="#" class="check-link" onclick="openModal('wisdom'); return false;">Проверка</a>
-                            </div>
-                            <button type="button" class="dice-roll-button" onclick="rollDice('wisdom'); return false;">
+                            </a>
+                            <input type="hidden" id="wisdom" name="wisdom"
+                                   value="{{ $character->attributes->wisdom ?? 10 }}">
+                        </div>
+                        <div class="attribute-checks">
+                            <!-- Блок для проверки -->
+                            <div class="check-block">
+                                <div class="attribute-skill-wrap">
+                                    <a href="#" class="check-link" onclick="openModal('wisdom'); return false;">Проверка</a>
+                                </div>
+                                <button type="button" class="dice-roll-button" onclick="rollDice('wisdom'); return false;">
                 <span id="wisdom-modifier" class="modifier">
                     {{ floor(($character->attributes->wisdom ?? 10 - 10) / 2) }}
                 </span>
-                            </button>
-                        </div>
-
-                        <!-- Блок для спасброска -->
-                        <div class="save-block">
-                            <div class="attribute-skill-wrap">
-                                <a href="#" class="save-link"
-                                   onclick="openModal('wisdom'); return false;">Спасбросок</a>
+                                </button>
                             </div>
-                            <button type="button" class="dice-roll-button" onclick="rollSave('wisdom'); return false;">
+
+                            <!-- Блок для спасброска -->
+                            <div class="save-block">
+                                <div class="attribute-skill-wrap">
+                                    <a href="#" class="save-link"
+                                       onclick="openModal('wisdom'); return false;">Спасбросок</a>
+                                </div>
+                                <button type="button" class="dice-roll-button" onclick="rollSave('wisdom'); return false;">
                 <span id="wisdom-save-modifier" class="modifier">
                     {{ floor(($character->attributes->wisdom ?? 10 - 10) / 2) }}
                 </span>
-                            </button>
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="sub-attributes">
-                        <!-- Восприятие -->
-                        <div class="attribute-skill">
-                            <label class="double-radio-container">
-                                <input type="checkbox" class="double-radio-input" id="perception-radio"
-                                       name="perception-radio" onclick="handleSkillRadio(this, 'perception', 'wisdom')">
-                                <span class="double-radio-custom">
+                        <div class="sub-attributes">
+                            <!-- Восприятие -->
+                            <div class="attribute-skill">
+                                <label class="double-radio-container">
+                                    <input type="checkbox" class="double-radio-input" id="perception-radio"
+                                           name="perception-radio" onclick="handleSkillRadio(this, 'perception', 'wisdom')">
+                                    <span class="double-radio-custom">
                     <span class="radio-dot dot-1"></span>
                     <span class="radio-dot dot-2"></span>
                 </span>
-                            </label>
-                            <span class="attribute-skill-name">Восприятие</span>
+                                </label>
+                                <span class="attribute-skill-name">Восприятие</span>
 
-                            <button type="button" class="dice-roll-button" onclick="rollSkill('perception', 'wisdom')">
-                                <span id="perception-value">{{ $character->attributes->perception ?? 0 }}</span>
-                            </button>
-                        </div>
-                        <input type="hidden" name="perception" id="perception"
-                               value="{{ $character->attributes->perception ?? 0 }}">
+                                <button type="button" class="dice-roll-button" onclick="rollSkill('perception', 'wisdom')">
+                                    <span id="perception-value">{{ $character->attributes->perception ?? 0 }}</span>
+                                </button>
+                            </div>
+                            <input type="hidden" name="perception" id="perception"
+                                   value="{{ $character->attributes->perception ?? 0 }}">
 
-                        <!--Выживание-->
+                            <!--Выживание-->
 
-                        <div class="attribute-skill">
-                            <label class="double-radio-container">
-                                <input type="checkbox" class="double-radio-input" id="survival-radio"
-                                       name="survival-radio" onclick="handleSkillRadio(this, 'survival', 'wisdom')">
-                                <span class="double-radio-custom">
+                            <div class="attribute-skill">
+                                <label class="double-radio-container">
+                                    <input type="checkbox" class="double-radio-input" id="survival-radio"
+                                           name="survival-radio" onclick="handleSkillRadio(this, 'survival', 'wisdom')">
+                                    <span class="double-radio-custom">
                     <span class="radio-dot dot-1"></span>
                     <span class="radio-dot dot-2"></span>
                 </span>
-                            </label>
-                            <span class="attribute-skill-name">Выживание</span>
+                                </label>
+                                <span class="attribute-skill-name">Выживание</span>
 
-                            <button type="button" class="dice-roll-button" onclick="rollSkill('survival', 'wisdom')">
-                                <span id="survival-value">{{ $character->attributes->survival ?? 0 }}</span>
-                            </button>
-                        </div>
-                        <input type="hidden" name="survival" id="survival"
-                               value="{{ $character->attributes->survival ?? 0 }}">
+                                <button type="button" class="dice-roll-button" onclick="rollSkill('survival', 'wisdom')">
+                                    <span id="survival-value">{{ $character->attributes->survival ?? 0 }}</span>
+                                </button>
+                            </div>
+                            <input type="hidden" name="survival" id="survival"
+                                   value="{{ $character->attributes->survival ?? 0 }}">
 
-                        <!--Медицина-->
+                            <!--Медицина-->
 
-                        <div class="attribute-skill">
-                            <label class="double-radio-container">
-                                <input type="checkbox" class="double-radio-input" id="medicine-radio"
-                                       name="medicine-radio" onclick="handleSkillRadio(this, 'medicine', 'wisdom')">
-                                <span class="double-radio-custom">
+                            <div class="attribute-skill">
+                                <label class="double-radio-container">
+                                    <input type="checkbox" class="double-radio-input" id="medicine-radio"
+                                           name="medicine-radio" onclick="handleSkillRadio(this, 'medicine', 'wisdom')">
+                                    <span class="double-radio-custom">
                     <span class="radio-dot dot-1"></span>
                     <span class="radio-dot dot-2"></span>
                 </span>
 
-                            </label>
-                            <span class="attribute-skill-name">Медицина</span>
+                                </label>
+                                <span class="attribute-skill-name">Медицина</span>
 
-                            <button type="button" class="dice-roll-button" onclick="rollSkill('medicine', 'wisdom')">
-                                <span id="medicine-value">{{ $character->attributes->medicine ?? 0 }}</span>
-                            </button>
-                        </div>
-                        <input type="hidden" name="medicine" id="medicine"
-                               value="{{ $character->attributes->medicine ?? 0 }}">
+                                <button type="button" class="dice-roll-button" onclick="rollSkill('medicine', 'wisdom')">
+                                    <span id="medicine-value">{{ $character->attributes->medicine ?? 0 }}</span>
+                                </button>
+                            </div>
+                            <input type="hidden" name="medicine" id="medicine"
+                                   value="{{ $character->attributes->medicine ?? 0 }}">
 
-                        <!--Проницательность-->
+                            <!--Проницательность-->
 
-                        <div class="attribute-skill">
-                            <label class="double-radio-container">
-                                <input type="checkbox" class="double-radio-input" id="insight-radio"
-                                       name="insight-radio" onclick="handleSkillRadio(this, 'insight', 'wisdom')">
-                                <span class="double-radio-custom">
+                            <div class="attribute-skill">
+                                <label class="double-radio-container">
+                                    <input type="checkbox" class="double-radio-input" id="insight-radio"
+                                           name="insight-radio" onclick="handleSkillRadio(this, 'insight', 'wisdom')">
+                                    <span class="double-radio-custom">
                     <span class="radio-dot dot-1"></span>
                     <span class="radio-dot dot-2"></span>
                 </span>
-                            </label>
-                            <span class="attribute-skill-name">Проницательность</span>
+                                </label>
+                                <span class="attribute-skill-name">Проницательность</span>
 
-                            <button type="button" class="dice-roll-button" onclick="rollSkill('insight', 'wisdom')">
-                                <span id="insight-value">{{ $character->attributes->insight ?? 0 }}</span>
-                            </button>
-                        </div>
-                        <input type="hidden" name="insight" id="insight"
-                               value="{{ $character->attributes->insight ?? 0 }}">
+                                <button type="button" class="dice-roll-button" onclick="rollSkill('insight', 'wisdom')">
+                                    <span id="insight-value">{{ $character->attributes->insight ?? 0 }}</span>
+                                </button>
+                            </div>
+                            <input type="hidden" name="insight" id="insight"
+                                   value="{{ $character->attributes->insight ?? 0 }}">
 
-                        {{--Уход за животными--}}
+                            {{--Уход за животными--}}
 
-                        <div class="attribute-skill">
-                            <label class="double-radio-container">
-                                <input type="checkbox" class="double-radio-input" id="animal_handling-radio"
-                                       name="animal_handling-radio"
-                                       onclick="handleSkillRadio(this, 'animal_handling', 'wisdom')">
-                                <span class="double-radio-custom">
+                            <div class="attribute-skill">
+                                <label class="double-radio-container">
+                                    <input type="checkbox" class="double-radio-input" id="animal_handling-radio"
+                                           name="animal_handling-radio"
+                                           onclick="handleSkillRadio(this, 'animal_handling', 'wisdom')">
+                                    <span class="double-radio-custom">
                     <span class="radio-dot dot-1"></span>
                     <span class="radio-dot dot-2"></span>
                 </span>
-                            </label>
-                            <span class="attribute-skill-name">Уход за животными</span>
+                                </label>
+                                <span class="attribute-skill-name">Уход за животными</span>
 
-                            <button type="button" class="dice-roll-button"
-                                    onclick="rollSkill('animal_handling', 'wisdom')">
+                                <button type="button" class="dice-roll-button"
+                                        onclick="rollSkill('animal_handling', 'wisdom')">
                                 <span
                                     id="animal_handling-value">{{ $character->attributes->animal_handling ?? 0 }}</span>
-                            </button>
+                                </button>
+                            </div>
+                            <input type="hidden" name="animal_handling" id="animal_handling"
+                                   value="{{ $character->attributes->animal_handling ?? 0 }}">
                         </div>
-                        <input type="hidden" name="animal_handling" id="animal_handling"
-                               value="{{ $character->attributes->animal_handling ?? 0 }}">
                     </div>
-                </div>
 
-                <!-- Харизма -->
-                <div class="attribute-item">
-                    <div class="attribute-main-stat">
-                        <a href="javascript:void(0);" class="attribute-link" onclick="openModal('charisma')">
-                            <span class="attribute-name">Харизма</span>
-                            <div class="line"></div>
-                            <span class="attribute-value" id="charisma-button">
+                    <!-- Харизма -->
+                    <div class="attribute-item">
+                        <div class="attribute-main-stat">
+                            <a href="javascript:void(0);" class="attribute-link" onclick="openModal('charisma')">
+                                <span class="attribute-name">Харизма</span>
+                                <div class="line"></div>
+                                <span class="attribute-value" id="charisma-button">
                 {{ $character->attributes->charisma ?? 10 }}
             </span>
-                        </a>
-                        <input type="hidden" id="charisma" name="charisma"
-                               value="{{ $character->attributes->charisma ?? 10 }}">
-                    </div>
-                    <div class="attribute-checks">
-                        <!-- Блок для проверки -->
-                        <div class="check-block">
-                            <div class="attribute-skill-wrap">
-                                <a href="#" class="check-link"
-                                   onclick="openModal('charisma'); return false;">Проверка</a>
-                            </div>
-                            <button type="button" class="dice-roll-button"
-                                    onclick="rollDice('charisma'); return false;">
+                            </a>
+                            <input type="hidden" id="charisma" name="charisma"
+                                   value="{{ $character->attributes->charisma ?? 10 }}">
+                        </div>
+                        <div class="attribute-checks">
+                            <!-- Блок для проверки -->
+                            <div class="check-block">
+                                <div class="attribute-skill-wrap">
+                                    <a href="#" class="check-link"
+                                       onclick="openModal('charisma'); return false;">Проверка</a>
+                                </div>
+                                <button type="button" class="dice-roll-button"
+                                        onclick="rollDice('charisma'); return false;">
                 <span id="charisma-modifier" class="modifier">
                     {{ floor(($character->attributes->charisma ?? 10 - 10) / 2) }}
                 </span>
-                            </button>
-                        </div>
-
-                        <!-- Блок для спасброска -->
-                        <div class="save-block">
-                            <div class="attribute-skill-wrap">
-                                <a href="#" class="save-link"
-                                   onclick="openModal('charisma'); return false;">Спасбросок</a>
+                                </button>
                             </div>
-                            <button type="button" class="dice-roll-button"
-                                    onclick="rollSave('charisma'); return false;">
+
+                            <!-- Блок для спасброска -->
+                            <div class="save-block">
+                                <div class="attribute-skill-wrap">
+                                    <a href="#" class="save-link"
+                                       onclick="openModal('charisma'); return false;">Спасбросок</a>
+                                </div>
+                                <button type="button" class="dice-roll-button"
+                                        onclick="rollSave('charisma'); return false;">
                 <span id="charisma-save-modifier" class="modifier">
                     {{ floor(($character->attributes->charisma ?? 10 - 10) / 2) }}
                 </span>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="sub-attributes">
-
-                        <!--Выступление-->
-
-                        <div class="attribute-skill">
-                            <label class="double-radio-container">
-                                <input type="checkbox" class="double-radio-input" id="performance-radio"
-                                       name="performance-radio"
-                                       onclick="handleSkillRadio(this, 'performance', 'charisma')">
-                                <span class="double-radio-custom">
-                    <span class="radio-dot dot-1"></span>
-                    <span class="radio-dot dot-2"></span>
-                </span>
-                            </label>
-                            <span class="attribute-skill-name">Выступление</span>
-
-                            <button type="button" class="dice-roll-button"
-                                    onclick="rollSkill('performance', 'charisma')">
-                                <span id="performance-value">{{ $character->attributes->performance ?? 0 }}</span>
-                            </button>
-                        </div>
-                        <input type="hidden" name="performance" id="performance"
-                               value="{{ $character->attributes->performance ?? 0 }}">
-
-                        <!--Запугивание-->
-
-                        <div class="attribute-skill">
-                            <label class="double-radio-container">
-                                <input type="checkbox" class="double-radio-input" id="intimidation-radio"
-                                       name="intimidation-radio"
-                                       onclick="handleSkillRadio(this, 'intimidation', 'charisma')">
-                                <span class="double-radio-custom">
-                    <span class="radio-dot dot-1"></span>
-                    <span class="radio-dot dot-2"></span>
-                </span>
-                            </label>
-                            <span class="attribute-skill-name">Запугивание</span>
-
-                            <button type="button" class="dice-roll-button"
-                                    onclick="rollSkill('intimidation', 'charisma')">
-                                <span id="intimidation-value">{{ $character->attributes->intimidation ?? 0 }}</span>
-                            </button>
-                        </div>
-                        <input type="hidden" name="intimidation" id="intimidation"
-                               value="{{ $character->attributes->intimidation ?? 0 }}">
-
-                        <!--Обман-->
-
-                        <div class="attribute-skill">
-                            <label class="double-radio-container">
-                                <input type="checkbox" class="double-radio-input" id="deception-radio"
-                                       name="deception-radio" onclick="handleSkillRadio(this, 'deception', 'charisma')">
-                                <span class="double-radio-custom">
-                    <span class="radio-dot dot-1"></span>
-                    <span class="radio-dot dot-2"></span>
-                </span>
-                            </label>
-                            <span class="attribute-skill-name">Обман</span>
-
-                            <button type="button" class="dice-roll-button" onclick="rollSkill('deception', 'charisma')">
-                                <span id="deception-value">{{ $character->attributes->deception ?? 0 }}</span>
-                            </button>
-                        </div>
-                        <input type="hidden" name="deception" id="deception"
-                               value="{{ $character->attributes->deception ?? 0 }}">
-
-                        <!--Убеждение-->
-
-                        <div class="attribute-skill">
-                            <label class="double-radio-container">
-                                <input type="checkbox" class="double-radio-input" id="persuasion-radio"
-                                       name="persuasion-radio"
-                                       onclick="handleSkillRadio(this, 'persuasion', 'charisma')">
-                                <span class="double-radio-custom">
-                    <span class="radio-dot dot-1"></span>
-                    <span class="radio-dot dot-2"></span>
-                </span>
-                            </label>
-                            <span class="attribute-skill-name">Убеждение</span>
-
-                            <button type="button" class="dice-roll-button"
-                                    onclick="rollSkill('persuasion', 'charisma')">
-                                <span id="persuasion-value">{{ $character->attributes->persuasion ?? 0 }}</span>
-                            </button>
-                        </div>
-                        <input type="hidden" name="persuasion" id="persuasion"
-                               value="{{ $character->attributes->persuasion ?? 0 }}">
-
-                    </div>
-                </div>
-
-
-                <div class="passive-skills">
-                    <h3>Пассивные чувства</h3>
-
-                    <div class="passive-skill-item">
-                        <button class="passive-skill-value" id="passive-perception-button">
-                            {{ $character->attributes->passive_perception ?? 10 }}
-                        </button>
-                        <a href="javascript:void(0);" onclick="openModal('wisdom')" class="passive-link">
-                            <span class="passive-skill-name">Восприятие (Мудрость):</span>
-                        </a>
-                        <input type="hidden" id="passive_perception" name="passive_perception"
-                               value="{{ $character->attributes->passive_perception ?? 10 }}">
-                    </div>
-
-                    <div class="passive-skill-item">
-                        <button class="passive-skill-value" id="passive-insight-button">
-                            {{ $character->attributes->passive_insight ?? 10 }}
-                        </button>
-                        <a href="javascript:void(0);" onclick="openModal('wisdom')" class="passive-link">
-                            <span class="passive-skill-name">Проницательность (Мудрость):</span>
-                        </a>
-                        <input type="hidden" id="passive_insight" name="passive_insight"
-                               value="{{ $character->attributes->passive_insight ?? 10 }}">
-                    </div>
-
-                    <div class="passive-skill-item">
-                        <button class="passive-skill-value" id="passive-investigation-button">
-                            {{ $character->attributes->passive_investigation ?? 10 }}
-                        </button>
-                        <a href="javascript:void(0);" onclick="openModal('intelligence')" class="passive-link">
-                            <span class="passive-skill-name">Анализ (Интеллект):</span>
-                        </a>
-                        <input type="hidden" id="passive_investigation" name="passive_investigation"
-                               value="{{ $character->attributes->passive_investigation ?? 10 }}">
-                    </div>
-                </div>
-            </div>
-
-            <div class="digital_content_right">
-                <div class="digital-header-additional">
-                    <div class="digital-header-additional-wrap">
-                        <div class="digital_box">
-                            <div class="digital_box_button">
-                                <button class="digital_button" type="button" onclick="rollInitiative()">
-                                    <p id="initiative-mod" class="initiative"></p>
                                 </button>
                             </div>
-                            <span class="digital-boxed-value-label">инициатива</span>
                         </div>
-                        <div class="digital_box">
-                            <div class="digital_box_button">
-                                <label class="inspiration"></label>
-                            </div>
-                            <span class="digital-boxed-value-label">вдохновение</span>
-                        </div>
-                        <div class="digital_box">
-                            <div class="digital_box_button">
-                                <label class="digital-exhaustion-wrap">
-                                    <select class="digital-exhaustion" id="exhaustion-level" name="exhaustion">
-                                        <option value="0">0</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                        <option value="6">6</option>
-                                    </select>
-                                    <span id="exhaustion-value" class="exhaustion">0</span>
+                        <div class="sub-attributes">
+
+                            <!--Выступление-->
+
+                            <div class="attribute-skill">
+                                <label class="double-radio-container">
+                                    <input type="checkbox" class="double-radio-input" id="performance-radio"
+                                           name="performance-radio"
+                                           onclick="handleSkillRadio(this, 'performance', 'charisma')">
+                                    <span class="double-radio-custom">
+                    <span class="radio-dot dot-1"></span>
+                    <span class="radio-dot dot-2"></span>
+                </span>
                                 </label>
+                                <span class="attribute-skill-name">Выступление</span>
+
+                                <button type="button" class="dice-roll-button"
+                                        onclick="rollSkill('performance', 'charisma')">
+                                    <span id="performance-value">{{ $character->attributes->performance ?? 0 }}</span>
+                                </button>
                             </div>
-                            <span class="digital-boxed-value-label">истощение</span>
+                            <input type="hidden" name="performance" id="performance"
+                                   value="{{ $character->attributes->performance ?? 0 }}">
+
+                            <!--Запугивание-->
+
+                            <div class="attribute-skill">
+                                <label class="double-radio-container">
+                                    <input type="checkbox" class="double-radio-input" id="intimidation-radio"
+                                           name="intimidation-radio"
+                                           onclick="handleSkillRadio(this, 'intimidation', 'charisma')">
+                                    <span class="double-radio-custom">
+                    <span class="radio-dot dot-1"></span>
+                    <span class="radio-dot dot-2"></span>
+                </span>
+                                </label>
+                                <span class="attribute-skill-name">Запугивание</span>
+
+                                <button type="button" class="dice-roll-button"
+                                        onclick="rollSkill('intimidation', 'charisma')">
+                                    <span id="intimidation-value">{{ $character->attributes->intimidation ?? 0 }}</span>
+                                </button>
+                            </div>
+                            <input type="hidden" name="intimidation" id="intimidation"
+                                   value="{{ $character->attributes->intimidation ?? 0 }}">
+
+                            <!--Обман-->
+
+                            <div class="attribute-skill">
+                                <label class="double-radio-container">
+                                    <input type="checkbox" class="double-radio-input" id="deception-radio"
+                                           name="deception-radio" onclick="handleSkillRadio(this, 'deception', 'charisma')">
+                                    <span class="double-radio-custom">
+                    <span class="radio-dot dot-1"></span>
+                    <span class="radio-dot dot-2"></span>
+                </span>
+                                </label>
+                                <span class="attribute-skill-name">Обман</span>
+
+                                <button type="button" class="dice-roll-button" onclick="rollSkill('deception', 'charisma')">
+                                    <span id="deception-value">{{ $character->attributes->deception ?? 0 }}</span>
+                                </button>
+                            </div>
+                            <input type="hidden" name="deception" id="deception"
+                                   value="{{ $character->attributes->deception ?? 0 }}">
+
+                            <!--Убеждение-->
+
+                            <div class="attribute-skill">
+                                <label class="double-radio-container">
+                                    <input type="checkbox" class="double-radio-input" id="persuasion-radio"
+                                           name="persuasion-radio"
+                                           onclick="handleSkillRadio(this, 'persuasion', 'charisma')">
+                                    <span class="double-radio-custom">
+                    <span class="radio-dot dot-1"></span>
+                    <span class="radio-dot dot-2"></span>
+                </span>
+                                </label>
+                                <span class="attribute-skill-name">Убеждение</span>
+
+                                <button type="button" class="dice-roll-button"
+                                        onclick="rollSkill('persuasion', 'charisma')">
+                                    <span id="persuasion-value">{{ $character->attributes->persuasion ?? 0 }}</span>
+                                </button>
+                            </div>
+                            <input type="hidden" name="persuasion" id="persuasion"
+                                   value="{{ $character->attributes->persuasion ?? 0 }}">
+
                         </div>
-                        <div class="digital_box digital-conditions-boxed">
-                            <div class="digital_boxed">
-                                <div class="digital-conditions">
-                                    <a class="digital-conditions-button" href="javascript:void(0);" onclick="openConditionsModal()">—</a>
+                    </div>
+
+
+                    <div class="passive-skills">
+                        <h3>Пассивные чувства</h3>
+
+                        <div class="passive-skill-item">
+                            <button class="passive-skill-value" id="passive-perception-button">
+                                {{ $character->attributes->passive_perception ?? 10 }}
+                            </button>
+                            <a href="javascript:void(0);" onclick="openModal('wisdom')" class="passive-link">
+                                <span class="passive-skill-name">Восприятие (Мудрость):</span>
+                            </a>
+                            <input type="hidden" id="passive_perception" name="passive_perception"
+                                   value="{{ $character->attributes->passive_perception ?? 10 }}">
+                        </div>
+
+                        <div class="passive-skill-item">
+                            <button class="passive-skill-value" id="passive-insight-button">
+                                {{ $character->attributes->passive_insight ?? 10 }}
+                            </button>
+                            <a href="javascript:void(0);" onclick="openModal('wisdom')" class="passive-link">
+                                <span class="passive-skill-name">Проницательность (Мудрость):</span>
+                            </a>
+                            <input type="hidden" id="passive_insight" name="passive_insight"
+                                   value="{{ $character->attributes->passive_insight ?? 10 }}">
+                        </div>
+
+                        <div class="passive-skill-item">
+                            <button class="passive-skill-value" id="passive-investigation-button">
+                                {{ $character->attributes->passive_investigation ?? 10 }}
+                            </button>
+                            <a href="javascript:void(0);" onclick="openModal('intelligence')" class="passive-link">
+                                <span class="passive-skill-name">Анализ (Интеллект):</span>
+                            </a>
+                            <input type="hidden" id="passive_investigation" name="passive_investigation"
+                                   value="{{ $character->attributes->passive_investigation ?? 10 }}">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="digital_content_right">
+                    <div class="digital-header-additional">
+                        <div class="digital-header-additional-wrap">
+                            <div class="digital_box">
+                                <div class="digital_box_button">
+                                    <button class="digital_button" type="button" onclick="rollInitiative()">
+                                        <p id="initiative-mod" class="initiative"></p>
+                                    </button>
                                 </div>
+                                <span class="digital-boxed-value-label">инициатива</span>
                             </div>
-                            <span class="digital-boxed-value-label">состояние</span>
+                            <div class="digital_box">
+                                <div class="digital_box_button">
+                                    <label class="inspiration"></label>
+                                </div>
+                                <span class="digital-boxed-value-label">вдохновение</span>
+                            </div>
+                            <div class="digital_box">
+                                <div class="digital_box_button">
+                                    <label class="digital-exhaustion-wrap">
+                                        <select class="digital-exhaustion" id="exhaustion-level" name="exhaustion">
+                                            <option value="0">0</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                        </select>
+                                        <span id="exhaustion-value" class="exhaustion">0</span>
+                                    </label>
+                                </div>
+                                <span class="digital-boxed-value-label">истощение</span>
+                            </div>
+                            <div class="digital_box digital-conditions-boxed">
+                                <div class="digital_boxed">
+                                    <div class="digital-conditions">
+                                        <a class="digital-conditions-button" href="javascript:void(0);" onclick="openConditionsModal()">—</a>
+                                    </div>
+                                </div>
+                                <span class="digital-boxed-value-label">состояние</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tabs-container">
+                        <div class="tabs-header">
+                            <button type="button" class="tab-button active" onclick="openTab(event, 'attacks-tab')">Атаки</button>
+                            <button type="button" class="tab-button" onclick="openTab(event, 'abilities-tab')">Способности</button>
+                            <button type="button" class="tab-button" onclick="openTab(event, 'equipment-tab')">Снаряжение</button>
+                            <button type="button" class="tab-button" onclick="openTab(event, 'personality-tab')">Личность</button>
+                            <button type="button" class="tab-button" onclick="openTab(event, 'goals-tab')">Цели</button>
+                            <button type="button" class="tab-button" onclick="openTab(event, 'notes-tab')">Заметки</button>
+                            <button type="button" class="tab-button" onclick="openTab(event, 'spells-tab')">Заклинания</button>
+                        </div>
+
+                        <div class="tabs-content">
+                            <!-- Вкладка Атаки -->
+                            <div id="attacks-tab" class="tab-pane active">
+                                <h3>Атаки персонажа</h3>
+                                <p>Здесь будет список атак и их характеристики...</p>
+                            </div>
+
+                            <!-- Вкладка Способности -->
+                            <div id="abilities-tab" class="tab-pane">
+                                <h3>Способности персонажа</h3>
+                                <p>Здесь будут перечислены способности персонажа...</p>
+                            </div>
+
+                            <!-- Вкладка Снаряжение -->
+                            <div id="equipment-tab" class="tab-pane">
+                                <h3>Снаряжение персонажа</h3>
+                                <p>Здесь будет список снаряжения и предметов...</p>
+                            </div>
+
+                            <!-- Вкладка Личность -->
+                            <div id="personality-tab" class="tab-pane">
+                                <h3>Черты личности</h3>
+                                <p>Здесь будет описание личности персонажа...</p>
+                            </div>
+
+                            <!-- Вкладка Цели -->
+                            <div id="goals-tab" class="tab-pane">
+                                <h3>Цели персонажа</h3>
+                                <p>Здесь будут описаны цели и стремления персонажа...</p>
+                            </div>
+
+                            <!-- Вкладка Заметки -->
+                            <div id="notes-tab" class="tab-pane">
+                                <h3>Заметки игрока</h3>
+                                <p>Здесь могут быть заметки игрока о персонаже...</p>
+                            </div>
+
+                            <!-- Вкладка Заклинания -->
+                            <div id="spells-tab" class="tab-pane">
+                                <h3>Заклинания</h3>
+                                <p>Здесь будет список заклинаний персонажа...</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="tabs-container">
-                    <div class="tabs-header">
-                        <button type="button" class="tab-button active" onclick="openTab(event, 'attacks-tab')">Атаки</button>
-                        <button type="button" class="tab-button" onclick="openTab(event, 'abilities-tab')">Способности</button>
-                        <button type="button" class="tab-button" onclick="openTab(event, 'equipment-tab')">Снаряжение</button>
-                        <button type="button" class="tab-button" onclick="openTab(event, 'personality-tab')">Личность</button>
-                        <button type="button" class="tab-button" onclick="openTab(event, 'goals-tab')">Цели</button>
-                        <button type="button" class="tab-button" onclick="openTab(event, 'notes-tab')">Заметки</button>
-                        <button type="button" class="tab-button" onclick="openTab(event, 'spells-tab')">Заклинания</button>
-                    </div>
+            </form>
 
-                    <div class="tabs-content">
-                        <!-- Вкладка Атаки -->
-                        <div id="attacks-tab" class="tab-pane active">
-                            <h3>Атаки персонажа</h3>
-                            <p>Здесь будет список атак и их характеристики...</p>
+            <!-- Модальное окно -->
+            <div id="attributeModal" class="modal" style="display: none;">
+                <div class="modal-content">
+                    <button class="modal-close-btn" onclick="closeModal()">✖</button>
+                    <h3 id="modal-title"></h3>
+                    <input type="number" id="modal-input" min="1" max="30">
+
+                    <!-- Секция для пассивных чувств -->
+                    <div id="passive-skills-section" style="margin-top: 20px; display: none;">
+                        <h4>Пассивные чувства</h4>
+                        <div class="passive-skill" data-skill="perception">
+                            <label>Восприятие:</label>
+                            <input type="number" id="modal-passive-perception" min="1" max="30">
+                            <button onclick="resetPassiveSkill('perception')">Сброс</button>
                         </div>
-
-                        <!-- Вкладка Способности -->
-                        <div id="abilities-tab" class="tab-pane">
-                            <h3>Способности персонажа</h3>
-                            <p>Здесь будут перечислены способности персонажа...</p>
+                        <div class="passive-skill" data-skill="insight">
+                            <label>Проницательность:</label>
+                            <input type="number" id="modal-passive-insight" min="1" max="30">
+                            <button onclick="resetPassiveSkill('insight')">Сброс</button>
                         </div>
-
-                        <!-- Вкладка Снаряжение -->
-                        <div id="equipment-tab" class="tab-pane">
-                            <h3>Снаряжение персонажа</h3>
-                            <p>Здесь будет список снаряжения и предметов...</p>
-                        </div>
-
-                        <!-- Вкладка Личность -->
-                        <div id="personality-tab" class="tab-pane">
-                            <h3>Черты личности</h3>
-                            <p>Здесь будет описание личности персонажа...</p>
-                        </div>
-
-                        <!-- Вкладка Цели -->
-                        <div id="goals-tab" class="tab-pane">
-                            <h3>Цели персонажа</h3>
-                            <p>Здесь будут описаны цели и стремления персонажа...</p>
-                        </div>
-
-                        <!-- Вкладка Заметки -->
-                        <div id="notes-tab" class="tab-pane">
-                            <h3>Заметки игрока</h3>
-                            <p>Здесь могут быть заметки игрока о персонаже...</p>
-                        </div>
-
-                        <!-- Вкладка Заклинания -->
-                        <div id="spells-tab" class="tab-pane">
-                            <h3>Заклинания</h3>
-                            <p>Здесь будет список заклинаний персонажа...</p>
+                        <div class="passive-skill" data-skill="investigation" style="display: none;">
+                            <label>Анализ:</label>
+                            <input type="number" id="modal-passive-investigation" min="1" max="30">
+                            <button onclick="resetPassiveSkill('investigation')">Сброс</button>
                         </div>
                     </div>
+
+                    <button class="modal-save-btn" onclick="saveAttribute()">Сохранить</button>
                 </div>
             </div>
-        </form>
+            <div class="sidebar-modal" id="settings-modal">
+                <div class="sidebar-content">
+                    <button class="close-sidebar" id="close-sidebar">&times;</button>
+                    <h2 class="settings-title">Настройки</h2>
 
-        <!-- Модальное окно -->
-        <div id="attributeModal" class="modal" style="display: none;">
-            <div class="modal-content">
-                <button class="modal-close-btn" onclick="closeModal()">✖</button>
-                <h3 id="modal-title"></h3>
-                <input type="number" id="modal-input" min="1" max="30">
+                    <div class="modal-row">
+                        <div class="modal-col">
+                            <div class="modal-wrapper">
+                                <input class="modal-input" type="text" id="character-name-input"
+                                       value="{{ $character->name }}">
+                                <label for="character-name-input">имя</label>
+                            </div>
+                        </div>
+                        <div class="modal-col">
+                            <div class="modal-wrapper">
+                                <input class="modal-input" type="text" id="character-race-input"
+                                       value="{{ $character->race ?? '' }}">
+                                <label for="character-race-input">раса</label>
+                            </div>
+                        </div>
+                    </div>
 
-                <!-- Секция для пассивных чувств -->
-                <div id="passive-skills-section" style="margin-top: 20px; display: none;">
-                    <h4>Пассивные чувства</h4>
-                    <div class="passive-skill" data-skill="perception">
-                        <label>Восприятие:</label>
-                        <input type="number" id="modal-passive-perception" min="1" max="30">
-                        <button onclick="resetPassiveSkill('perception')">Сброс</button>
+                    <div class="modal-row">
+                        <div class="modal-col">
+                            <div class="modal-wrapper">
+                                <input class="modal-input" type="text" id="character-class-input"
+                                       value="{{ $character->class ?? '' }}">
+                                <label for="character-class-input">класс</label>
+                            </div>
+                        </div>
+
+                        <div class="modal-col">
+                            <div class="modal-wrapper">
+                                <input class="modal-input" type="text" id="character-subclass-input"
+                                       value="{{ $character->subclass ?? '' }}">
+                                <label for="character-subclass-input">подкласс</label>
+                            </div>
+                        </div>
                     </div>
-                    <div class="passive-skill" data-skill="insight">
-                        <label>Проницательность:</label>
-                        <input type="number" id="modal-passive-insight" min="1" max="30">
-                        <button onclick="resetPassiveSkill('insight')">Сброс</button>
-                    </div>
-                    <div class="passive-skill" data-skill="investigation" style="display: none;">
-                        <label>Анализ:</label>
-                        <input type="number" id="modal-passive-investigation" min="1" max="30">
-                        <button onclick="resetPassiveSkill('investigation')">Сброс</button>
-                    </div>
+
+                    <button id="save-character-settings">Сохранить</button>
+                    <p id="save-message" style="display: none; color: #28a745;">Настройки сохранены!</p>
                 </div>
-
-                <button class="modal-save-btn" onclick="saveAttribute()">Сохранить</button>
             </div>
+
         </div>
-        <div class="sidebar-modal" id="settings-modal">
-            <div class="sidebar-content">
-                <button class="close-sidebar" id="close-sidebar">&times;</button>
-                <h2 class="settings-title">Настройки</h2>
-
-                <div class="modal-row">
-                    <div class="modal-col">
-                        <div class="modal-wrapper">
-                            <input class="modal-input" type="text" id="character-name-input"
-                                   value="{{ $character->name }}">
-                            <label for="character-name-input">имя</label>
-                        </div>
-                    </div>
-                    <div class="modal-col">
-                        <div class="modal-wrapper">
-                            <input class="modal-input" type="text" id="character-race-input"
-                                   value="{{ $character->race ?? '' }}">
-                            <label for="character-race-input">раса</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="modal-row">
-                    <div class="modal-col">
-                        <div class="modal-wrapper">
-                            <input class="modal-input" type="text" id="character-class-input"
-                                   value="{{ $character->class ?? '' }}">
-                            <label for="character-class-input">класс</label>
-                        </div>
-                    </div>
-
-                    <div class="modal-col">
-                        <div class="modal-wrapper">
-                            <input class="modal-input" type="text" id="character-subclass-input"
-                                   value="{{ $character->subclass ?? '' }}">
-                            <label for="character-subclass-input">подкласс</label>
-                        </div>
-                    </div>
-                </div>
-
-                <button id="save-character-settings">Сохранить</button>
-                <p id="save-message" style="display: none; color: #28a745;">Настройки сохранены!</p>
-            </div>
-        </div>
-
-    </div>
     </main>
-    </div>
+</div>
 
 <!-- Мобильная версия -->
 <div class="mobile-only">
@@ -1511,1008 +1511,961 @@
 <div id="modal-backdrop" class="modal-backdrop"></div>
 <div id="settings-backdrop" class="modal-backdrop"></div>
 
-    <script>
-            // Глобальные переменные
-            let manualDamage = false;
-            const levelUpModal = document.getElementById('level-up-modal');
-            const levelUpBtn = document.querySelector('.level-up-btn');
-            let isLevelUpModalOpen = false;
-            let currentLevel = {{ $character->level ?? 1 }};
-            let currentXp = {{ $character->experience ?? 0 }};
-            let currentExpression = '0';
-            const characterId = document.querySelector('meta[name="character-id"]').getAttribute('content');
-            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-            const passiveSkillNames = {
-                'perception': 'Восприятие',
-                'insight': 'Проницательность',
-                'investigation': 'Анализ'
-            };
-            // Глобальные переменные для здоровья
-            let currentHealth = 0;
-            let maxHealth = 0;
-            let healthExpression = '0';
-            let deathSaves = {
-                successes: 0,
-                failures: 0
-            };
-            let currentInitiative = 0;
-            let currentProficiencyBonus = 2;
-            let currentExhaustion = 0;
-            let currentInspiration = false;
+<script>
+    // Глобальные переменные
+    let manualDamage = false;
+    const levelUpModal = document.getElementById('level-up-modal');
+    const levelUpBtn = document.querySelector('.level-up-btn');
+    let isLevelUpModalOpen = false;
+    let currentLevel = {{ $character->level ?? 1 }};
+    let currentXp = {{ $character->experience ?? 0 }};
+    let currentExpression = '0';
+    const characterId = document.querySelector('meta[name="character-id"]').getAttribute('content');
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    const passiveSkillNames = {
+        'perception': 'Восприятие',
+        'insight': 'Проницательность',
+        'investigation': 'Анализ'
+    };
+    // Глобальные переменные для здоровья
+    let currentHealth = 0;
+    let maxHealth = 0;
+    let healthExpression = '0';
+    let deathSaves = {
+        successes: 0,
+        failures: 0
+    };
 
-            const XP_TABLE = {
-                1: 0,
-                2: 300,
-                3: 900,
-                4: 2700,
-                5: 6500,
-                6: 14000,
-                7: 23000,
-                8: 34000,
-                9: 48000,
-                10: 64000,
-                11: 85000,
-                12: 100000,
-                13: 120000,
-                14: 140000,
-                15: 165000,
-                16: 195000,
-                17: 225000,
-                18: 265000,
-                19: 305000,
-                20: 355000
-            };
-            let nextLevelXp = XP_TABLE[currentLevel + 1] || XP_TABLE[20];
-            let currentAttr = null;
+    const XP_TABLE = {
+        1: 0,
+        2: 300,
+        3: 900,
+        4: 2700,
+        5: 6500,
+        6: 14000,
+        7: 23000,
+        8: 34000,
+        9: 48000,
+        10: 64000,
+        11: 85000,
+        12: 100000,
+        13: 120000,
+        14: 140000,
+        15: 165000,
+        16: 195000,
+        17: 225000,
+        18: 265000,
+        19: 305000,
+        20: 355000
+    };
+    let nextLevelXp = XP_TABLE[currentLevel + 1] || XP_TABLE[20];
+    let currentAttr = null;
 
-            const attributeNames = {
-                strength: "Сила",
-                dexterity: "Ловкость",
-                constitution: "Телосложение",
-                intelligence: "Интеллект",
-                wisdom: "Мудрость",
-                charisma: "Харизма"
-            };
-            function saveAttributes() {
-                const formData = new FormData(document.getElementById('attributesForm'));
+    const attributeNames = {
+        strength: "Сила",
+        dexterity: "Ловкость",
+        constitution: "Телосложение",
+        intelligence: "Интеллект",
+        wisdom: "Мудрость",
+        charisma: "Харизма"
+    };
+    function saveAttributes() {
+        const formData = new FormData(document.getElementById('attributesForm'));
 
-                fetch(document.getElementById('attributesForm').action, {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-                    },
-                    body: formData
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (!data.success) {
-                            console.error('Ошибка сохранения:', data.error);
-                        }
-                    })
-                    .catch(error => console.error('Ошибка:', error));
-            }
-
-            // Загрузка сохраненных данных при открытии страницы
-            document.addEventListener("DOMContentLoaded", function() {
-                loadConditions();
-                // Загружаем сохраненные спасброски из localStorage
-                const savedDeathSaves = localStorage.getItem(`character_${characterId}_deathSaves`);
-                if (savedDeathSaves) {
-                    deathSaves = JSON.parse(savedDeathSaves);
+        fetch(document.getElementById('attributesForm').action, {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+            },
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (!data.success) {
+                    console.error('Ошибка сохранения:', data.error);
                 }
+            })
+            .catch(error => console.error('Ошибка:', error));
+    }
 
-                // Обновляем отображение чекбоксов
-                updateDeathSavesCheckboxes();
-            });
+    // Загрузка сохраненных данных при открытии страницы
+    document.addEventListener("DOMContentLoaded", function() {
+        loadConditions();
+        // Загружаем сохраненные спасброски из localStorage
+        const savedDeathSaves = localStorage.getItem(`character_${characterId}_deathSaves`);
+        if (savedDeathSaves) {
+            deathSaves = JSON.parse(savedDeathSaves);
+        }
 
-            // Инициализация при загрузке
-            document.addEventListener("DOMContentLoaded", function() {
-                // Загружаем сохраненные значения
-                loadHealth();
-                loadExhaustion();
-                loadInspiration();
+        // Обновляем отображение чекбоксов
+        updateDeathSavesCheckboxes();
+    });
 
-                // Инициализируем значения
-                syncProficiencyBonus();
-                syncInitiative();
+    // При загрузке страницы
+    document.addEventListener("DOMContentLoaded", function() {
+        // Загружаем сохраненное здоровье
+        const savedHealth = localStorage.getItem(`character_${characterId}_health`);
+        if (savedHealth) {
+            const health = JSON.parse(savedHealth);
+            currentHealth = health.current || 0;
+            maxHealth = health.max || 0;
+        }
 
-                // Обновляем отображение
-                updateAllStats();
-            });
+        // Обновляем отображение
+        document.getElementById('current-health-value').textContent = currentHealth;
+        document.getElementById('max-health-value').textContent = maxHealth;
+        document.getElementById('health-display').textContent = `${currentHealth}/${maxHealth}`;
+        updateHealthColor();
+    });
 
-            // При загрузке страницы
-            document.addEventListener("DOMContentLoaded", function() {
-                // Загружаем сохраненное здоровье
-                const savedHealth = localStorage.getItem(`character_${characterId}_health`);
-                if (savedHealth) {
-                    const health = JSON.parse(savedHealth);
-                    currentHealth = health.current || 0;
-                    maxHealth = health.max || 0;
-                }
+    function getProficiencyBonus(level) {
+        if (level >= 17) return 6;
+        if (level >= 13) return 5;
+        if (level >= 9) return 4;
+        if (level >= 5) return 3;
+        return 2; // Уровни 1-4
+    }
 
-                // Обновляем отображение
-                document.getElementById('current-health-value').textContent = currentHealth;
-                document.getElementById('max-health-value').textContent = maxHealth;
-                document.getElementById('health-display').textContent = `${currentHealth}/${maxHealth}`;
-                updateHealthColor();
-            });
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelector('#death-save-roll-btn').addEventListener('click', function() {
+            // Проверяем, что здоровье действительно равно 0
+            if (currentHealth > 0) return;
 
-            function getProficiencyBonus(level) {
-                if (level >= 17) return 6;
-                if (level >= 13) return 5;
-                if (level >= 9) return 4;
-                if (level >= 5) return 3;
-                return 2; // Уровни 1-4
+            console.log("Кнопка спасброска нажата!");
+
+            // Бросаем кубик
+            const roll = Math.floor(Math.random() * 20) + 1;
+            let message = `Результат броска: ${roll}. `;
+
+            // Обрабатываем результат
+            if (roll === 1) {
+                deathSaves.failures = Math.min(deathSaves.failures + 2, 3);
+                message += "Критическая неудача! +2 к провалам.";
+            } else if (roll === 20) {
+                deathSaves.successes = 3;
+                message += "Критический успех! Персонаж приходит в сознание с 1 HP.";
+            } else if (roll >= 10) {
+                deathSaves.successes = Math.min(deathSaves.successes + 1, 3);
+                message += "Успех! +1 к успешным попыткам.";
+            } else {
+                deathSaves.failures = Math.min(deathSaves.failures + 1, 3);
+                message += "Неудача! +1 к проваленным попыткам.";
             }
 
-            document.addEventListener('DOMContentLoaded', function() {
-                document.querySelector('#death-save-roll-btn').addEventListener('click', function() {
-                    // Проверяем, что здоровье действительно равно 0
-                    if (currentHealth > 0) return;
-
-                    console.log("Кнопка спасброска нажата!");
-
-                    // Бросаем кубик
-                    const roll = Math.floor(Math.random() * 20) + 1;
-                    let message = `Результат броска: ${roll}. `;
-
-                    // Обрабатываем результат
-                    if (roll === 1) {
-                        deathSaves.failures = Math.min(deathSaves.failures + 2, 3);
-                        message += "Критическая неудача! +2 к провалам.";
-                    } else if (roll === 20) {
-                        deathSaves.successes = 3;
-                        message += "Критический успех! Персонаж приходит в сознание с 1 HP.";
-                    } else if (roll >= 10) {
-                        deathSaves.successes = Math.min(deathSaves.successes + 1, 3);
-                        message += "Успех! +1 к успешным попыткам.";
-                    } else {
-                        deathSaves.failures = Math.min(deathSaves.failures + 1, 3);
-                        message += "Неудача! +1 к проваленным попыткам.";
-                    }
-
-                    // Сохраняем и обновляем состояние
-                    localStorage.setItem(`character_${characterId}_deathSaves`, JSON.stringify(deathSaves));
-                    updateDeathSavesCheckboxes();
-                    checkDeathSaveStatus();
-
-                    // Показываем уведомление
-                    addNotification(
-                        'СПАСБРОСОК',
-                        'ОТ СМЕРТИ',
-                        roll,
-                        0, // Модификатор не применяется к спасброскам от смерти
-                        roll // Итоговый результат равен броску
-                    );
-                });
-            });
-
-            function closeModal() {
-                document.getElementById("attributeModal").style.display = "none";
-            }
-
-            // Функция расчета модификатора атрибута (по правилам D&D)
-            function getModifier(attributeValue) {
-                return Math.floor((attributeValue - 10) / 2);
-            }
-
-            // Общая функция для обработки всех радио-кнопок навыков
-            function handleSkillRadio(element, skillId, attributeId) {
-                const hiddenInput = document.getElementById(skillId);
-                const displaySpan = document.getElementById(skillId + '-value');
-                const customRadio = element.nextElementSibling;
-
-                const currentLevel = parseInt(document.querySelector('.character-level').textContent.match(/\d+/)[0]) || 1;
-                const proficiencyBonus = getProficiencyBonus(currentLevel);
-
-                let currentValue = parseInt(hiddenInput.value) || 0;
-                let newValue;
-
-                customRadio.classList.remove('half-checked', 'fully-checked');
-                customRadio.querySelector('.dot-1').style.display = 'none';
-                customRadio.querySelector('.dot-2').style.display = 'none';
-
-                if (currentValue === 0) {
-                    newValue = proficiencyBonus;
-                    customRadio.classList.add('half-checked');
-                    customRadio.querySelector('.dot-1').style.display = 'block';
-                } else if (currentValue === proficiencyBonus) {
-                    newValue = proficiencyBonus * 2;
-                    customRadio.classList.add('fully-checked');
-                    customRadio.querySelector('.dot-1').style.display = 'block';
-                    customRadio.querySelector('.dot-2').style.display = 'block';
-                } else {
-                    newValue = 0;
-                }
-
-                hiddenInput.value = newValue;
-
-                const attributeValue = parseInt(document.getElementById(attributeId).value) || 10;
-                const modifier = Math.floor((attributeValue - 10) / 2);
-                const finalValue = modifier + newValue;
-
-                displaySpan.textContent = finalValue;
-                element.checked = false;
-
-                // Автоматически сохраняем изменения
-                saveAttributes();
-            }
-
-
-            document.addEventListener("DOMContentLoaded", function () {
-                // Инициализация модификаторов
-                Object.keys(attributeNames).forEach(attr => {
-                    updateBaseModifier(attr);
-                    updateSkills(attr);
-                });
-                // Инициализация модификатора инициативы
-                const dexValue =
-                    parseInt(document.getElementById("dexterity").value) || 10;
-                const initiativeMod = getModifier(dexValue);
-                const initiativeModElement = document.getElementById("initiative-mod");
-                initiativeModElement.textContent = initiativeMod >= 0 ? `+${initiativeMod}` : initiativeMod;
-                // Восстановление пассивных навыков
-                ["perception", "insight", "investigation"].forEach(skill => {
-                    const manual = localStorage.getItem(`passive_${skill}_manual`);
-                    const auto = localStorage.getItem(`passive_${skill}_auto`);
-                    const button = document.getElementById(`passive-${skill}-button`);
-                    if (manual) {
-                        document.getElementById(`passive_${skill}`).value = manual;
-                        button.textContent = manual;
-                        button.classList.add("manual");
-                    } else if (auto) {
-                        document.getElementById(`passive_${skill}`).value = auto;
-                        button.textContent = auto;
-                        button.classList.remove("manual");
-                    } else {
-                        // Авторасчёт, если ничего не сохранено
-                        const attr = skill === "investigation" ? "intelligence" : "wisdom";
-                        const mod = getModifier(parseInt(document.getElementById(attr).value));
-                        const value = 10 + mod;
-                        document.getElementById(`passive_${skill}`).value = value;
-                        button.textContent = value;
-                        button.classList.remove("manual");
-                    }
-                });
-                // Обработка ручного изменения в модальном окне
-                ["perception", "insight", "investigation"].forEach(skill => {
-                    const input = document.getElementById(`modal-passive-${skill}`);
-                    if (input) {
-                        input.addEventListener("change", function () {
-                            const value = parseInt(this.value) || 10;
-                            document.getElementById(`passive-${skill}-button`).classList.add("manual");
-                            document.getElementById(`passive_${skill}`).value = value;
-                            document.getElementById(`passive-${skill}-button`).textContent = value;
-                            localStorage.setItem(`character_${characterId}_passive_${skill}_manual`, value);
-                            localStorage.removeItem(`passive_${skill}_auto`);
-                        });
-                    }
-                });
-            });
-            // Инициализация при загрузке страницы
-            document.addEventListener("DOMContentLoaded", function() {
-                // Обработчик закрытия по крестику
-                document.getElementById('close-conditions-sidebar').addEventListener('click', closeConditionsModal);
-
-                // Обработчик закрытия по клику вне модального окна
-                document.getElementById('settings-backdrop').addEventListener('click', function(e) {
-                    if (e.target === this) {
-                        closeConditionsModal();
-                    }
-                });
-
-                // Обработчик сохранения состояний
-                document.getElementById('save-conditions').addEventListener('click', function() {
-                    // Здесь код для сохранения состояний
-                    closeConditionsModal();
-                });
-            });
-            document.addEventListener("DOMContentLoaded", function() {
-                ["perception", "insight", "investigation"].forEach(skill => {
-                    const manual = localStorage.getItem(`character_${characterId}_passive_${skill}_manual`);
-                    const auto = localStorage.getItem(`character_${characterId}_passive_${skill}_auto`);
-                    const button = document.getElementById(`passive-${skill}-button`);
-                    const input = document.getElementById(`passive_${skill}`);
-
-                    if (manual) {
-                        input.value = manual;
-                        button.textContent = manual;
-                        button.classList.add("manual");
-                    } else if (auto) {
-                        input.value = auto;
-                        button.textContent = auto;
-                        button.classList.remove("manual");
-                    } else {
-                        // Авторасчёт, если ничего не сохранено
-                        const attr = skill === "investigation" ? "intelligence" : "wisdom";
-                        const attrValue = parseInt(document.getElementById(attr).value) || 10;
-                        const mod = getModifier(attrValue);
-                        const value = 10 + mod;
-
-                        input.value = value;
-                        button.textContent = value;
-                        button.classList.remove("manual");
-                        localStorage.setItem(`character_${characterId}_passive_${skill}_auto`, value);
-                    }
-                });
-            });
-            // Инициализация состояний при загрузке страницы
-            document.addEventListener("DOMContentLoaded", function () {
-                // Навыки силы
-                initSkillRadio('athletics');
-
-                // Навыки ловкости
-                initSkillRadio('acrobatics');
-                initSkillRadio('sleight_of_hand');
-                initSkillRadio('stealth');
-
-                // Навыки интеллекта
-                initSkillRadio('investigation');
-                initSkillRadio('history');
-                initSkillRadio('arcana');
-                initSkillRadio('nature');
-                initSkillRadio('religion');
-
-                // Навыки мудрости
-                initSkillRadio('perception');
-                initSkillRadio('survival');
-                initSkillRadio('medicine');
-                initSkillRadio('insight');
-                initSkillRadio('animal_handling');
-
-                // Навыки харизмы
-                initSkillRadio('performance');
-                initSkillRadio('intimidation');
-                initSkillRadio('deception');
-                initSkillRadio('persuasion');
-            });
-
-            document.getElementById('attributesForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-
-                fetch(this.action, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-                    },
-                    body: JSON.stringify(Object.fromEntries(new FormData(this)))
-                })
-            });
-            document.addEventListener("DOMContentLoaded", updateProficiencyBonus);
-            document.addEventListener("DOMContentLoaded", function() {
-                // Обработчики для кнопок раскрытия описания
-                document.querySelectorAll('.toggle-description-btn').forEach(btn => {
-                    btn.addEventListener('click', function(e) {
-                        e.stopPropagation();
-                        const description = this.closest('.condition-header').nextElementSibling;
-                        const isActive = this.classList.contains('active');
-
-                        if (isActive) {
-                            this.classList.remove('active');
-                            description.style.display = 'none';
-                        } else {
-                            this.classList.add('active');
-                            description.style.display = 'block';
-                        }
-                    });
-                });
-
-                // Обработчики для клика по всему заголовку
-                document.querySelectorAll('.condition-header').forEach(header => {
-                    header.addEventListener('click', function() {
-                        const btn = this.querySelector('.toggle-description-btn');
-                        const description = this.nextElementSibling;
-                        const isActive = btn.classList.contains('active');
-
-                        if (isActive) {
-                            btn.classList.remove('active');
-                            description.style.display = 'none';
-                        } else {
-                            btn.classList.add('active');
-                            description.style.display = 'block';
-                        }
-                    });
-                });
-            });
-            // Обновите обработчик сохранения модального окна состояния
-            document.addEventListener("DOMContentLoaded", function() {
-                document.getElementById('save-conditions').addEventListener('click', saveConditions);
-                loadConditions();
-            });
-
-
-            document.addEventListener("DOMContentLoaded", function() {
-                const exhaustionSelect = document.getElementById('exhaustion-level');
-                const exhaustionValue = document.getElementById('exhaustion-value');
-
-                // Загружаем сохраненное значение (если есть)
-                const savedExhaustion = localStorage.getItem(`character_${characterId}_exhaustion`);
-                if (savedExhaustion) {
-                    exhaustionSelect.value = savedExhaustion;
-                    exhaustionValue.textContent = savedExhaustion;
-                }
-
-                // Обработчик изменения значения
-                exhaustionSelect.addEventListener('change', function() {
-                    const selectedValue = this.value;
-                    exhaustionValue.textContent = selectedValue;
-
-                    // Сохраняем значение для этого персонажа
-                    localStorage.setItem(`character_${characterId}_exhaustion`, selectedValue);
-
-                    // Отправляем на сервер (если нужно)
-                    saveExhaustionLevel(selectedValue);
-                });
-            });
-
-            window.addEventListener('resize', function() {
-                if (window.innerWidth <= 768) {
-                    // Принудительное обновление для мобильной версии
-                    updateMiniProgressBar();
-                    syncProficiencyBonus();
-                }
-            });
-
-            // Добавляем обработчики для клика по вдохновению
-            document.addEventListener("DOMContentLoaded", function() {
-                document.querySelectorAll('.inspiration-display').forEach(el => {
-                    el.addEventListener('click', function(e) {
-                        e.stopPropagation();
-                        toggleInspiration();
-                    });
-                });
-            });
-
-            // Функция инициализации радио-кнопки навыка
-            function initSkillRadio(skillId) {
-                const skillValue = parseInt(document.getElementById(skillId).value) || 0;
-                const radioCustom = document.querySelector('#' + skillId + '-radio + .double-radio-custom');
-                const currentLevel = parseInt(document.querySelector('.character-level').textContent.match(/\d+/)[0]) || 1;
-                const proficiencyBonus = getProficiencyBonus(currentLevel);
-
-                if (!radioCustom) return;
-
-                // Сбрасываем все состояния
-                radioCustom.classList.remove('half-checked', 'fully-checked');
-                radioCustom.querySelector('.dot-1').style.display = 'none';
-                radioCustom.querySelector('.dot-2').style.display = 'none';
-
-                if (skillValue === proficiencyBonus) {
-                    radioCustom.classList.add('half-checked');
-                    radioCustom.querySelector('.dot-1').style.display = 'block';
-                } else if (skillValue === proficiencyBonus * 2) {
-                    radioCustom.classList.add('fully-checked');
-                    radioCustom.querySelector('.dot-1').style.display = 'block';
-                    radioCustom.querySelector('.dot-2').style.display = 'block';
-                }
-            }
-            document.querySelectorAll('.skill-toggle').forEach(item => {
-                item.addEventListener('click', function () {
-                    let targetId = this.getAttribute('data-target');
-                    let span = document.getElementById(targetId + "-value");
-                    let input = document.getElementById(targetId);
-
-                    // Циклически меняем бонус владения: 0 -> 2 -> 4 -> 0
-                    let currentValue = parseInt(input.value);
-                    let newValue = currentValue === 4 ? 0 : currentValue + 2;
-                    input.value = newValue;
-
-                    // Найти родительский атрибут
-                    let attribute = Object.keys(attributeNames).find(attr =>
-                        document.getElementById(attr) && this.closest('.attribute-item').contains(document.getElementById(attr))
-                    );
-
-                    let attributeValue = parseInt(document.getElementById(attribute).value);
-                    let modifier = getModifier(attributeValue);
-                    let finalValue = modifier + newValue;
-
-                    // Отображаем итоговое значение (модификатор + бонус)
-                    span.innerText = finalValue;
-                });
-            });
-
-
-            function updateSkills(attribute) {
-                let attrValue = parseInt(document.getElementById(attribute).value);
-                let modifier = getModifier(attrValue);
-
-                let skills = {
-                    strength: ["athletics"],
-                    dexterity: ["acrobatics", "sleight_of_hand", "stealth"],
-                    intelligence: ["investigation", "history", "arcana", "nature", "religion"],
-                    wisdom: ["perception", "survival", "medicine", "insight", "animal_handling"],
-                    charisma: ["performance", "intimidation", "deception", "persuasion"]
-                };
-
-                if (skills[attribute]) {
-                    skills[attribute].forEach(skill => {
-                        let skillBonus = parseInt(document.getElementById(skill).value);
-                        let finalValue = modifier + skillBonus;
-                        document.getElementById(skill + "-value").innerText = finalValue;
-                    });
-                }
-            }
-
-            function toggleSkill(element) {
-                const targetId = element.getAttribute('data-target');
-                const span = document.getElementById(targetId + "-value");
-                const input = document.getElementById(targetId);
-
-                let currentValue = parseInt(input.value);
-                let newValue = currentValue === 4 ? 0 : currentValue + 2;
-                input.value = newValue;
-
-                // Находим связанный атрибут
-                const attribute = Object.keys(attributeNames).find(attr =>
-                    element.closest('.attribute-item').contains(document.getElementById(attr))
-                );
-
-                // Рассчитываем итоговое значение
-                const attributeValue = parseInt(document.getElementById(attribute).value);
-                const modifier = Math.floor((attributeValue - 10) / 2);
-                const finalValue = modifier + newValue;
-
-                // Обновляем отображение
-                span.textContent = finalValue;
-            }
-
-            function rollDice(attribute) {
-                const value = parseInt(document.getElementById(attribute).value) || 10; // Значение по умолчанию 10
-                const modifier = Math.floor((value - 10) / 2);
-                const roll = Math.floor(Math.random() * 20) + 1;
-                const total = roll + modifier;
-
-                addNotification(
-                    'ПРОВЕРКА',
-                    attribute,
-                    roll,
-                    modifier,
-                    total
-                );
-            }
-
-            function rollSave(attribute) {
-                const value = parseInt(document.getElementById(attribute).value) || 10; // Значение по умолчанию 10
-                const modifier = Math.floor((value - 10) / 2);
-                const roll = Math.floor(Math.random() * 20) + 1;
-                const total = roll + modifier;
-
-                addNotification(
-                    'СПАСБРОСОК',
-                    attribute,
-                    roll,
-                    modifier,
-                    total
-                );
-            }
-
-            // Функция для броска навыка
-            function rollSkill(skill, attribute) {
-                const skillBonus = parseInt(document.getElementById(skill).value) || 0;
-                const attrValue = parseInt(document.getElementById(attribute).value) || 10;
-                const attrModifier = Math.floor((attrValue - 10) / 2);
-                const roll = Math.floor(Math.random() * 20) + 1;
-                const total = roll + attrModifier + skillBonus;
-
-                // Переводим название навыка
-                const skillNames = {
-                    'athletics': 'АТЛЕТИКА',
-                    'acrobatics': 'АКРОБАТИКА',
-                    'sleight_of_hand': 'ЛОВКОСТЬ РУК',
-                    'stealth': 'СКРЫТНОСТЬ',
-                    'investigation': 'АНАЛИЗ',
-                    'history': 'ИСТОРИЯ',
-                    'arcana': 'МАГИЯ',
-                    'nature': 'ПРИРОДА',
-                    'religion': 'РЕЛИГИЯ',
-                    'perception': 'ВОСПРИЯТИЕ',
-                    'survival': 'ВЫЖИВАНИЕ',
-                    'medicine': 'МЕДИЦИНА',
-                    'insight': 'ПРОНИЦАТЕЛЬНОСТЬ',
-                    'animal_handling': 'УХОД ЗА ЖИВОТНЫМИ',
-                    'performance': 'ВЫСТУПЛЕНИЕ',
-                    'intimidation': 'ЗАПУГИВАНИЕ',
-                    'deception': 'ОБМАН',
-                    'persuasion': 'УБЕЖДЕНИЕ'
-                };
-
-                addNotification(
-                    'НАВЫК',
-                    skillNames[skill] || skill,
-                    roll,
-                    attrModifier + skillBonus,
-                    total
-                );
-            }
-
-            // Функция для перевода названий атрибутов
-            function attributeName(attr) {
-                const names = {
-                    'strength': 'СИЛА',
-                    'dexterity': 'ЛОВКОСТЬ',
-                    'constitution': 'ТЕЛОСЛОЖЕНИЕ',
-                    'intelligence': 'ИНТЕЛЛЕКТ',
-                    'wisdom': 'МУДРОСТЬ',
-                    'charisma': 'ХАРИЗМА',
-                    'initiative': 'ИНИЦИАТИВА'
-                };
-                return names[attr] || attr;
-            }
-
-            function updateInitiative() {
-                const dexInput = document.getElementById("dexterity");
-                const initiativeEl = document.getElementById("initiative-mod");
-                if (dexInput && initiativeEl) {
-                    const dexValue = parseInt(dexInput.value) || 10;
-                    const mod = getModifier(dexValue);
-                    initiativeEl.textContent = mod >= 0 ? `+${mod}` : mod;
-                    console.log("Инициатива обновлена:", mod);
-                }
-            }
-
-            // Инициализация после загрузки
-            document.addEventListener("DOMContentLoaded", function () {
-                updateInitiative();
-                const dexInput = document.getElementById("dexterity");
-                if (dexInput) {
-                    dexInput.addEventListener("input", updateInitiative);
-                }
-            });
-
-            function saveAttribute() {
-                try {
-                    const attrValue = parseInt(document.getElementById("modal-input").value) || 10;
-                    document.getElementById(currentAttr).value = attrValue;
-                    document.getElementById(`${currentAttr}-button`).textContent = attrValue;
-
-                    updateBaseModifier(currentAttr);
-                    updateSkills(currentAttr);
-                    updateInitiative();
-
-                    // Обновляем пассивные навыки
-                    if (currentAttr === "wisdom") {
-                        ["perception", "insight"].forEach(skill => {
-                            const button = document.getElementById(`passive-${skill}-button`);
-                            const input = document.getElementById(`passive_${skill}`);
-
-                            if (button.classList.contains("manual")) {
-                                const val = parseInt(document.getElementById(`modal-passive-${skill}`).value) || 10;
-                                input.value = val;
-                                button.textContent = val;
-                            } else {
-                                const autoValue = 10 + getModifier(attrValue);
-                                input.value = autoValue;
-                                button.textContent = autoValue;
-                            }
-                        });
-                    } else if (currentAttr === "intelligence") {
-                        const button = document.getElementById("passive-investigation-button");
-                        const input = document.getElementById("passive_investigation");
-
-                        if (button.classList.contains("manual")) {
-                            const val = parseInt(document.getElementById(`modal-passive-investigation`).value) || 10;
-                            input.value = val;
-                            button.textContent = val;
-                        } else {
-                            const autoValue = 10 + getModifier(attrValue);
-                            input.value = autoValue;
-                            button.textContent = autoValue;
-                        }
-                    }
-
-                    document.getElementById("attributeModal").style.display = "none";
-
-                    // Автоматически сохраняем изменения
-                    saveAttributes();
-                } catch (e) {
-                    console.error("Ошибка сохранения:", e);
-                }
-            }
-
-            function updateModifier(attribute, forceUpdate = false) {
-                let attrValue = parseInt(document.getElementById(attribute).value);
-                let modifier = getModifier(attrValue);
-
-                // Обновляем модификаторы для проверок и спасбросков
-                document.getElementById(`${attribute}-modifier`).textContent = modifier;
-                document.getElementById(`${attribute}-save-modifier`).textContent = modifier;
-
-                // Обновляем связанные навыки
-                updateSkills(attribute);
-
-                // Автоматически обновляем только НЕручные пассивные чувства
-                if (attribute === 'wisdom') {
-                    const perceptionButton = document.getElementById("passive-perception-button");
-                    const insightButton = document.getElementById("passive-insight-button");
-
-                    if (!perceptionButton.classList.contains('manual-value') || forceUpdate) {
-                        const passivePerception = 10 + modifier;
-                        document.getElementById("passive_perception").value = passivePerception;
-                        perceptionButton.textContent = passivePerception;
-                        if (forceUpdate) perceptionButton.classList.remove('manual-value');
-                    }
-
-                    if (!insightButton.classList.contains('manual-value') || forceUpdate) {
-                        const passiveInsight = 10 + modifier;
-                        document.getElementById("passive_insight").value = passiveInsight;
-                        insightButton.textContent = passiveInsight;
-                        if (forceUpdate) insightButton.classList.remove('manual-value');
-                    }
-                } else if (attribute === 'intelligence') {
-                    const investigationButton = document.getElementById("passive-investigation-button");
-
-                    if (!investigationButton.classList.contains('manual-value') || forceUpdate) {
-                        const passiveInvestigation = 10 + modifier;
-                        document.getElementById("passive_investigation").value = passiveInvestigation;
-                        investigationButton.textContent = passiveInvestigation;
-                        if (forceUpdate) investigationButton.classList.remove('manual-value');
-                    }
-                }
-            }
-
-            function resetPassiveSkill(skill) {
+            // Сохраняем и обновляем состояние
+            localStorage.setItem(`character_${characterId}_deathSaves`, JSON.stringify(deathSaves));
+            updateDeathSavesCheckboxes();
+            checkDeathSaveStatus();
+
+            // Показываем уведомление
+            addNotification(
+                'СПАСБРОСОК',
+                'ОТ СМЕРТИ',
+                roll,
+                0, // Модификатор не применяется к спасброскам от смерти
+                roll // Итоговый результат равен броску
+            );
+        });
+    });
+
+    function closeModal() {
+        document.getElementById("attributeModal").style.display = "none";
+    }
+
+    // Функция расчета модификатора атрибута (по правилам D&D)
+    function getModifier(attributeValue) {
+        return Math.floor((attributeValue - 10) / 2);
+    }
+
+    // Общая функция для обработки всех радио-кнопок навыков
+    function handleSkillRadio(element, skillId, attributeId) {
+        const hiddenInput = document.getElementById(skillId);
+        const displaySpan = document.getElementById(skillId + '-value');
+        const customRadio = element.nextElementSibling;
+
+        const currentLevel = parseInt(document.querySelector('.character-level').textContent.match(/\d+/)[0]) || 1;
+        const proficiencyBonus = getProficiencyBonus(currentLevel);
+
+        let currentValue = parseInt(hiddenInput.value) || 0;
+        let newValue;
+
+        customRadio.classList.remove('half-checked', 'fully-checked');
+        customRadio.querySelector('.dot-1').style.display = 'none';
+        customRadio.querySelector('.dot-2').style.display = 'none';
+
+        if (currentValue === 0) {
+            newValue = proficiencyBonus;
+            customRadio.classList.add('half-checked');
+            customRadio.querySelector('.dot-1').style.display = 'block';
+        } else if (currentValue === proficiencyBonus) {
+            newValue = proficiencyBonus * 2;
+            customRadio.classList.add('fully-checked');
+            customRadio.querySelector('.dot-1').style.display = 'block';
+            customRadio.querySelector('.dot-2').style.display = 'block';
+        } else {
+            newValue = 0;
+        }
+
+        hiddenInput.value = newValue;
+
+        const attributeValue = parseInt(document.getElementById(attributeId).value) || 10;
+        const modifier = Math.floor((attributeValue - 10) / 2);
+        const finalValue = modifier + newValue;
+
+        displaySpan.textContent = finalValue;
+        element.checked = false;
+
+        // Автоматически сохраняем изменения
+        saveAttributes();
+    }
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+        // Инициализация модификаторов
+        Object.keys(attributeNames).forEach(attr => {
+            updateBaseModifier(attr);
+            updateSkills(attr);
+        });
+        // Инициализация модификатора инициативы
+        const dexValue =
+            parseInt(document.getElementById("dexterity").value) || 10;
+        const initiativeMod = getModifier(dexValue);
+        const initiativeModElement = document.getElementById("initiative-mod");
+        initiativeModElement.textContent = initiativeMod >= 0 ? `+${initiativeMod}` : initiativeMod;
+        // Восстановление пассивных навыков
+        ["perception", "insight", "investigation"].forEach(skill => {
+            const manual = localStorage.getItem(`passive_${skill}_manual`);
+            const auto = localStorage.getItem(`passive_${skill}_auto`);
+            const button = document.getElementById(`passive-${skill}-button`);
+            if (manual) {
+                document.getElementById(`passive_${skill}`).value = manual;
+                button.textContent = manual;
+                button.classList.add("manual");
+            } else if (auto) {
+                document.getElementById(`passive_${skill}`).value = auto;
+                button.textContent = auto;
+                button.classList.remove("manual");
+            } else {
+                // Авторасчёт, если ничего не сохранено
                 const attr = skill === "investigation" ? "intelligence" : "wisdom";
-                const attrValue = parseInt(document.getElementById(attr).value);
+                const mod = getModifier(parseInt(document.getElementById(attr).value));
+                const value = 10 + mod;
+                document.getElementById(`passive_${skill}`).value = value;
+                button.textContent = value;
+                button.classList.remove("manual");
+            }
+        });
+        // Обработка ручного изменения в модальном окне
+        ["perception", "insight", "investigation"].forEach(skill => {
+            const input = document.getElementById(`modal-passive-${skill}`);
+            if (input) {
+                input.addEventListener("change", function () {
+                    const value = parseInt(this.value) || 10;
+                    document.getElementById(`passive-${skill}-button`).classList.add("manual");
+                    document.getElementById(`passive_${skill}`).value = value;
+                    document.getElementById(`passive-${skill}-button`).textContent = value;
+                    localStorage.setItem(`character_${characterId}_passive_${skill}_manual`, value);
+                    localStorage.removeItem(`passive_${skill}_auto`);
+                });
+            }
+        });
+    });
+    // Инициализация при загрузке страницы
+    document.addEventListener("DOMContentLoaded", function() {
+        // Обработчик закрытия по крестику
+        document.getElementById('close-conditions-sidebar').addEventListener('click', closeConditionsModal);
+
+        // Обработчик закрытия по клику вне модального окна
+        document.getElementById('settings-backdrop').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeConditionsModal();
+            }
+        });
+
+        // Обработчик сохранения состояний
+        document.getElementById('save-conditions').addEventListener('click', function() {
+            // Здесь код для сохранения состояний
+            closeConditionsModal();
+        });
+    });
+    document.addEventListener("DOMContentLoaded", function() {
+        ["perception", "insight", "investigation"].forEach(skill => {
+            const manual = localStorage.getItem(`character_${characterId}_passive_${skill}_manual`);
+            const auto = localStorage.getItem(`character_${characterId}_passive_${skill}_auto`);
+            const button = document.getElementById(`passive-${skill}-button`);
+            const input = document.getElementById(`passive_${skill}`);
+
+            if (manual) {
+                input.value = manual;
+                button.textContent = manual;
+                button.classList.add("manual");
+            } else if (auto) {
+                input.value = auto;
+                button.textContent = auto;
+                button.classList.remove("manual");
+            } else {
+                // Авторасчёт, если ничего не сохранено
+                const attr = skill === "investigation" ? "intelligence" : "wisdom";
+                const attrValue = parseInt(document.getElementById(attr).value) || 10;
                 const mod = getModifier(attrValue);
                 const value = 10 + mod;
-
-                const button = document.getElementById(`passive-${skill}-button`);
-                const input = document.getElementById(`passive_${skill}`);
 
                 input.value = value;
                 button.textContent = value;
                 button.classList.remove("manual");
-
-                localStorage.removeItem(`character_${characterId}_passive_${skill}_manual`);
                 localStorage.setItem(`character_${characterId}_passive_${skill}_auto`, value);
-
-                // Обновляем инпут модального окна, если оно открыто
-                const modal = document.getElementById("attributeModal");
-                if (modal && modal.style.display === "flex" && currentAttr === attr) {
-                    document.getElementById(`modal-passive-${skill}`).value = value;
-                }
             }
+        });
+    });
+    // Инициализация состояний при загрузке страницы
+    document.addEventListener("DOMContentLoaded", function () {
+        // Навыки силы
+        initSkillRadio('athletics');
 
-            // Открыть модальное окно для изменения значения атрибута
-            function openModal(attr) {
-                currentAttr = attr;
-                let value = document.getElementById(attr).value;
-                document.getElementById("modal-title").innerText = attributeNames[attr];
-                document.getElementById("modal-input").value = value;
+        // Навыки ловкости
+        initSkillRadio('acrobatics');
+        initSkillRadio('sleight_of_hand');
+        initSkillRadio('stealth');
 
-                const passiveSection = document.getElementById("passive-skills-section");
-                passiveSection.style.display = "block";
+        // Навыки интеллекта
+        initSkillRadio('investigation');
+        initSkillRadio('history');
+        initSkillRadio('arcana');
+        initSkillRadio('nature');
+        initSkillRadio('religion');
 
-                document.querySelectorAll('.passive-skill').forEach(el => {
-                    el.style.display = "none";
-                });
+        // Навыки мудрости
+        initSkillRadio('perception');
+        initSkillRadio('survival');
+        initSkillRadio('medicine');
+        initSkillRadio('insight');
+        initSkillRadio('animal_handling');
 
-                if (attr === 'wisdom') {
-                    // Получаем элементы
-                    const perceptionButton = document.getElementById("passive-perception-button");
-                    const insightButton = document.getElementById("passive-insight-button");
+        // Навыки харизмы
+        initSkillRadio('performance');
+        initSkillRadio('intimidation');
+        initSkillRadio('deception');
+        initSkillRadio('persuasion');
+    });
 
-                    // Устанавливаем значения в модальное окно
-                    document.getElementById("modal-passive-perception").value =
-                        perceptionButton.classList.contains("manual") ?
-                            document.getElementById("passive_perception").value :
-                            10 + getModifier(value);
+    document.getElementById('attributesForm').addEventListener('submit', function(e) {
+        e.preventDefault();
 
-                    document.getElementById("modal-passive-insight").value =
-                        insightButton.classList.contains("manual") ?
-                            document.getElementById("passive_insight").value :
-                            10 + getModifier(value);
+        fetch(this.action, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+            },
+            body: JSON.stringify(Object.fromEntries(new FormData(this)))
+        })
+    });
+    document.addEventListener("DOMContentLoaded", updateProficiencyBonus);
+    document.addEventListener("DOMContentLoaded", function() {
+        // Обработчики для кнопок раскрытия описания
+        document.querySelectorAll('.toggle-description-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const description = this.closest('.condition-header').nextElementSibling;
+                const isActive = this.classList.contains('active');
 
-                    document.querySelector('.passive-skill[data-skill="perception"]').style.display = "block";
-                    document.querySelector('.passive-skill[data-skill="insight"]').style.display = "block";
-                } else if (attr === 'intelligence') {
-                    const investigationButton = document.getElementById("passive-investigation-button");
-
-                    document.getElementById("modal-passive-investigation").value =
-                        investigationButton.classList.contains("manual") ?
-                            document.getElementById("passive_investigation").value :
-                            10 + getModifier(value);
-
-                    document.querySelector('.passive-skill[data-skill="investigation"]').style.display = "block";
+                if (isActive) {
+                    this.classList.remove('active');
+                    description.style.display = 'none';
                 } else {
-                    passiveSection.style.display = "none";
+                    this.classList.add('active');
+                    description.style.display = 'block';
                 }
+            });
+        });
 
-                document.getElementById("attributeModal").style.display = "flex";
-            }
+        // Обработчики для клика по всему заголовку
+        document.querySelectorAll('.condition-header').forEach(header => {
+            header.addEventListener('click', function() {
+                const btn = this.querySelector('.toggle-description-btn');
+                const description = this.nextElementSibling;
+                const isActive = btn.classList.contains('active');
 
-            function updatePassiveSkills() {
-                const wisdomModifier = getModifier(parseInt(document.getElementById("wisdom").value));
-                const intelligenceModifier = getModifier(parseInt(document.getElementById("intelligence").value));
+                if (isActive) {
+                    btn.classList.remove('active');
+                    description.style.display = 'none';
+                } else {
+                    btn.classList.add('active');
+                    description.style.display = 'block';
+                }
+            });
+        });
+    });
+    // Обновите обработчик сохранения модального окна состояния
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById('save-conditions').addEventListener('click', saveConditions);
+        loadConditions();
+    });
 
-                const skills = {
-                    "perception": wisdomModifier,
-                    "insight": wisdomModifier,
-                    "investigation": intelligenceModifier
-                };
 
-                Object.keys(skills).forEach(skill => {
+    document.addEventListener("DOMContentLoaded", function() {
+        const exhaustionSelect = document.getElementById('exhaustion-level');
+        const exhaustionValue = document.getElementById('exhaustion-value');
+
+        // Загружаем сохраненное значение (если есть)
+        const savedExhaustion = localStorage.getItem(`character_${characterId}_exhaustion`);
+        if (savedExhaustion) {
+            exhaustionSelect.value = savedExhaustion;
+            exhaustionValue.textContent = savedExhaustion;
+        }
+
+        // Обработчик изменения значения
+        exhaustionSelect.addEventListener('change', function() {
+            const selectedValue = this.value;
+            exhaustionValue.textContent = selectedValue;
+
+            // Сохраняем значение для этого персонажа
+            localStorage.setItem(`character_${characterId}_exhaustion`, selectedValue);
+
+            // Отправляем на сервер (если нужно)
+            saveExhaustionLevel(selectedValue);
+        });
+    });
+
+
+    // Функция инициализации радио-кнопки навыка
+    function initSkillRadio(skillId) {
+        const skillValue = parseInt(document.getElementById(skillId).value) || 0;
+        const radioCustom = document.querySelector('#' + skillId + '-radio + .double-radio-custom');
+        const currentLevel = parseInt(document.querySelector('.character-level').textContent.match(/\d+/)[0]) || 1;
+        const proficiencyBonus = getProficiencyBonus(currentLevel);
+
+        if (!radioCustom) return;
+
+        // Сбрасываем все состояния
+        radioCustom.classList.remove('half-checked', 'fully-checked');
+        radioCustom.querySelector('.dot-1').style.display = 'none';
+        radioCustom.querySelector('.dot-2').style.display = 'none';
+
+        if (skillValue === proficiencyBonus) {
+            radioCustom.classList.add('half-checked');
+            radioCustom.querySelector('.dot-1').style.display = 'block';
+        } else if (skillValue === proficiencyBonus * 2) {
+            radioCustom.classList.add('fully-checked');
+            radioCustom.querySelector('.dot-1').style.display = 'block';
+            radioCustom.querySelector('.dot-2').style.display = 'block';
+        }
+    }
+    document.querySelectorAll('.skill-toggle').forEach(item => {
+        item.addEventListener('click', function () {
+            let targetId = this.getAttribute('data-target');
+            let span = document.getElementById(targetId + "-value");
+            let input = document.getElementById(targetId);
+
+            // Циклически меняем бонус владения: 0 -> 2 -> 4 -> 0
+            let currentValue = parseInt(input.value);
+            let newValue = currentValue === 4 ? 0 : currentValue + 2;
+            input.value = newValue;
+
+            // Найти родительский атрибут
+            let attribute = Object.keys(attributeNames).find(attr =>
+                document.getElementById(attr) && this.closest('.attribute-item').contains(document.getElementById(attr))
+            );
+
+            let attributeValue = parseInt(document.getElementById(attribute).value);
+            let modifier = getModifier(attributeValue);
+            let finalValue = modifier + newValue;
+
+            // Отображаем итоговое значение (модификатор + бонус)
+            span.innerText = finalValue;
+        });
+    });
+
+
+    function updateSkills(attribute) {
+        let attrValue = parseInt(document.getElementById(attribute).value);
+        let modifier = getModifier(attrValue);
+
+        let skills = {
+            strength: ["athletics"],
+            dexterity: ["acrobatics", "sleight_of_hand", "stealth"],
+            intelligence: ["investigation", "history", "arcana", "nature", "religion"],
+            wisdom: ["perception", "survival", "medicine", "insight", "animal_handling"],
+            charisma: ["performance", "intimidation", "deception", "persuasion"]
+        };
+
+        if (skills[attribute]) {
+            skills[attribute].forEach(skill => {
+                let skillBonus = parseInt(document.getElementById(skill).value);
+                let finalValue = modifier + skillBonus;
+                document.getElementById(skill + "-value").innerText = finalValue;
+            });
+        }
+    }
+
+    function toggleSkill(element) {
+        const targetId = element.getAttribute('data-target');
+        const span = document.getElementById(targetId + "-value");
+        const input = document.getElementById(targetId);
+
+        let currentValue = parseInt(input.value);
+        let newValue = currentValue === 4 ? 0 : currentValue + 2;
+        input.value = newValue;
+
+        // Находим связанный атрибут
+        const attribute = Object.keys(attributeNames).find(attr =>
+            element.closest('.attribute-item').contains(document.getElementById(attr))
+        );
+
+        // Рассчитываем итоговое значение
+        const attributeValue = parseInt(document.getElementById(attribute).value);
+        const modifier = Math.floor((attributeValue - 10) / 2);
+        const finalValue = modifier + newValue;
+
+        // Обновляем отображение
+        span.textContent = finalValue;
+    }
+
+    function rollDice(attribute) {
+        const value = parseInt(document.getElementById(attribute).value) || 10; // Значение по умолчанию 10
+        const modifier = Math.floor((value - 10) / 2);
+        const roll = Math.floor(Math.random() * 20) + 1;
+        const total = roll + modifier;
+
+        addNotification(
+            'ПРОВЕРКА',
+            attribute,
+            roll,
+            modifier,
+            total
+        );
+    }
+
+    function rollSave(attribute) {
+        const value = parseInt(document.getElementById(attribute).value) || 10; // Значение по умолчанию 10
+        const modifier = Math.floor((value - 10) / 2);
+        const roll = Math.floor(Math.random() * 20) + 1;
+        const total = roll + modifier;
+
+        addNotification(
+            'СПАСБРОСОК',
+            attribute,
+            roll,
+            modifier,
+            total
+        );
+    }
+
+    // Функция для броска навыка
+    function rollSkill(skill, attribute) {
+        const skillBonus = parseInt(document.getElementById(skill).value) || 0;
+        const attrValue = parseInt(document.getElementById(attribute).value) || 10;
+        const attrModifier = Math.floor((attrValue - 10) / 2);
+        const roll = Math.floor(Math.random() * 20) + 1;
+        const total = roll + attrModifier + skillBonus;
+
+        // Переводим название навыка
+        const skillNames = {
+            'athletics': 'АТЛЕТИКА',
+            'acrobatics': 'АКРОБАТИКА',
+            'sleight_of_hand': 'ЛОВКОСТЬ РУК',
+            'stealth': 'СКРЫТНОСТЬ',
+            'investigation': 'АНАЛИЗ',
+            'history': 'ИСТОРИЯ',
+            'arcana': 'МАГИЯ',
+            'nature': 'ПРИРОДА',
+            'religion': 'РЕЛИГИЯ',
+            'perception': 'ВОСПРИЯТИЕ',
+            'survival': 'ВЫЖИВАНИЕ',
+            'medicine': 'МЕДИЦИНА',
+            'insight': 'ПРОНИЦАТЕЛЬНОСТЬ',
+            'animal_handling': 'УХОД ЗА ЖИВОТНЫМИ',
+            'performance': 'ВЫСТУПЛЕНИЕ',
+            'intimidation': 'ЗАПУГИВАНИЕ',
+            'deception': 'ОБМАН',
+            'persuasion': 'УБЕЖДЕНИЕ'
+        };
+
+        addNotification(
+            'НАВЫК',
+            skillNames[skill] || skill,
+            roll,
+            attrModifier + skillBonus,
+            total
+        );
+    }
+
+    // Функция для перевода названий атрибутов
+    function attributeName(attr) {
+        const names = {
+            'strength': 'СИЛА',
+            'dexterity': 'ЛОВКОСТЬ',
+            'constitution': 'ТЕЛОСЛОЖЕНИЕ',
+            'intelligence': 'ИНТЕЛЛЕКТ',
+            'wisdom': 'МУДРОСТЬ',
+            'charisma': 'ХАРИЗМА',
+            'initiative': 'ИНИЦИАТИВА'
+        };
+        return names[attr] || attr;
+    }
+
+    function updateInitiative() {
+        const dexInput = document.getElementById("dexterity");
+        const initiativeEl = document.getElementById("initiative-mod");
+        if (dexInput && initiativeEl) {
+            const dexValue = parseInt(dexInput.value) || 10;
+            const mod = getModifier(dexValue);
+            initiativeEl.textContent = mod >= 0 ? `+${mod}` : mod;
+            console.log("Инициатива обновлена:", mod);
+        }
+    }
+
+    // Инициализация после загрузки
+    document.addEventListener("DOMContentLoaded", function () {
+        updateInitiative();
+        const dexInput = document.getElementById("dexterity");
+        if (dexInput) {
+            dexInput.addEventListener("input", updateInitiative);
+        }
+    });
+
+    function saveAttribute() {
+        try {
+            const attrValue = parseInt(document.getElementById("modal-input").value) || 10;
+            document.getElementById(currentAttr).value = attrValue;
+            document.getElementById(`${currentAttr}-button`).textContent = attrValue;
+
+            updateBaseModifier(currentAttr);
+            updateSkills(currentAttr);
+            updateInitiative();
+
+            // Обновляем пассивные навыки
+            if (currentAttr === "wisdom") {
+                ["perception", "insight"].forEach(skill => {
                     const button = document.getElementById(`passive-${skill}-button`);
-                    if (!button.classList.contains('manual')) {
-                        const passiveValue = 10 + skills[skill];
-                        document.getElementById(`passive_${skill}`).value = passiveValue;
-                        button.textContent = passiveValue;
+                    const input = document.getElementById(`passive_${skill}`);
+
+                    if (button.classList.contains("manual")) {
+                        const val = parseInt(document.getElementById(`modal-passive-${skill}`).value) || 10;
+                        input.value = val;
+                        button.textContent = val;
+                    } else {
+                        const autoValue = 10 + getModifier(attrValue);
+                        input.value = autoValue;
+                        button.textContent = autoValue;
                     }
                 });
-            }
+            } else if (currentAttr === "intelligence") {
+                const button = document.getElementById("passive-investigation-button");
+                const input = document.getElementById("passive_investigation");
 
-            function updateBaseModifier(attribute) {
-                let attrValue = parseInt(document.getElementById(attribute).value);
-                let modifier = getModifier(attrValue);
-                document.getElementById(`${attribute}-modifier`).textContent = modifier;
-                document.getElementById(`${attribute}-save-modifier`).textContent = modifier;
-            }
-
-            document.addEventListener("DOMContentLoaded", function () {
-                const characterAvatar = document.getElementById("character-avatar");
-                const dropdown = document.getElementById("character-dropdown");
-
-                characterAvatar.addEventListener("click", function (event) {
-                    event.stopPropagation();
-                    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
-                });
-
-                document.addEventListener("click", function () {
-                    dropdown.style.display = "none";
-                });
-
-                dropdown.addEventListener("click", function (event) {
-                    event.stopPropagation();
-                });
-            });
-            document.addEventListener("DOMContentLoaded", function () {
-                const settingsBtn = document.getElementById("settings-btn");
-                const sidebarModal = document.getElementById("settings-modal");
-                const closeSidebar = document.getElementById("close-sidebar");
-
-                // В обработчике открытия модального окна настроек
-                settingsBtn.addEventListener("click", function () {
-                    const backdrop = document.getElementById('settings-backdrop');
-                    backdrop.style.display = 'block';
-                    setTimeout(() => {
-                        sidebarModal.classList.add("show");
-                        backdrop.classList.add('active');
-                    }, 10);
-                });
-
-                // В обработчике закрытия
-                closeSidebar.addEventListener("click", function () {
-                    const backdrop = document.getElementById('settings-backdrop');
-                    sidebarModal.classList.remove("show");
-                    backdrop.classList.remove('active');
-                    setTimeout(() => {
-                        backdrop.style.display = 'none';
-                    }, 300);
-                });
-
-                // Обновите обработчик клика вне модального окна
-                document.addEventListener("click", function (event) {
-                    const backdrop = document.getElementById('settings-backdrop');
-                    if (!sidebarModal.contains(event.target) &&
-                        !settingsBtn.contains(event.target) &&
-                        backdrop.classList.contains('active')) {
-                        sidebarModal.classList.remove("show");
-                        backdrop.classList.remove('active');
-                        setTimeout(() => {
-                            backdrop.style.display = 'none';
-                        }, 300);
-                    }
-                });
-                document.getElementById('save-character-settings').addEventListener('click', function () {
-                    const characterId = {{ $character->id }};
-                    const name = document.getElementById('character-name-input').value;
-                    const race = document.getElementById('character-race-input').value;
-                    const characterClass = document.getElementById('character-class-input').value;
-                    const subclass = document.getElementById('character-subclass-input').value;
-
-                    fetch('/characters/update-settings', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                        },
-                        body: JSON.stringify({
-                            character_id: characterId,
-                            name: name,
-                            race: race,
-                            class: characterClass,
-                            subclass: subclass
-                        })
-                    })
-                });
-            });
-
-            document.addEventListener("DOMContentLoaded", function() {
-                const exhaustionSelect = document.getElementById('exhaustion-level');
-                if (exhaustionSelect) {
-                    exhaustionSelect.addEventListener('change', function() {
-                        currentExhaustion = parseInt(this.value) || 0;
-                        syncExhaustion();
-                    });
+                if (button.classList.contains("manual")) {
+                    const val = parseInt(document.getElementById(`modal-passive-investigation`).value) || 10;
+                    input.value = val;
+                    button.textContent = val;
+                } else {
+                    const autoValue = 10 + getModifier(attrValue);
+                    input.value = autoValue;
+                    button.textContent = autoValue;
                 }
-            });
+            }
 
-            document.addEventListener("DOMContentLoaded", function () {
-                const nameInput = document.getElementById("character-name-input");
-                const saveButton = document.getElementById("save-character-name");
-                const saveMessage = document.getElementById("save-message");
-                const characterNameElement = document.querySelector(".character-name h2");
+            document.getElementById("attributeModal").style.display = "none";
 
-                saveButton.addEventListener("click", function () {
-                    const newName = nameInput.value.trim();
+            // Автоматически сохраняем изменения
+            saveAttributes();
+        } catch (e) {
+            console.error("Ошибка сохранения:", e);
+        }
+    }
 
-                    // Проверка, чтобы имя не было пустым
-                    if (newName === "") {
-                        alert("Имя не может быть пустым!");
-                        return;
+    function updateModifier(attribute, forceUpdate = false) {
+        let attrValue = parseInt(document.getElementById(attribute).value);
+        let modifier = getModifier(attrValue);
+
+        // Обновляем модификаторы для проверок и спасбросков
+        document.getElementById(`${attribute}-modifier`).textContent = modifier;
+        document.getElementById(`${attribute}-save-modifier`).textContent = modifier;
+
+        // Обновляем связанные навыки
+        updateSkills(attribute);
+
+        // Автоматически обновляем только НЕручные пассивные чувства
+        if (attribute === 'wisdom') {
+            const perceptionButton = document.getElementById("passive-perception-button");
+            const insightButton = document.getElementById("passive-insight-button");
+
+            if (!perceptionButton.classList.contains('manual-value') || forceUpdate) {
+                const passivePerception = 10 + modifier;
+                document.getElementById("passive_perception").value = passivePerception;
+                perceptionButton.textContent = passivePerception;
+                if (forceUpdate) perceptionButton.classList.remove('manual-value');
+            }
+
+            if (!insightButton.classList.contains('manual-value') || forceUpdate) {
+                const passiveInsight = 10 + modifier;
+                document.getElementById("passive_insight").value = passiveInsight;
+                insightButton.textContent = passiveInsight;
+                if (forceUpdate) insightButton.classList.remove('manual-value');
+            }
+        } else if (attribute === 'intelligence') {
+            const investigationButton = document.getElementById("passive-investigation-button");
+
+            if (!investigationButton.classList.contains('manual-value') || forceUpdate) {
+                const passiveInvestigation = 10 + modifier;
+                document.getElementById("passive_investigation").value = passiveInvestigation;
+                investigationButton.textContent = passiveInvestigation;
+                if (forceUpdate) investigationButton.classList.remove('manual-value');
+            }
+        }
+    }
+
+    function resetPassiveSkill(skill) {
+        const attr = skill === "investigation" ? "intelligence" : "wisdom";
+        const attrValue = parseInt(document.getElementById(attr).value);
+        const mod = getModifier(attrValue);
+        const value = 10 + mod;
+
+        const button = document.getElementById(`passive-${skill}-button`);
+        const input = document.getElementById(`passive_${skill}`);
+
+        input.value = value;
+        button.textContent = value;
+        button.classList.remove("manual");
+
+        localStorage.removeItem(`character_${characterId}_passive_${skill}_manual`);
+        localStorage.setItem(`character_${characterId}_passive_${skill}_auto`, value);
+
+        // Обновляем инпут модального окна, если оно открыто
+        const modal = document.getElementById("attributeModal");
+        if (modal && modal.style.display === "flex" && currentAttr === attr) {
+            document.getElementById(`modal-passive-${skill}`).value = value;
+        }
+    }
+
+    // Открыть модальное окно для изменения значения атрибута
+    function openModal(attr) {
+        currentAttr = attr;
+        let value = document.getElementById(attr).value;
+        document.getElementById("modal-title").innerText = attributeNames[attr];
+        document.getElementById("modal-input").value = value;
+
+        const passiveSection = document.getElementById("passive-skills-section");
+        passiveSection.style.display = "block";
+
+        document.querySelectorAll('.passive-skill').forEach(el => {
+            el.style.display = "none";
+        });
+
+        if (attr === 'wisdom') {
+            // Получаем элементы
+            const perceptionButton = document.getElementById("passive-perception-button");
+            const insightButton = document.getElementById("passive-insight-button");
+
+            // Устанавливаем значения в модальное окно
+            document.getElementById("modal-passive-perception").value =
+                perceptionButton.classList.contains("manual") ?
+                    document.getElementById("passive_perception").value :
+                    10 + getModifier(value);
+
+            document.getElementById("modal-passive-insight").value =
+                insightButton.classList.contains("manual") ?
+                    document.getElementById("passive_insight").value :
+                    10 + getModifier(value);
+
+            document.querySelector('.passive-skill[data-skill="perception"]').style.display = "block";
+            document.querySelector('.passive-skill[data-skill="insight"]').style.display = "block";
+        } else if (attr === 'intelligence') {
+            const investigationButton = document.getElementById("passive-investigation-button");
+
+            document.getElementById("modal-passive-investigation").value =
+                investigationButton.classList.contains("manual") ?
+                    document.getElementById("passive_investigation").value :
+                    10 + getModifier(value);
+
+            document.querySelector('.passive-skill[data-skill="investigation"]').style.display = "block";
+        } else {
+            passiveSection.style.display = "none";
+        }
+
+        document.getElementById("attributeModal").style.display = "flex";
+    }
+
+    function updatePassiveSkills() {
+        const wisdomModifier = getModifier(parseInt(document.getElementById("wisdom").value));
+        const intelligenceModifier = getModifier(parseInt(document.getElementById("intelligence").value));
+
+        const skills = {
+            "perception": wisdomModifier,
+            "insight": wisdomModifier,
+            "investigation": intelligenceModifier
+        };
+
+        Object.keys(skills).forEach(skill => {
+            const button = document.getElementById(`passive-${skill}-button`);
+            if (!button.classList.contains('manual')) {
+                const passiveValue = 10 + skills[skill];
+                document.getElementById(`passive_${skill}`).value = passiveValue;
+                button.textContent = passiveValue;
+            }
+        });
+    }
+
+    function updateBaseModifier(attribute) {
+        let attrValue = parseInt(document.getElementById(attribute).value);
+        let modifier = getModifier(attrValue);
+        document.getElementById(`${attribute}-modifier`).textContent = modifier;
+        document.getElementById(`${attribute}-save-modifier`).textContent = modifier;
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const characterAvatar = document.getElementById("character-avatar");
+        const dropdown = document.getElementById("character-dropdown");
+
+        characterAvatar.addEventListener("click", function (event) {
+            event.stopPropagation();
+            dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+        });
+
+        document.addEventListener("click", function () {
+            dropdown.style.display = "none";
+        });
+
+        dropdown.addEventListener("click", function (event) {
+            event.stopPropagation();
+        });
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+        const settingsBtn = document.getElementById("settings-btn");
+        const sidebarModal = document.getElementById("settings-modal");
+        const closeSidebar = document.getElementById("close-sidebar");
+
+        // В обработчике открытия модального окна настроек
+        settingsBtn.addEventListener("click", function () {
+            const backdrop = document.getElementById('settings-backdrop');
+            backdrop.style.display = 'block';
+            setTimeout(() => {
+                sidebarModal.classList.add("show");
+                backdrop.classList.add('active');
+            }, 10);
+        });
+
+        // В обработчике закрытия
+        closeSidebar.addEventListener("click", function () {
+            const backdrop = document.getElementById('settings-backdrop');
+            sidebarModal.classList.remove("show");
+            backdrop.classList.remove('active');
+            setTimeout(() => {
+                backdrop.style.display = 'none';
+            }, 300);
+        });
+
+        // Обновите обработчик клика вне модального окна
+        document.addEventListener("click", function (event) {
+            const backdrop = document.getElementById('settings-backdrop');
+            if (!sidebarModal.contains(event.target) &&
+                !settingsBtn.contains(event.target) &&
+                backdrop.classList.contains('active')) {
+                sidebarModal.classList.remove("show");
+                backdrop.classList.remove('active');
+                setTimeout(() => {
+                    backdrop.style.display = 'none';
+                }, 300);
+            }
+        });
+        document.getElementById('save-character-settings').addEventListener('click', function () {
+            const characterId = {{ $character->id }};
+            const name = document.getElementById('character-name-input').value;
+            const race = document.getElementById('character-race-input').value;
+            const characterClass = document.getElementById('character-class-input').value;
+            const subclass = document.getElementById('character-subclass-input').value;
+
+            fetch('/characters/update-settings', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({
+                    character_id: characterId,
+                    name: name,
+                    race: race,
+                    class: characterClass,
+                    subclass: subclass
+                })
+            })
+        });
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+        const nameInput = document.getElementById("character-name-input");
+        const saveButton = document.getElementById("save-character-name");
+        const saveMessage = document.getElementById("save-message");
+        const characterNameElement = document.querySelector(".character-name h2");
+
+        saveButton.addEventListener("click", function () {
+            const newName = nameInput.value.trim();
+
+            // Проверка, чтобы имя не было пустым
+            if (newName === "") {
+                alert("Имя не может быть пустым!");
+                return;
+            }
+
+            // ID персонажа
+            const characterId = document.querySelector('meta[name="character-id"]').getAttribute("content");
+
+            // Отправляем запрос
+            fetch("/character/update-name", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+                },
+                body: JSON.stringify({name: newName, character_id: characterId})
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        characterNameElement.textContent = data.newName; // Меняем имя на странице
+                        saveMessage.textContent = "Имя сохранено!";
+                        saveMessage.style.color = "#28a745"; // Зеленый цвет успеха
+                    } else {
+                        saveMessage.textContent = "Ошибка!";
+                        saveMessage.style.color = "red";
                     }
+                    saveMessage.style.display = "block";
+                    setTimeout(() => saveMessage.style.display = "none", 2000);
+                })
+                .catch(error => console.error("Ошибка:", error));
+        });
+    });
+    const MAX_NOTIFICATIONS = 4;
+    let currentNotifications = 0;
 
-                    // ID персонажа
-                    const characterId = document.querySelector('meta[name="character-id"]').getAttribute("content");
+    function addNotification(type, attribute, roll, modifier, result) {
+        const container = document.getElementById('notificationsContainer');
+        const closeBtn = document.querySelector('.close-all-btn');
 
-                    // Отправляем запрос
-                    fetch("/character/update-name", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
-                        },
-                        body: JSON.stringify({name: newName, character_id: characterId})
-                    })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                characterNameElement.textContent = data.newName; // Меняем имя на странице
-                                saveMessage.textContent = "Имя сохранено!";
-                                saveMessage.style.color = "#28a745"; // Зеленый цвет успеха
-                            } else {
-                                saveMessage.textContent = "Ошибка!";
-                                saveMessage.style.color = "red";
-                            }
-                            saveMessage.style.display = "block";
-                            setTimeout(() => saveMessage.style.display = "none", 2000);
-                        })
-                        .catch(error => console.error("Ошибка:", error));
-                });
-            });
-            const MAX_NOTIFICATIONS = 4;
-            let currentNotifications = 0;
+        const isCheck = type === 'ПРОВЕРКА';
+        const typeClass = isCheck ? 'check-text' : 'save-text';
+        const notificationType = isCheck ? 'check' : 'save';
+        const modifierDisplay = modifier >= 0 ? `+ ${modifier}` : modifier;
 
-            function addNotification(type, attribute, roll, modifier, result) {
-                const container = document.getElementById('notificationsContainer');
-                const closeBtn = document.querySelector('.close-all-btn');
-
-                const isCheck = type === 'ПРОВЕРКА';
-                const typeClass = isCheck ? 'check-text' : 'save-text';
-                const notificationType = isCheck ? 'check' : 'save';
-                const modifierDisplay = modifier >= 0 ? `+ ${modifier}` : modifier;
-
-                // Преобразуем старые уведомления
-                document.querySelectorAll('.notification.new').forEach(notif => {
-                    const oldTypeClass = notif.dataset.notificationType === 'check' ? 'check-text' : 'save-text';
-                    notif.className = `notification old ${notif.dataset.notificationType}`;
-                    notif.innerHTML = `
+        // Преобразуем старые уведомления
+        document.querySelectorAll('.notification.new').forEach(notif => {
+            const oldTypeClass = notif.dataset.notificationType === 'check' ? 'check-text' : 'save-text';
+            notif.className = `notification old ${notif.dataset.notificationType}`;
+            notif.innerHTML = `
             <span>${notif.dataset.result} </span>
             <span class="${oldTypeClass}">${notif.dataset.type}</span>
             <span> ${notif.dataset.attribute}</span>
         `;
-                });
+        });
 
-                // Создаем новое уведомление
-                const notification = document.createElement('div');
-                notification.className = 'notification new';
-                notification.dataset.type = type;
-                notification.dataset.attribute = attributeName(attribute);
-                notification.dataset.result = result;
-                notification.dataset.notificationType = notificationType;
+        // Создаем новое уведомление
+        const notification = document.createElement('div');
+        notification.className = 'notification new';
+        notification.dataset.type = type;
+        notification.dataset.attribute = attributeName(attribute);
+        notification.dataset.result = result;
+        notification.dataset.notificationType = notificationType;
 
-                notification.innerHTML = `
+        notification.innerHTML = `
         <div class="notification-header">
             <span class="${typeClass}">${type}</span> ${attributeName(attribute)}
         </div>
@@ -2522,1347 +2475,1246 @@
         </div>
     `;
 
-                container.insertBefore(notification, container.firstChild);
+        container.insertBefore(notification, container.firstChild);
 
-                // Лимит уведомлений
-                while (container.children.length > MAX_NOTIFICATIONS) {
-                    container.lastChild.remove();
-                }
-                if (container.children.length === 1) {
-                    document.querySelector('.close-all-btn').classList.add('visible');
-                }
+        // Лимит уведомлений
+        while (container.children.length > MAX_NOTIFICATIONS) {
+            container.lastChild.remove();
+        }
+        if (container.children.length === 1) {
+            document.querySelector('.close-all-btn').classList.add('visible');
+        }
+    }
+
+    // Показываем/скрываем крестик при наличии уведомлений
+    function clearAllNotifications() {
+        const container = document.getElementById('notificationsContainer');
+        container.innerHTML = '';
+        currentNotifications = 0;
+    }
+
+    function showBottomLeftAlert(header, formula, result) {
+        const alertElement = document.getElementById('bottomLeftAlert');
+        document.getElementById('alertHeader').textContent = header;
+        document.getElementById('rollFormula').textContent = formula;
+        document.getElementById('rollResult').textContent = result;
+        alertElement.style.display = 'block';
+    }
+
+    function hideBottomLeftAlert() {
+        document.getElementById('bottomLeftAlert').style.display = 'none';
+    }
+
+
+    // Добавляем обработчик для ручного управления видимостью
+    document.getElementById('notificationsWrapper').addEventListener('mouseenter', function () {
+        if (this.querySelector('.notifications-container').children.length > 0) {
+            this.querySelector('.close-all-btn').style.opacity = '1';
+        }
+    });
+
+    document.getElementById('notificationsWrapper').addEventListener('mouseleave', function () {
+        this.querySelector('.close-all-btn').style.opacity = '0';
+    });
+
+    function updateNotificationsState() {
+        const wrapper = document.getElementById('notificationsWrapper');
+        const hasNotifications = document.getElementById('notificationsContainer').children.length > 0;
+
+        if (hasNotifications) {
+            wrapper.classList.add('has-notifications');
+        } else {
+            wrapper.classList.remove('has-notifications');
+        }
+    }
+
+    function hideCloseButtonInstantly() {
+        const btn = document.querySelector('.close-all-btn');
+        btn.style.transition = 'none'; // Отключаем анимацию
+        btn.classList.remove('visible'); // Мгновенно скрываем
+        setTimeout(() => {
+            btn.style.transition = ''; // Восстанавливаем анимацию
+        }, 10);
+    }
+
+    function updateDeathSavesCheckboxes() {
+        // Получаем все чекбоксы
+        const failChecks = document.querySelectorAll('.death-save-checkbox.fail');
+        const successChecks = document.querySelectorAll('.death-save-checkbox.success');
+
+        // Обновляем провалы
+        failChecks.forEach((box, index) => {
+            box.classList.toggle('checked', index < deathSaves.failures);
+        });
+
+        // Обновляем успехи
+        successChecks.forEach((box, index) => {
+            box.classList.toggle('checked', index < deathSaves.successes);
+        });
+    }
+
+    // Инициализация при открытии модального окна
+    function openLevelUpModal() {
+        if (isLevelUpModalOpen) return;
+
+        const modal = document.getElementById('level-up-modal');
+        const backdrop = document.getElementById('modal-backdrop');
+
+        backdrop.style.display = 'block';
+        modal.style.display = 'block';
+
+        setTimeout(() => {
+            backdrop.classList.add('active');
+            modal.classList.add('show');
+            isLevelUpModalOpen = true;
+
+            // Обновляем данные при открытии модального окна
+            updateProgressBar();
+        }, 10);
+
+        document.getElementById('xp-input').value = '0';
+        currentExpression = '0';
+    }
+
+
+    function closeLevelUpModal() {
+        if (!isLevelUpModalOpen) return;
+
+        const modal = document.getElementById('level-up-modal');
+        const backdrop = document.getElementById('modal-backdrop');
+
+        modal.classList.remove('show');
+        backdrop.classList.remove('active');
+
+        setTimeout(() => {
+            modal.style.display = 'none';
+            backdrop.style.display = 'none';
+            isLevelUpModalOpen = false;
+
+            // Принудительное обновление после закрытия модалки
+            updateAllProgress();
+        }, 300);
+        updateMiniProgressBar(currentLevel, currentXp);
+    }
+
+    // Обработчик открытия по кнопке
+    document.querySelector('.level-up-btn').addEventListener('click', function (e) {
+        e.stopPropagation();
+        openLevelUpModal();
+    });
+
+    // Обработчик закрытия по крестику
+    document.querySelector('#level-up-modal .modal-close-btn').addEventListener('click', function (e) {
+        e.stopPropagation();
+        closeLevelUpModal();
+    });
+
+    // Закрытие при клике на backdrop
+    document.getElementById('modal-backdrop').addEventListener('click', function (e) {
+        if (e.target === this) {
+            closeLevelUpModal();
+        }
+    });
+
+    // Защита от закрытия при клике внутри модального окна
+    document.getElementById('level-up-modal').addEventListener('click', function (e) {
+        e.stopPropagation();
+    });
+
+    // Функция для изменения значения опыта
+    function changeXp(amount) {
+        const input = document.getElementById('xp-input');
+        if (!input) return;
+
+        let value = parseInt(input.value) || 0;
+        value = Math.max(0, value + amount);
+        input.value = value;
+    }
+
+    // Функция для обновления уровня персонажа на сервере
+    function updateCharacterLevel(newLevel) {
+        try {
+            const characterId = document.querySelector('meta[name="character-id"]')?.getAttribute('content');
+            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+
+            if (!characterId || !csrfToken) {
+                console.error('Missing required meta tags');
+                return;
             }
 
-            // Показываем/скрываем крестик при наличии уведомлений
-            function clearAllNotifications() {
-                const container = document.getElementById('notificationsContainer');
-                container.innerHTML = '';
-                currentNotifications = 0;
-            }
-
-            function showBottomLeftAlert(header, formula, result) {
-                const alertElement = document.getElementById('bottomLeftAlert');
-                document.getElementById('alertHeader').textContent = header;
-                document.getElementById('rollFormula').textContent = formula;
-                document.getElementById('rollResult').textContent = result;
-                alertElement.style.display = 'block';
-            }
-
-            function hideBottomLeftAlert() {
-                document.getElementById('bottomLeftAlert').style.display = 'none';
-            }
-
-
-            // Добавляем обработчик для ручного управления видимостью
-            document.getElementById('notificationsWrapper').addEventListener('mouseenter', function () {
-                if (this.querySelector('.notifications-container').children.length > 0) {
-                    this.querySelector('.close-all-btn').style.opacity = '1';
-                }
-            });
-
-            document.getElementById('notificationsWrapper').addEventListener('mouseleave', function () {
-                this.querySelector('.close-all-btn').style.opacity = '0';
-            });
-
-            function updateNotificationsState() {
-                const wrapper = document.getElementById('notificationsWrapper');
-                const hasNotifications = document.getElementById('notificationsContainer').children.length > 0;
-
-                if (hasNotifications) {
-                    wrapper.classList.add('has-notifications');
-                } else {
-                    wrapper.classList.remove('has-notifications');
-                }
-            }
-
-            function hideCloseButtonInstantly() {
-                const btn = document.querySelector('.close-all-btn');
-                btn.style.transition = 'none'; // Отключаем анимацию
-                btn.classList.remove('visible'); // Мгновенно скрываем
-                setTimeout(() => {
-                    btn.style.transition = ''; // Восстанавливаем анимацию
-                }, 10);
-            }
-
-            function updateDeathSavesCheckboxes() {
-                // Получаем все чекбоксы
-                const failChecks = document.querySelectorAll('.death-save-checkbox.fail');
-                const successChecks = document.querySelectorAll('.death-save-checkbox.success');
-
-                // Обновляем провалы
-                failChecks.forEach((box, index) => {
-                    box.classList.toggle('checked', index < deathSaves.failures);
-                });
-
-                // Обновляем успехи
-                successChecks.forEach((box, index) => {
-                    box.classList.toggle('checked', index < deathSaves.successes);
-                });
-            }
-
-            // Инициализация при открытии модального окна
-            function openLevelUpModal() {
-                if (isLevelUpModalOpen) return;
-
-                const modal = document.getElementById('level-up-modal');
-                const backdrop = document.getElementById('modal-backdrop');
-
-                backdrop.style.display = 'block';
-                modal.style.display = 'block';
-
-                setTimeout(() => {
-                    backdrop.classList.add('active');
-                    modal.classList.add('show');
-                    isLevelUpModalOpen = true;
-
-                    // Обновляем данные при открытии модального окна
-                    updateProgressBar();
-                }, 10);
-
-                document.getElementById('xp-input').value = '0';
-                currentExpression = '0';
-            }
-
-
-            function closeLevelUpModal() {
-                if (!isLevelUpModalOpen) return;
-
-                const modal = document.getElementById('level-up-modal');
-                const backdrop = document.getElementById('modal-backdrop');
-
-                modal.classList.remove('show');
-                backdrop.classList.remove('active');
-
-                setTimeout(() => {
-                    modal.style.display = 'none';
-                    backdrop.style.display = 'none';
-                    isLevelUpModalOpen = false;
-
-                    // Принудительное обновление после закрытия модалки
-                    updateAllProgress();
-                }, 300);
-                updateMiniProgressBar(currentLevel, currentXp);
-            }
-
-            // Обработчик открытия по кнопке
-            document.querySelector('.level-up-btn').addEventListener('click', function (e) {
-                e.stopPropagation();
-                openLevelUpModal();
-            });
-
-            // Обработчик закрытия по крестику
-            document.querySelector('#level-up-modal .modal-close-btn').addEventListener('click', function (e) {
-                e.stopPropagation();
-                closeLevelUpModal();
-            });
-
-            // Закрытие при клике на backdrop
-            document.getElementById('modal-backdrop').addEventListener('click', function (e) {
-                if (e.target === this) {
-                    closeLevelUpModal();
-                }
-            });
-
-            // Защита от закрытия при клике внутри модального окна
-            document.getElementById('level-up-modal').addEventListener('click', function (e) {
-                e.stopPropagation();
-            });
-
-            // Функция для изменения значения опыта
-            function changeXp(amount) {
-                const input = document.getElementById('xp-input');
-                if (!input) return;
-
-                let value = parseInt(input.value) || 0;
-                value = Math.max(0, value + amount);
-                input.value = value;
-            }
-
-            // Функция для обновления уровня персонажа на сервере
-            function updateCharacterLevel(newLevel) {
-                try {
-                    const characterId = document.querySelector('meta[name="character-id"]')?.getAttribute('content');
-                    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
-
-                    if (!characterId || !csrfToken) {
-                        console.error('Missing required meta tags');
-                        return;
+            fetch('/character/update-level', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrfToken
+                },
+                body: JSON.stringify({
+                    character_id: characterId,
+                    level: newLevel
+                })
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
                     }
-
-                    fetch('/character/update-level', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': csrfToken
-                        },
-                        body: JSON.stringify({
-                            character_id: characterId,
-                            level: newLevel
-                        })
-                    })
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error('Network response was not ok');
-                            }
-                            return response.json();
-                        })
-                        .then(data => {
-                            if (!data.success) {
-                                console.error('Ошибка при обновлении уровня:', data.error);
-                                // Откатываем изменение на клиенте
-                                const levelElement = document.querySelector('.character-level');
-                                if (levelElement) {
-                                    levelElement.textContent = `Уровень ${newLevel - 1}`;
-                                }
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Ошибка:', error);
-                            const levelElement = document.querySelector('.character-level');
-                            if (levelElement) {
-                                levelElement.textContent = `Уровень ${newLevel - 1}`;
-                            }
-                        });
-                } catch (error) {
-                    console.error('Error in updateCharacterLevel:', error);
-                }
-            }
-
-            // Функции для работы с калькулятором
-            function appendNumber(num) {
-                if (currentExpression === '0') {
-                    currentExpression = num.toString();
-                } else {
-                    currentExpression += num.toString();
-                }
-                document.getElementById('xp-input').value = currentExpression;
-            }
-
-            function appendOperator(operator) {
-                const lastChar = currentExpression.slice(-1);
-                if (['+', '-'].includes(lastChar)) {
-                    currentExpression = currentExpression.slice(0, -1) + operator;
-                } else {
-                    currentExpression += operator;
-                }
-                document.getElementById('xp-input').value = currentExpression;
-            }
-
-            function calculateExpression() {
-                try {
-                    return eval(currentExpression.replace(/[^-+0-9]/g, '')) || 0;
-                } catch (e) {
-                    console.error('Error calculating expression:', e);
-                    return 0;
-                }
-            }
-
-            async function calculateAndAdd() {
-                try {
-                    const amount = calculateExpression();
-                    if (amount <= 0) {
-                        alert('Введите положительное число');
-                        return;
+                    return response.json();
+                })
+                .then(data => {
+                    if (!data.success) {
+                        console.error('Ошибка при обновлении уровня:', data.error);
+                        // Откатываем изменение на клиенте
+                        const levelElement = document.querySelector('.character-level');
+                        if (levelElement) {
+                            levelElement.textContent = `Уровень ${newLevel - 1}`;
+                        }
                     }
-
-                    const newXp = currentXp + amount;
-                    await saveExperience(newXp);
-
-                    // Мгновенное обновление UI
-                    currentXp = newXp;
-                    updateProgressBar();
-                    clearInput();
-                } catch (error) {
-                    console.error('Add XP error:', error);
-                    alert('Ошибка: ' + (error.message || 'Не удалось добавить опыт'));
-                }
-            }
-
-            async function calculateAndSubtract() {
-                try {
-                    const amount = calculateExpression();
-                    if (amount <= 0) {
-                        alert('Введите положительное число');
-                        return;
-                    }
-
-                    const newXp = Math.max(0, currentXp - amount);
-                    await saveExperience(newXp);
-
-                    // Мгновенное обновление UI
-                    currentXp = newXp;
-                    updateProgressBar();
-                    clearInput();
-                } catch (error) {
-                    console.error('Subtract XP error:', error);
-                    alert('Ошибка: ' + (error.message || 'Не удалось вычесть опыт'));
-                }
-            }
-
-            function clearInput() {
-                currentExpression = '0';
-                document.getElementById('xp-input').value = currentExpression;
-            }
-
-
-            // Функция для прибавления опыта
-            async function addXp() {
-                const input = document.getElementById('xp-input');
-                if (!input) return;
-
-                const amount = parseInt(input.value) || 0;
-                if (amount <= 0) return;
-
-                try {
-                    currentXp += amount;
-                    await saveExperience(currentXp);
-                    updateXpDisplay();
-                    checkLevelUp();
-                    input.value = "0";
-                } catch (error) {
-                    // Откатываем изменения при ошибке
-                    currentXp -= amount;
-                    updateXpDisplay();
-                    alert('Ошибка при сохранении опыта');
-                }
-            }
-
-            // Функция для вычитания опыта
-            async function subtractXp() {
-                const input = document.getElementById('xp-input');
-                const amount = parseInt(input.value) || 0;
-                if (amount <= 0) return;
-
-                const newXp = Math.max(0, currentXp - amount);
-                const currentLevelXp = XP_TABLE[currentLevel] || 0;
-
-                try {
-                    // 1. Проверяем, нужно ли понизить уровень
-                    const shouldLevelDown = newXp < currentLevelXp && currentLevel > 1;
-
-                    // 2. Получаем новые границы XP
-                    let newLevel = shouldLevelDown ? currentLevel - 1 : currentLevel;
-                    const newLevelXp = XP_TABLE[newLevel] || 0;
-                    const nextLevelXp = XP_TABLE[newLevel + 1] || XP_TABLE[20];
-
-                    // 3. Рассчитываем новый прогресс
-                    const progressPercent = ((newXp - newLevelXp) / (nextLevelXp - newLevelXp)) * 100;
-
-                    // 4. Анимируем изменение
-                    const progressBar = document.getElementById('xp-progress-bar');
-
-                    if (shouldLevelDown) {
-                        // Мгновенно обновляем уровень и текстовые значения
-                        currentLevel = newLevel;
-                        document.getElementById('current-level-value').textContent = currentLevel;
-                        document.getElementById('next-level-value').textContent = currentLevel + 1;
-                        document.getElementById('current-level-xp').textContent = newLevelXp + ' XP';
-                        document.getElementById('next-level-xp').textContent = nextLevelXp + ' XP';
-
-                        // Мгновенный сброс в 0% (без анимации)
-                        progressBar.style.transition = 'none';
-                        progressBar.style.width = '0%';
-
-                        // Микро-задержка для корректного отображения
-                        await new Promise(resolve => setTimeout(resolve, 10));
-                    }
-
-                    // Плавное заполнение до нового значения
-                    progressBar.style.transition = 'width 0.5s ease';
-                    progressBar.style.width = `${progressPercent}%`;
-
-                    // 5. Обновляем остальные значения
-                    currentXp = newXp;
-                    document.getElementById('current-xp-display').textContent = currentXp;
-                    updateMiniProgressBar();
-
-                    // 6. Сохраняем изменения
-                    await saveExperience(currentXp, currentLevel);
-
-                } catch (error) {
+                })
+                .catch(error => {
                     console.error('Ошибка:', error);
-                    alert('Ошибка: ' + error.message);
-                    updateProgressBar();
-                }
-
-                input.value = "0";
-            }
-
-            // Обновление отображения текущего опыта
-            function updateXpDisplay() {
-                const currentXpElement = document.getElementById('current-xp');
-                if (currentXpElement) {
-                    currentXpElement.textContent = currentXp;
-                }
-            }
-
-            // Проверка возможности повышения уровня
-            function checkLevelUp() {
-                const nextLevel = currentLevel + 1;
-                const nextLevelXp = XP_TABLE[nextLevel] || XP_TABLE[20];
-
-                if (currentXp >= nextLevelXp && nextLevel <= 20) {
-                    document.getElementById('level-up-btn').style.display = 'block';
-                } else {
-                    document.getElementById('level-up-btn').style.display = 'none';
-                }
-            }
-
-            // Функция повышения уровня
-            async function levelUpCharacter() {
-                const nextLevel = currentLevel + 1;
-                const nextLevelXp = XP_TABLE[nextLevel] || XP_TABLE[20];
-
-                if (currentXp >= nextLevelXp) {
-                    try {
-                        // Мгновенное обновление UI
-                        currentLevel = nextLevel;
-                        updateProgressBar();
-                        syncProficiencyBonus();
-                        updateAllStats();
-                        animateLevelUp();
-                        await saveExperience(currentXp, nextLevel);
-                    } catch (error) {
-                        console.error('Ошибка при повышении уровня:', error);
-                        alert('Ошибка при повышении уровня: ' + error.message);
+                    const levelElement = document.querySelector('.character-level');
+                    if (levelElement) {
+                        levelElement.textContent = `Уровень ${newLevel - 1}`;
                     }
-                } else {
-                    alert('Недостаточно опыта для повышения уровня!');
-                }
-                updateProficiencyBonus();
+                });
+        } catch (error) {
+            console.error('Error in updateCharacterLevel:', error);
+        }
+    }
+
+    // Функции для работы с калькулятором
+    function appendNumber(num) {
+        if (currentExpression === '0') {
+            currentExpression = num.toString();
+        } else {
+            currentExpression += num.toString();
+        }
+        document.getElementById('xp-input').value = currentExpression;
+    }
+
+    function appendOperator(operator) {
+        const lastChar = currentExpression.slice(-1);
+        if (['+', '-'].includes(lastChar)) {
+            currentExpression = currentExpression.slice(0, -1) + operator;
+        } else {
+            currentExpression += operator;
+        }
+        document.getElementById('xp-input').value = currentExpression;
+    }
+
+    function calculateExpression() {
+        try {
+            return eval(currentExpression.replace(/[^-+0-9]/g, '')) || 0;
+        } catch (e) {
+            console.error('Error calculating expression:', e);
+            return 0;
+        }
+    }
+
+    async function calculateAndAdd() {
+        try {
+            const amount = calculateExpression();
+            if (amount <= 0) {
+                alert('Введите положительное число');
+                return;
             }
 
-            // Анимация повышения уровня
-            function animateLevelUp() {
-                const progressBar = document.getElementById('xp-progress-bar');
+            const newXp = currentXp + amount;
+            await saveExperience(newXp);
+
+            // Мгновенное обновление UI
+            currentXp = newXp;
+            updateProgressBar();
+            clearInput();
+        } catch (error) {
+            console.error('Add XP error:', error);
+            alert('Ошибка: ' + (error.message || 'Не удалось добавить опыт'));
+        }
+    }
+
+    async function calculateAndSubtract() {
+        try {
+            const amount = calculateExpression();
+            if (amount <= 0) {
+                alert('Введите положительное число');
+                return;
+            }
+
+            const newXp = Math.max(0, currentXp - amount);
+            await saveExperience(newXp);
+
+            // Мгновенное обновление UI
+            currentXp = newXp;
+            updateProgressBar();
+            clearInput();
+        } catch (error) {
+            console.error('Subtract XP error:', error);
+            alert('Ошибка: ' + (error.message || 'Не удалось вычесть опыт'));
+        }
+    }
+
+    function clearInput() {
+        currentExpression = '0';
+        document.getElementById('xp-input').value = currentExpression;
+    }
+
+
+    // Функция для прибавления опыта
+    async function addXp() {
+        const input = document.getElementById('xp-input');
+        if (!input) return;
+
+        const amount = parseInt(input.value) || 0;
+        if (amount <= 0) return;
+
+        try {
+            currentXp += amount;
+            await saveExperience(currentXp);
+            updateXpDisplay();
+            checkLevelUp();
+            input.value = "0";
+        } catch (error) {
+            // Откатываем изменения при ошибке
+            currentXp -= amount;
+            updateXpDisplay();
+            alert('Ошибка при сохранении опыта');
+        }
+    }
+
+    // Функция для вычитания опыта
+    async function subtractXp() {
+        const input = document.getElementById('xp-input');
+        const amount = parseInt(input.value) || 0;
+        if (amount <= 0) return;
+
+        const newXp = Math.max(0, currentXp - amount);
+        const currentLevelXp = XP_TABLE[currentLevel] || 0;
+
+        try {
+            // 1. Проверяем, нужно ли понизить уровень
+            const shouldLevelDown = newXp < currentLevelXp && currentLevel > 1;
+
+            // 2. Получаем новые границы XP
+            let newLevel = shouldLevelDown ? currentLevel - 1 : currentLevel;
+            const newLevelXp = XP_TABLE[newLevel] || 0;
+            const nextLevelXp = XP_TABLE[newLevel + 1] || XP_TABLE[20];
+
+            // 3. Рассчитываем новый прогресс
+            const progressPercent = ((newXp - newLevelXp) / (nextLevelXp - newLevelXp)) * 100;
+
+            // 4. Анимируем изменение
+            const progressBar = document.getElementById('xp-progress-bar');
+
+            if (shouldLevelDown) {
+                // Мгновенно обновляем уровень и текстовые значения
+                currentLevel = newLevel;
+                document.getElementById('current-level-value').textContent = currentLevel;
+                document.getElementById('next-level-value').textContent = currentLevel + 1;
+                document.getElementById('current-level-xp').textContent = newLevelXp + ' XP';
+                document.getElementById('next-level-xp').textContent = nextLevelXp + ' XP';
+
+                // Мгновенный сброс в 0% (без анимации)
                 progressBar.style.transition = 'none';
                 progressBar.style.width = '0%';
 
-                setTimeout(() => {
-                    progressBar.style.transition = 'width 0.5s ease';
-                    updateProgressBar();
-                }, 10);
+                // Микро-задержка для корректного отображения
+                await new Promise(resolve => setTimeout(resolve, 10));
             }
 
+            // Плавное заполнение до нового значения
+            progressBar.style.transition = 'width 0.5s ease';
+            progressBar.style.width = `${progressPercent}%`;
 
-            // Функция обновления прогресс-бара
-            function updateProgressBar(disableAnimation = false) {
-                const currentLevelXp = XP_TABLE[currentLevel] || 0;
-                const nextLevelXp = XP_TABLE[currentLevel + 1] || XP_TABLE[20];
-                const prevLevelXp = XP_TABLE[currentLevel - 1] || 0;
+            // 5. Обновляем остальные значения
+            currentXp = newXp;
+            document.getElementById('current-xp-display').textContent = currentXp;
+            updateMiniProgressBar();
 
-                // Определяем границы для прогресса
-                let startXp, endXp;
-                if (currentXp < currentLevelXp) {
-                    // Если XP меньше текущего уровня, показываем прогресс от предыдущего уровня
-                    startXp = prevLevelXp;
-                    endXp = currentLevelXp;
-                } else {
-                    // Иначе показываем прогресс к следующему уровню
-                    startXp = currentLevelXp;
-                    endXp = nextLevelXp;
-                }
+            // 6. Сохраняем изменения
+            await saveExperience(currentXp, currentLevel);
 
-                // Рассчитываем процент прогресса
-                let progressPercent = 0;
-                if (endXp > startXp) {
-                    progressPercent = ((currentXp - startXp) / (endXp - startXp)) * 100;
-                }
+        } catch (error) {
+            console.error('Ошибка:', error);
+            alert('Ошибка: ' + error.message);
+            updateProgressBar();
+        }
 
-                const progressBar = document.getElementById('xp-progress-bar');
+        input.value = "0";
+    }
 
-                // Если XP меньше текущего уровня - принудительно 0%
-                if (currentXp < currentLevelXp) {
-                    progressPercent = 0;
-                }
+    // Обновление отображения текущего опыта
+    function updateXpDisplay() {
+        const currentXpElement = document.getElementById('current-xp');
+        if (currentXpElement) {
+            currentXpElement.textContent = currentXp;
+        }
+    }
 
-                if (disableAnimation) {
-                    progressBar.style.transition = 'none';
-                    progressBar.style.width = `${progressPercent}%`;
-                    setTimeout(() => progressBar.style.transition = 'width 0.5s ease', 10);
-                } else {
-                    progressBar.style.width = `${progressPercent}%`;
-                }
+    // Проверка возможности повышения уровня
+    function checkLevelUp() {
+        const nextLevel = currentLevel + 1;
+        const nextLevelXp = XP_TABLE[nextLevel] || XP_TABLE[20];
 
-                // Обновляем текстовые значения
-                document.getElementById('current-level-value').textContent = currentLevel;
-                document.getElementById('next-level-value').textContent = currentLevel + 1;
-                document.getElementById('current-level-xp').textContent = currentLevelXp + ' XP';
-                document.getElementById('next-level-xp').textContent = nextLevelXp + ' XP';
-                document.getElementById('current-xp-display').textContent = currentXp;
+        if (currentXp >= nextLevelXp && nextLevel <= 20) {
+            document.getElementById('level-up-btn').style.display = 'block';
+        } else {
+            document.getElementById('level-up-btn').style.display = 'none';
+        }
+    }
 
-                updateMiniProgressBar();
-                checkLevelButtons();
-            }
+    // Функция повышения уровня
+    async function levelUpCharacter() {
+        const nextLevel = currentLevel + 1;
+        const nextLevelXp = XP_TABLE[nextLevel] || XP_TABLE[20];
 
-
-            function checkLevelButtons() {
-                const currentLevelXp = XP_TABLE[currentLevel] || 0;
-                const nextLevelXp = XP_TABLE[currentLevel + 1] || XP_TABLE[20];
-
-                // Показываем кнопку повышения только если опыт >= следующего уровня
-                const levelUpBtn = document.getElementById('level-up-btn');
-                if (levelUpBtn) {
-                    levelUpBtn.style.display = (currentXp >= nextLevelXp && currentLevel < 20) ? 'block' : 'none';
-                }
-
-                // Показываем кнопку понижения только если опыт < текущего уровня и уровень > 1
-                const levelDownBtn = document.getElementById('level-down-btn');
-                if (levelDownBtn) {
-                    levelDownBtn.style.display = (currentXp < currentLevelXp && currentLevel > 1) ? 'block' : 'none';
-                }
-            }
-
-            // Функция для сохранения опыта на сервере
-            async function saveExperience(newXp, newLevel = currentLevel) {
-                try {
-                    const response = await fetch('/character/update-experience', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-                        },
-                        body: JSON.stringify({
-                            character_id: characterId,
-                            experience: newXp,
-                            level: newLevel
-                        })
-                    });
-
-                    const data = await response.json();
-
-                    if (data.success) {
-                        currentXp = newXp;
-                        currentLevel = newLevel;
-                        nextLevelXp = XP_TABLE[currentLevel + 1] || XP_TABLE[20];
-
-                        updateProgressBar();
-                        updateMiniProgressBar();
-
-                        // Проверяем обе кнопки после изменения
-                        checkLevelUp();
-                        checkLevelDown();
-                    }
-
-                    return data;
-                } catch (error) {
-                    console.error('Ошибка сохранения опыта:', error);
-                    throw error;
-                }
-            }
-
-            // Проверка возможности понижения уровня
-            function checkLevelDown() {
-                const currentLevelXp = XP_TABLE[currentLevel] || 0;
-                const shouldShowLevelDown = currentXp < currentLevelXp && currentLevel > 1;
-
-                const levelDownBtn = document.getElementById('level-down-btn');
-                if (levelDownBtn) {
-                    levelDownBtn.style.display = shouldShowLevelDown ? 'block' : 'none';
-                }
-
-                // Также скрываем кнопку повышения, если опыт меньше текущего уровня
-                const levelUpBtn = document.getElementById('level-up-btn');
-                if (levelUpBtn) {
-                    levelUpBtn.style.display = currentXp >= currentLevelXp ? 'block' : 'none';
-                }
-            }
-
-            // Функция понижения уровня
-            async function levelDownCharacter() {
-                if (currentLevel <= 1) return; // Нельзя понизить ниже 1 уровня
-
-                const newLevel = currentLevel - 1;
-                const newLevelXp = XP_TABLE[newLevel] || 0;
-                const nextLevelXp = XP_TABLE[newLevel + 1] || XP_TABLE[20];
-
-                try {
-                    // 1. Сначала анимируем сброс полоски в начало
-                    const progressBar = document.getElementById('xp-progress-bar');
-                    progressBar.style.transition = 'width 0.3s ease';
-                    progressBar.style.width = '0%';
-
-                    // Ждем завершения анимации сброса
-                    await new Promise(resolve => setTimeout(resolve, 300));
-
-                    // 2. Обновляем данные уровня (без анимации)
-                    currentLevel = newLevel;
-
-                    // 3. Рассчитываем новый прогресс от 0 до текущего XP
-                    const progressPercent = (currentXp - newLevelXp) / (nextLevelXp - newLevelXp) * 100;
-
-                    // 4. Временно отключаем анимацию для мгновенного сброса
-                    progressBar.style.transition = 'none';
-                    progressBar.style.width = '0%';
-
-                    // 5. Включаем анимацию и запускаем заполнение
-                    setTimeout(() => {
-                        progressBar.style.transition = 'width 0.5s ease';
-                        progressBar.style.width = `${progressPercent}%`;
-
-                        // Обновляем текстовые значения
-                        document.getElementById('current-level-value').textContent = currentLevel;
-                        document.getElementById('next-level-value').textContent = currentLevel + 1;
-                        document.getElementById('current-level-xp').textContent = newLevelXp + ' XP';
-                        document.getElementById('next-level-xp').textContent = nextLevelXp + ' XP';
-                        document.getElementById('current-xp-display').textContent = currentXp;
-
-                        // Обновляем мини-прогресс бар
-                        updateMiniProgressBar();
-                    }, 10);
-
-                    // 6. Сохраняем изменения на сервере
-                    await saveExperience(currentXp, newLevel);
-
-                } catch (error) {
-                    console.error('Ошибка при понижении уровня:', error);
-                    alert('Ошибка: ' + error.message);
-                    updateProgressBar(); // Восстанавливаем состояние при ошибке
-                }
-                updateProficiencyBonus();
-            }
-
-            function deleteLastChar() {
-                if (currentExpression.length > 1) {
-                    currentExpression = currentExpression.slice(0, -1);
-                } else {
-                    currentExpression = '0';
-                }
-                document.getElementById('xp-input').value = currentExpression;
-            }
-
-            document.addEventListener("DOMContentLoaded", function () {
-                // Получаем данные из data-атрибутов
-                const miniProgress = document.querySelector('.mini-progress-container');
-                currentLevel = parseInt(miniProgress.dataset.currentLevel) || 1;
-                currentXp = parseInt(miniProgress.dataset.currentXp) || 0;
-
-                // Инициализируем прогресс-бары
-                updateMiniProgressBar(currentLevel, currentXp);
-
-                // Обработчики для кнопок
-                document.getElementById('level-up-btn').addEventListener('click', levelUpCharacter);
-            });
-
-            document.getElementById('settings-backdrop').addEventListener('click', function () {
-                const sidebarModal = document.getElementById('settings-modal');
-                const backdrop = document.getElementById('settings-backdrop');
-                sidebarModal.classList.remove("show");
-                backdrop.classList.remove('active');
-                setTimeout(() => {
-                    backdrop.style.display = 'none';
-                }, 300);
-            });
-            document.addEventListener("DOMContentLoaded", function() {
-                // Инициализация опыта и уровня
-                const miniProgress = document.querySelector('.mini-progress-container');
-                currentLevel = parseInt(miniProgress.dataset.currentLevel) || 1;
-                currentXp = parseInt(miniProgress.dataset.currentXp) || 0;
-                nextLevelXp = parseInt(miniProgress.dataset.nextLevelXp) || XP_TABLE[currentLevel + 1];
-
-                // Синхронизация всех элементов
-                updateAllStats();
-                updateProgressBar();
-                updateMiniProgressBar();
-
-                // Проверяем кнопки уровня
-                checkLevelButtons();
-
-                // Загружаем здоровье и состояния
-                loadHealth();
-                loadConditions();
-                updateHealthDisplay();
-            });
-
-            // Функция обновления мини-прогресс бара
-            // Обновите функцию updateMiniProgressBar
-            function updateMiniProgressBar() {
-                const currentLevelXp = XP_TABLE[currentLevel] || 0;
-                const nextLevelXp = XP_TABLE[currentLevel + 1] || XP_TABLE[20];
-                const prevLevelXp = XP_TABLE[currentLevel - 1] || 0;
-
-                let startXp, endXp;
-                if (currentXp < currentLevelXp) {
-                    startXp = prevLevelXp;
-                    endXp = currentLevelXp;
-                } else {
-                    startXp = currentLevelXp;
-                    endXp = nextLevelXp;
-                }
-
-                const progressPercent = ((currentXp - startXp) / (endXp - startXp)) * 100;
-
-                // Обновляем для десктопной и мобильной версии
-                document.querySelectorAll('.mini-progress-bar').forEach(miniBar => {
-                    miniBar.style.width = `${progressPercent}%`;
-                });
-
-                document.querySelectorAll('.mini-progress-text').forEach(miniText => {
-                    miniText.textContent = `${currentXp}/${endXp}`;
-                });
-
-                document.querySelectorAll('.character-level').forEach(el => {
-                    el.textContent = `Уровень ${currentLevel}`;
-                });
-            }
-
-            document.addEventListener("DOMContentLoaded", function () {
-                // Отключаем анимацию при первой загрузке
-                const progressBar = document.getElementById('xp-progress-bar');
-                progressBar.style.transition = 'none';
-
+        if (currentXp >= nextLevelXp) {
+            try {
+                // Мгновенное обновление UI
+                currentLevel = nextLevel;
                 updateProgressBar();
 
-                // Включаем анимацию после небольшой задержки
-                setTimeout(() => {
-                    progressBar.style.transition = 'width 0.5s ease';
-                }, 100);
+                // Анимация
+                animateLevelUp();
+
+                // Сохраняем на сервере
+                await saveExperience(currentXp, nextLevel);
+            } catch (error) {
+                console.error('Ошибка при повышении уровня:', error);
+                alert('Ошибка при повышении уровня: ' + error.message);
+            }
+        } else {
+            alert('Недостаточно опыта для повышения уровня!');
+        }
+        updateProficiencyBonus();
+    }
+
+    // Анимация повышения уровня
+    function animateLevelUp() {
+        const progressBar = document.getElementById('xp-progress-bar');
+        progressBar.style.transition = 'none';
+        progressBar.style.width = '0%';
+
+        setTimeout(() => {
+            progressBar.style.transition = 'width 0.5s ease';
+            updateProgressBar();
+        }, 10);
+    }
+
+
+    // Функция обновления прогресс-бара
+    function updateProgressBar(disableAnimation = false) {
+        const currentLevelXp = XP_TABLE[currentLevel] || 0;
+        const nextLevelXp = XP_TABLE[currentLevel + 1] || XP_TABLE[20];
+        const prevLevelXp = XP_TABLE[currentLevel - 1] || 0;
+
+        // Определяем границы для прогресса
+        let startXp, endXp;
+        if (currentXp < currentLevelXp) {
+            // Если XP меньше текущего уровня, показываем прогресс от предыдущего уровня
+            startXp = prevLevelXp;
+            endXp = currentLevelXp;
+        } else {
+            // Иначе показываем прогресс к следующему уровню
+            startXp = currentLevelXp;
+            endXp = nextLevelXp;
+        }
+
+        // Рассчитываем процент прогресса
+        let progressPercent = 0;
+        if (endXp > startXp) {
+            progressPercent = ((currentXp - startXp) / (endXp - startXp)) * 100;
+        }
+
+        const progressBar = document.getElementById('xp-progress-bar');
+
+        // Если XP меньше текущего уровня - принудительно 0%
+        if (currentXp < currentLevelXp) {
+            progressPercent = 0;
+        }
+
+        if (disableAnimation) {
+            progressBar.style.transition = 'none';
+            progressBar.style.width = `${progressPercent}%`;
+            setTimeout(() => progressBar.style.transition = 'width 0.5s ease', 10);
+        } else {
+            progressBar.style.width = `${progressPercent}%`;
+        }
+
+        // Обновляем текстовые значения
+        document.getElementById('current-level-value').textContent = currentLevel;
+        document.getElementById('next-level-value').textContent = currentLevel + 1;
+        document.getElementById('current-level-xp').textContent = currentLevelXp + ' XP';
+        document.getElementById('next-level-xp').textContent = nextLevelXp + ' XP';
+        document.getElementById('current-xp-display').textContent = currentXp;
+
+        updateMiniProgressBar();
+        checkLevelButtons();
+    }
+
+
+    function checkLevelButtons() {
+        const currentLevelXp = XP_TABLE[currentLevel] || 0;
+        const nextLevelXp = XP_TABLE[currentLevel + 1] || XP_TABLE[20];
+
+        // Показываем кнопку повышения только если опыт >= следующего уровня
+        const levelUpBtn = document.getElementById('level-up-btn');
+        if (levelUpBtn) {
+            levelUpBtn.style.display = (currentXp >= nextLevelXp && currentLevel < 20) ? 'block' : 'none';
+        }
+
+        // Показываем кнопку понижения только если опыт < текущего уровня и уровень > 1
+        const levelDownBtn = document.getElementById('level-down-btn');
+        if (levelDownBtn) {
+            levelDownBtn.style.display = (currentXp < currentLevelXp && currentLevel > 1) ? 'block' : 'none';
+        }
+    }
+
+    // Функция для сохранения опыта на сервере
+    async function saveExperience(newXp, newLevel = currentLevel) {
+        try {
+            const response = await fetch('/character/update-experience', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                },
+                body: JSON.stringify({
+                    character_id: characterId,
+                    experience: newXp,
+                    level: newLevel
+                })
             });
 
-            // Инициализация при загрузке
-            document.addEventListener("DOMContentLoaded", function () {
-                initProgressBars();
-            });
+            const data = await response.json();
 
-            function initProgressBars() {
-                const miniProgress = document.querySelector('.mini-progress-container');
-                currentLevel = parseInt(miniProgress.dataset.currentLevel) || 1;
-                currentXp = parseInt(miniProgress.dataset.currentXp) || 0;
+            if (data.success) {
+                currentXp = newXp;
+                currentLevel = newLevel;
+                nextLevelXp = XP_TABLE[currentLevel + 1] || XP_TABLE[20];
 
                 updateProgressBar();
                 updateMiniProgressBar();
 
-                // Проверяем обе кнопки при загрузке
+                // Проверяем обе кнопки после изменения
                 checkLevelUp();
                 checkLevelDown();
             }
 
+            return data;
+        } catch (error) {
+            console.error('Ошибка сохранения опыта:', error);
+            throw error;
+        }
+    }
 
+    // Проверка возможности понижения уровня
+    function checkLevelDown() {
+        const currentLevelXp = XP_TABLE[currentLevel] || 0;
+        const shouldShowLevelDown = currentXp < currentLevelXp && currentLevel > 1;
 
-            document.addEventListener("DOMContentLoaded", function () {
+        const levelDownBtn = document.getElementById('level-down-btn');
+        if (levelDownBtn) {
+            levelDownBtn.style.display = shouldShowLevelDown ? 'block' : 'none';
+        }
+
+        // Также скрываем кнопку повышения, если опыт меньше текущего уровня
+        const levelUpBtn = document.getElementById('level-up-btn');
+        if (levelUpBtn) {
+            levelUpBtn.style.display = currentXp >= currentLevelXp ? 'block' : 'none';
+        }
+    }
+
+    // Функция понижения уровня
+    async function levelDownCharacter() {
+        if (currentLevel <= 1) return; // Нельзя понизить ниже 1 уровня
+
+        const newLevel = currentLevel - 1;
+        const newLevelXp = XP_TABLE[newLevel] || 0;
+        const nextLevelXp = XP_TABLE[newLevel + 1] || XP_TABLE[20];
+
+        try {
+            // 1. Сначала анимируем сброс полоски в начало
+            const progressBar = document.getElementById('xp-progress-bar');
+            progressBar.style.transition = 'width 0.3s ease';
+            progressBar.style.width = '0%';
+
+            // Ждем завершения анимации сброса
+            await new Promise(resolve => setTimeout(resolve, 300));
+
+            // 2. Обновляем данные уровня (без анимации)
+            currentLevel = newLevel;
+
+            // 3. Рассчитываем новый прогресс от 0 до текущего XP
+            const progressPercent = (currentXp - newLevelXp) / (nextLevelXp - newLevelXp) * 100;
+
+            // 4. Временно отключаем анимацию для мгновенного сброса
+            progressBar.style.transition = 'none';
+            progressBar.style.width = '0%';
+
+            // 5. Включаем анимацию и запускаем заполнение
+            setTimeout(() => {
+                progressBar.style.transition = 'width 0.5s ease';
+                progressBar.style.width = `${progressPercent}%`;
+
+                // Обновляем текстовые значения
+                document.getElementById('current-level-value').textContent = currentLevel;
+                document.getElementById('next-level-value').textContent = currentLevel + 1;
+                document.getElementById('current-level-xp').textContent = newLevelXp + ' XP';
+                document.getElementById('next-level-xp').textContent = nextLevelXp + ' XP';
+                document.getElementById('current-xp-display').textContent = currentXp;
+
+                // Обновляем мини-прогресс бар
                 updateMiniProgressBar();
+            }, 10);
+
+            // 6. Сохраняем изменения на сервере
+            await saveExperience(currentXp, newLevel);
+
+        } catch (error) {
+            console.error('Ошибка при понижении уровня:', error);
+            alert('Ошибка: ' + error.message);
+            updateProgressBar(); // Восстанавливаем состояние при ошибке
+        }
+        updateProficiencyBonus();
+    }
+
+    function deleteLastChar() {
+        if (currentExpression.length > 1) {
+            currentExpression = currentExpression.slice(0, -1);
+        } else {
+            currentExpression = '0';
+        }
+        document.getElementById('xp-input').value = currentExpression;
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        // Получаем данные из data-атрибутов
+        const miniProgress = document.querySelector('.mini-progress-container');
+        currentLevel = parseInt(miniProgress.dataset.currentLevel) || 1;
+        currentXp = parseInt(miniProgress.dataset.currentXp) || 0;
+
+        // Инициализируем прогресс-бары
+        updateMiniProgressBar(currentLevel, currentXp);
+
+        // Обработчики для кнопок
+        document.getElementById('level-up-btn').addEventListener('click', levelUpCharacter);
+    });
+
+    document.getElementById('settings-backdrop').addEventListener('click', function () {
+        const sidebarModal = document.getElementById('settings-modal');
+        const backdrop = document.getElementById('settings-backdrop');
+        sidebarModal.classList.remove("show");
+        backdrop.classList.remove('active');
+        setTimeout(() => {
+            backdrop.style.display = 'none';
+        }, 300);
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+        const miniProgress = document.querySelector('.mini-progress-container');
+        currentLevel = parseInt(miniProgress.dataset.currentLevel) || 1;
+        currentXp = parseInt(miniProgress.dataset.currentXp) || 0;
+        nextLevelXp = parseInt(miniProgress.dataset.nextLevelXp) || XP_TABLE[currentLevel + 1];
+
+        updateMiniProgressBar();
+        updateProgressBar();
+    });
+
+    // Функция обновления мини-прогресс бара
+    function updateMiniProgressBar() {
+        const currentLevelXp = XP_TABLE[currentLevel] || 0;
+        const nextLevelXp = XP_TABLE[currentLevel + 1] || XP_TABLE[20];
+        const prevLevelXp = XP_TABLE[currentLevel - 1] || 0;
+
+        let startXp, endXp;
+        if (currentXp < currentLevelXp) {
+            startXp = prevLevelXp;
+            endXp = currentLevelXp;
+        } else {
+            startXp = currentLevelXp;
+            endXp = nextLevelXp;
+        }
+
+        const progressPercent = ((currentXp - startXp) / (endXp - startXp)) * 100;
+
+        const miniBar = document.getElementById('mini-xp-progress-bar');
+        const miniText = document.getElementById('mini-xp-progress-text');
+
+        if (miniBar && miniText) {
+            miniBar.style.width = `${progressPercent}%`;
+            miniText.textContent = `${currentXp}/${endXp}`;
+        }
+
+        document.querySelector('.character-level').textContent = `Уровень ${currentLevel}`;
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        // Отключаем анимацию при первой загрузке
+        const progressBar = document.getElementById('xp-progress-bar');
+        progressBar.style.transition = 'none';
+
+        updateProgressBar();
+
+        // Включаем анимацию после небольшой задержки
+        setTimeout(() => {
+            progressBar.style.transition = 'width 0.5s ease';
+        }, 100);
+    });
+
+    // Инициализация при загрузке
+    document.addEventListener("DOMContentLoaded", function () {
+        initProgressBars();
+    });
+
+    function initProgressBars() {
+        const miniProgress = document.querySelector('.mini-progress-container');
+        currentLevel = parseInt(miniProgress.dataset.currentLevel) || 1;
+        currentXp = parseInt(miniProgress.dataset.currentXp) || 0;
+
+        updateProgressBar();
+        updateMiniProgressBar();
+
+        // Проверяем обе кнопки при загрузке
+        checkLevelUp();
+        checkLevelDown();
+    }
+
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+        updateMiniProgressBar();
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+        // Получаем начальные значения
+        const miniProgress = document.querySelector('.mini-progress-container');
+        currentLevel = parseInt(miniProgress.dataset.currentLevel) || 1;
+        currentXp = parseInt(miniProgress.dataset.currentXp) || 0;
+
+        // Инициализируем прогресс-бары
+        updateProgressBar();
+    });
+
+    // Функции для модального окна здоровья
+    function openHealthModal() {
+        const modal = document.getElementById('health-modal');
+        const backdrop = document.getElementById('modal-backdrop');
+
+        backdrop.style.display = 'block';
+        modal.style.display = 'block';
+
+        setTimeout(() => {
+            backdrop.classList.add('active');
+            modal.classList.add('show');
+        }, 10);
+
+        // Инициализация значений
+        document.getElementById('current-health-value').textContent = currentHealth;
+        document.getElementById('max-health-value').textContent = maxHealth;
+        document.getElementById('health-input').value = '0';
+        healthExpression = '0';
+    }
+
+    function closeHealthModal() {
+        const modal = document.getElementById('health-modal');
+        const backdrop = document.getElementById('modal-backdrop');
+
+        modal.classList.remove('show');
+        backdrop.classList.remove('active');
+
+        setTimeout(() => {
+            modal.style.display = 'none';
+            backdrop.style.display = 'none';
+        }, 300);
+    }
+
+    // Функции калькулятора здоровья
+    function appendHealthNumber(num) {
+        if (healthExpression === '0') {
+            healthExpression = num.toString();
+        } else {
+            healthExpression += num.toString();
+        }
+        document.getElementById('health-input').value = healthExpression;
+    }
+
+    function appendHealthOperator(operator) {
+        const lastChar = healthExpression.slice(-1);
+        if (['+', '-'].includes(lastChar)) {
+            healthExpression = healthExpression.slice(0, -1) + operator;
+        } else {
+            healthExpression += operator;
+        }
+        document.getElementById('health-input').value = healthExpression;
+    }
+
+    function deleteHealthLastChar() {
+        if (healthExpression.length > 1) {
+            healthExpression = healthExpression.slice(0, -1);
+        } else {
+            healthExpression = '0';
+        }
+        document.getElementById('health-input').value = healthExpression;
+    }
+
+    function calculateHealth() {
+        try {
+            return eval(healthExpression.replace(/[^-+0-9]/g, '')) || 0;
+        } catch (e) {
+            console.error('Error calculating health:', e);
+            return 0;
+        }
+    }
+
+
+
+    function addHealth() {
+        const amount = calculateHealth();
+        currentHealth = Math.min(currentHealth + amount, maxHealth);
+        updateHealthDisplay();
+        saveHealth();
+        updateHealthColor();
+
+    }
+
+    function subtractHealth() {
+        const amount = calculateHealth();
+        const newHealth = Math.max(0, currentHealth - amount);
+
+        // Устанавливаем флаг, что урон нанесен вручную
+        manualDamage = true;
+
+        currentHealth = newHealth;
+        updateHealthDisplay();
+        saveHealth();
+        updateHealthColor();
+
+        // Если здоровье достигло 0 через ручной урон
+        if (currentHealth <= 0 && manualDamage) {
+            // Сбрасываем спасброски
+            deathSaves = { successes: 0, failures: 0 };
+            localStorage.setItem(`character_${characterId}_deathSaves`, JSON.stringify(deathSaves));
+            updateDeathSavesCheckboxes();
+        }
+
+        // Сбрасываем флаг после обработки
+        manualDamage = false;
+    }
+
+    function setMaxHealth() {
+        currentHealth = maxHealth;
+        updateHealthDisplay();
+        saveHealth();
+        updateHealthColor();
+    }
+
+    function resetHealth() {
+        currentHealth = 0;
+        updateHealthDisplay();
+        saveHealth();
+        updateHealthColor();
+    }
+
+    function updateHealthDisplay() {
+        // Обновляем отображение в верхней панели
+        document.getElementById('health-display').textContent = `${currentHealth}/${maxHealth}`;
+
+        // Обновляем отображение в модальном окне
+        const standardDisplay = document.getElementById('standard-health-display');
+        const deathSavesDisplay = document.getElementById('death-saves-display');
+
+        if (currentHealth > 0) {
+            // Если здоровье > 0 - стандартное отображение
+            standardDisplay.style.display = 'flex';
+            deathSavesDisplay.style.display = 'none';
+        } else {
+            // Если здоровье = 0
+            if (manualDamage) {
+                // Если достигли 0 через кнопку "УРОН" - показываем спасброски
+                standardDisplay.style.display = 'none';
+                deathSavesDisplay.style.display = 'flex';
+            } else {
+                // Иначе показываем стандартное отображение с 0 HP
+                standardDisplay.style.display = 'flex';
+                deathSavesDisplay.style.display = 'none';
+                document.getElementById('current-health-value').textContent = '0';
+            }
+        }
+
+        // Обновляем значения
+        document.getElementById('current-health-value').textContent = currentHealth;
+        document.getElementById('max-health-value').textContent = maxHealth;
+
+        updateHealthColor();
+    }
+
+    // Инициализация при загрузке
+    document.addEventListener("DOMContentLoaded", function() {
+        updateHealthDisplay();
+    });
+
+    function saveHealth() {
+        // Здесь можно добавить сохранение здоровья на сервер
+        localStorage.setItem(`character_${characterId}_health`, JSON.stringify({
+            current: currentHealth,
+            max: maxHealth
+        }));
+    }
+
+
+    // Функция для переключения видимости настроек максимального здоровья
+    function toggleMaxHealthSettings() {
+        const settings = document.getElementById('max-health-settings');
+        if (settings.style.display === 'none') {
+            settings.style.display = 'block';
+            // Устанавливаем текущее значение максимального здоровья в инпут
+            document.getElementById('max-health-input').value = maxHealth;
+        } else {
+            settings.style.display = 'none';
+        }
+    }
+    function updateHealthColor() {
+        const healthDisplay = document.querySelector('.digital-health');
+        const healthModalDisplay = document.querySelector('.health-display-container');
+        const currentHealth = parseInt(document.getElementById('current-health-value').textContent) || 0;
+        const maxHealth = parseInt(document.getElementById('max-health-value').textContent) || 1;
+        const healthPercentage = (currentHealth / maxHealth) * 100;
+
+        // Удаляем все классы цвета
+        healthDisplay.classList.remove('high-health', 'medium-health', 'low-health');
+        if (healthModalDisplay) {
+            healthModalDisplay.classList.remove('high-health', 'medium-health', 'low-health');
+        }
+
+        // Добавляем соответствующий класс
+        if (healthPercentage >= 70) {
+            healthDisplay.classList.add('high-health');
+            if (healthModalDisplay) healthModalDisplay.classList.add('high-health');
+        } else if (healthPercentage >= 40) {
+            healthDisplay.classList.add('medium-health');
+            if (healthModalDisplay) healthModalDisplay.classList.add('medium-health');
+        } else {
+            healthDisplay.classList.add('low-health');
+            if (healthModalDisplay) healthModalDisplay.classList.add('low-health');
+        }
+    }
+    // В обработчике кнопки "УРОН"
+    document.querySelector('.subtract-btn').addEventListener('click', function() {
+        manualDamage = true;
+        subtractHealth();
+    });
+
+    // Вызываем функцию при загрузке и при каждом изменении здоровья
+    document.addEventListener("DOMContentLoaded", updateHealthColor);
+
+    // Функция для сохранения максимального здоровья
+    function saveMaxHealth() {
+        const newMaxHealth = parseInt(document.getElementById('max-health-input').value) || 0;
+        maxHealth = newMaxHealth;
+
+        // Обновляем отображение
+        document.getElementById('max-health-value').textContent = maxHealth;
+        document.getElementById('health-display').textContent = `${currentHealth}/${maxHealth}`;
+
+        // Сохраняем в localStorage
+        localStorage.setItem(`character_${characterId}_health`, JSON.stringify({
+            current: currentHealth,
+            max: maxHealth
+        }));
+
+        // Скрываем настройки
+        document.getElementById('max-health-settings').style.display = 'none';
+        updateHealthColor();
+
+        // Обновляем отображение (но не сбрасываем спасброски)
+        updateHealthDisplay();
+    }
+
+    // Обновите функцию loadHealth для загрузки максимального здоровья
+    function loadHealth() {
+        const savedHealth = localStorage.getItem(`character_${characterId}_health`);
+        if (savedHealth) {
+            const health = JSON.parse(savedHealth);
+            currentHealth = health.current || 0;
+            maxHealth = health.max || 0;
+        } else {
+            // Инициализация по умолчанию
+            currentHealth = 0;
+            maxHealth = 0;
+        }
+        updateHealthDisplay();
+    }
+
+    // Инициализация при загрузке
+    document.addEventListener("DOMContentLoaded", function() {
+        loadHealth();
+    });
+
+    // Функция для проверки статуса спасбросков
+    function checkDeathSaveStatus() {
+        if (deathSaves.failures >= 3) {
+            // Персонаж умирает
+            currentHealth = 0;
+            deathSaves = { successes: 0, failures: 0 };
+            localStorage.setItem(`character_${characterId}_deathSaves`, JSON.stringify(deathSaves));
+            updateDeathSavesCheckboxes();
+            updateHealthDisplay();
+            saveHealth();
+        }
+        else if (deathSaves.successes >= 3) {
+            // Персонаж приходит в сознание с 1 HP
+            currentHealth = 1;
+            deathSaves = { successes: 0, failures: 0 };
+            localStorage.setItem(`character_${characterId}_deathSaves`, JSON.stringify(deathSaves));
+            updateDeathSavesCheckboxes();
+            updateHealthDisplay();
+            saveHealth();
+        }
+    }
+
+    //////ПРАВАЯ СТОРОНА ПЕРСОНАЖА
+
+    function rollInitiative() {
+        const dexterityValue = parseInt(document.getElementById("dexterity").value) || 10;
+        const dexMod = getModifier(dexterityValue);
+        const roll = Math.floor(Math.random() * 20) + 1;
+        const total = roll + dexMod;
+
+        // Обновляем отображение модификатора
+        document.getElementById("initiative-mod").textContent = dexMod >= 0 ? `+${dexMod}` : dexMod;
+
+        addNotification(
+            "ИНИЦИАТИВА",
+            "ЛОВКОСТЬ",
+            roll,
+            dexMod,
+            total
+        );
+    }
+
+    // Функция для сохранения уровня истощения на сервере
+    function saveExhaustionLevel(level) {
+        fetch('/character/update-exhaustion', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+            },
+            body: JSON.stringify({
+                character_id: characterId,
+                exhaustion: level
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (!data.success) {
+                    console.error('Ошибка сохранения уровня истощения:', data.error);
+                }
+            })
+            .catch(error => {
+                console.error('Ошибка:', error);
+            });
+    }
+    function openTab(evt, tabId) {
+        evt.preventDefault(); // Добавьте эту строку
+
+        // Скрыть все вкладки
+        const tabContents = document.getElementsByClassName("tab-pane");
+        for (let i = 0; i < tabContents.length; i++) {
+            tabContents[i].classList.remove("active");
+        }
+
+        // Убрать активный класс у всех кнопок
+        const tabButtons = document.getElementsByClassName("tab-button");
+        for (let i = 0; i < tabButtons.length; i++) {
+            tabButtons[i].classList.remove("active");
+        }
+
+        // Показать текущую вкладку и сделать кнопку активной
+        document.getElementById(tabId).classList.add("active");
+        evt.currentTarget.classList.add("active");
+    }
+    function openConditionsModal() {
+        const backdrop = document.getElementById('settings-backdrop');
+        const modal = document.getElementById('conditions-modal');
+
+        backdrop.style.display = 'block';
+        setTimeout(() => {
+            modal.classList.add("show");
+            backdrop.classList.add('active');
+        }, 10);
+    }
+
+    // Функция для закрытия модального окна состояний
+    function closeConditionsModal() {
+        const backdrop = document.getElementById('settings-backdrop');
+        const modal = document.getElementById('conditions-modal');
+
+        modal.classList.remove("show");
+        backdrop.classList.remove('active');
+        setTimeout(() => {
+            backdrop.style.display = 'none';
+        }, 300);
+    }
+    // Функция для переключения описания состояния
+    function toggleConditionDescription(conditionId) {
+        const description = document.getElementById(`${conditionId}-description`);
+        if (description.style.display === 'none') {
+            description.style.display = 'block';
+        } else {
+            description.style.display = 'none';
+        }
+    }
+
+    // Функция для сохранения выбранных состояний
+    function saveConditions() {
+        const checkboxes = document.querySelectorAll('input[name="conditions[]"]:checked');
+        const conditions = Array.from(checkboxes).map(cb => cb.value);
+        const conditionsButton = document.querySelector('.digital-conditions-button');
+        const mobileConditionsCount = document.getElementById('mobile-conditions-count');
+
+        // Сохраняем все выбранные состояния
+        localStorage.setItem(`character_${characterId}_conditions`, JSON.stringify(conditions));
+
+        // Для десктопной версии - отображаем первые 6 состояний + троеточие
+        if (conditions.length > 0) {
+            const displayConditions = conditions.slice(0, 6);
+            if (conditions.length > 6) {
+                displayConditions.push('...');
+            }
+            conditionsButton.textContent = displayConditions.join(', ');
+            conditionsButton.title = conditions.join(', ');
+
+            // Для мобильной версии - просто показываем количество
+            mobileConditionsCount.textContent = conditions.length;
+        } else {
+            conditionsButton.textContent = '—';
+            conditionsButton.removeAttribute('title');
+            mobileConditionsCount.textContent = '—';
+        }
+
+        closeConditionsModal();
+    }
+
+    // Функция для загрузки сохраненных состояний
+    function loadConditions() {
+        const savedConditions = localStorage.getItem(`character_${characterId}_conditions`);
+        const conditionsButton = document.querySelector('.digital-conditions-button');
+        const mobileConditionsCount = document.getElementById('mobile-conditions-count');
+
+        if (savedConditions) {
+            const conditions = JSON.parse(savedConditions);
+
+            // Устанавливаем чекбоксы
+            conditions.forEach(condition => {
+                const checkbox = document.querySelector(`input[value="${condition}"]`);
+                if (checkbox) {
+                    checkbox.checked = true;
+                }
             });
 
-            // Функции для модального окна здоровья
-            function openHealthModal() {
-                const modal = document.getElementById('health-modal');
-                const backdrop = document.getElementById('modal-backdrop');
-
-                backdrop.style.display = 'block';
-                modal.style.display = 'block';
-
-                setTimeout(() => {
-                    backdrop.classList.add('active');
-                    modal.classList.add('show');
-                }, 10);
-
-                // Инициализация значений
-                document.getElementById('current-health-value').textContent = currentHealth;
-                document.getElementById('max-health-value').textContent = maxHealth;
-                document.getElementById('health-input').value = '0';
-                healthExpression = '0';
-            }
-
-            function closeHealthModal() {
-                const modal = document.getElementById('health-modal');
-                const backdrop = document.getElementById('modal-backdrop');
-
-                modal.classList.remove('show');
-                backdrop.classList.remove('active');
-
-                setTimeout(() => {
-                    modal.style.display = 'none';
-                    backdrop.style.display = 'none';
-                }, 300);
-            }
-
-            // Функции калькулятора здоровья
-            function appendHealthNumber(num) {
-                if (healthExpression === '0') {
-                    healthExpression = num.toString();
-                } else {
-                    healthExpression += num.toString();
+            // Для десктопной версии
+            if (conditions.length > 0) {
+                const displayConditions = conditions.slice(0, 6);
+                if (conditions.length > 6) {
+                    displayConditions.push('...');
                 }
-                document.getElementById('health-input').value = healthExpression;
+                conditionsButton.textContent = displayConditions.join(', ');
+                conditionsButton.title = conditions.join(', ');
+
+                // Для мобильной версии
+                mobileConditionsCount.textContent = conditions.length;
             }
+        }
+    }
 
-            function appendHealthOperator(operator) {
-                const lastChar = healthExpression.slice(-1);
-                if (['+', '-'].includes(lastChar)) {
-                    healthExpression = healthExpression.slice(0, -1) + operator;
-                } else {
-                    healthExpression += operator;
-                }
-                document.getElementById('health-input').value = healthExpression;
+    function updateProficiencyBonus() {
+        const level = parseInt(document.querySelector('.character-level').textContent.match(/\d+/)[0] || 1);
+        document.getElementById('proficiency-bonus-link').textContent =
+            `+${getProficiencyBonus(level)}`;
+    }
+
+
+    // Вызывайте эту функцию при изменении уровня
+    updateProficiencyBonus();
+    // Функция для переключения отображения характеристик
+    function toggleStats() {
+        const container = document.getElementById('stats-container');
+        const toggle = document.getElementById('stats-toggle');
+
+        container.classList.toggle('show');
+        toggle.classList.toggle('rotated');
+    }
+
+    // Функция для переключения вкладок на мобильных
+    function changeMobileTab() {
+        const selectedTab = document.getElementById('tabs-selector').value;
+
+        // Скрываем все вкладки
+        document.querySelectorAll('.tab-content-mobile').forEach(tab => {
+            tab.classList.remove('active');
+        });
+
+        // Показываем выбранную
+        if (selectedTab === 'attributes') {
+            document.getElementById('attributes-mobile').classList.add('show');
+        } else {
+            document.getElementById(`${selectedTab}-tab-mobile`).classList.add('active');
+        }
+    }
+
+    // Открытие модалок на весь экран
+    function openModalMobile(modalId) {
+        const modal = document.getElementById(modalId);
+        modal.style.width = '100%';
+        modal.style.left = '0';
+
+        // Подгоняем контент
+        const content = modal.querySelector('.modal-content, .level-up-content');
+        content.style.width = '95%';
+        content.style.padding = '20px 10px';
+    }
+
+    document.querySelectorAll('.open-modal-button').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const modal = document.querySelector('.sidebar-modal');
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+
+            if (window.innerWidth <= 768) {
+                openModalMobile('settings-modal'); // или нужный ID
             }
-
-            function deleteHealthLastChar() {
-                if (healthExpression.length > 1) {
-                    healthExpression = healthExpression.slice(0, -1);
-                } else {
-                    healthExpression = '0';
-                }
-                document.getElementById('health-input').value = healthExpression;
-            }
-
-            function calculateHealth() {
-                try {
-                    return eval(healthExpression.replace(/[^-+0-9]/g, '')) || 0;
-                } catch (e) {
-                    console.error('Error calculating health:', e);
-                    return 0;
-                }
-            }
-
-
-
-            function addHealth() {
-                const amount = calculateHealth();
-                currentHealth = Math.min(currentHealth + amount, maxHealth);
-                updateHealthDisplay();
-                saveHealth();
-                updateHealthColor();
-                syncHealth();
-
-            }
-
-            function subtractHealth() {
-                const amount = calculateHealth();
-                const newHealth = Math.max(0, currentHealth - amount);
-
-                // Устанавливаем флаг, что урон нанесен вручную
-                manualDamage = true;
-
-                currentHealth = newHealth;
-                updateHealthDisplay();
-                saveHealth();
-                updateHealthColor();
-                syncHealth();
-
-                // Если здоровье достигло 0 через ручной урон
-                if (currentHealth <= 0 && manualDamage) {
-                    // Сбрасываем спасброски
-                    deathSaves = { successes: 0, failures: 0 };
-                    localStorage.setItem(`character_${characterId}_deathSaves`, JSON.stringify(deathSaves));
-                    updateDeathSavesCheckboxes();
-                }
-
-                // Сбрасываем флаг после обработки
-                manualDamage = false;
-            }
-
-            function setMaxHealth() {
-                currentHealth = maxHealth;
-                updateHealthDisplay();
-                saveHealth();
-                updateHealthColor();
-                syncHealth();
-            }
-
-            function resetHealth() {
-                currentHealth = 0;
-                updateHealthDisplay();
-                saveHealth();
-                updateHealthColor();
-            }
-
-            function updateHealthDisplay() {
-                // Обновляем отображение в верхней панели
-                document.getElementById('health-display').textContent = `${currentHealth}/${maxHealth}`;
-
-                // Обновляем отображение в модальном окне
-                const standardDisplay = document.getElementById('standard-health-display');
-                const deathSavesDisplay = document.getElementById('death-saves-display');
-
-                if (currentHealth > 0) {
-                    // Если здоровье > 0 - стандартное отображение
-                    standardDisplay.style.display = 'flex';
-                    deathSavesDisplay.style.display = 'none';
-                } else {
-                    // Если здоровье = 0
-                    if (manualDamage) {
-                        // Если достигли 0 через кнопку "УРОН" - показываем спасброски
-                        standardDisplay.style.display = 'none';
-                        deathSavesDisplay.style.display = 'flex';
-                    } else {
-                        // Иначе показываем стандартное отображение с 0 HP
-                        standardDisplay.style.display = 'flex';
-                        deathSavesDisplay.style.display = 'none';
-                        document.getElementById('current-health-value').textContent = '0';
-                    }
-                }
-
-                // Обновляем значения
-                document.getElementById('current-health-value').textContent = currentHealth;
-                document.getElementById('max-health-value').textContent = maxHealth;
-
-                updateHealthColor();
-            }
-
-            // Инициализация при загрузке
-            document.addEventListener("DOMContentLoaded", function() {
-                updateHealthDisplay();
-            });
-
-            function saveHealth() {
-                // Здесь можно добавить сохранение здоровья на сервер
-                localStorage.setItem(`character_${characterId}_health`, JSON.stringify({
-                    current: currentHealth,
-                    max: maxHealth
-                }));
-            }
-
-
-            // Функция для переключения видимости настроек максимального здоровья
-            function toggleMaxHealthSettings() {
-                const settings = document.getElementById('max-health-settings');
-                if (settings.style.display === 'none') {
-                    settings.style.display = 'block';
-                    // Устанавливаем текущее значение максимального здоровья в инпут
-                    document.getElementById('max-health-input').value = maxHealth;
-                } else {
-                    settings.style.display = 'none';
-                }
-            }
-            function updateHealthColor() {
-                const healthDisplay = document.querySelector('.digital-health');
-                const healthModalDisplay = document.querySelector('.health-display-container');
-                const currentHealth = parseInt(document.getElementById('current-health-value').textContent) || 0;
-                const maxHealth = parseInt(document.getElementById('max-health-value').textContent) || 1;
-                const healthPercentage = (currentHealth / maxHealth) * 100;
-
-                // Удаляем все классы цвета
-                healthDisplay.classList.remove('high-health', 'medium-health', 'low-health');
-                if (healthModalDisplay) {
-                    healthModalDisplay.classList.remove('high-health', 'medium-health', 'low-health');
-                }
-
-                // Добавляем соответствующий класс
-                if (healthPercentage >= 70) {
-                    healthDisplay.classList.add('high-health');
-                    if (healthModalDisplay) healthModalDisplay.classList.add('high-health');
-                } else if (healthPercentage >= 40) {
-                    healthDisplay.classList.add('medium-health');
-                    if (healthModalDisplay) healthModalDisplay.classList.add('medium-health');
-                } else {
-                    healthDisplay.classList.add('low-health');
-                    if (healthModalDisplay) healthModalDisplay.classList.add('low-health');
-                }
-            }
-            // В обработчике кнопки "УРОН"
-            document.querySelector('.subtract-btn').addEventListener('click', function() {
-                manualDamage = true;
-                subtractHealth();
-            });
-
-            // Вызываем функцию при загрузке и при каждом изменении здоровья
-            document.addEventListener("DOMContentLoaded", updateHealthColor);
-
-            // Функция для сохранения максимального здоровья
-            function saveMaxHealth() {
-                const newMaxHealth = parseInt(document.getElementById('max-health-input').value) || 0;
-                maxHealth = newMaxHealth;
-
-                // Обновляем отображение
-                document.getElementById('max-health-value').textContent = maxHealth;
-                document.getElementById('health-display').textContent = `${currentHealth}/${maxHealth}`;
-
-                // Сохраняем в localStorage
-                localStorage.setItem(`character_${characterId}_health`, JSON.stringify({
-                    current: currentHealth,
-                    max: maxHealth
-                }));
-
-                // Скрываем настройки
-                document.getElementById('max-health-settings').style.display = 'none';
-                updateHealthColor();
-
-                // Обновляем отображение (но не сбрасываем спасброски)
-                updateHealthDisplay();
-                syncHealth();
-            }
-
-            // Обновите функцию loadHealth для загрузки максимального здоровья
-            function loadHealth() {
-                const savedHealth = localStorage.getItem(`character_${characterId}_health`);
-                if (savedHealth) {
-                    const health = JSON.parse(savedHealth);
-                    currentHealth = health.current || 0;
-                    maxHealth = health.max || 0;
-                }
-                updateHealthDisplay()
-                syncHealth();
-            }
-
-            // Инициализация при загрузке
-            document.addEventListener("DOMContentLoaded", function() {
-                loadHealth();
-                syncHealth();
-            });
-
-            // Функция для проверки статуса спасбросков
-            function checkDeathSaveStatus() {
-                if (deathSaves.failures >= 3) {
-                    // Персонаж умирает
-                    currentHealth = 0;
-                    deathSaves = { successes: 0, failures: 0 };
-                    localStorage.setItem(`character_${characterId}_deathSaves`, JSON.stringify(deathSaves));
-                    updateDeathSavesCheckboxes();
-                    updateHealthDisplay();
-                    saveHealth();
-                    syncHealth();
-                }
-                else if (deathSaves.successes >= 3) {
-                    // Персонаж приходит в сознание с 1 HP
-                    currentHealth = 1;
-                    deathSaves = { successes: 0, failures: 0 };
-                    localStorage.setItem(`character_${characterId}_deathSaves`, JSON.stringify(deathSaves));
-                    updateDeathSavesCheckboxes();
-                    updateHealthDisplay();
-                    saveHealth();
-                    syncHealth();
-                }
-            }
-
-            //////ПРАВАЯ СТОРОНА ПЕРСОНАЖА
-
-            function rollInitiative() {
-                const dexterityValue = parseInt(document.getElementById("dexterity").value) || 10;
-                const dexMod = getModifier(dexterityValue);
-                const roll = Math.floor(Math.random() * 20) + 1;
-                const total = roll + dexMod;
-
-                // Обновляем отображение модификатора
-                document.getElementById("initiative-mod").textContent = dexMod >= 0 ? `+${dexMod}` : dexMod;
-
-                addNotification(
-                    "ИНИЦИАТИВА",
-                    "ЛОВКОСТЬ",
-                    roll,
-                    dexMod,
-                    total
-                );
-            }
-
-            // Функция для сохранения уровня истощения на сервере
-            function saveExhaustionLevel(level) {
-                fetch('/character/update-exhaustion', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-                    },
-                    body: JSON.stringify({
-                        character_id: characterId,
-                        exhaustion: level
-                    })
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (!data.success) {
-                            console.error('Ошибка сохранения уровня истощения:', data.error);
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Ошибка:', error);
-                    });
-            }
-            function openTab(evt, tabId) {
-                evt.preventDefault(); // Добавьте эту строку
-
-                // Скрыть все вкладки
-                const tabContents = document.getElementsByClassName("tab-pane");
-                for (let i = 0; i < tabContents.length; i++) {
-                    tabContents[i].classList.remove("active");
-                }
-
-                // Убрать активный класс у всех кнопок
-                const tabButtons = document.getElementsByClassName("tab-button");
-                for (let i = 0; i < tabButtons.length; i++) {
-                    tabButtons[i].classList.remove("active");
-                }
-
-                // Показать текущую вкладку и сделать кнопку активной
-                document.getElementById(tabId).classList.add("active");
-                evt.currentTarget.classList.add("active");
-            }
-            function openConditionsModal() {
-                const backdrop = document.getElementById('settings-backdrop');
-                const modal = document.getElementById('conditions-modal');
-
-                backdrop.style.display = 'block';
-                setTimeout(() => {
-                    modal.classList.add("show");
-                    backdrop.classList.add('active');
-                }, 10);
-            }
-
-            // Функция для закрытия модального окна состояний
-            function closeConditionsModal() {
-                const backdrop = document.getElementById('settings-backdrop');
-                const modal = document.getElementById('conditions-modal');
-
-                modal.classList.remove("show");
-                backdrop.classList.remove('active');
-                setTimeout(() => {
-                    backdrop.style.display = 'none';
-                }, 300);
-            }
-            // Функция для переключения описания состояния
-            function toggleConditionDescription(conditionId) {
-                const description = document.getElementById(`${conditionId}-description`);
-                if (description.style.display === 'none') {
-                    description.style.display = 'block';
-                } else {
-                    description.style.display = 'none';
-                }
-            }
-
-            // Функция для сохранения выбранных состояний
-            function saveConditions() {
-                const checkboxes = document.querySelectorAll('input[name="conditions[]"]:checked');
-                const conditions = Array.from(checkboxes).map(cb => cb.value);
-                const conditionsButton = document.querySelector('.digital-conditions-button');
-                const mobileConditionsCount = document.getElementById('mobile-conditions-count');
-
-                // Сохраняем все выбранные состояния
-                localStorage.setItem(`character_${characterId}_conditions`, JSON.stringify(conditions));
-
-                // Для десктопной версии - отображаем первые 6 состояний + троеточие
-                if (conditions.length > 0) {
-                    const displayConditions = conditions.slice(0, 6);
-                    if (conditions.length > 6) {
-                        displayConditions.push('...');
-                    }
-                    conditionsButton.textContent = displayConditions.join(', ');
-                    conditionsButton.title = conditions.join(', ');
-
-                    // Для мобильной версии - просто показываем количество
-                    mobileConditionsCount.textContent = conditions.length;
-                } else {
-                    conditionsButton.textContent = '—';
-                    conditionsButton.removeAttribute('title');
-                    mobileConditionsCount.textContent = '—';
-                }
-
-                closeConditionsModal();
-            }
-
-            // Функция для загрузки сохраненных состояний
-            function loadConditions() {
-                const savedConditions = localStorage.getItem(`character_${characterId}_conditions`);
-                const conditionsButton = document.querySelector('.digital-conditions-button');
-                const mobileConditionsCount = document.getElementById('mobile-conditions-count');
-
-                if (savedConditions) {
-                    const conditions = JSON.parse(savedConditions);
-
-                    // Устанавливаем чекбоксы
-                    conditions.forEach(condition => {
-                        const checkbox = document.querySelector(`input[value="${condition}"]`);
-                        if (checkbox) {
-                            checkbox.checked = true;
-                        }
-                    });
-
-                    // Для десктопной версии
-                    if (conditions.length > 0) {
-                        const displayConditions = conditions.slice(0, 6);
-                        if (conditions.length > 6) {
-                            displayConditions.push('...');
-                        }
-                        conditionsButton.textContent = displayConditions.join(', ');
-                        conditionsButton.title = conditions.join(', ');
-
-                        // Для мобильной версии
-                        mobileConditionsCount.textContent = conditions.length;
-                    }
-                }
-            }
-
-            function updateProficiencyBonus() {
-                const level = parseInt(document.querySelector('.character-level').textContent.match(/\d+/)[0] || 1);
-                document.getElementById('proficiency-bonus-link').textContent =
-                    `+${getProficiencyBonus(level)}`;
-            }
-
-
-            // Вызывайте эту функцию при изменении уровня
-            updateProficiencyBonus();
-            // Функция для переключения отображения характеристик
-            function toggleStats() {
-                const container = document.getElementById('stats-container');
-                const toggle = document.getElementById('stats-toggle');
-
-                container.classList.toggle('show');
-                toggle.classList.toggle('rotated');
-            }
-
-            // Функция для переключения вкладок на мобильных
-            function changeMobileTab() {
-                const selectedTab = document.getElementById('tabs-selector').value;
-
-                // Скрываем все вкладки
-                document.querySelectorAll('.tab-content-mobile').forEach(tab => {
-                    tab.classList.remove('active');
-                });
-
-                // Показываем выбранную
-                if (selectedTab === 'attributes') {
-                    document.getElementById('attributes-mobile').classList.add('show');
-                } else {
-                    document.getElementById(`${selectedTab}-tab-mobile`).classList.add('active');
-                }
-            }
-
-            // Открытие модалок на весь экран
-            function openModalMobile(modalId) {
-                const modal = document.getElementById(modalId);
-                modal.style.width = '100%';
-                modal.style.left = '0';
-
-                // Подгоняем контент
-                const content = modal.querySelector('.modal-content, .level-up-content');
-                content.style.width = '95%';
-                content.style.padding = '20px 10px';
-            }
-
-            document.querySelectorAll('.open-modal-button').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const modal = document.querySelector('.sidebar-modal');
-                    modal.classList.add('show');
-                    document.body.style.overflow = 'hidden';
-
-                    if (window.innerWidth <= 768) {
-                        openModalMobile('settings-modal'); // или нужный ID
-                    }
-                });
-            });
-            // Инициализация при загрузке
-            document.addEventListener('DOMContentLoaded', function() {
-                // Показываем атрибуты по умолчанию
-                document.getElementById('attributes-mobile').classList.add('show');
-
-                // Инициализация других элементов...
-                updateProficiencyBonus();
-                loadHealth();
-                updateHealthDisplay();
-                syncHealth();
-
-                // Проверяем, если это мобильное устройство
-                if (window.innerWidth <= 768) {
-                    // Инициализация для мобильных
-                    document.getElementById('stats-container').classList.add('show');
-                    document.getElementById('stats-toggle').classList.add('rotated');
-                }
-            });
-            // Инициализация при загрузке
-            document.addEventListener('DOMContentLoaded', function() {
-                // Настройка выбора вкладок
-                document.getElementById('tabs-selector').addEventListener('change', changeMobileTab);
-
-                // Открываем атрибуты по умолчанию
-                document.getElementById('attributes-mobile').classList.add('show');
-
-                // Адаптируем кнопки под мобилки
-                document.querySelectorAll('.calc-button').forEach(btn => {
-                    btn.style.minHeight = '60px';
-                    btn.style.fontSize = '20px';
-                });
-            });
-            function syncHealth() {
-                // Обновляем отображение здоровья
-                document.querySelectorAll('#health-display').forEach(el => {
-                    el.textContent = `${currentHealth}/${maxHealth}`;
-                });
-
-                // Обновляем цвет здоровья
-                updateHealthColor();
-
-                // Сохраняем в localStorage
-                localStorage.setItem(`character_${characterId}_health`, JSON.stringify({
-                    current: currentHealth,
-                    max: maxHealth
-                }));
-            }
-            function syncInitiative() {
-                const dexValue = parseInt(document.getElementById("dexterity").value) || 10;
-                currentInitiative = getModifier(dexValue);
-
-                // Обновляем отображение инициативы
-                document.querySelectorAll('#initiative-mod').forEach(el => {
-                    el.textContent = currentInitiative >= 0 ? `+${currentInitiative}` : currentInitiative;
-                });
-            }
-            function syncProficiencyBonus() {
-                const level = parseInt(document.querySelector('.character-level').textContent.match(/\d+/)[0] || 1);
-                currentProficiencyBonus = getProficiencyBonus(level);
-
-                // Обновляем отображение бонуса владения
-                document.querySelectorAll('#proficiency-bonus-link, .stat-value').forEach(el => {
-                    if (el.id === 'proficiency-bonus-link' || el.closest('.stat-box')) {
-                        el.textContent = `+${currentProficiencyBonus}`;
-                    }
-                });
-            }
-            function syncExhaustion() {
-                // Обновляем отображение истощения
-                document.querySelectorAll('#exhaustion-value').forEach(el => {
-                    el.textContent = currentExhaustion;
-                });
-
-                // Обновляем select
-                const exhaustionSelect = document.getElementById('exhaustion-level');
-                if (exhaustionSelect) {
-                    exhaustionSelect.value = currentExhaustion;
-                }
-
-                // Сохраняем в localStorage
-                localStorage.setItem(`character_${characterId}_exhaustion`, currentExhaustion);
-                saveExhaustionLevel(currentExhaustion);
-            }
-            function syncInspiration() {
-                // Обновляем отображение вдохновения
-                document.querySelectorAll('.inspiration-display').forEach(el => {
-                    el.textContent = currentInspiration ? '✓' : '—';
-                    el.style.color = currentInspiration ? '#4CAF50' : '#888';
-                });
-
-                // Сохраняем в localStorage
-                localStorage.setItem(`character_${characterId}_inspiration`, currentInspiration);
-            }
-            // Функция для загрузки истощения
-            function loadExhaustion() {
-                const savedExhaustion = localStorage.getItem(`character_${characterId}_exhaustion`);
-                if (savedExhaustion) {
-                    currentExhaustion = parseInt(savedExhaustion) || 0;
-                }
-            }
-
-            // Функция для загрузки вдохновения
-            function loadInspiration() {
-                const savedInspiration = localStorage.getItem(`character_${characterId}_inspiration`);
-                if (savedInspiration) {
-                    currentInspiration = savedInspiration === 'true';
-                }
-            }
-
-            // Функция для обновления всех характеристик
-            function updateAllStats() {
-                syncHealth();
-                syncInitiative();
-                syncProficiencyBonus();
-                syncExhaustion();
-                syncInspiration();
-            }
-            // Функция для переключения вдохновения
-            function toggleInspiration() {
-                currentInspiration = !currentInspiration;
-                syncInspiration();
-            }
-
-
-    </script>
+        });
+    });
+    // Инициализация при загрузке
+    document.addEventListener('DOMContentLoaded', function() {
+        // Показываем атрибуты по умолчанию
+        document.getElementById('attributes-mobile').classList.add('show');
+
+        // Инициализация других элементов...
+        updateProficiencyBonus();
+        loadHealth();
+        updateHealthDisplay();
+
+        // Проверяем, если это мобильное устройство
+        if (window.innerWidth <= 768) {
+            // Инициализация для мобильных
+            document.getElementById('stats-container').classList.add('show');
+            document.getElementById('stats-toggle').classList.add('rotated');
+        }
+    });
+    // Инициализация при загрузке
+    document.addEventListener('DOMContentLoaded', function() {
+        // Настройка выбора вкладок
+        document.getElementById('tabs-selector').addEventListener('change', changeMobileTab);
+
+        // Открываем атрибуты по умолчанию
+        document.getElementById('attributes-mobile').classList.add('show');
+
+        // Адаптируем кнопки под мобилки
+        document.querySelectorAll('.calc-button').forEach(btn => {
+            btn.style.minHeight = '60px';
+            btn.style.fontSize = '20px';
+        });
+    });
+</script>
 
 </body>
 </html>
