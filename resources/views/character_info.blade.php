@@ -1946,6 +1946,14 @@
                 });
             });
 
+            window.addEventListener('resize', function() {
+                if (window.innerWidth <= 768) {
+                    // Принудительное обновление для мобильной версии
+                    updateMiniProgressBar();
+                    syncProficiencyBonus();
+                }
+            });
+
             // Добавляем обработчики для клика по вдохновению
             document.addEventListener("DOMContentLoaded", function() {
                 document.querySelectorAll('.inspiration-display').forEach(el => {
@@ -2910,11 +2918,9 @@
                         // Мгновенное обновление UI
                         currentLevel = nextLevel;
                         updateProgressBar();
-
-                        // Анимация
+                        syncProficiencyBonus();
+                        updateAllStats();
                         animateLevelUp();
-
-                        // Сохраняем на сервере
                         await saveExperience(currentXp, nextLevel);
                     } catch (error) {
                         console.error('Ошибка при повышении уровня:', error);
@@ -3147,17 +3153,29 @@
                     backdrop.style.display = 'none';
                 }, 300);
             });
-            document.addEventListener("DOMContentLoaded", function () {
+            document.addEventListener("DOMContentLoaded", function() {
+                // Инициализация опыта и уровня
                 const miniProgress = document.querySelector('.mini-progress-container');
                 currentLevel = parseInt(miniProgress.dataset.currentLevel) || 1;
                 currentXp = parseInt(miniProgress.dataset.currentXp) || 0;
                 nextLevelXp = parseInt(miniProgress.dataset.nextLevelXp) || XP_TABLE[currentLevel + 1];
 
-                updateMiniProgressBar();
+                // Синхронизация всех элементов
+                updateAllStats();
                 updateProgressBar();
+                updateMiniProgressBar();
+
+                // Проверяем кнопки уровня
+                checkLevelButtons();
+
+                // Загружаем здоровье и состояния
+                loadHealth();
+                loadConditions();
+                updateHealthDisplay();
             });
 
             // Функция обновления мини-прогресс бара
+            // Обновите функцию updateMiniProgressBar
             function updateMiniProgressBar() {
                 const currentLevelXp = XP_TABLE[currentLevel] || 0;
                 const nextLevelXp = XP_TABLE[currentLevel + 1] || XP_TABLE[20];
@@ -3174,15 +3192,18 @@
 
                 const progressPercent = ((currentXp - startXp) / (endXp - startXp)) * 100;
 
-                const miniBar = document.getElementById('mini-xp-progress-bar');
-                const miniText = document.getElementById('mini-xp-progress-text');
-
-                if (miniBar && miniText) {
+                // Обновляем для десктопной и мобильной версии
+                document.querySelectorAll('.mini-progress-bar').forEach(miniBar => {
                     miniBar.style.width = `${progressPercent}%`;
-                    miniText.textContent = `${currentXp}/${endXp}`;
-                }
+                });
 
-                document.querySelector('.character-level').textContent = `Уровень ${currentLevel}`;
+                document.querySelectorAll('.mini-progress-text').forEach(miniText => {
+                    miniText.textContent = `${currentXp}/${endXp}`;
+                });
+
+                document.querySelectorAll('.character-level').forEach(el => {
+                    el.textContent = `Уровень ${currentLevel}`;
+                });
             }
 
             document.addEventListener("DOMContentLoaded", function () {
@@ -3220,15 +3241,6 @@
 
             document.addEventListener("DOMContentLoaded", function () {
                 updateMiniProgressBar();
-            });
-            document.addEventListener("DOMContentLoaded", function () {
-                // Получаем начальные значения
-                const miniProgress = document.querySelector('.mini-progress-container');
-                currentLevel = parseInt(miniProgress.dataset.currentLevel) || 1;
-                currentXp = parseInt(miniProgress.dataset.currentXp) || 0;
-
-                // Инициализируем прогресс-бары
-                updateProgressBar();
             });
 
             // Функции для модального окна здоровья
@@ -3783,12 +3795,14 @@
                 });
             }
             function syncProficiencyBonus() {
-                const level = parseInt(document.querySelector('.character-level').textContent.match(/\d+/)[0] || 1);
+                const level = parseInt(document.querySelector('.character-level').textContent.match(/\d+/)[0] || 1;
                 currentProficiencyBonus = getProficiencyBonus(level);
 
                 // Обновляем отображение бонуса владения
-                document.querySelectorAll('#proficiency-bonus-link').forEach(el => {
-                    el.textContent = `+${currentProficiencyBonus}`;
+                document.querySelectorAll('#proficiency-bonus-link, .stat-value').forEach(el => {
+                    if (el.id === 'proficiency-bonus-link' || el.closest('.stat-box')) {
+                        el.textContent = `+${currentProficiencyBonus}`;
+                    }
                 });
             }
             function syncExhaustion() {
