@@ -265,6 +265,10 @@
         font-size: 24px !important;
     }
 
+    .delete-btn{
+        height: 50px;
+    }
+
     /* Вкладки для мобилок */
     .tabs-selector-mobile {
         width: 100%;
