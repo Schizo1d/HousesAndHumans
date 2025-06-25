@@ -270,6 +270,9 @@
     .conditions-list{
         max-height: 2000px;
     }
+    .condition-item{
+        width: 355px;
+    }
     .sidebar-content{
         width: 100%;
         height: 100%;
