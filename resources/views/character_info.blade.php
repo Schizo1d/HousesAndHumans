@@ -791,7 +791,7 @@
                             </div>
                             <span class="digital-boxed-value-label">вдохновение</span>
                         </div>
-                        <div class="digital_box">
+                        <div class="digital_box mobile-only">
                             <div class="digital_box_button">
                                 <label class="digital-exhaustion-wrap">
                                     <select class="digital-exhaustion" id="exhaustion-level" name="exhaustion">
