@@ -3467,6 +3467,7 @@
 
                 // Обновляем отображение (но не сбрасываем спасброски)
                 updateHealthDisplay();
+                syncHealth();
             }
 
             // Обновите функцию loadHealth для загрузки максимального здоровья
@@ -3478,11 +3479,13 @@
                     maxHealth = health.max || 0;
                 }
                 updateHealthDisplay()
+                syncHealth();
             }
 
             // Инициализация при загрузке
             document.addEventListener("DOMContentLoaded", function() {
                 loadHealth();
+                syncHealth();
             });
 
             // Функция для проверки статуса спасбросков
@@ -3495,6 +3498,7 @@
                     updateDeathSavesCheckboxes();
                     updateHealthDisplay();
                     saveHealth();
+                    syncHealth();
                 }
                 else if (deathSaves.successes >= 3) {
                     // Персонаж приходит в сознание с 1 HP
@@ -3504,6 +3508,7 @@
                     updateDeathSavesCheckboxes();
                     updateHealthDisplay();
                     saveHealth();
+                    syncHealth();
                 }
             }
 
@@ -3730,6 +3735,7 @@
                 updateProficiencyBonus();
                 loadHealth();
                 updateHealthDisplay();
+                syncHealth();
 
                 // Проверяем, если это мобильное устройство
                 if (window.innerWidth <= 768) {
