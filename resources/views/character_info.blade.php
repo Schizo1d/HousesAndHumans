@@ -1020,7 +1020,7 @@
             <span class="stat-label">Истощение</span>
         </div>
         <div class="stat-box" onclick="openConditionsModal()">
-            <span class="stat-value">—</span>
+            <span class="stat-value" id="mobile-conditions-count">—</span>
             <span class="stat-label">Состояние</span>
         </div>
     </div>
@@ -1590,6 +1590,7 @@
 
             // Загрузка сохраненных данных при открытии страницы
             document.addEventListener("DOMContentLoaded", function() {
+                loadConditions();
                 // Загружаем сохраненные спасброски из localStorage
                 const savedDeathSaves = localStorage.getItem(`character_${characterId}_deathSaves`);
                 if (savedDeathSaves) {
@@ -3567,21 +3568,26 @@
                 const checkboxes = document.querySelectorAll('input[name="conditions[]"]:checked');
                 const conditions = Array.from(checkboxes).map(cb => cb.value);
                 const conditionsButton = document.querySelector('.digital-conditions-button');
+                const mobileConditionsCount = document.getElementById('mobile-conditions-count');
 
                 // Сохраняем все выбранные состояния
                 localStorage.setItem(`character_${characterId}_conditions`, JSON.stringify(conditions));
 
-                // Отображаем первые 6 состояний + троеточие, если их больше 6
+                // Для десктопной версии - отображаем первые 6 состояний + троеточие
                 if (conditions.length > 0) {
-                    const displayConditions = conditions.slice(0, 6); // Берем первые 6
+                    const displayConditions = conditions.slice(0, 6);
                     if (conditions.length > 6) {
-                        displayConditions.push('...'); // Добавляем троеточие если больше 6
+                        displayConditions.push('...');
                     }
                     conditionsButton.textContent = displayConditions.join(', ');
-                    conditionsButton.title = conditions.join(', '); // Подсказка со всеми состояниями
+                    conditionsButton.title = conditions.join(', ');
+
+                    // Для мобильной версии - просто показываем количество
+                    mobileConditionsCount.textContent = conditions.length;
                 } else {
                     conditionsButton.textContent = '—';
                     conditionsButton.removeAttribute('title');
+                    mobileConditionsCount.textContent = '—';
                 }
 
                 closeConditionsModal();
@@ -3591,6 +3597,7 @@
             function loadConditions() {
                 const savedConditions = localStorage.getItem(`character_${characterId}_conditions`);
                 const conditionsButton = document.querySelector('.digital-conditions-button');
+                const mobileConditionsCount = document.getElementById('mobile-conditions-count');
 
                 if (savedConditions) {
                     const conditions = JSON.parse(savedConditions);
@@ -3603,14 +3610,17 @@
                         }
                     });
 
-                    // Отображаем первые 6 состояний + троеточие, если их больше 6
+                    // Для десктопной версии
                     if (conditions.length > 0) {
-                        const displayConditions = conditions.slice(0, 6); // Берем первые 6
+                        const displayConditions = conditions.slice(0, 6);
                         if (conditions.length > 6) {
-                            displayConditions.push('...'); // Добавляем троеточие если больше 6
+                            displayConditions.push('...');
                         }
                         conditionsButton.textContent = displayConditions.join(', ');
-                        conditionsButton.title = conditions.join(', '); // Подсказка со всеми состояниями
+                        conditionsButton.title = conditions.join(', ');
+
+                        // Для мобильной версии
+                        mobileConditionsCount.textContent = conditions.length;
                     }
                 }
             }
