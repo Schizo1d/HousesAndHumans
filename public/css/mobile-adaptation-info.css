@@ -268,7 +268,9 @@
     .delete-btn{
         height: 50px;
     }
+    .calc-button.action-btn{
 
+    }
     /* Вкладки для мобилок */
     .tabs-selector-mobile {
         width: 100%;
