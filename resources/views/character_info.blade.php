@@ -1039,8 +1039,199 @@
     </div>
 
     <div class="attributes-mobile" id="attributes-mobile">
-        <!-- Здесь будут атрибуты как в десктопной версии, но адаптированные -->
-        <p>Мобильная версия атрибутов будет здесь</p>
+        <!-- Сила -->
+        <div class="attribute-item-mobile">
+            <div class="attribute-header-mobile" onclick="toggleMobileAttribute('strength')">
+                <span class="attribute-name-mobile">Сила</span>
+                <span class="attribute-value-mobile" id="strength-button-mobile">
+                {{ $character->attributes->strength ?? 10 }}
+            </span>
+                <i class="fas fa-chevron-down attribute-toggle"></i>
+            </div>
+
+            <div class="attribute-content-mobile" id="strength-content-mobile">
+                <input type="hidden" id="strength-mobile" name="strength"
+                       value="{{ $character->attributes->strength ?? 10 }}">
+
+                <div class="attribute-actions-mobile">
+                    <div class="action-row-mobile">
+                        <button class="action-btn-mobile" onclick="openModal('strength')">
+                            <span>Изменить</span>
+                        </button>
+                    </div>
+
+                    <div class="action-row-mobile">
+                        <button class="action-btn-mobile" onclick="rollDice('strength')">
+                            <span>Проверка</span>
+                            <span class="modifier-mobile" id="strength-modifier-mobile">
+                            {{ floor(($character->attributes->strength ?? 10 - 10) / 2) }}
+                        </span>
+                        </button>
+
+                        <button class="action-btn-mobile" onclick="rollSave('strength')">
+                            <span>Спасбросок</span>
+                            <span class="modifier-mobile" id="strength-save-modifier-mobile">
+                            {{ floor(($character->attributes->strength ?? 10 - 10) / 2) }}
+                        </span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="attribute-skill-mobile">
+                    <div class="skill-row-mobile">
+                        <label class="double-radio-container-mobile">
+                            <input type="checkbox" class="double-radio-input" id="athletics-radio-mobile"
+                                   name="athletics-radio" onclick="handleSkillRadio(this, 'athletics', 'strength')">
+                            <span class="double-radio-custom-mobile">
+                            <span class="radio-dot-mobile dot-1"></span>
+                            <span class="radio-dot-mobile dot-2"></span>
+                        </span>
+                        </label>
+                        <span class="skill-name-mobile">Атлетика</span>
+                        <button class="skill-roll-mobile" onclick="rollSkill('athletics', 'strength')">
+                            <span id="athletics-value-mobile">{{ $character->attributes->athletics ?? 0 }}</span>
+                        </button>
+                    </div>
+                    <input type="hidden" name="athletics" id="athletics-mobile"
+                           value="{{ $character->attributes->athletics ?? 0 }}">
+                </div>
+            </div>
+        </div>
+
+        <!-- Ловкость -->
+        <div class="attribute-item-mobile">
+            <div class="attribute-header-mobile" onclick="toggleMobileAttribute('dexterity')">
+                <span class="attribute-name-mobile">Ловкость</span>
+                <span class="attribute-value-mobile" id="dexterity-button-mobile">
+                {{ $character->attributes->dexterity ?? 10 }}
+            </span>
+                <i class="fas fa-chevron-down attribute-toggle"></i>
+            </div>
+
+            <div class="attribute-content-mobile" id="dexterity-content-mobile">
+                <input type="hidden" id="dexterity-mobile" name="dexterity"
+                       value="{{ $character->attributes->dexterity ?? 10 }}">
+
+                <div class="attribute-actions-mobile">
+                    <div class="action-row-mobile">
+                        <button class="action-btn-mobile" onclick="openModal('dexterity')">
+                            <span>Изменить</span>
+                        </button>
+                    </div>
+
+                    <div class="action-row-mobile">
+                        <button class="action-btn-mobile" onclick="rollDice('dexterity')">
+                            <span>Проверка</span>
+                            <span class="modifier-mobile" id="dexterity-modifier-mobile">
+                            {{ floor(($character->attributes->dexterity ?? 10 - 10) / 2) }}
+                        </span>
+                        </button>
+
+                        <button class="action-btn-mobile" onclick="rollSave('dexterity')">
+                            <span>Спасбросок</span>
+                            <span class="modifier-mobile" id="dexterity-save-modifier-mobile">
+                            {{ floor(($character->attributes->dexterity ?? 10 - 10) / 2) }}
+                        </span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Акробатика -->
+                <div class="attribute-skill-mobile">
+                    <div class="skill-row-mobile">
+                        <label class="double-radio-container-mobile">
+                            <input type="checkbox" class="double-radio-input" id="acrobatics-radio-mobile"
+                                   name="acrobatics-radio" onclick="handleSkillRadio(this, 'acrobatics', 'dexterity')">
+                            <span class="double-radio-custom-mobile">
+                            <span class="radio-dot-mobile dot-1"></span>
+                            <span class="radio-dot-mobile dot-2"></span>
+                        </span>
+                        </label>
+                        <span class="skill-name-mobile">Акробатика</span>
+                        <button class="skill-roll-mobile" onclick="rollSkill('acrobatics', 'dexterity')">
+                            <span id="acrobatics-value-mobile">{{ $character->attributes->acrobatics ?? 0 }}</span>
+                        </button>
+                    </div>
+                    <input type="hidden" name="acrobatics" id="acrobatics-mobile"
+                           value="{{ $character->attributes->acrobatics ?? 0 }}">
+                </div>
+
+                <!-- Ловкость рук -->
+                <div class="attribute-skill-mobile">
+                    <div class="skill-row-mobile">
+                        <label class="double-radio-container-mobile">
+                            <input type="checkbox" class="double-radio-input" id="sleight_of_hand-radio-mobile"
+                                   name="sleight_of_hand-radio" onclick="handleSkillRadio(this, 'sleight_of_hand', 'dexterity')">
+                            <span class="double-radio-custom-mobile">
+                            <span class="radio-dot-mobile dot-1"></span>
+                            <span class="radio-dot-mobile dot-2"></span>
+                        </span>
+                        </label>
+                        <span class="skill-name-mobile">Ловкость рук</span>
+                        <button class="skill-roll-mobile" onclick="rollSkill('sleight_of_hand', 'dexterity')">
+                            <span id="sleight_of_hand-value-mobile">{{ $character->attributes->sleight_of_hand ?? 0 }}</span>
+                        </button>
+                    </div>
+                    <input type="hidden" name="sleight_of_hand" id="sleight_of_hand-mobile"
+                           value="{{ $character->attributes->sleight_of_hand ?? 0 }}">
+                </div>
+
+                <!-- Скрытность -->
+                <div class="attribute-skill-mobile">
+                    <div class="skill-row-mobile">
+                        <label class="double-radio-container-mobile">
+                            <input type="checkbox" class="double-radio-input" id="stealth-radio-mobile"
+                                   name="stealth-radio" onclick="handleSkillRadio(this, 'stealth', 'dexterity')">
+                            <span class="double-radio-custom-mobile">
+                            <span class="radio-dot-mobile dot-1"></span>
+                            <span class="radio-dot-mobile dot-2"></span>
+                        </span>
+                        </label>
+                        <span class="skill-name-mobile">Скрытность</span>
+                        <button class="skill-roll-mobile" onclick="rollSkill('stealth', 'dexterity')">
+                            <span id="stealth-value-mobile">{{ $character->attributes->stealth ?? 0 }}</span>
+                        </button>
+                    </div>
+                    <input type="hidden" name="stealth" id="stealth-mobile"
+                           value="{{ $character->attributes->stealth ?? 0 }}">
+                </div>
+            </div>
+        </div>
+
+        <!-- Остальные атрибуты (Телосложение, Интеллект, Мудрость, Харизма) -->
+        <!-- ... аналогичная структура для остальных атрибутов ... -->
+
+        <!-- Пассивные навыки -->
+        <div class="passive-skills-mobile">
+            <h3 class="passive-title-mobile">Пассивные чувства</h3>
+
+            <div class="passive-skill-mobile">
+                <button class="passive-value-mobile" id="passive-perception-button-mobile">
+                    {{ $character->attributes->passive_perception ?? 10 }}
+                </button>
+                <span class="passive-name-mobile">Восприятие (Мудрость):</span>
+                <input type="hidden" id="passive_perception-mobile" name="passive_perception"
+                       value="{{ $character->attributes->passive_perception ?? 10 }}">
+            </div>
+
+            <div class="passive-skill-mobile">
+                <button class="passive-value-mobile" id="passive-insight-button-mobile">
+                    {{ $character->attributes->passive_insight ?? 10 }}
+                </button>
+                <span class="passive-name-mobile">Проницательность (Мудрость):</span>
+                <input type="hidden" id="passive_insight-mobile" name="passive_insight"
+                       value="{{ $character->attributes->passive_insight ?? 10 }}">
+            </div>
+
+            <div class="passive-skill-mobile">
+                <button class="passive-value-mobile" id="passive-investigation-button-mobile">
+                    {{ $character->attributes->passive_investigation ?? 10 }}
+                </button>
+                <span class="passive-name-mobile">Анализ (Интеллект):</span>
+                <input type="hidden" id="passive_investigation-mobile" name="passive_investigation"
+                       value="{{ $character->attributes->passive_investigation ?? 10 }}">
+            </div>
+        </div>
     </div>
 
     <div class="tab-content-mobile" id="attacks-tab-mobile">
@@ -1599,6 +1790,17 @@
 
         // Обновляем отображение чекбоксов
         updateDeathSavesCheckboxes();
+    });
+
+    document.addEventListener("DOMContentLoaded", function() {
+        if (window.innerWidth <= 768) {
+            syncAttributes();
+
+            // Обновляем при изменении атрибутов
+            document.getElementById('attributesForm').addEventListener('input', function() {
+                setTimeout(syncAttributes, 100);
+            });
+        }
     });
 
     // При загрузке страницы
@@ -3736,6 +3938,64 @@
             btn.style.fontSize = '20px';
         });
     });
+
+    function toggleMobileAttribute(attr) {
+        const item = document.querySelector(`#${attr}-content-mobile`).parentElement;
+        item.classList.toggle('active');
+
+        // Синхронизация с десктопной версией
+        if (window.innerWidth <= 768) {
+            const value = document.getElementById(`${attr}-button`).textContent;
+            document.getElementById(`${attr}-button-mobile`).textContent = value;
+        }
+    }
+
+    function syncAttributes() {
+        const attributes = ['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'];
+
+        attributes.forEach(attr => {
+            const desktopValue = document.getElementById(`${attr}`).value;
+            document.getElementById(`${attr}-mobile`).value = desktopValue;
+            document.getElementById(`${attr}-button-mobile`).textContent = desktopValue;
+
+            // Синхронизация модификаторов
+            const modifier = getModifier(parseInt(desktopValue));
+            document.getElementById(`${attr}-modifier-mobile`).textContent = modifier;
+            document.getElementById(`${attr}-save-modifier-mobile`).textContent = modifier;
+        });
+
+        // Синхронизация навыков
+        const skills = {
+            'strength': ['athletics'],
+            'dexterity': ['acrobatics', 'sleight_of_hand', 'stealth'],
+            'intelligence': ['investigation', 'history', 'arcana', 'nature', 'religion'],
+            'wisdom': ['perception', 'survival', 'medicine', 'insight', 'animal_handling'],
+            'charisma': ['performance', 'intimidation', 'deception', 'persuasion']
+        };
+
+        Object.keys(skills).forEach(attr => {
+            skills[attr].forEach(skill => {
+                const value = document.getElementById(skill).value;
+                document.getElementById(`${skill}-mobile`).value = value;
+                document.getElementById(`${skill}-value-mobile`).textContent = value;
+
+                // Синхронизация радио-кнопок
+                const radio = document.getElementById(`${skill}-radio`);
+                const mobileRadio = document.getElementById(`${skill}-radio-mobile`);
+                if (radio && mobileRadio) {
+                    mobileRadio.checked = radio.checked;
+                }
+            });
+        });
+
+        // Синхронизация пассивных навыков
+        ['perception', 'insight', 'investigation'].forEach(skill => {
+            const value = document.getElementById(`passive_${skill}`).value;
+            document.getElementById(`passive_${skill}-mobile`).value = value;
+            document.getElementById(`passive-${skill}-button-mobile`).textContent = value;
+        });
+    }
+
 </script>
 
 </body>
