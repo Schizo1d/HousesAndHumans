@@ -1331,7 +1331,6 @@
         <p>Здесь будет список заклинаний персонажа...</p>
     </div>
 </div>
-<div class="container-info">
 <!-- Модальное окно повышения уровня -->
 <div id="level-up-modal" class="level-modal">
     <div class="level-up-content">
@@ -1508,7 +1507,7 @@
 </div>
 <div id="modal-backdrop" class="modal-backdrop"></div>
 <div id="settings-backdrop" class="modal-backdrop"></div>
-</div>
+
     <script>
             // Глобальные переменные
             let manualDamage = false;
