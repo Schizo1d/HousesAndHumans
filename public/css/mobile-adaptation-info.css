@@ -416,4 +416,19 @@
         min-width: 40px;
         text-align: center;
     }
+
+    .attributes{
+        flex-wrap: nowrap;
+        width: 370px;
+    }
+    .attributes a{
+        color: #915f32;
+    }
+    .passive-skills h3{
+        color: #915f32;
+    }
+    .passive-skill-name{
+        color: #915f32;
+    }
+
 }
