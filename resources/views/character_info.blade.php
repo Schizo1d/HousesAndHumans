@@ -950,10 +950,7 @@
                 <p id="save-message" style="display: none; color: #28a745;">Настройки сохранены!</p>
             </div>
         </div>
-        <div class="notifications-wrapper">
-            <div class="notifications-container" id="notificationsContainer"></div>
-            <button class="close-all-btn" onclick="hideCloseButtonInstantly(); clearAllNotifications()">×</button>
-        </div>
+
     </div>
     </main>
     </div>
@@ -1080,6 +1077,11 @@
         <h3>Заклинания</h3>
         <p>Здесь будет список заклинаний персонажа...</p>
     </div>
+</div>
+
+<div class="notifications-wrapper">
+    <div class="notifications-container" id="notificationsContainer"></div>
+    <button class="close-all-btn" onclick="hideCloseButtonInstantly(); clearAllNotifications()">×</button>
 </div>
 
 <div class="sidebar-modal" id="conditions-modal">
