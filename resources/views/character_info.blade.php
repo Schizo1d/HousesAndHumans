@@ -1400,9 +1400,8 @@
                 <button type="button" class="calc-button action-btn add-btn" onclick="calculateAndAdd()">ПРИБАВИТЬ</button>
                 <button type="button" class="calc-button action-btn subtract-btn" onclick="calculateAndSubtract()">ОТНЯТЬ</button>
                 <button type="button" class="calc-button action-btn level-up-btn" id="level-up-btn" onclick="levelUpCharacter()">ПОВЫСИТЬ</button>
-                <div class="calc-empty"></div>
                 <button type="button" class="calc-button action-btn level-down-btn" id="level-down-btn" onclick="levelDownCharacter()">ПОНИЗИТЬ</button>
-
+                <div class="calc-empty"></div>
             </div>
         </div>
     </div>
