@@ -906,256 +906,6 @@
                 <button class="modal-save-btn" onclick="saveAttribute()">Сохранить</button>
             </div>
         </div>
-
-        <div class="sidebar-modal" id="conditions-modal">
-            <div class="sidebar-content">
-                <button class="close-sidebar" id="close-conditions-sidebar">&times;</button>
-                <h2 class="settings-title">Состояния персонажа</h2>
-
-                <div class="conditions-list">
-                    <!-- Пример состояния с описанием -->
-                    <div class="condition-item">
-                        <div class="condition-header">
-                            <label class="condition-checkbox">
-                                <input type="checkbox" id="condition-unconscious" name="conditions[]" value="Бессознательный" class="hidden-checkbox">
-                                <span class="checkbox-custom"></span>
-                            </label>
-                            <span class="condition-name">Бессознательный</span>
-                            <button class="toggle-description-btn">▼</button>
-                        </div>
-                        <ul class="condition-description" id="unconscious-description" style="display: none;">
-                            <li>Персонаж без сознания и не может совершать действия</li>
-                            <li>Не может двигаться или говорить</li>
-                            <li>Не осознает происходящее вокруг</li>
-                            <li>Автоматически проваливает проверки Силы и Ловкости</li>
-                            <li>Атаки против него совершаются с преимуществом</li>
-                            <li>Любая атака в ближнем радиусе - критическое попадание</li>
-                        </ul>
-                    </div>
-
-                    <div class="condition-item">
-                        <div class="condition-header">
-                            <label class="condition-checkbox">
-                                <input type="checkbox" id="condition-frightened" name="conditions[]" value="Испуганный" class="hidden-checkbox">
-                                <span class="checkbox-custom"></span>
-                            </label>
-                            <span class="condition-name">Испуганный</span>
-                            <button class="toggle-description-btn">▼</button>
-                        </div>
-                        <ul class="condition-description" id="frightened-description" style="display: none;">
-                            <li>Персонаж испытывает страх перед источником страха</li>
-                            <li>Не может добровольно приближаться к источнику страха</li>
-                            <li>Получает помеху к броскам атак и проверкам характеристик</li>
-                            <li>Пока источник страха в поле зрения, персонаж дезориентирован</li>
-                            <li>Действует, пока находится в пределах видимости источника</li>
-                        </ul>
-                    </div>
-
-                    <div class="condition-item">
-                        <div class="condition-header">
-                            <label class="condition-checkbox">
-                                <input type="checkbox" id="condition-invisible" name="conditions[]" value="Невидимый" class="hidden-checkbox">
-                                <span class="checkbox-custom"></span>
-                            </label>
-                            <span class="condition-name">Невидимый</span>
-                            <button class="toggle-description-btn">▼</button>
-                        </div>
-                        <ul class="condition-description" id="invisible-description" style="display: none;">
-                            <li>Персонаж невидим для окружающих</li>
-                            <li>Атаки против него совершаются с помехой</li>
-                            <li>Его атаки совершаются с преимуществом</li>
-                        </ul>
-                    </div>
-
-                    <div class="condition-item">
-                        <div class="condition-header">
-                            <label class="condition-checkbox">
-                                <input type="checkbox" id="condition-incapacitated" name="conditions[]" value="Недееспособный" class="hidden-checkbox">
-                                <span class="checkbox-custom"></span>
-                            </label>
-                            <span class="condition-name">Недееспособный</span>
-                            <button class="toggle-description-btn">▼</button>
-                        </div>
-                        <ul class="condition-description" id="incapacitated-description" style="display: none;">
-                            <li>Персонаж не может совершать действия</li>
-                            <li>Не может совершать реакции</li>
-                            <li>Сохраняет сознание</li>
-                        </ul>
-                    </div>
-
-                    <div class="condition-item">
-                        <div class="condition-header">
-                            <label class="condition-checkbox">
-                                <input type="checkbox" id="condition-deafened" name="conditions[]" value="Оглохший" class="hidden-checkbox">
-                                <span class="checkbox-custom"></span>
-                            </label>
-                            <span class="condition-name">Оглохший</span>
-                            <button class="toggle-description-btn">▼</button>
-                        </div>
-                        <ul class="condition-description" id="deafened-description" style="display: none;">
-                            <li>Персонаж ничего не слышит</li>
-                            <li>Автоматически проваливает проверки, требующие слуха</li>
-                            <li>Не может быть оглушен звуковыми эффектами</li>
-                        </ul>
-                    </div>
-
-                    <div class="condition-item">
-                        <div class="condition-header">
-                            <label class="condition-checkbox">
-                                <input type="checkbox" id="condition-petrified" name="conditions[]" value="Окаменевший" class="hidden-checkbox">
-                                <span class="checkbox-custom"></span>
-                            </label>
-                            <span class="condition-name">Окаменевший</span>
-                            <button class="toggle-description-btn">▼</button>
-                        </div>
-                        <ul class="condition-description" id="petrified-description" style="display: none;">
-                            <li>Персонаж превращен в камень</li>
-                            <li>Имеет сопротивление всем видам урона</li>
-                            <li>Не может двигаться или говорить</li>
-                            <li>Не осознает происходящее вокруг</li>
-                        </ul>
-                    </div>
-
-                    <div class="condition-item">
-                        <div class="condition-header">
-                            <label class="condition-checkbox">
-                                <input type="checkbox" id="condition-restrained" name="conditions[]" value="Опутанный" class="hidden-checkbox">
-                                <span class="checkbox-custom"></span>
-                            </label>
-                            <span class="condition-name">Опутанный</span>
-                            <button class="toggle-description-btn">▼</button>
-                        </div>
-                        <ul class="condition-description" id="restrained-description" style="display: none;">
-                            <li>Персонаж ограничен в движениях</li>
-                            <li>Скорость становится 0</li>
-                            <li>Атаки против него совершаются с преимуществом</li>
-                            <li>Его атаки совершаются с помехой</li>
-                        </ul>
-                    </div>
-
-                    <div class="condition-item">
-                        <div class="condition-header">
-                            <label class="condition-checkbox">
-                                <input type="checkbox" id="condition-blinded" name="conditions[]" value="Ослеплённый" class="hidden-checkbox">
-                                <span class="checkbox-custom"></span>
-                            </label>
-                            <span class="condition-name">Ослеплённый</span>
-                            <button class="toggle-description-btn">▼</button>
-                        </div>
-                        <ul class="condition-description" id="blinded-description" style="display: none;">
-                            <li>Персонаж ничего не видит</li>
-                            <li>Автоматически проваливает проверки, требующие зрения</li>
-                            <li>Атаки против него совершаются с преимуществом</li>
-                            <li>Его атаки совершаются с помехой</li>
-                        </ul>
-                    </div>
-
-                    <div class="condition-item">
-                        <div class="condition-header">
-                            <label class="condition-checkbox">
-                                <input type="checkbox" id="condition-poisoned" name="conditions[]" value="Отравленный" class="hidden-checkbox">
-                                <span class="checkbox-custom"></span>
-                            </label>
-                            <span class="condition-name">Отравленный</span>
-                            <button class="toggle-description-btn">▼</button>
-                        </div>
-                        <ul class="condition-description" id="poisoned-description" style="display: none;">
-                            <li>Персонаж отравлен</li>
-                            <li>Получает помеху к броскам атак и проверкам характеристик</li>
-                            <li>Действует до окончания действия яда</li>
-                        </ul>
-                    </div>
-
-                    <div class="condition-item">
-                        <div class="condition-header">
-                            <label class="condition-checkbox">
-                                <input type="checkbox" id="condition-charmed" name="conditions[]" value="Очарованный" class="hidden-checkbox">
-                                <span class="checkbox-custom"></span>
-                            </label>
-                            <span class="condition-name">Очарованный</span>
-                            <button class="toggle-description-btn">▼</button>
-                        </div>
-                        <ul class="condition-description" id="charmed-description" style="display: none;">
-                            <li>Персонаж находится под чарами</li>
-                            <li>Не может атаковать источника чар</li>
-                            <li>Источник чар имеет преимущество на социальные проверки против персонажа</li>
-                        </ul>
-                    </div>
-
-                    <div class="condition-item">
-                        <div class="condition-header">
-                            <label class="condition-checkbox">
-                                <input type="checkbox" id="condition-stunned" name="conditions[]" value="Ошеломлённый" class="hidden-checkbox">
-                                <span class="checkbox-custom"></span>
-                            </label>
-                            <span class="condition-name">Ошеломлённый</span>
-                            <button class="toggle-description-btn">▼</button>
-                        </div>
-                        <ul class="condition-description" id="stunned-description" style="display: none;">
-                            <li>Персонаж ошеломлен</li>
-                            <li>Не может совершать действия</li>
-                            <li>Не может совершать реакции</li>
-                            <li>Атаки против него совершаются с преимуществом</li>
-                            <li>Автоматически проваливает проверки Силы и Ловкости</li>
-                        </ul>
-                    </div>
-
-                    <div class="condition-item">
-                        <div class="condition-header">
-                            <label class="condition-checkbox">
-                                <input type="checkbox" id="condition-paralyzed" name="conditions[]" value="Парализованный" class="hidden-checkbox">
-                                <span class="checkbox-custom"></span>
-                            </label>
-                            <span class="condition-name">Парализованный</span>
-                            <button class="toggle-description-btn">▼</button>
-                        </div>
-                        <ul class="condition-description" id="paralyzed-description" style="display: none;">
-                            <li>Персонаж парализован</li>
-                            <li>Не может двигаться или говорить</li>
-                            <li>Атаки в ближнем радиусе против него совершаются с преимуществом</li>
-                            <li>Критические попадания при атаке в ближнем радиусе</li>
-                            <li>Автоматически проваливает проверки Силы и Ловкости</li>
-                        </ul>
-                    </div>
-
-                    <div class="condition-item">
-                        <div class="condition-header">
-                            <label class="condition-checkbox">
-                                <input type="checkbox" id="condition-prone" name="conditions[]" value="Сбитый с ног" class="hidden-checkbox">
-                                <span class="checkbox-custom"></span>
-                            </label>
-                            <span class="condition-name">Сбитый с ног</span>
-                            <button class="toggle-description-btn">▼</button>
-                        </div>
-                        <ul class="condition-description" id="prone-description" style="display: none;">
-                            <li>Персонаж лежит на земле</li>
-                            <li>Единственное возможное перемещение - ползком</li>
-                            <li>Атаки в ближнем радиусе против него совершаются с преимуществом</li>
-                            <li>Атаки в дальнем радиусе совершаются с помехой</li>
-                            <li>Вставание требует половины скорости перемещения</li>
-                        </ul>
-                    </div>
-
-                    <div class="condition-item">
-                        <div class="condition-header">
-                            <label class="condition-checkbox">
-                                <input type="checkbox" id="condition-grappled" name="conditions[]" value="Схваченный" class="hidden-checkbox">
-                                <span class="checkbox-custom"></span>
-                            </label>
-                            <span class="condition-name">Схваченный</span>
-                            <button class="toggle-description-btn">▼</button>
-                        </div>
-                        <ul class="condition-description" id="grappled-description" style="display: none;">
-                            <li>Персонаж не может двигаться</li>
-                            <li>Скорость становится 0</li>
-                            <li>Получает штраф к ловкости</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <button id="save-conditions">Сохранить состояния</button>
-            </div>
-        </div>
         <div class="sidebar-modal" id="settings-modal">
             <div class="sidebar-content">
                 <button class="close-sidebar" id="close-sidebar">&times;</button>
@@ -1331,6 +1081,257 @@
         <p>Здесь будет список заклинаний персонажа...</p>
     </div>
 </div>
+
+<div class="sidebar-modal" id="conditions-modal">
+    <div class="sidebar-content">
+        <button class="close-sidebar" id="close-conditions-sidebar">&times;</button>
+        <h2 class="settings-title">Состояния персонажа</h2>
+
+        <div class="conditions-list">
+            <!-- Пример состояния с описанием -->
+            <div class="condition-item">
+                <div class="condition-header">
+                    <label class="condition-checkbox">
+                        <input type="checkbox" id="condition-unconscious" name="conditions[]" value="Бессознательный" class="hidden-checkbox">
+                        <span class="checkbox-custom"></span>
+                    </label>
+                    <span class="condition-name">Бессознательный</span>
+                    <button class="toggle-description-btn">▼</button>
+                </div>
+                <ul class="condition-description" id="unconscious-description" style="display: none;">
+                    <li>Персонаж без сознания и не может совершать действия</li>
+                    <li>Не может двигаться или говорить</li>
+                    <li>Не осознает происходящее вокруг</li>
+                    <li>Автоматически проваливает проверки Силы и Ловкости</li>
+                    <li>Атаки против него совершаются с преимуществом</li>
+                    <li>Любая атака в ближнем радиусе - критическое попадание</li>
+                </ul>
+            </div>
+
+            <div class="condition-item">
+                <div class="condition-header">
+                    <label class="condition-checkbox">
+                        <input type="checkbox" id="condition-frightened" name="conditions[]" value="Испуганный" class="hidden-checkbox">
+                        <span class="checkbox-custom"></span>
+                    </label>
+                    <span class="condition-name">Испуганный</span>
+                    <button class="toggle-description-btn">▼</button>
+                </div>
+                <ul class="condition-description" id="frightened-description" style="display: none;">
+                    <li>Персонаж испытывает страх перед источником страха</li>
+                    <li>Не может добровольно приближаться к источнику страха</li>
+                    <li>Получает помеху к броскам атак и проверкам характеристик</li>
+                    <li>Пока источник страха в поле зрения, персонаж дезориентирован</li>
+                    <li>Действует, пока находится в пределах видимости источника</li>
+                </ul>
+            </div>
+
+            <div class="condition-item">
+                <div class="condition-header">
+                    <label class="condition-checkbox">
+                        <input type="checkbox" id="condition-invisible" name="conditions[]" value="Невидимый" class="hidden-checkbox">
+                        <span class="checkbox-custom"></span>
+                    </label>
+                    <span class="condition-name">Невидимый</span>
+                    <button class="toggle-description-btn">▼</button>
+                </div>
+                <ul class="condition-description" id="invisible-description" style="display: none;">
+                    <li>Персонаж невидим для окружающих</li>
+                    <li>Атаки против него совершаются с помехой</li>
+                    <li>Его атаки совершаются с преимуществом</li>
+                </ul>
+            </div>
+
+            <div class="condition-item">
+                <div class="condition-header">
+                    <label class="condition-checkbox">
+                        <input type="checkbox" id="condition-incapacitated" name="conditions[]" value="Недееспособный" class="hidden-checkbox">
+                        <span class="checkbox-custom"></span>
+                    </label>
+                    <span class="condition-name">Недееспособный</span>
+                    <button class="toggle-description-btn">▼</button>
+                </div>
+                <ul class="condition-description" id="incapacitated-description" style="display: none;">
+                    <li>Персонаж не может совершать действия</li>
+                    <li>Не может совершать реакции</li>
+                    <li>Сохраняет сознание</li>
+                </ul>
+            </div>
+
+            <div class="condition-item">
+                <div class="condition-header">
+                    <label class="condition-checkbox">
+                        <input type="checkbox" id="condition-deafened" name="conditions[]" value="Оглохший" class="hidden-checkbox">
+                        <span class="checkbox-custom"></span>
+                    </label>
+                    <span class="condition-name">Оглохший</span>
+                    <button class="toggle-description-btn">▼</button>
+                </div>
+                <ul class="condition-description" id="deafened-description" style="display: none;">
+                    <li>Персонаж ничего не слышит</li>
+                    <li>Автоматически проваливает проверки, требующие слуха</li>
+                    <li>Не может быть оглушен звуковыми эффектами</li>
+                </ul>
+            </div>
+
+            <div class="condition-item">
+                <div class="condition-header">
+                    <label class="condition-checkbox">
+                        <input type="checkbox" id="condition-petrified" name="conditions[]" value="Окаменевший" class="hidden-checkbox">
+                        <span class="checkbox-custom"></span>
+                    </label>
+                    <span class="condition-name">Окаменевший</span>
+                    <button class="toggle-description-btn">▼</button>
+                </div>
+                <ul class="condition-description" id="petrified-description" style="display: none;">
+                    <li>Персонаж превращен в камень</li>
+                    <li>Имеет сопротивление всем видам урона</li>
+                    <li>Не может двигаться или говорить</li>
+                    <li>Не осознает происходящее вокруг</li>
+                </ul>
+            </div>
+
+            <div class="condition-item">
+                <div class="condition-header">
+                    <label class="condition-checkbox">
+                        <input type="checkbox" id="condition-restrained" name="conditions[]" value="Опутанный" class="hidden-checkbox">
+                        <span class="checkbox-custom"></span>
+                    </label>
+                    <span class="condition-name">Опутанный</span>
+                    <button class="toggle-description-btn">▼</button>
+                </div>
+                <ul class="condition-description" id="restrained-description" style="display: none;">
+                    <li>Персонаж ограничен в движениях</li>
+                    <li>Скорость становится 0</li>
+                    <li>Атаки против него совершаются с преимуществом</li>
+                    <li>Его атаки совершаются с помехой</li>
+                </ul>
+            </div>
+
+            <div class="condition-item">
+                <div class="condition-header">
+                    <label class="condition-checkbox">
+                        <input type="checkbox" id="condition-blinded" name="conditions[]" value="Ослеплённый" class="hidden-checkbox">
+                        <span class="checkbox-custom"></span>
+                    </label>
+                    <span class="condition-name">Ослеплённый</span>
+                    <button class="toggle-description-btn">▼</button>
+                </div>
+                <ul class="condition-description" id="blinded-description" style="display: none;">
+                    <li>Персонаж ничего не видит</li>
+                    <li>Автоматически проваливает проверки, требующие зрения</li>
+                    <li>Атаки против него совершаются с преимуществом</li>
+                    <li>Его атаки совершаются с помехой</li>
+                </ul>
+            </div>
+
+            <div class="condition-item">
+                <div class="condition-header">
+                    <label class="condition-checkbox">
+                        <input type="checkbox" id="condition-poisoned" name="conditions[]" value="Отравленный" class="hidden-checkbox">
+                        <span class="checkbox-custom"></span>
+                    </label>
+                    <span class="condition-name">Отравленный</span>
+                    <button class="toggle-description-btn">▼</button>
+                </div>
+                <ul class="condition-description" id="poisoned-description" style="display: none;">
+                    <li>Персонаж отравлен</li>
+                    <li>Получает помеху к броскам атак и проверкам характеристик</li>
+                    <li>Действует до окончания действия яда</li>
+                </ul>
+            </div>
+
+            <div class="condition-item">
+                <div class="condition-header">
+                    <label class="condition-checkbox">
+                        <input type="checkbox" id="condition-charmed" name="conditions[]" value="Очарованный" class="hidden-checkbox">
+                        <span class="checkbox-custom"></span>
+                    </label>
+                    <span class="condition-name">Очарованный</span>
+                    <button class="toggle-description-btn">▼</button>
+                </div>
+                <ul class="condition-description" id="charmed-description" style="display: none;">
+                    <li>Персонаж находится под чарами</li>
+                    <li>Не может атаковать источника чар</li>
+                    <li>Источник чар имеет преимущество на социальные проверки против персонажа</li>
+                </ul>
+            </div>
+
+            <div class="condition-item">
+                <div class="condition-header">
+                    <label class="condition-checkbox">
+                        <input type="checkbox" id="condition-stunned" name="conditions[]" value="Ошеломлённый" class="hidden-checkbox">
+                        <span class="checkbox-custom"></span>
+                    </label>
+                    <span class="condition-name">Ошеломлённый</span>
+                    <button class="toggle-description-btn">▼</button>
+                </div>
+                <ul class="condition-description" id="stunned-description" style="display: none;">
+                    <li>Персонаж ошеломлен</li>
+                    <li>Не может совершать действия</li>
+                    <li>Не может совершать реакции</li>
+                    <li>Атаки против него совершаются с преимуществом</li>
+                    <li>Автоматически проваливает проверки Силы и Ловкости</li>
+                </ul>
+            </div>
+
+            <div class="condition-item">
+                <div class="condition-header">
+                    <label class="condition-checkbox">
+                        <input type="checkbox" id="condition-paralyzed" name="conditions[]" value="Парализованный" class="hidden-checkbox">
+                        <span class="checkbox-custom"></span>
+                    </label>
+                    <span class="condition-name">Парализованный</span>
+                    <button class="toggle-description-btn">▼</button>
+                </div>
+                <ul class="condition-description" id="paralyzed-description" style="display: none;">
+                    <li>Персонаж парализован</li>
+                    <li>Не может двигаться или говорить</li>
+                    <li>Атаки в ближнем радиусе против него совершаются с преимуществом</li>
+                    <li>Критические попадания при атаке в ближнем радиусе</li>
+                    <li>Автоматически проваливает проверки Силы и Ловкости</li>
+                </ul>
+            </div>
+
+            <div class="condition-item">
+                <div class="condition-header">
+                    <label class="condition-checkbox">
+                        <input type="checkbox" id="condition-prone" name="conditions[]" value="Сбитый с ног" class="hidden-checkbox">
+                        <span class="checkbox-custom"></span>
+                    </label>
+                    <span class="condition-name">Сбитый с ног</span>
+                    <button class="toggle-description-btn">▼</button>
+                </div>
+                <ul class="condition-description" id="prone-description" style="display: none;">
+                    <li>Персонаж лежит на земле</li>
+                    <li>Единственное возможное перемещение - ползком</li>
+                    <li>Атаки в ближнем радиусе против него совершаются с преимуществом</li>
+                    <li>Атаки в дальнем радиусе совершаются с помехой</li>
+                    <li>Вставание требует половины скорости перемещения</li>
+                </ul>
+            </div>
+
+            <div class="condition-item">
+                <div class="condition-header">
+                    <label class="condition-checkbox">
+                        <input type="checkbox" id="condition-grappled" name="conditions[]" value="Схваченный" class="hidden-checkbox">
+                        <span class="checkbox-custom"></span>
+                    </label>
+                    <span class="condition-name">Схваченный</span>
+                    <button class="toggle-description-btn">▼</button>
+                </div>
+                <ul class="condition-description" id="grappled-description" style="display: none;">
+                    <li>Персонаж не может двигаться</li>
+                    <li>Скорость становится 0</li>
+                    <li>Получает штраф к ловкости</li>
+                </ul>
+            </div>
+        </div>
+
+        <button id="save-conditions">Сохранить состояния</button>
+    </div>
+</div>
+
 <!-- Модальное окно повышения уровня -->
 <div id="level-up-modal" class="level-modal">
     <div class="level-up-content">
