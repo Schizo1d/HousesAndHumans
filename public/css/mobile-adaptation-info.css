@@ -269,7 +269,7 @@
         height: 50px;
     }
     .calc-button.action-btn{
-
+        font-size: 16px;
     }
     /* Вкладки для мобилок */
     .tabs-selector-mobile {
