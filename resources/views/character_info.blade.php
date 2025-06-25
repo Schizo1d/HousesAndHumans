@@ -1000,7 +1000,7 @@
 
     <div class="stats-container" id="stats-container">
         <div class="stat-box">
-            <span class="stat-value" id="proficiency-bonus-link">+2</span>
+            <a href="javascript:void(0);" id="proficiency-bonus-link"></a>
             <span class="stat-label">Владение</span>
         </div>
         <div class="stat-box" onclick="openHealthModal()">
@@ -1599,14 +1599,6 @@
 
         // Обновляем отображение чекбоксов
         updateDeathSavesCheckboxes();
-    });
-
-    document.addEventListener("DOMContentLoaded", function() {
-        // Показываем характеристики по умолчанию (если мобильная версия)
-        if (window.innerWidth <= 768) {
-            document.getElementById('stats-container').classList.add('show');
-        }
-        updateProficiencyBonus();
     });
 
     // При загрузке страницы
