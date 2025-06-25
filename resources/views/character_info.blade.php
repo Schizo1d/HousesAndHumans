@@ -1000,23 +1000,23 @@
 
     <div class="stats-container" id="stats-container">
         <div class="stat-box">
-            <span class="stat-value" id="mobile-proficiency-bonus">+2</span>
+            <span class="stat-value" id="proficiency-bonus-link">+2</span>
             <span class="stat-label">Владение</span>
         </div>
         <div class="stat-box" onclick="openHealthModal()">
-            <span class="stat-value" id="mobile-health-display">0/0</span>
+            <span class="stat-value" id="health-display">0/0</span>
             <span class="stat-label">Здоровье</span>
         </div>
         <div class="stat-box" onclick="rollInitiative()">
-            <span class="stat-value" id="mobile-initiative-mod">+0</span>
+            <span class="stat-value" id="initiative-mod">+0</span>
             <span class="stat-label">Инициатива</span>
         </div>
         <div class="stat-box">
-            <span class="stat-value" id="mobile-inspiration">—</span>
+            <span class="stat-value">—</span>
             <span class="stat-label">Вдохновение</span>
         </div>
         <div class="stat-box" onclick="document.getElementById('exhaustion-level').focus()">
-            <span class="stat-value" id="mobile-exhaustion-value">0</span>
+            <span class="stat-value" id="exhaustion-value">0</span>
             <span class="stat-label">Истощение</span>
         </div>
         <div class="stat-box" onclick="openConditionsModal()">
@@ -1588,13 +1588,6 @@
                     .catch(error => console.error('Ошибка:', error));
             }
 
-            function updateAllStats() {
-                updateMobileStats();
-                updateProficiencyBonus();
-                updateHealthDisplay();
-                updateInitiative();
-            }
-
             // Загрузка сохраненных данных при открытии страницы
             document.addEventListener("DOMContentLoaded", function() {
                 loadConditions();
@@ -1909,11 +1902,6 @@
                 loadConditions();
             });
 
-            document.addEventListener("DOMContentLoaded", function() {
-                updateMobileStats();
-                loadHealth();
-                loadConditions();
-            });
 
             document.addEventListener("DOMContentLoaded", function() {
                 const exhaustionSelect = document.getElementById('exhaustion-level');
@@ -3363,11 +3351,11 @@
             });
 
             function saveHealth() {
+                // Здесь можно добавить сохранение здоровья на сервер
                 localStorage.setItem(`character_${characterId}_health`, JSON.stringify({
                     current: currentHealth,
                     max: maxHealth
                 }));
-                updateMobileStats(); // Добавляем обновление мобильных статистик
             }
 
 
@@ -3384,36 +3372,27 @@
             }
             function updateHealthColor() {
                 const healthDisplay = document.querySelector('.digital-health');
-                const mobileHealthDisplay = document.querySelector('.stat-box:nth-child(2) .stat-value');
                 const healthModalDisplay = document.querySelector('.health-display-container');
                 const currentHealth = parseInt(document.getElementById('current-health-value').textContent) || 0;
                 const maxHealth = parseInt(document.getElementById('max-health-value').textContent) || 1;
                 const healthPercentage = (currentHealth / maxHealth) * 100;
 
-                // Обновляем цвет для десктопной версии
+                // Удаляем все классы цвета
                 healthDisplay.classList.remove('high-health', 'medium-health', 'low-health');
                 if (healthModalDisplay) {
                     healthModalDisplay.classList.remove('high-health', 'medium-health', 'low-health');
                 }
 
-                // Обновляем цвет для мобильной версии
-                if (mobileHealthDisplay) {
-                    mobileHealthDisplay.classList.remove('high-health', 'medium-health', 'low-health');
-                }
-
-                // Устанавливаем цвет для всех версий
+                // Добавляем соответствующий класс
                 if (healthPercentage >= 70) {
                     healthDisplay.classList.add('high-health');
                     if (healthModalDisplay) healthModalDisplay.classList.add('high-health');
-                    if (mobileHealthDisplay) mobileHealthDisplay.classList.add('high-health');
                 } else if (healthPercentage >= 40) {
                     healthDisplay.classList.add('medium-health');
                     if (healthModalDisplay) healthModalDisplay.classList.add('medium-health');
-                    if (mobileHealthDisplay) mobileHealthDisplay.classList.add('medium-health');
                 } else {
                     healthDisplay.classList.add('low-health');
                     if (healthModalDisplay) healthModalDisplay.classList.add('low-health');
-                    if (mobileHealthDisplay) mobileHealthDisplay.classList.add('low-health');
                 }
             }
             // В обработчике кнопки "УРОН"
@@ -3456,11 +3435,11 @@
                     currentHealth = health.current || 0;
                     maxHealth = health.max || 0;
                 } else {
+                    // Инициализация по умолчанию
                     currentHealth = 0;
                     maxHealth = 0;
                 }
                 updateHealthDisplay();
-                updateMobileStats(); // Добавляем обновление мобильных статистик
             }
 
             // Инициализация при загрузке
@@ -3591,8 +3570,10 @@
                 const conditionsButton = document.querySelector('.digital-conditions-button');
                 const mobileConditionsCount = document.getElementById('mobile-conditions-count');
 
+                // Сохраняем все выбранные состояния
                 localStorage.setItem(`character_${characterId}_conditions`, JSON.stringify(conditions));
 
+                // Для десктопной версии - отображаем первые 6 состояний + троеточие
                 if (conditions.length > 0) {
                     const displayConditions = conditions.slice(0, 6);
                     if (conditions.length > 6) {
@@ -3600,6 +3581,8 @@
                     }
                     conditionsButton.textContent = displayConditions.join(', ');
                     conditionsButton.title = conditions.join(', ');
+
+                    // Для мобильной версии - просто показываем количество
                     mobileConditionsCount.textContent = conditions.length;
                 } else {
                     conditionsButton.textContent = '—';
@@ -3731,29 +3714,6 @@
                     btn.style.fontSize = '20px';
                 });
             });
-
-            function updateMobileStats() {
-                // Обновляем бонус владения
-                const level = parseInt(document.querySelector('.character-level').textContent.match(/\d+/)[0] || 1);
-                document.getElementById('proficiency-bonus-link').textContent = `+${getProficiencyBonus(level)}`;
-
-                // Обновляем здоровье
-                document.getElementById('health-display').textContent = `${currentHealth}/${maxHealth}`;
-
-                // Обновляем инициативу
-                const dexValue = parseInt(document.getElementById("dexterity").value) || 10;
-                const initiativeMod = getModifier(dexValue);
-                document.getElementById("initiative-mod").textContent = initiativeMod >= 0 ? `+${initiativeMod}` : initiativeMod;
-
-                // Обновляем истощение
-                const exhaustionValue = document.getElementById('exhaustion-value');
-                const exhaustionSelect = document.getElementById('exhaustion-level');
-                exhaustionValue.textContent = exhaustionSelect.value;
-
-                // Обновляем цвет здоровья
-                updateHealthColor();
-            }
-
     </script>
 
 </body>
