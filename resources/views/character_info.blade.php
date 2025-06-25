@@ -4448,49 +4448,84 @@
     }
 
     function syncAttributes() {
-        const attributes = ['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'];
+        try {
+            // Синхронизация основных атрибутов
+            const attributes = ['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'];
 
-        attributes.forEach(attr => {
-            const desktopValue = document.getElementById(`${attr}`).value;
-            document.getElementById(`${attr}-mobile`).value = desktopValue;
-            document.getElementById(`${attr}-button-mobile`).textContent = desktopValue;
-
-            // Синхронизация модификаторов
-            const modifier = getModifier(parseInt(desktopValue));
-            document.getElementById(`${attr}-modifier-mobile`).textContent = modifier;
-            document.getElementById(`${attr}-save-modifier-mobile`).textContent = modifier;
-        });
-
-        // Синхронизация навыков
-        const skills = {
-            'strength': ['athletics'],
-            'dexterity': ['acrobatics', 'sleight_of_hand', 'stealth'],
-            'intelligence': ['investigation', 'history', 'arcana', 'nature', 'religion'],
-            'wisdom': ['perception', 'survival', 'medicine', 'insight', 'animal_handling'],
-            'charisma': ['performance', 'intimidation', 'deception', 'persuasion']
-        };
-
-        Object.keys(skills).forEach(attr => {
-            skills[attr].forEach(skill => {
-                const value = document.getElementById(skill).value;
-                document.getElementById(`${skill}-mobile`).value = value;
-                document.getElementById(`${skill}-value-mobile`).textContent = value;
-
-                // Синхронизация радио-кнопок
-                const radio = document.getElementById(`${skill}-radio`);
-                const mobileRadio = document.getElementById(`${skill}-radio-mobile`);
-                if (radio && mobileRadio) {
-                    mobileRadio.checked = radio.checked;
+            attributes.forEach(attr => {
+                const desktopInput = document.getElementById(attr);
+                if (!desktopInput) {
+                    console.warn(`Element with id '${attr}' not found`);
+                    return;
                 }
-            });
-        });
 
-        // Синхронизация пассивных навыков
-        ['perception', 'insight', 'investigation'].forEach(skill => {
-            const value = document.getElementById(`passive_${skill}`).value;
-            document.getElementById(`passive_${skill}-mobile`).value = value;
-            document.getElementById(`passive-${skill}-button-mobile`).textContent = value;
-        });
+                const mobileInput = document.getElementById(`${attr}-mobile`);
+                const mobileButton = document.getElementById(`${attr}-button-mobile`);
+
+                if (mobileInput) mobileInput.value = desktopInput.value;
+                if (mobileButton) mobileButton.textContent = desktopInput.value;
+
+                // Синхронизация модификаторов
+                const modifier = getModifier(parseInt(desktopInput.value));
+                const modElement = document.getElementById(`${attr}-modifier-mobile`);
+                const saveModElement = document.getElementById(`${attr}-save-modifier-mobile`);
+
+                if (modElement) modElement.textContent = modifier;
+                if (saveModElement) saveModElement.textContent = modifier;
+            });
+
+            // Синхронизация навыков
+            const skills = {
+                'strength': ['athletics'],
+                'dexterity': ['acrobatics', 'sleight_of_hand', 'stealth'],
+                'intelligence': ['investigation', 'history', 'arcana', 'nature', 'religion'],
+                'wisdom': ['perception', 'survival', 'medicine', 'insight', 'animal_handling'],
+                'charisma': ['performance', 'intimidation', 'deception', 'persuasion'] // Исправлена опечатка в 'persuasion'
+            };
+
+            Object.keys(skills).forEach(attr => {
+                skills[attr].forEach(skill => {
+                    const skillInput = document.getElementById(skill);
+                    if (!skillInput) {
+                        console.warn(`Skill element with id '${skill}' not found`);
+                        return;
+                    }
+
+                    const mobileSkillInput = document.getElementById(`${skill}-mobile`);
+                    const mobileSkillValue = document.getElementById(`${skill}-value-mobile`);
+
+                    if (mobileSkillInput) mobileSkillInput.value = skillInput.value;
+                    if (mobileSkillValue) mobileSkillValue.textContent = skillInput.value;
+
+                    // Синхронизация радио-кнопок
+                    const radio = document.getElementById(`${skill}-radio`);
+                    const mobileRadio = document.getElementById(`${skill}-radio-mobile`);
+
+                    if (radio && mobileRadio) {
+                        mobileRadio.checked = radio.checked;
+                    }
+                });
+            });
+
+            // Синхронизация пассивных навыков
+            ['perception', 'insight', 'investigation'].forEach(skill => {
+                const passiveInput = document.getElementById(`passive_${skill}`);
+                if (!passiveInput) {
+                    console.warn(`Passive skill element with id 'passive_${skill}' not found`);
+                    return;
+                }
+
+                const mobilePassiveInput = document.getElementById(`passive_${skill}-mobile`);
+                const mobilePassiveButton = document.getElementById(`passive-${skill}-button-mobile`);
+
+                if (mobilePassiveInput) mobilePassiveInput.value = passiveInput.value;
+                if (mobilePassiveButton) mobilePassiveButton.textContent = passiveInput.value;
+            });
+
+            console.log('Attributes synchronized successfully');
+        } catch (error) {
+            console.error('Error in syncAttributes:', error);
+        }
     }
 
 </script>
