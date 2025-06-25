@@ -1535,6 +1535,10 @@
                 successes: 0,
                 failures: 0
             };
+            let currentInitiative = 0;
+            let currentProficiencyBonus = 2;
+            let currentExhaustion = 0;
+            let currentInspiration = false;
 
             const XP_TABLE = {
                 1: 0,
@@ -1599,6 +1603,21 @@
 
                 // Обновляем отображение чекбоксов
                 updateDeathSavesCheckboxes();
+            });
+
+            // Инициализация при загрузке
+            document.addEventListener("DOMContentLoaded", function() {
+                // Загружаем сохраненные значения
+                loadHealth();
+                loadExhaustion();
+                loadInspiration();
+
+                // Инициализируем значения
+                syncProficiencyBonus();
+                syncInitiative();
+
+                // Обновляем отображение
+                updateAllStats();
             });
 
             // При загрузке страницы
@@ -1927,6 +1946,15 @@
                 });
             });
 
+            // Добавляем обработчики для клика по вдохновению
+            document.addEventListener("DOMContentLoaded", function() {
+                document.querySelectorAll('.inspiration-display').forEach(el => {
+                    el.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        toggleInspiration();
+                    });
+                });
+            });
 
             // Функция инициализации радио-кнопки навыка
             function initSkillRadio(skillId) {
@@ -2391,6 +2419,17 @@
                     })
                 });
             });
+
+            document.addEventListener("DOMContentLoaded", function() {
+                const exhaustionSelect = document.getElementById('exhaustion-level');
+                if (exhaustionSelect) {
+                    exhaustionSelect.addEventListener('change', function() {
+                        currentExhaustion = parseInt(this.value) || 0;
+                        syncExhaustion();
+                    });
+                }
+            });
+
             document.addEventListener("DOMContentLoaded", function () {
                 const nameInput = document.getElementById("character-name-input");
                 const saveButton = document.getElementById("save-character-name");
@@ -3271,6 +3310,7 @@
                 updateHealthDisplay();
                 saveHealth();
                 updateHealthColor();
+                syncHealth();
 
             }
 
@@ -3285,6 +3325,7 @@
                 updateHealthDisplay();
                 saveHealth();
                 updateHealthColor();
+                syncHealth();
 
                 // Если здоровье достигло 0 через ручной урон
                 if (currentHealth <= 0 && manualDamage) {
@@ -3303,6 +3344,7 @@
                 updateHealthDisplay();
                 saveHealth();
                 updateHealthColor();
+                syncHealth();
             }
 
             function resetHealth() {
@@ -3434,12 +3476,8 @@
                     const health = JSON.parse(savedHealth);
                     currentHealth = health.current || 0;
                     maxHealth = health.max || 0;
-                } else {
-                    // Инициализация по умолчанию
-                    currentHealth = 0;
-                    maxHealth = 0;
                 }
-                updateHealthDisplay();
+                updateHealthDisplay()
             }
 
             // Инициализация при загрузке
@@ -3714,6 +3752,96 @@
                     btn.style.fontSize = '20px';
                 });
             });
+            function syncHealth() {
+                // Обновляем отображение здоровья
+                document.querySelectorAll('#health-display').forEach(el => {
+                    el.textContent = `${currentHealth}/${maxHealth}`;
+                });
+
+                // Обновляем цвет здоровья
+                updateHealthColor();
+
+                // Сохраняем в localStorage
+                localStorage.setItem(`character_${characterId}_health`, JSON.stringify({
+                    current: currentHealth,
+                    max: maxHealth
+                }));
+            }
+            function syncInitiative() {
+                const dexValue = parseInt(document.getElementById("dexterity").value) || 10;
+                currentInitiative = getModifier(dexValue);
+
+                // Обновляем отображение инициативы
+                document.querySelectorAll('#initiative-mod').forEach(el => {
+                    el.textContent = currentInitiative >= 0 ? `+${currentInitiative}` : currentInitiative;
+                });
+            }
+            function syncProficiencyBonus() {
+                const level = parseInt(document.querySelector('.character-level').textContent.match(/\d+/)[0] || 1;
+                currentProficiencyBonus = getProficiencyBonus(level);
+
+                // Обновляем отображение бонуса владения
+                document.querySelectorAll('#proficiency-bonus-link').forEach(el => {
+                    el.textContent = `+${currentProficiencyBonus}`;
+                });
+            }
+            function syncExhaustion() {
+                // Обновляем отображение истощения
+                document.querySelectorAll('#exhaustion-value').forEach(el => {
+                    el.textContent = currentExhaustion;
+                });
+
+                // Обновляем select
+                const exhaustionSelect = document.getElementById('exhaustion-level');
+                if (exhaustionSelect) {
+                    exhaustionSelect.value = currentExhaustion;
+                }
+
+                // Сохраняем в localStorage
+                localStorage.setItem(`character_${characterId}_exhaustion`, currentExhaustion);
+                saveExhaustionLevel(currentExhaustion);
+            }
+            function syncInspiration() {
+                // Обновляем отображение вдохновения
+                document.querySelectorAll('.inspiration-display').forEach(el => {
+                    el.textContent = currentInspiration ? '✓' : '—';
+                    el.style.color = currentInspiration ? '#4CAF50' : '#888';
+                });
+
+                // Сохраняем в localStorage
+                localStorage.setItem(`character_${characterId}_inspiration`, currentInspiration);
+            }
+            // Функция для загрузки истощения
+            function loadExhaustion() {
+                const savedExhaustion = localStorage.getItem(`character_${characterId}_exhaustion`);
+                if (savedExhaustion) {
+                    currentExhaustion = parseInt(savedExhaustion) || 0;
+                }
+            }
+
+            // Функция для загрузки вдохновения
+            function loadInspiration() {
+                const savedInspiration = localStorage.getItem(`character_${characterId}_inspiration`);
+                if (savedInspiration) {
+                    currentInspiration = savedInspiration === 'true';
+                }
+            }
+
+            // Функция для обновления всех характеристик
+            function updateAllStats() {
+                syncHealth();
+                syncInitiative();
+                syncProficiencyBonus();
+                syncExhaustion();
+                syncInspiration();
+            }
+            // Функция для переключения вдохновения
+            function toggleInspiration() {
+                currentInspiration = !currentInspiration;
+                syncInspiration();
+            }
+
+
     </script>
 
 </body>
