@@ -1067,7 +1067,6 @@
             </span>
                         </button>
                     </div>
-
                     <!-- Блок для спасброска -->
                     <div class="save-block">
                         <div class="attribute-skill-wrap">
