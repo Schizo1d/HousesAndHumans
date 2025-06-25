@@ -1000,7 +1000,7 @@
 
     <div class="stats-container" id="stats-container">
         <div class="stat-box">
-            <a href="javascript:void(0);" id="proficiency-bonus-link"></a>
+            <span class="stat-value" id="proficiency-bonus-link">+2</span>
             <span class="stat-label">Владение</span>
         </div>
         <div class="stat-box" onclick="openHealthModal()">
