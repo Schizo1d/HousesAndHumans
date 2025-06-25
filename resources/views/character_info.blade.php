@@ -1709,6 +1709,7 @@
                     <input type="hidden" id="passive_investigation" name="passive_investigation"
                            value="{{ $character->attributes->passive_investigation ?? 10 }}">
                 </div>
+                </div>
             </div>
         </div>
     </div>
@@ -2278,6 +2279,22 @@
             // Обновляем при изменении атрибутов
             document.getElementById('attributesForm').addEventListener('input', function() {
                 setTimeout(syncAttributes, 100);
+            });
+        }
+    });
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const closeConditionsBtn = document.getElementById('close-conditions-sidebar');
+        if (closeConditionsBtn) {
+            closeConditionsBtn.addEventListener('click', closeConditionsModal);
+        }
+
+        const backdrop = document.getElementById('settings-backdrop');
+        if (backdrop) {
+            backdrop.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeConditionsModal();
+                }
             });
         }
     });
@@ -4358,7 +4375,7 @@
         // Показываем выбранную
         if (selectedTab === 'attributes') {
             document.getElementById('attributes-mobile').classList.add('active');
-            syncMobileAttributes();
+            syncAttributes(); // Заменили syncMobileAttributes на syncAttributes
         } else {
             document.getElementById(`${selectedTab}-tab-mobile`).classList.add('active');
         }
