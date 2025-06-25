@@ -1539,40 +1539,177 @@
                            value="{{ $character->attributes->animal_handling ?? 0 }}">
                 </div>
             </div>
-        </div>
 
-        <!-- Остальные атрибуты (Телосложение, Интеллект, Мудрость, Харизма) -->
-        <!-- ... аналогичная структура для остальных атрибутов ... -->
+            <!-- Харизма -->
+            <div class="attribute-item">
+                <div class="attribute-main-stat">
+                    <a href="javascript:void(0);" class="attribute-link" onclick="openModal('charisma')">
+                        <span class="attribute-name">Харизма</span>
+                        <div class="line"></div>
+                        <span class="attribute-value" id="charisma-button">
+                {{ $character->attributes->charisma ?? 10 }}
+            </span>
+                    </a>
+                    <input type="hidden" id="charisma" name="charisma"
+                           value="{{ $character->attributes->charisma ?? 10 }}">
+                </div>
+                <div class="attribute-checks">
+                    <!-- Блок для проверки -->
+                    <div class="check-block">
+                        <div class="attribute-skill-wrap">
+                            <a href="#" class="check-link"
+                               onclick="openModal('charisma'); return false;">Проверка</a>
+                        </div>
+                        <button type="button" class="dice-roll-button"
+                                onclick="rollDice('charisma'); return false;">
+                <span id="charisma-modifier" class="modifier">
+                    {{ floor(($character->attributes->charisma ?? 10 - 10) / 2) }}
+                </span>
+                        </button>
+                    </div>
 
-        <!-- Пассивные навыки -->
-        <div class="passive-skills-mobile">
-            <h3 class="passive-title-mobile">Пассивные чувства</h3>
+                    <!-- Блок для спасброска -->
+                    <div class="save-block">
+                        <div class="attribute-skill-wrap">
+                            <a href="#" class="save-link"
+                               onclick="openModal('charisma'); return false;">Спасбросок</a>
+                        </div>
+                        <button type="button" class="dice-roll-button"
+                                onclick="rollSave('charisma'); return false;">
+                <span id="charisma-save-modifier" class="modifier">
+                    {{ floor(($character->attributes->charisma ?? 10 - 10) / 2) }}
+                </span>
+                        </button>
+                    </div>
+                </div>
+                <div class="sub-attributes">
 
-            <div class="passive-skill-mobile">
-                <button class="passive-value-mobile" id="passive-perception-button-mobile">
-                    {{ $character->attributes->passive_perception ?? 10 }}
-                </button>
-                <span class="passive-name-mobile">Восприятие (Мудрость):</span>
-                <input type="hidden" id="passive_perception-mobile" name="passive_perception"
-                       value="{{ $character->attributes->passive_perception ?? 10 }}">
+                    <!--Выступление-->
+
+                    <div class="attribute-skill">
+                        <label class="double-radio-container">
+                            <input type="checkbox" class="double-radio-input" id="performance-radio"
+                                   name="performance-radio"
+                                   onclick="handleSkillRadio(this, 'performance', 'charisma')">
+                            <span class="double-radio-custom">
+                    <span class="radio-dot dot-1"></span>
+                    <span class="radio-dot dot-2"></span>
+                </span>
+                        </label>
+                        <span class="attribute-skill-name">Выступление</span>
+
+                        <button type="button" class="dice-roll-button"
+                                onclick="rollSkill('performance', 'charisma')">
+                            <span id="performance-value">{{ $character->attributes->performance ?? 0 }}</span>
+                        </button>
+                    </div>
+                    <input type="hidden" name="performance" id="performance"
+                           value="{{ $character->attributes->performance ?? 0 }}">
+
+                    <!--Запугивание-->
+
+                    <div class="attribute-skill">
+                        <label class="double-radio-container">
+                            <input type="checkbox" class="double-radio-input" id="intimidation-radio"
+                                   name="intimidation-radio"
+                                   onclick="handleSkillRadio(this, 'intimidation', 'charisma')">
+                            <span class="double-radio-custom">
+                    <span class="radio-dot dot-1"></span>
+                    <span class="radio-dot dot-2"></span>
+                </span>
+                        </label>
+                        <span class="attribute-skill-name">Запугивание</span>
+
+                        <button type="button" class="dice-roll-button"
+                                onclick="rollSkill('intimidation', 'charisma')">
+                            <span id="intimidation-value">{{ $character->attributes->intimidation ?? 0 }}</span>
+                        </button>
+                    </div>
+                    <input type="hidden" name="intimidation" id="intimidation"
+                           value="{{ $character->attributes->intimidation ?? 0 }}">
+
+                    <!--Обман-->
+
+                    <div class="attribute-skill">
+                        <label class="double-radio-container">
+                            <input type="checkbox" class="double-radio-input" id="deception-radio"
+                                   name="deception-radio" onclick="handleSkillRadio(this, 'deception', 'charisma')">
+                            <span class="double-radio-custom">
+                    <span class="radio-dot dot-1"></span>
+                    <span class="radio-dot dot-2"></span>
+                </span>
+                        </label>
+                        <span class="attribute-skill-name">Обман</span>
+
+                        <button type="button" class="dice-roll-button" onclick="rollSkill('deception', 'charisma')">
+                            <span id="deception-value">{{ $character->attributes->deception ?? 0 }}</span>
+                        </button>
+                    </div>
+                    <input type="hidden" name="deception" id="deception"
+                           value="{{ $character->attributes->deception ?? 0 }}">
+
+                    <!--Убеждение-->
+
+                    <div class="attribute-skill">
+                        <label class="double-radio-container">
+                            <input type="checkbox" class="double-radio-input" id="persuasion-radio"
+                                   name="persuasion-radio"
+                                   onclick="handleSkillRadio(this, 'persuasion', 'charisma')">
+                            <span class="double-radio-custom">
+                    <span class="radio-dot dot-1"></span>
+                    <span class="radio-dot dot-2"></span>
+                </span>
+                        </label>
+                        <span class="attribute-skill-name">Убеждение</span>
+
+                        <button type="button" class="dice-roll-button"
+                                onclick="rollSkill('persuasion', 'charisma')">
+                            <span id="persuasion-value">{{ $character->attributes->persuasion ?? 0 }}</span>
+                        </button>
+                    </div>
+                    <input type="hidden" name="persuasion" id="persuasion"
+                           value="{{ $character->attributes->persuasion ?? 0 }}">
+
+                </div>
             </div>
 
-            <div class="passive-skill-mobile">
-                <button class="passive-value-mobile" id="passive-insight-button-mobile">
-                    {{ $character->attributes->passive_insight ?? 10 }}
-                </button>
-                <span class="passive-name-mobile">Проницательность (Мудрость):</span>
-                <input type="hidden" id="passive_insight-mobile" name="passive_insight"
-                       value="{{ $character->attributes->passive_insight ?? 10 }}">
-            </div>
 
-            <div class="passive-skill-mobile">
-                <button class="passive-value-mobile" id="passive-investigation-button-mobile">
-                    {{ $character->attributes->passive_investigation ?? 10 }}
-                </button>
-                <span class="passive-name-mobile">Анализ (Интеллект):</span>
-                <input type="hidden" id="passive_investigation-mobile" name="passive_investigation"
-                       value="{{ $character->attributes->passive_investigation ?? 10 }}">
+            <div class="passive-skills">
+                <h3>Пассивные чувства</h3>
+
+                <div class="passive-skill-item">
+                    <button class="passive-skill-value" id="passive-perception-button">
+                        {{ $character->attributes->passive_perception ?? 10 }}
+                    </button>
+                    <a href="javascript:void(0);" onclick="openModal('wisdom')" class="passive-link">
+                        <span class="passive-skill-name">Восприятие (Мудрость):</span>
+                    </a>
+                    <input type="hidden" id="passive_perception" name="passive_perception"
+                           value="{{ $character->attributes->passive_perception ?? 10 }}">
+                </div>
+
+                <div class="passive-skill-item">
+                    <button class="passive-skill-value" id="passive-insight-button">
+                        {{ $character->attributes->passive_insight ?? 10 }}
+                    </button>
+                    <a href="javascript:void(0);" onclick="openModal('wisdom')" class="passive-link">
+                        <span class="passive-skill-name">Проницательность (Мудрость):</span>
+                    </a>
+                    <input type="hidden" id="passive_insight" name="passive_insight"
+                           value="{{ $character->attributes->passive_insight ?? 10 }}">
+                </div>
+
+                <div class="passive-skill-item">
+                    <button class="passive-skill-value" id="passive-investigation-button">
+                        {{ $character->attributes->passive_investigation ?? 10 }}
+                    </button>
+                    <a href="javascript:void(0);" onclick="openModal('intelligence')" class="passive-link">
+                        <span class="passive-skill-name">Анализ (Интеллект):</span>
+                    </a>
+                    <input type="hidden" id="passive_investigation" name="passive_investigation"
+                           value="{{ $character->attributes->passive_investigation ?? 10 }}">
+                </div>
+            </div>
             </div>
         </div>
     </div>
