@@ -1048,7 +1048,9 @@
             <div class="attribute-content-mobile" id="strength-content-mobile">
                 <div class="modifier-block-mobile">
                     <span class="modifier-label-mobile">Модификатор:</span>
-                    <span class="modifier-value-mobile" id="strength-modifier-mobile">{{ floor(($character->attributes->strength ?? 10 - 10) / 2 }}</span>
+                    <button class="mobile-btn" onclick="rollDice('strength')">
+                        <span id="strength-modifier-mobile">{{ floor(($character->attributes->strength ?? 10 - 10) / 2 }}</span>
+                    </button>
                 </div>
 
                 <div class="modifier-block-mobile">
@@ -1074,9 +1076,263 @@
                 <span class="attribute-value-mobile" id="dexterity-value-mobile">{{ $character->attributes->dexterity ?? 10 }}</span>
             </div>
             <div class="attribute-content-mobile" id="dexterity-content-mobile">
-                <!-- Аналогичная структура как для силы -->
+                <div class="modifier-block-mobile">
+                    <span class="modifier-label-mobile">Модификатор:</span>
+                    <button class="mobile-btn" onclick="rollDice('dexterity')">
+                        <span id="dexterity-modifier-mobile">{{ floor(($character->attributes->dexterity ?? 10 - 10) / 2 }}</span>
+                    </button>
+                </div>
+
+                <div class="modifier-block-mobile">
+                    <span class="modifier-label-mobile">Спасбросок:</span>
+                    <button class="mobile-btn" onclick="rollSave('dexterity')">
+                        <span id="dexterity-save-modifier-mobile">{{ floor(($character->attributes->dexterity ?? 10 - 10) / 2 }}</span>
+                    </button>
+                </div>
+
+                <div class="skill-item-mobile">
+                    <span class="skill-name-mobile">Акробатика</span>
+                    <button class="mobile-btn" onclick="rollSkill('acrobatics', 'dexterity')">
+                        <span id="acrobatics-value-mobile">{{ $character->attributes->acrobatics ?? 0 }}</span>
+                    </button>
+                </div>
+
+                <div class="skill-item-mobile">
+                    <span class="skill-name-mobile">Ловкость рук</span>
+                    <button class="mobile-btn" onclick="rollSkill('sleight_of_hand', 'dexterity')">
+                        <span id="sleight_of_hand-value-mobile">{{ $character->attributes->sleight_of_hand ?? 0 }}</span>
+                    </button>
+                </div>
+
+                <div class="skill-item-mobile">
+                    <span class="skill-name-mobile">Скрытность</span>
+                    <button class="mobile-btn" onclick="rollSkill('stealth', 'dexterity')">
+                        <span id="stealth-value-mobile">{{ $character->attributes->stealth ?? 0 }}</span>
+                    </button>
+                </div>
             </div>
         </div>
+
+        <!-- Телосложение -->
+        <div class="attribute-item-mobile">
+            <div class="attribute-header-mobile" onclick="toggleMobileAttribute('constitution')">
+                <span class="attribute-name-mobile">Телосложение</span>
+                <span class="attribute-value-mobile" id="constitution-value-mobile">{{ $character->attributes->constitution ?? 10 }}</span>
+            </div>
+            <div class="attribute-content-mobile" id="constitution-content-mobile">
+                <div class="modifier-block-mobile">
+                    <span class="modifier-label-mobile">Модификатор:</span>
+                    <button class="mobile-btn" onclick="rollDice('constitution')">
+                        <span id="constitution-modifier-mobile">{{ floor(($character->attributes->constitution ?? 10 - 10) / 2 }}</span>
+                    </button>
+                </div>
+
+                <div class="modifier-block-mobile">
+                    <span class="modifier-label-mobile">Спасбросок:</span>
+                    <button class="mobile-btn" onclick="rollSave('constitution')">
+                        <span id="constitution-save-modifier-mobile">{{ floor(($character->attributes->constitution ?? 10 - 10) / 2 }}</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Интеллект -->
+        <div class="attribute-item-mobile">
+            <div class="attribute-header-mobile" onclick="toggleMobileAttribute('intelligence')">
+                <span class="attribute-name-mobile">Интеллект</span>
+                <span class="attribute-value-mobile" id="intelligence-value-mobile">{{ $character->attributes->intelligence ?? 10 }}</span>
+            </div>
+            <div class="attribute-content-mobile" id="intelligence-content-mobile">
+                <div class="modifier-block-mobile">
+                    <span class="modifier-label-mobile">Модификатор:</span>
+                    <button class="mobile-btn" onclick="rollDice('intelligence')">
+                        <span id="intelligence-modifier-mobile">{{ floor(($character->attributes->intelligence ?? 10 - 10) / 2 }}</span>
+                    </button>
+                </div>
+
+                <div class="modifier-block-mobile">
+                    <span class="modifier-label-mobile">Спасбросок:</span>
+                    <button class="mobile-btn" onclick="rollSave('intelligence')">
+                        <span id="intelligence-save-modifier-mobile">{{ floor(($character->attributes->intelligence ?? 10 - 10) / 2 }}</span>
+                    </button>
+                </div>
+
+                <div class="skill-item-mobile">
+                    <span class="skill-name-mobile">Анализ</span>
+                    <button class="mobile-btn" onclick="rollSkill('investigation', 'intelligence')">
+                        <span id="investigation-value-mobile">{{ $character->attributes->investigation ?? 0 }}</span>
+                    </button>
+                </div>
+
+                <div class="skill-item-mobile">
+                    <span class="skill-name-mobile">История</span>
+                    <button class="mobile-btn" onclick="rollSkill('history', 'intelligence')">
+                        <span id="history-value-mobile">{{ $character->attributes->history ?? 0 }}</span>
+                    </button>
+                </div>
+
+                <div class="skill-item-mobile">
+                    <span class="skill-name-mobile">Магия</span>
+                    <button class="mobile-btn" onclick="rollSkill('arcana', 'intelligence')">
+                        <span id="arcana-value-mobile">{{ $character->attributes->arcana ?? 0 }}</span>
+                    </button>
+                </div>
+
+                <div class="skill-item-mobile">
+                    <span class="skill-name-mobile">Природа</span>
+                    <button class="mobile-btn" onclick="rollSkill('nature', 'intelligence')">
+                        <span id="nature-value-mobile">{{ $character->attributes->nature ?? 0 }}</span>
+                    </button>
+                </div>
+
+                <div class="skill-item-mobile">
+                    <span class="skill-name-mobile">Религия</span>
+                    <button class="mobile-btn" onclick="rollSkill('religion', 'intelligence')">
+                        <span id="religion-value-mobile">{{ $character->attributes->religion ?? 0 }}</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Мудрость -->
+        <div class="attribute-item-mobile">
+            <div class="attribute-header-mobile" onclick="toggleMobileAttribute('wisdom')">
+                <span class="attribute-name-mobile">Мудрость</span>
+                <span class="attribute-value-mobile" id="wisdom-value-mobile">{{ $character->attributes->wisdom ?? 10 }}</span>
+            </div>
+            <div class="attribute-content-mobile" id="wisdom-content-mobile">
+                <div class="modifier-block-mobile">
+                    <span class="modifier-label-mobile">Модификатор:</span>
+                    <button class="mobile-btn" onclick="rollDice('wisdom')">
+                        <span id="wisdom-modifier-mobile">{{ floor(($character->attributes->wisdom ?? 10 - 10) / 2 }}</span>
+                    </button>
+                </div>
+
+                <div class="modifier-block-mobile">
+                    <span class="modifier-label-mobile">Спасбросок:</span>
+                    <button class="mobile-btn" onclick="rollSave('wisdom')">
+                        <span id="wisdom-save-modifier-mobile">{{ floor(($character->attributes->wisdom ?? 10 - 10) / 2 }}</span>
+                    </button>
+                </div>
+
+                <div class="skill-item-mobile">
+                    <span class="skill-name-mobile">Восприятие</span>
+                    <button class="mobile-btn" onclick="rollSkill('perception', 'wisdom')">
+                        <span id="perception-value-mobile">{{ $character->attributes->perception ?? 0 }}</span>
+                    </button>
+                </div>
+
+                <div class="skill-item-mobile">
+                    <span class="skill-name-mobile">Выживание</span>
+                    <button class="mobile-btn" onclick="rollSkill('survival', 'wisdom')">
+                        <span id="survival-value-mobile">{{ $character->attributes->survival ?? 0 }}</span>
+                    </button>
+                </div>
+
+                <div class="skill-item-mobile">
+                    <span class="skill-name-mobile">Медицина</span>
+                    <button class="mobile-btn" onclick="rollSkill('medicine', 'wisdom')">
+                        <span id="medicine-value-mobile">{{ $character->attributes->medicine ?? 0 }}</span>
+                    </button>
+                </div>
+
+                <div class="skill-item-mobile">
+                    <span class="skill-name-mobile">Проницательность</span>
+                    <button class="mobile-btn" onclick="rollSkill('insight', 'wisdom')">
+                        <span id="insight-value-mobile">{{ $character->attributes->insight ?? 0 }}</span>
+                    </button>
+                </div>
+
+                <div class="skill-item-mobile">
+                    <span class="skill-name-mobile">Уход за животными</span>
+                    <button class="mobile-btn" onclick="rollSkill('animal_handling', 'wisdom')">
+                        <span id="animal_handling-value-mobile">{{ $character->attributes->animal_handling ?? 0 }}</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Харизма -->
+        <div class="attribute-item-mobile">
+            <div class="attribute-header-mobile" onclick="toggleMobileAttribute('charisma')">
+                <span class="attribute-name-mobile">Харизма</span>
+                <span class="attribute-value-mobile" id="charisma-value-mobile">{{ $character->attributes->charisma ?? 10 }}</span>
+            </div>
+            <div class="attribute-content-mobile" id="charisma-content-mobile">
+                <div class="modifier-block-mobile">
+                    <span class="modifier-label-mobile">Модификатор:</span>
+                    <button class="mobile-btn" onclick="rollDice('charisma')">
+                        <span id="charisma-modifier-mobile">{{ floor(($character->attributes->charisma ?? 10 - 10) / 2 }}</span>
+                    </button>
+                </div>
+
+                <div class="modifier-block-mobile">
+                    <span class="modifier-label-mobile">Спасбросок:</span>
+                    <button class="mobile-btn" onclick="rollSave('charisma')">
+                        <span id="charisma-save-modifier-mobile">{{ floor(($character->attributes->charisma ?? 10 - 10) / 2 }}</span>
+                    </button>
+                </div>
+
+                <div class="skill-item-mobile">
+                    <span class="skill-name-mobile">Выступление</span>
+                    <button class="mobile-btn" onclick="rollSkill('performance', 'charisma')">
+                        <span id="performance-value-mobile">{{ $character->attributes->performance ?? 0 }}</span>
+                    </button>
+                </div>
+
+                <div class="skill-item-mobile">
+                    <span class="skill-name-mobile">Запугивание</span>
+                    <button class="mobile-btn" onclick="rollSkill('intimidation', 'charisma')">
+                        <span id="intimidation-value-mobile">{{ $character->attributes->intimidation ?? 0 }}</span>
+                    </button>
+                </div>
+
+                <div class="skill-item-mobile">
+                    <span class="skill-name-mobile">Обман</span>
+                    <button class="mobile-btn" onclick="rollSkill('deception', 'charisma')">
+                        <span id="deception-value-mobile">{{ $character->attributes->deception ?? 0 }}</span>
+                    </button>
+                </div>
+
+                <div class="skill-item-mobile">
+                    <span class="skill-name-mobile">Убеждение</span>
+                    <button class="mobile-btn" onclick="rollSkill('persuasion', 'charisma')">
+                        <span id="persuasion-value-mobile">{{ $character->attributes->persuasion ?? 0 }}</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Пассивные навыки -->
+        <div class="attribute-item-mobile">
+            <div class="attribute-header-mobile" onclick="toggleMobileAttribute('passive')">
+                <span class="attribute-name-mobile">Пассивные навыки</span>
+                <span class="attribute-value-mobile">▼</span>
+            </div>
+            <div class="attribute-content-mobile" id="passive-content-mobile">
+                <div class="skill-item-mobile">
+                    <span class="skill-name-mobile">Восприятие</span>
+                    <button class="mobile-btn" id="passive-perception-button-mobile">
+                        {{ $character->attributes->passive_perception ?? 10 }}
+                    </button>
+                </div>
+
+                <div class="skill-item-mobile">
+                    <span class="skill-name-mobile">Проницательность</span>
+                    <button class="mobile-btn" id="passive-insight-button-mobile">
+                        {{ $character->attributes->passive_insight ?? 10 }}
+                    </button>
+                </div>
+
+                <div class="skill-item-mobile">
+                    <span class="skill-name-mobile">Анализ</span>
+                    <button class="mobile-btn" id="passive-investigation-button-mobile">
+                        {{ $character->attributes->passive_investigation ?? 10 }}
+                    </button>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <div class="tab-content-mobile" id="attacks-tab-mobile">
