@@ -1049,14 +1049,14 @@
                 <div class="modifier-block-mobile">
                     <span class="modifier-label-mobile">Модификатор:</span>
                     <button class="mobile-btn" onclick="rollDice('strength')">
-                        <span id="strength-modifier-mobile">{{ floor(($character->attributes->strength ?? 10 - 10) / 2 }}</span>
+                        <span id="strength-modifier-mobile">{{ floor(($character->attributes->strength ?? 10 - 10) / 2 )}}</span>
                     </button>
                 </div>
 
                 <div class="modifier-block-mobile">
                     <span class="modifier-label-mobile">Спасбросок:</span>
                     <button class="mobile-btn" onclick="rollSave('strength')">
-                        <span id="strength-save-modifier-mobile">{{ floor(($character->attributes->strength ?? 10 - 10) / 2 }}</span>
+                        <span id="strength-save-modifier-mobile">{{ floor(($character->attributes->strength ?? 10 - 10) / 2 )}}</span>
                     </button>
                 </div>
 
@@ -1079,14 +1079,14 @@
                 <div class="modifier-block-mobile">
                     <span class="modifier-label-mobile">Модификатор:</span>
                     <button class="mobile-btn" onclick="rollDice('dexterity')">
-                        <span id="dexterity-modifier-mobile">{{ floor(($character->attributes->dexterity ?? 10 - 10) / 2 }}</span>
+                        <span id="dexterity-modifier-mobile">{{ floor(($character->attributes->dexterity ?? 10 - 10) / 2 )}}</span>
                     </button>
                 </div>
 
                 <div class="modifier-block-mobile">
                     <span class="modifier-label-mobile">Спасбросок:</span>
                     <button class="mobile-btn" onclick="rollSave('dexterity')">
-                        <span id="dexterity-save-modifier-mobile">{{ floor(($character->attributes->dexterity ?? 10 - 10) / 2 }}</span>
+                        <span id="dexterity-save-modifier-mobile">{{ floor(($character->attributes->dexterity ?? 10 - 10) / 2 )}}</span>
                     </button>
                 </div>
 
@@ -1123,14 +1123,14 @@
                 <div class="modifier-block-mobile">
                     <span class="modifier-label-mobile">Модификатор:</span>
                     <button class="mobile-btn" onclick="rollDice('constitution')">
-                        <span id="constitution-modifier-mobile">{{ floor(($character->attributes->constitution ?? 10 - 10) / 2 }}</span>
+                        <span id="constitution-modifier-mobile">{{ floor(($character->attributes->constitution ?? 10 - 10) / 2 )}}</span>
                     </button>
                 </div>
 
                 <div class="modifier-block-mobile">
                     <span class="modifier-label-mobile">Спасбросок:</span>
                     <button class="mobile-btn" onclick="rollSave('constitution')">
-                        <span id="constitution-save-modifier-mobile">{{ floor(($character->attributes->constitution ?? 10 - 10) / 2 }}</span>
+                        <span id="constitution-save-modifier-mobile">{{ floor(($character->attributes->constitution ?? 10 - 10) / 2 )}}</span>
                     </button>
                 </div>
             </div>
@@ -1146,14 +1146,14 @@
                 <div class="modifier-block-mobile">
                     <span class="modifier-label-mobile">Модификатор:</span>
                     <button class="mobile-btn" onclick="rollDice('intelligence')">
-                        <span id="intelligence-modifier-mobile">{{ floor(($character->attributes->intelligence ?? 10 - 10) / 2 }}</span>
+                        <span id="intelligence-modifier-mobile">{{ floor(($character->attributes->intelligence ?? 10 - 10) / 2 )}}</span>
                     </button>
                 </div>
 
                 <div class="modifier-block-mobile">
                     <span class="modifier-label-mobile">Спасбросок:</span>
                     <button class="mobile-btn" onclick="rollSave('intelligence')">
-                        <span id="intelligence-save-modifier-mobile">{{ floor(($character->attributes->intelligence ?? 10 - 10) / 2 }}</span>
+                        <span id="intelligence-save-modifier-mobile">{{ floor(($character->attributes->intelligence ?? 10 - 10) / 2 )}}</span>
                     </button>
                 </div>
 
@@ -1204,14 +1204,14 @@
                 <div class="modifier-block-mobile">
                     <span class="modifier-label-mobile">Модификатор:</span>
                     <button class="mobile-btn" onclick="rollDice('wisdom')">
-                        <span id="wisdom-modifier-mobile">{{ floor(($character->attributes->wisdom ?? 10 - 10) / 2 }}</span>
+                        <span id="wisdom-modifier-mobile">{{ floor(($character->attributes->wisdom ?? 10 - 10) / 2 )}}</span>
                     </button>
                 </div>
 
                 <div class="modifier-block-mobile">
                     <span class="modifier-label-mobile">Спасбросок:</span>
                     <button class="mobile-btn" onclick="rollSave('wisdom')">
-                        <span id="wisdom-save-modifier-mobile">{{ floor(($character->attributes->wisdom ?? 10 - 10) / 2 }}</span>
+                        <span id="wisdom-save-modifier-mobile">{{ floor(($character->attributes->wisdom ?? 10 - 10) / 2 )}}</span>
                     </button>
                 </div>
 
@@ -1262,14 +1262,14 @@
                 <div class="modifier-block-mobile">
                     <span class="modifier-label-mobile">Модификатор:</span>
                     <button class="mobile-btn" onclick="rollDice('charisma')">
-                        <span id="charisma-modifier-mobile">{{ floor(($character->attributes->charisma ?? 10 - 10) / 2 }}</span>
+                        <span id="charisma-modifier-mobile">{{ floor(($character->attributes->charisma ?? 10 - 10) / 2 )}}</span>
                     </button>
                 </div>
 
                 <div class="modifier-block-mobile">
                     <span class="modifier-label-mobile">Спасбросок:</span>
                     <button class="mobile-btn" onclick="rollSave('charisma')">
-                        <span id="charisma-save-modifier-mobile">{{ floor(($character->attributes->charisma ?? 10 - 10) / 2 }}</span>
+                        <span id="charisma-save-modifier-mobile">{{ floor(($character->attributes->charisma ?? 10 - 10) / 2 )}}</span>
                     </button>
                 </div>
 
