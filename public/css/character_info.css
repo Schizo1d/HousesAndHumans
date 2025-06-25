@@ -1257,25 +1257,7 @@ form label {
 }
 
 /* Адаптивность для мини-прогресс бара */
-@media (max-width: 768px) {
-    .mini-level-container {
-        flex-wrap: wrap;
-    }
 
-    .mini-progress-container {
-        order: 3;
-        width: 100%;
-        margin-top: 5px;
-    }
-
-    .character-level {
-        order: 1;
-    }
-
-    .level-up-btn {
-        order: 2;
-    }
-}
 .total-xp {
     color: white;
     font-size: 14px;

@@ -94,13 +94,32 @@
 
     .character-level {
         font-weight: bold;
+        display: block;
         margin-bottom: 5px;
     }
 
     .mini-progress-container {
+
         margin-bottom: 5px;
     }
+    @media (max-width: 768px) {
+        .mini-level-container {
+            flex-wrap: wrap;
+        }
 
+        .mini-progress-container {
+            order: 3;
+            width: 100%;
+        }
+
+        .character-level {
+            order: 1;
+        }
+
+        .level-up-btn {
+            order: 2;
+        }
+    }
     .mini-progress-bar {
         height: 100%;
         transition: width 0.3s ease;
