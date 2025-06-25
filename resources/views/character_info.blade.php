@@ -1067,6 +1067,7 @@
             </span>
                         </button>
                     </div>
+
                     <!-- Блок для спасброска -->
                     <div class="save-block">
                         <div class="attribute-skill-wrap">
@@ -1708,7 +1709,6 @@
                     <input type="hidden" id="passive_investigation" name="passive_investigation"
                            value="{{ $character->attributes->passive_investigation ?? 10 }}">
                 </div>
-            </div>
             </div>
         </div>
     </div>
