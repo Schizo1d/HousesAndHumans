@@ -964,9 +964,6 @@
         <div class="character-name-mobile">{{ $character->name }}</div>
         <div class="character-photo-mobile" id="character-avatar-mobile">
             <img src="{{ $character->photo ?? asset('img/avatar2.png') }}" alt="Персонаж" class="character-photo-img">
-            <div class="dropdown-menu" id="character-dropdown">
-                <button class="dropdown-item" id="settings-btn">Настройки</button>
-            </div>
         </div>
     </div>
 
