@@ -1037,7 +1037,7 @@
             <option value="spells">Заклинания</option>
         </select>
     </div>
-    <div class="tab-content-mobile" id="attacks-tab-mobile">
+
     <div id="attributes-mobile" class="tab-content-mobile">
         <div class="attributes">
             <!-- Сила -->
@@ -1708,12 +1708,10 @@
                     </a>
                     <input type="hidden" id="passive_investigation" name="passive_investigation"
                            value="{{ $character->attributes->passive_investigation ?? 10 }}">
-                    </div>
                 </div>
             </div>
         </div>
     </div>
-
 
     <div class="tab-content-mobile" id="attacks-tab-mobile">
         <h3>Атаки персонажа</h3>
