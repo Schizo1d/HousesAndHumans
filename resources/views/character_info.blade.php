@@ -3777,7 +3777,7 @@
                 });
             }
             function syncProficiencyBonus() {
-                const level = parseInt(document.querySelector('.character-level').textContent.match(/\d+/)[0] || 1;
+                const level = parseInt(document.querySelector('.character-level').textContent.match(/\d+/)[0] || 1);
                 currentProficiencyBonus = getProficiencyBonus(level);
 
                 // Обновляем отображение бонуса владения
