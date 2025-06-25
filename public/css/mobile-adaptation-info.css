@@ -339,5 +339,81 @@
         background-color: white;
     }
 
+    /* Мобильные атрибуты */
+    .attribute-item-mobile {
+        margin-bottom: 10px;
+        border: 1px solid #444;
+        border-radius: 8px;
+        overflow: hidden;
+    }
 
+    .attribute-header-mobile {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px;
+        background-color: #2a2a2a;
+        cursor: pointer;
+    }
+
+    .attribute-name-mobile {
+        font-weight: bold;
+        font-size: 16px;
+    }
+
+    .attribute-value-mobile {
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .attribute-content-mobile {
+        display: none;
+        padding: 10px;
+        background-color: #333;
+    }
+
+    .attribute-content-mobile.active {
+        display: block;
+    }
+
+    /* Упрощенные модификаторы */
+    .modifier-block-mobile {
+        display: flex;
+        justify-content: space-between;
+        margin: 8px 0;
+    }
+
+    .modifier-label-mobile {
+        font-size: 14px;
+    }
+
+    .modifier-value-mobile {
+        font-weight: bold;
+    }
+
+    /* Упрощенные навыки */
+    .skill-item-mobile {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 0;
+        border-bottom: 1px solid #444;
+    }
+
+    .skill-name-mobile {
+        font-size: 14px;
+    }
+
+    .skill-value-mobile {
+        font-weight: bold;
+    }
+
+    /* Адаптивные кнопки */
+    .mobile-btn {
+        padding: 8px 12px;
+        font-size: 14px;
+        border-radius: 4px;
+        min-width: 40px;
+        text-align: center;
+    }
 }
