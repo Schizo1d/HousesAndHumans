@@ -874,6 +874,8 @@ form label {
     height: 100%;
     box-sizing: border-box;
     position: relative;
+    color: white;
+    font-weight: bold;
 }
 
 /* Кнопка закрытия */
