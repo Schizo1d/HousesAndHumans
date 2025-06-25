@@ -268,7 +268,7 @@
         width: 340px;
     }
     .conditions-list{
-        max-height: 1000px;
+        max-height: 2000px;
     }
     .sidebar-content{
         width: 100%;
@@ -281,9 +281,6 @@
     .calc-button.action-btn{
         font-size: 16px;
     }
-
-
-
     /* Вкладки для мобилок */
     .tabs-selector-mobile {
         width: 100%;
