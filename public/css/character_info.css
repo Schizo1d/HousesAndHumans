@@ -1417,29 +1417,29 @@ form label {
 }
 
 /* Здоровье выше 70% - зеленый */
-.health-display-container.high-health svg path {
+.health-display-container.high-health svg path span {
     fill: #4CAF50;
 }
-.health-display-container.high-health #current-health-value,
-.health-display-container.high-health #max-health-value {
+.health-display-container.high-health #current-health-value span,
+.health-display-container.high-health #max-health-value span {
     color: #4CAF50;
 }
 
 /* Здоровье от 40% до 70% - желтый */
-.health-display-container.medium-health svg path {
+.health-display-container.medium-health svg path span {
     fill: #FFC107;
 }
-.health-display-container.medium-health #current-health-value,
-.health-display-container.medium-health #max-health-value {
+.health-display-container.medium-health #current-health-value span,
+.health-display-container.medium-health #max-health-value span {
     color: #FFC107;
 }
 
 /* Здоровье ниже 40% - красный */
-.health-display-container.low-health svg path {
+.health-display-container.low-health svg path span {
     fill: #FF5252;
 }
-.health-display-container.low-health #current-health-value,
-.health-display-container.low-health #max-health-value {
+.health-display-container.low-health #current-health-value span,
+.health-display-container.low-health #max-health-value span {
     color: #FF5252;
 }
 
