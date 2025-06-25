@@ -1017,15 +1017,6 @@
         </div>
         <div class="stat-box" onclick="document.getElementById('exhaustion-level').focus()">
             <span class="stat-value" id="exhaustion-value">0</span>
-            <select class="digital-exhaustion" id="exhaustion-level" name="exhaustion">
-                <option value="0">0</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-            </select>
             <span class="stat-label">Истощение</span>
         </div>
         <div class="stat-box" onclick="openConditionsModal()">
