@@ -3360,7 +3360,6 @@
             // Инициализация при загрузке
             document.addEventListener("DOMContentLoaded", function() {
                 updateHealthDisplay();
-                updateMobileStats()
             });
 
             function saveHealth() {
@@ -3382,7 +3381,6 @@
                 } else {
                     settings.style.display = 'none';
                 }
-
             }
             function updateHealthColor() {
                 const healthDisplay = document.querySelector('.digital-health');
@@ -3417,7 +3415,6 @@
                     if (healthModalDisplay) healthModalDisplay.classList.add('low-health');
                     if (mobileHealthDisplay) mobileHealthDisplay.classList.add('low-health');
                 }
-                updateMobileStats()
             }
             // В обработчике кнопки "УРОН"
             document.querySelector('.subtract-btn').addEventListener('click', function() {
@@ -3446,8 +3443,9 @@
                 // Скрываем настройки
                 document.getElementById('max-health-settings').style.display = 'none';
                 updateHealthColor();
+
+                // Обновляем отображение (но не сбрасываем спасброски)
                 updateHealthDisplay();
-                updateMobileStats()
             }
 
             // Обновите функцию loadHealth для загрузки максимального здоровья
@@ -3462,13 +3460,12 @@
                     maxHealth = 0;
                 }
                 updateHealthDisplay();
-                updateMobileStats();
+                updateMobileStats(); // Добавляем обновление мобильных статистик
             }
 
             // Инициализация при загрузке
             document.addEventListener("DOMContentLoaded", function() {
                 loadHealth();
-                updateMobileStats()
             });
 
             // Функция для проверки статуса спасбросков
@@ -3481,7 +3478,6 @@
                     updateDeathSavesCheckboxes();
                     updateHealthDisplay();
                     saveHealth();
-                    updateMobileStats()
                 }
                 else if (deathSaves.successes >= 3) {
                     // Персонаж приходит в сознание с 1 HP
@@ -3491,7 +3487,6 @@
                     updateDeathSavesCheckboxes();
                     updateHealthDisplay();
                     saveHealth();
-                    updateMobileStats()
                 }
             }
 
@@ -3714,7 +3709,6 @@
                 updateProficiencyBonus();
                 loadHealth();
                 updateHealthDisplay();
-                updateMobileStats()
 
                 // Проверяем, если это мобильное устройство
                 if (window.innerWidth <= 768) {
